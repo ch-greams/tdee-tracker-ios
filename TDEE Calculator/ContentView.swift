@@ -9,8 +9,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var selectedTab = Tab.entryPage
+    
+    enum Tab: Int {
+        case entryPage, trendsPage, progressPage, setupPage
+    }
+    
+    func tabbarItem(text: String, image: String) -> some View {
+        VStack {
+            Image(systemName: image)
+            Text(text)
+        }
+    }
+    
     var body: some View {
-        Text("Hello, World!")
+        
+        TabView(selection: $selectedTab) {
+            
+            EntryPage()
+                .tabItem { self.tabbarItem(text: "Entry", image: "calendar.badge.plus") }
+                .tag(Tab.entryPage)
+
+            EntryPage()
+                .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
+                .tag(Tab.trendsPage)
+
+            EntryPage()
+                .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
+                .tag(Tab.progressPage)
+
+            EntryPage()
+                .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
+                .tag(Tab.setupPage)
+        }
+        .accentColor(Color.appPrimaryDark)
+        
+
     }
 }
 
