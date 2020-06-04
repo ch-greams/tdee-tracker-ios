@@ -25,88 +25,36 @@ struct CustomButtonBackgroundStyle: ButtonStyle {
 
 
 struct CalendarBlock: View {
+
+    @Binding var selectedDay: Date
     
-    let calendar = Calendar.current
-    
-    @State private var selectedDay: Date = Date()
     @State private var selectedMonth: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
 
     
-    func getDay(day: Date) -> some View {
-        
-        return DayButton(
-            day: day,
-            isActiveMonth: self.calendar.dateComponents([.year, .month], from: day) == self.selectedMonth,
-            selectedDay: self.$selectedDay
-        )
-    }
-    
-    func getWeekdays(
-        weeks: Array<Array<Date>>, iWeek: Int
-    ) -> some View {
-        
-        return HStack {
-            ForEach(0 ..< weeks[iWeek].count) { iDay in
-                
-                self.getDay(day: weeks[iWeek][iDay])
-            }
-        }
-        .padding(.vertical, 6)
-    }
-    
-    func getWeeks() -> Array<Array<Date>> {
-        
-        var weeks: Array<Array<Date>> = []
-        
-        let firstDayOfTheMonth = calendar.date(from: self.selectedMonth)!
-        let dayOfWeek = calendar.component(.weekday, from: firstDayOfTheMonth)
-        
-        
-        for weekIndex in 0 ..< 6 {
-            
-            let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDayOfTheMonth)!
-            let weekdays = calendar.range(of: .weekday, in: .weekOfYear, for: dayInTheWeek)!
-            
-            let days = (weekdays.lowerBound ..< weekdays.upperBound)
-                .compactMap {
-                    calendar.date(byAdding: .day, value: $0 - dayOfWeek, to: dayInTheWeek)
-                }
-            
-            weeks.append(days)
-        }
-        
-        return weeks
-        
-    }
-    
-    func getDaysInCurrentMonth() -> some View {
-        
-        let weeks = getWeeks()
-        
-        return VStack {
-            ForEach(0 ..< weeks.count) { iWeek in
-                
-                self.getWeekdays(weeks: weeks, iWeek: iWeek)
-            }
-        }
-    }
-    
-
     func getMonthTitle() -> Text {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM YYYY"
         
-        let monthString = dateFormatter.string(from: Date())
+        let date = Calendar.current.date(from: self.selectedMonth)!
+        let monthString = dateFormatter.string(from: date)
         
         return Text(monthString.uppercased())
             .font(.appCalendarMonth)
             .foregroundColor(.white)
     }
     
-    func getButton(type: String) -> some View {
+    func changeMonth(delta: Int) -> Void {
+        
+        let date = Calendar.current.date(from: self.selectedMonth)!
+        let nextMonthDate = Calendar.current.date(byAdding: .month, value: delta, to: date)!
+        
+        self.selectedMonth = Calendar.current.dateComponents([.year, .month], from: nextMonthDate)
+    }
+    
+    func getButton(type: String, isRight: Bool) -> some View {
 
-        Button(action: { print("test") }) {
+        Button(action: { self.changeMonth(delta: isRight ? 1 : -1) }) {
             Image(systemName: "arrow.\(type)")
                 .font(.headline)
         }
@@ -117,21 +65,26 @@ struct CalendarBlock: View {
         
         return HStack(alignment: .center) {
 
-            self.getButton(type: "left")
+            self.getButton(type: "left", isRight: false)
             
             self.getMonthTitle()
                 .frame(width: 174.0)
             
-            self.getButton(type: "right")
+            self.getButton(type: "right", isRight: true)
         }
     }
     
     func getWeekdayTitles() -> some View {
         
-        let weekdayNames = [ "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" ]
+        let dateFormatter = DateFormatter()
+        
+        let weekdays = dateFormatter.shortWeekdaySymbols.compactMap { $0.uppercased() }
+        
+        // Try this fix if weekdays order won't change with locale change
+        // let weekdaysSorted = Array(weekdays[ firstWeekday - 1 ..< weekdays.count ]) + weekdays[ 0 ..< firstWeekday - 1]
         
         return HStack(alignment: .center) {
-            ForEach(weekdayNames, id: \.self) { day in
+            ForEach(weekdays, id: \.self) { day in
                 Text("\(day)")
                     .font(.appCalendarWeekday)
                     .frame(width: 40, height: 40)
@@ -149,8 +102,11 @@ struct CalendarBlock: View {
             VStack {
 
                 self.getWeekdayTitles()
-
-                self.getDaysInCurrentMonth()
+                
+                CalendarBlockDays(
+                    selectedMonth: self.selectedMonth,
+                    selectedDay: self.$selectedDay
+                )
 
             }
             .frame(width: 358, height: 320)
@@ -164,8 +120,9 @@ struct CalendarBlock: View {
 }
 
 struct CalendarBlock_Previews: PreviewProvider {
+    
     static var previews: some View {
-        CalendarBlock()
+        CalendarBlock(selectedDay: .constant(Date()))
             .padding(.top, 8)
             .background(Color.appPrimary)
     }

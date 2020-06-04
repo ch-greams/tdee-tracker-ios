@@ -10,7 +10,9 @@ import SwiftUI
 
 
 struct EntryPage: View {
-    
+
+    @State private var selectedDay: Date = Date()
+
     var body: some View {
 
         ZStack(alignment: .top) {
@@ -19,7 +21,7 @@ struct EntryPage: View {
             
             VStack(alignment: .center, spacing: 0) {
                 
-                CalendarBlock()
+                CalendarBlock(selectedDay: self.$selectedDay)
                 
                 RecommendedAmountBlock()
                 

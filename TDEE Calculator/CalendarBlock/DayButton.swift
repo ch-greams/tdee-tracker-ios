@@ -65,13 +65,24 @@ struct DayButton: View {
     }
 }
 
-//struct DayButton_Previews: PreviewProvider {
-//    
-//    static var day = Date()
-//    
-//    var selectedDay = Date()
-//    
-//    static var previews: some View {
-//        DayButton(day: Self.day, isActiveMonth: true, selectedDay: $selectedDay)
-//    }
-//}
+struct DayButton_Previews: PreviewProvider {
+    
+    static var day = Date()
+    
+    static var otherDay = Date(timeIntervalSinceReferenceDate: 0)
+    
+    static var previews: some View {
+        
+        HStack {
+            
+            // Selected Day
+            DayButton(day: Self.day, isActiveMonth: true, selectedDay: .constant(Self.day))
+            
+            // Not selected Day, current month
+            DayButton(day: Self.day, isActiveMonth: true, selectedDay: .constant(Self.otherDay))
+            
+            // Not selected Day, other month
+            DayButton(day: Self.day, isActiveMonth: false, selectedDay: .constant(Self.otherDay))
+        }
+    }
+}

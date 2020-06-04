@@ -26,7 +26,6 @@ struct EntryInputBlock: View {
                 .frame(width: 30.0)
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 8)
-
             
             TextField(type, text: value)
                 .font(.appEntryValue)
