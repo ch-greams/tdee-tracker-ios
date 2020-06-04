@@ -8,20 +8,6 @@
 
 import SwiftUI
 
-struct CustomButtonBackgroundStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 44.0, height: 10.0)
-            .padding()
-            .foregroundColor(.appPrimary)
-            .background(Color(hue: 0, saturation: 0, brightness: 0.96))
-            .padding(.horizontal, 8)
-            .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
-            
-    }
-}
 
 
 struct CalendarBlock: View {
@@ -30,50 +16,7 @@ struct CalendarBlock: View {
     
     @State private var selectedMonth: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
 
-    
-    func getMonthTitle() -> Text {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM YYYY"
-        
-        let date = Calendar.current.date(from: self.selectedMonth)!
-        let monthString = dateFormatter.string(from: date)
-        
-        return Text(monthString.uppercased())
-            .font(.appCalendarMonth)
-            .foregroundColor(.white)
-    }
-    
-    func changeMonth(delta: Int) -> Void {
-        
-        let date = Calendar.current.date(from: self.selectedMonth)!
-        let nextMonthDate = Calendar.current.date(byAdding: .month, value: delta, to: date)!
-        
-        self.selectedMonth = Calendar.current.dateComponents([.year, .month], from: nextMonthDate)
-    }
-    
-    func getButton(type: String, isRight: Bool) -> some View {
 
-        Button(action: { self.changeMonth(delta: isRight ? 1 : -1) }) {
-            Image(systemName: "arrow.\(type)")
-                .font(.headline)
-        }
-        .buttonStyle(CustomButtonBackgroundStyle())
-    }
-    
-    func getCalendarTitleBlock() -> some View {
-        
-        return HStack(alignment: .center) {
-
-            self.getButton(type: "left", isRight: false)
-            
-            self.getMonthTitle()
-                .frame(width: 174.0)
-            
-            self.getButton(type: "right", isRight: true)
-        }
-    }
-    
     func getWeekdayTitles() -> some View {
         
         let dateFormatter = DateFormatter()
@@ -97,7 +40,7 @@ struct CalendarBlock: View {
     
         VStack(alignment: .center, spacing: 0) {
             
-            self.getCalendarTitleBlock()
+            CalendarBlockMonth(selectedMonth: self.$selectedMonth)
             
             VStack {
 
