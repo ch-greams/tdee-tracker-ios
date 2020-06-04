@@ -8,14 +8,29 @@
 
 import SwiftUI
 
+struct CustomButtonBackgroundStyle: ButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: 44.0, height: 10.0)
+            .padding()
+            .foregroundColor(.appPrimary)
+            .background(Color(hue: 0, saturation: 0, brightness: 0.96))
+            .padding(.horizontal, 8)
+            .clipped()
+            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+            
+    }
+}
+
+
 struct CalendarBlock: View {
     
     let calendar = Calendar.current
     
     @State private var selectedDay: Date = Date()
     @State private var selectedMonth: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
-    
-    let days = [ "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" ]
+
     
     func getDay(day: Date) -> some View {
         
@@ -76,32 +91,82 @@ struct CalendarBlock: View {
         }
     }
     
-    var body: some View {
+
+    func getMonthTitle() -> Text {
         
-        VStack {
-            HStack {
-                ForEach(self.days, id: \.self) { day in
-                    Text("\(day)")
-                        .font(.appCalendarWeekday)
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(Color.appPrimaryText)
-                }
-            }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM YYYY"
+        
+        let monthString = dateFormatter.string(from: Date())
+        
+        return Text(monthString.uppercased())
+            .font(.appCalendarMonth)
+            .foregroundColor(.white)
+    }
+    
+    func getButton(type: String) -> some View {
 
-            self.getDaysInCurrentMonth()
-
+        Button(action: { print("test") }) {
+            Image(systemName: "arrow.\(type)")
+                .font(.headline)
         }
-        .frame(width: 358, height: 320)
-        .background(Color(.white))
-        .padding(8)
-        .clipped()
-        .shadow(color: .gray, radius: 1, x: 1, y: 1)
+        .buttonStyle(CustomButtonBackgroundStyle())
+    }
+    
+    func getCalendarTitleBlock() -> some View {
         
+        return HStack(alignment: .center) {
+
+            self.getButton(type: "left")
+            
+            self.getMonthTitle()
+                .frame(width: 174.0)
+            
+            self.getButton(type: "right")
+        }
+    }
+    
+    func getWeekdayTitles() -> some View {
+        
+        let weekdayNames = [ "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" ]
+        
+        return HStack(alignment: .center) {
+            ForEach(weekdayNames, id: \.self) { day in
+                Text("\(day)")
+                    .font(.appCalendarWeekday)
+                    .frame(width: 40, height: 40)
+                    .foregroundColor(Color.appPrimaryText)
+            }
+        }
+    }
+    
+    var body: some View {
+    
+        VStack(alignment: .center, spacing: 0) {
+            
+            self.getCalendarTitleBlock()
+            
+            VStack {
+
+                self.getWeekdayTitles()
+
+                self.getDaysInCurrentMonth()
+
+            }
+            .frame(width: 358, height: 320)
+            .background(Color(.white))
+            .padding(8)
+            .clipped()
+            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+        }
+
     }
 }
 
 struct CalendarBlock_Previews: PreviewProvider {
     static var previews: some View {
         CalendarBlock()
+            .padding(.top, 8)
+            .background(Color.appPrimary)
     }
 }

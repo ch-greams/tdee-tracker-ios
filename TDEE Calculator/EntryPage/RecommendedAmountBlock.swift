@@ -43,6 +43,6 @@ struct RecommendedAmountBlock: View {
 
 struct RecommendedAmountBlock_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendedAmountBlock().background(Color.appPrimaryDark)
+        RecommendedAmountBlock().background(Color.appPrimary)
     }
 }
