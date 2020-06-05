@@ -12,15 +12,12 @@ struct CalendarBlockDays: View {
     
     let calendar = Calendar.current
     
-    let selectedMonth: DateComponents
-    
     @Binding var selectedDay: Date
     
     func getDay(day: Date) -> some View {
         
         return DayButton(
             day: day,
-            isActiveMonth: self.calendar.dateComponents([.year, .month], from: day) == self.selectedMonth,
             selectedDay: self.$selectedDay
         )
     }
@@ -28,7 +25,7 @@ struct CalendarBlockDays: View {
     func getWeekdays(weeks: Array<Array<Date>>, iWeek: Int) -> some View {
         
         let checkIfDayIsSelected = {
-            Calendar.current.isDate($0, equalTo: self.selectedDay, toGranularity: .day)
+            self.calendar.isDate($0, equalTo: self.selectedDay, toGranularity: .day)
         }
         
         let week = weeks[iWeek]
@@ -57,7 +54,9 @@ struct CalendarBlockDays: View {
         
         var weeks: Array<Array<Date>> = []
         
-        let firstDayOfTheMonth = calendar.date(from: self.selectedMonth)!
+        let monthScope = self.calendar.dateComponents([.year, .month], from: selectedDay)
+        
+        let firstDayOfTheMonth = calendar.date(from: monthScope)!
         let dayOfWeek = calendar.component(.weekday, from: firstDayOfTheMonth)
         
         
@@ -98,9 +97,7 @@ struct CalendarBlockDays: View {
 
 struct CalendarBlockDays_Previews: PreviewProvider {
     
-    static let selectedMonth: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
-    
     static var previews: some View {
-        CalendarBlockDays(selectedMonth: Self.selectedMonth, selectedDay: .constant(Date()))
+        CalendarBlockDays(selectedDay: .constant(Date()))
     }
 }

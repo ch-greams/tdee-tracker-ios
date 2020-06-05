@@ -29,7 +29,7 @@ struct CalendarBlockMonth: View {
     
     let calendar = Calendar.current
     
-    @Binding var selectedMonth: DateComponents
+    @Binding var selectedDay: Date
 
     
     func getMonthTitle() -> Text {
@@ -37,8 +37,7 @@ struct CalendarBlockMonth: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM YYYY"
         
-        let date = calendar.date(from: self.selectedMonth)!
-        let monthString = dateFormatter.string(from: date)
+        let monthString = dateFormatter.string(from: selectedDay)
         
         return Text(monthString.uppercased())
             .font(.appCalendarMonth)
@@ -47,10 +46,7 @@ struct CalendarBlockMonth: View {
     
     func changeMonth(delta: Int) -> Void {
         
-        let date = calendar.date(from: self.selectedMonth)!
-        let nextMonthDate = calendar.date(byAdding: .month, value: delta, to: date)!
-        
-        self.selectedMonth = calendar.dateComponents([.year, .month], from: nextMonthDate)
+        self.selectedDay = calendar.date(byAdding: .month, value: delta, to: selectedDay)!
     }
     
     func getMonthChangeButton(icon: String, delta: Int) -> some View {
@@ -97,7 +93,7 @@ struct CalendarBlockMonth: View {
 struct CalendarBlockMonth_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlockMonth(selectedMonth: .constant(DateComponents()))
+        CalendarBlockMonth(selectedDay: .constant(Date()))
             .padding(.vertical, 8)
             .background(Color.appPrimary)
     }

@@ -14,7 +14,6 @@ struct CalendarBlock: View {
 
     @Binding var selectedDay: Date
     
-    @State private var selectedMonth: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
 
 
     func getWeekdayTitles() -> some View {
@@ -40,16 +39,13 @@ struct CalendarBlock: View {
     
         VStack(alignment: .center, spacing: 0) {
             
-            CalendarBlockMonth(selectedMonth: self.$selectedMonth)
+            CalendarBlockMonth(selectedDay: self.$selectedDay)
             
             VStack(alignment: .center, spacing: 0) {
 
                 self.getWeekdayTitles()
                 
-                CalendarBlockDays(
-                    selectedMonth: self.selectedMonth,
-                    selectedDay: self.$selectedDay
-                )
+                CalendarBlockDays(selectedDay: self.$selectedDay)
 
             }
             .frame(width: 358, height: 320)
