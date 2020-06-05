@@ -110,16 +110,13 @@
 		F61BCCF62485737200A01500 /* TDEE Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
-				F6F4DE672487107000D1FF40 /* EntryPage */,
-				F61BCCF72485737200A01500 /* AppDelegate.swift */,
-				F61BCCFB2485737200A01500 /* ContentView.swift */,
-				F61BCCF92485737200A01500 /* SceneDelegate.swift */,
+				F63516A3248A54A600A8A7E9 /* launch */,
+				F63516A4248A54BE00A8A7E9 /* views */,
+				F6F4DE3B2485BA3200D1FF40 /* extensions */,
+				F6F4DE402486FB4400D1FF40 /* fonts */,
 				F61BCCFD2485737400A01500 /* Assets.xcassets */,
 				F61BCD022485737400A01500 /* LaunchScreen.storyboard */,
 				F61BCD052485737400A01500 /* Info.plist */,
-				F6F4DE402486FB4400D1FF40 /* Fonts */,
-				F6F4DE3B2485BA3200D1FF40 /* Extensions */,
 				F61BCCFF2485737400A01500 /* Preview Content */,
 			);
 			path = "TDEE Calculator";
@@ -133,16 +130,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F6F4DE3B2485BA3200D1FF40 /* Extensions */ = {
+		F63516A3248A54A600A8A7E9 /* launch */ = {
+			isa = PBXGroup;
+			children = (
+				F61BCCF72485737200A01500 /* AppDelegate.swift */,
+				F61BCCF92485737200A01500 /* SceneDelegate.swift */,
+			);
+			path = launch;
+			sourceTree = "<group>";
+		};
+		F63516A4248A54BE00A8A7E9 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
+				F6F4DE672487107000D1FF40 /* EntryPage */,
+				F61BCCFB2485737200A01500 /* ContentView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		F6F4DE3B2485BA3200D1FF40 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F6F4DE382485B9EF00D1FF40 /* Color.swift */,
 				F6F4DE652486FDC800D1FF40 /* Font.swift */,
 			);
-			path = Extensions;
+			path = extensions;
 			sourceTree = "<group>";
 		};
-		F6F4DE402486FB4400D1FF40 /* Fonts */ = {
+		F6F4DE402486FB4400D1FF40 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
 				F6F4DE7C24871ED200D1FF40 /* Oswald-Bold.ttf */,
@@ -164,7 +180,7 @@
 				F6F4DE8824871EE000D1FF40 /* Roboto-Thin.ttf */,
 				F6F4DE8E24871EE000D1FF40 /* Roboto-ThinItalic.ttf */,
 			);
-			path = Fonts;
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		F6F4DE672487107000D1FF40 /* EntryPage */ = {
