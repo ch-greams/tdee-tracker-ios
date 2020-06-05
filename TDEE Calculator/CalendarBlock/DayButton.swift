@@ -15,10 +15,11 @@ struct DayButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 40, height: 30.0)
+            .frame(width: 40, height: 40)
             .font(isSelected ? .appCalendarDaySelected : .appCalendarDay)
             .foregroundColor(color)
             .background(self.isSelected ? Color.appPrimary : nil)
+            .cornerRadius(20)
             
     }
 }

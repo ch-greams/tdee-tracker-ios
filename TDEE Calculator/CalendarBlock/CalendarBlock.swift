@@ -42,7 +42,7 @@ struct CalendarBlock: View {
             
             CalendarBlockMonth(selectedMonth: self.$selectedMonth)
             
-            VStack {
+            VStack(alignment: .center, spacing: 0) {
 
                 self.getWeekdayTitles()
                 

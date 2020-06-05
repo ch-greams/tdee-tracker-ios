@@ -33,6 +33,10 @@ extension Color {
         Color("greyLight")
     }
     
+    public static var appPrimaryWeekBackground: Color {
+        Color("greyLight-1")
+    }
+    
     public static var appSecondary: Color {
         Color("deepOrange", bundle: nil)
     }

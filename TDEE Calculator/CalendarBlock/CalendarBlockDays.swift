@@ -27,13 +27,30 @@ struct CalendarBlockDays: View {
     
     func getWeekdays(weeks: Array<Array<Date>>, iWeek: Int) -> some View {
         
-        return HStack {
-            ForEach(0 ..< weeks[iWeek].count) { iDay in
-                
-                self.getDay(day: weeks[iWeek][iDay])
-            }
+        let checkIfDayIsSelected = {
+            Calendar.current.isDate($0, equalTo: self.selectedDay, toGranularity: .day)
         }
-        .padding(.vertical, 6)
+        
+        let week = weeks[iWeek]
+        
+        return ZStack {
+            
+            if week.contains(where: checkIfDayIsSelected) {
+
+                Color.appPrimaryWeekBackground
+                    .frame(height: 30.0)
+            }
+
+            HStack {
+                ForEach(0 ..< week.count) { iDay in
+                    
+                    self.getDay(day: week[iDay])
+                }
+            }
+            .padding(.vertical, 1.0)
+            
+
+        }
     }
 
     func getWeeks() -> Array<Array<Date>> {
@@ -65,7 +82,7 @@ struct CalendarBlockDays: View {
         
         let weeks = getWeeks()
         
-        return VStack {
+        return VStack(alignment: .center, spacing: 0) {
             ForEach(0 ..< weeks.count) { iWeek in
                 
                 self.getWeekdays(weeks: weeks, iWeek: iWeek)
