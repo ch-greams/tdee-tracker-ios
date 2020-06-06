@@ -13,6 +13,10 @@ extension Color {
     
     // Colors without assets are unused
     
+    public static var appFade: Color {
+        Color("black-50", bundle: nil)
+    }
+    
     public static var appPrimary: Color {
         Color("teal", bundle: nil)
     }

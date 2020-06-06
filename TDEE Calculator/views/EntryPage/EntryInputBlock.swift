@@ -11,13 +11,14 @@ import SwiftUI
 
 struct EntryInputBlock: View {
     
+    @Binding var value: Int?
+    var icon: String
+    var unit: String
     
-    @State private var weightValue = "0.0"
-    @State private var foodValue = "0"
 
-    func getInput(type: String, value: Binding<String>, icon: String, in unit: String) -> some View {
+    var body: some View {
         
-        
+
         let result = HStack {
 
             Image(icon)
@@ -27,7 +28,7 @@ struct EntryInputBlock: View {
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 8)
             
-            TextField(type, text: value)
+            TextField("", value: self.$value, formatter: NumberFormatter())
                 .font(.appEntryValue)
                 .padding([.top, .leading, .trailing], 4.0)
                 .frame(width: 140, height: 44)
@@ -36,6 +37,8 @@ struct EntryInputBlock: View {
                 .font(.appEntryRecommendedAmount)
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 16)
+                .keyboardType(.numberPad)   // limit input to numbers
+                .accentColor(.clear)        // hide cursor
             
             Text(unit.uppercased())
                 .font(.appEntryUnit)
@@ -49,27 +52,27 @@ struct EntryInputBlock: View {
         .frame(height: 70)
         .padding()
         .background(Color.white)
+        .padding(1)
+        .clipped()
+        .shadow(color: .appFade, radius: 1, x: 1, y: 1)
         
         return result
     }
-    
-    var body: some View {
 
-        VStack(alignment: .center, spacing: 0) {
-            getInput(type: "Weight", value: $weightValue, icon: "body-sharp", in: "kg")
-                .padding(1)
-            
-            getInput(type: "Food", value: $foodValue, icon: "fast-food-sharp", in: "kcal")
-                .padding(1)
-        }
-        .padding(7)
-        .clipped()
-        .shadow(color: .gray, radius: 1, x: 1, y: 1)
-    }
 }
 
 struct EntryInputBlock_Previews: PreviewProvider {
+    
     static var previews: some View {
-        EntryInputBlock().background(Color.appPrimaryDark)
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            EntryInputBlock(value: .constant(76), icon: "body-sharp", unit: "kg")
+            
+            EntryInputBlock(value: .constant(2843), icon: "fast-food-sharp", unit: "kcal")
+            
+        }
+        .padding(7)
+        .background(Color.appPrimaryDark)
     }
 }
