@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RecommendedAmountBlock: View {
+struct RecAmountBlock: View {
 
     func getBody() -> some View {
     
@@ -41,8 +41,8 @@ struct RecommendedAmountBlock: View {
     }
 }
 
-struct RecommendedAmountBlock_Previews: PreviewProvider {
+struct RecAmountBlock_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendedAmountBlock().background(Color.appPrimary)
+        RecAmountBlock().background(Color.appPrimary)
     }
 }
