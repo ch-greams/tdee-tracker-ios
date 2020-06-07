@@ -19,6 +19,7 @@
 		F65F83CC248B980900F8407B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CB248B980900F8407B /* AppState.swift */; };
 		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
 		F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D0248D65DD00F8407B /* TrendsPage.swift */; };
+		F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */; };
 		F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE332485A06500D1FF40 /* EntryPage.swift */; };
 		F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE382485B9EF00D1FF40 /* Color.swift */; };
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
@@ -61,6 +62,7 @@
 		F65F83CB248B980900F8407B /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		F65F83D0248D65DD00F8407B /* TrendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPage.swift; sourceTree = "<group>"; };
+		F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTrendsBlock.swift; sourceTree = "<group>"; };
 		F6F4DE332485A06500D1FF40 /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		F6F4DE382485B9EF00D1FF40 /* Color.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = Color.swift; path = "TDEE Calculator/Extensions/Color.swift"; sourceTree = SOURCE_ROOT; };
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				F65F83D0248D65DD00F8407B /* TrendsPage.swift */,
+				F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */,
 			);
 			path = TrendsPage;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				F61BCCFC2485737200A01500 /* ContentView.swift in Sources */,
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
 				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
+				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
