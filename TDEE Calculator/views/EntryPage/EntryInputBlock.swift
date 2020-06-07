@@ -11,14 +11,12 @@ import SwiftUI
 
 struct EntryInputBlock: View {
     
-    @Binding var value: Int?
+    @Binding var value: String
     var icon: String
     var unit: String
-    
 
     var body: some View {
         
-
         let result = HStack {
 
             Image(icon)
@@ -27,8 +25,8 @@ struct EntryInputBlock: View {
                 .frame(width: 30.0)
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 8)
-            
-            TextField("", value: self.$value, formatter: NumberFormatter())
+    
+            TextField("", text: self.$value)
                 .font(.appEntryValue)
                 .padding([.top, .leading, .trailing], 4.0)
                 .frame(width: 140, height: 44)
@@ -38,7 +36,7 @@ struct EntryInputBlock: View {
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 16)
                 .keyboardType(.numberPad)   // limit input to numbers
-                .accentColor(.clear)        // hide cursor
+                //.accentColor(.clear)        // hide cursor
             
             Text(unit.uppercased())
                 .font(.appEntryUnit)
@@ -67,9 +65,9 @@ struct EntryInputBlock_Previews: PreviewProvider {
         
         VStack(alignment: .center, spacing: 0) {
             
-            EntryInputBlock(value: .constant(76), icon: "body-sharp", unit: "kg")
+            EntryInputBlock(value: .constant("76.5"), icon: "body-sharp", unit: "kg")
             
-            EntryInputBlock(value: .constant(2843), icon: "fast-food-sharp", unit: "kcal")
+            EntryInputBlock(value: .constant("2843"), icon: "fast-food-sharp", unit: "kcal")
             
         }
         .padding(7)

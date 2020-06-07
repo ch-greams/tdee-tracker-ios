@@ -11,15 +11,12 @@ import SwiftUI
 
 struct EntryPage: View {
 
-    @State private var selectedDay: Date = Date()
-
-    @State private var weightValue: Int?
-    @State private var foodValue: Int?
+    @EnvironmentObject var appState: AppState
 
     @State private var isWeightInputOpen: Bool = false
     @State private var isFoodInputOpen: Bool = false
 
-
+    
     var body: some View {
 
         ZStack(alignment: .top) {
@@ -28,10 +25,10 @@ struct EntryPage: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                CalendarBlock(selectedDay: self.$selectedDay)
+                // TODO: Drop selectedDay param altogether?
+                CalendarBlock(selectedDay: self.appState.selectedDay)
                 
                 RecommendedAmountBlock()
-
             }
             
             if self.isWeightInputOpen || self.isFoodInputOpen {
@@ -39,16 +36,29 @@ struct EntryPage: View {
                 // NOTE: Use "Save" button to finish data entry?
                 Color.appFade.edgesIgnoringSafeArea(.all)
                     .onTapGesture {
+                        
                         UIApplication.shared.endEditing()
-                        self.isWeightInputOpen = false
-                        self.isFoodInputOpen = false
+                        
+                        if self.isWeightInputOpen {
+                            
+                            self.appState.updateWeightInEntry()
+                            self.isWeightInputOpen = false
+                        }
+                        
+                        if self.isFoodInputOpen {
+                            
+                            self.appState.updateFoodInEntry()
+                            self.isFoodInputOpen = false
+                        }
+                        
                     }
                     .zIndex(1)
             
             }
 
+
             EntryInputBlock(
-                value: self.$weightValue,
+                value: $appState.weight,
                 icon: "body-sharp",
                 unit: "kg"
             )
@@ -59,7 +69,7 @@ struct EntryPage: View {
                 .zIndex(self.isWeightInputOpen ? 1 : 0)
 
             EntryInputBlock(
-                value: self.$foodValue,
+                value: $appState.food,
                 icon: "fast-food-sharp",
                 unit: "kcal"
             )
@@ -76,7 +86,10 @@ struct EntryPage: View {
 }
 
 struct EntryPage_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
     static var previews: some View {
-        EntryPage()
+        EntryPage().environmentObject(appState)
     }
 }

@@ -26,8 +26,10 @@ struct DayButtonStyle: ButtonStyle {
 
 struct DayButton: View {
     
+    @EnvironmentObject var appState: AppState
+    
     var day: Date
-    @Binding var selectedDay: Date
+    let selectedDay: Date
     
     func getButton() -> some View {
         
@@ -48,7 +50,7 @@ struct DayButton: View {
         
         let button = Button(stringDate) {
 
-            self.selectedDay = self.day
+            self.appState.changeDay(to: self.day)
         }
         .buttonStyle(DayButtonStyle(color: color, isSelected: isSelected))
         
@@ -62,24 +64,24 @@ struct DayButton: View {
 
 struct DayButton_Previews: PreviewProvider {
     
-    static var day = Date(timeIntervalSinceReferenceDate: 0)
+    static let day = Date(timeIntervalSinceReferenceDate: 0)
     
-    static var otherDay = Date(timeIntervalSinceReferenceDate: 1000000)
+    static let otherDay = Date(timeIntervalSinceReferenceDate: 1000000)
     
-    static var otherMonth = Date(timeIntervalSinceReferenceDate: 10000000)
+    static let otherMonth = Date(timeIntervalSinceReferenceDate: 10000000)
     
     static var previews: some View {
         
         HStack {
             
             // Selected Day
-            DayButton(day: Self.day, selectedDay: .constant(Self.day))
+            DayButton(day: Self.day, selectedDay: Self.day)
             
             // Not selected Day, current month
-            DayButton(day: Self.day, selectedDay: .constant(Self.otherDay))
+            DayButton(day: Self.day, selectedDay: Self.otherDay)
             
             // Not selected Day, other month
-            DayButton(day: Self.day, selectedDay: .constant(Self.otherMonth))
+            DayButton(day: Self.day, selectedDay: Self.otherMonth)
         }
     }
 }

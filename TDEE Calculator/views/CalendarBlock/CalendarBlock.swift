@@ -11,9 +11,8 @@ import SwiftUI
 
 
 struct CalendarBlock: View {
-
-    @Binding var selectedDay: Date
     
+    let selectedDay: Date
 
 
     func getWeekdayTitles() -> some View {
@@ -39,13 +38,13 @@ struct CalendarBlock: View {
     
         VStack(alignment: .center, spacing: 0) {
             
-            CalendarBlockMonth(selectedDay: self.$selectedDay)
+            CalendarBlockMonth(selectedDay: self.selectedDay)
             
             VStack(alignment: .center, spacing: 0) {
 
                 self.getWeekdayTitles()
                 
-                CalendarBlockDays(selectedDay: self.$selectedDay)
+                CalendarBlockDays(selectedDay: self.selectedDay)
 
             }
             .frame(width: 358, height: 320)
@@ -61,7 +60,7 @@ struct CalendarBlock: View {
 struct CalendarBlock_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlock(selectedDay: .constant(Date()))
+        CalendarBlock(selectedDay: Date())
             .padding(.top, 8)
             .background(Color.appPrimary)
     }

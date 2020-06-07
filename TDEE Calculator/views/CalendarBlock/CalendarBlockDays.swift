@@ -12,13 +12,13 @@ struct CalendarBlockDays: View {
     
     let calendar = Calendar.current
     
-    @Binding var selectedDay: Date
+    let selectedDay: Date
     
     func getDay(day: Date) -> some View {
         
         return DayButton(
             day: day,
-            selectedDay: self.$selectedDay
+            selectedDay: self.selectedDay
         )
     }
     
@@ -98,6 +98,6 @@ struct CalendarBlockDays: View {
 struct CalendarBlockDays_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlockDays(selectedDay: .constant(Date()))
+        CalendarBlockDays(selectedDay: Date())
     }
 }

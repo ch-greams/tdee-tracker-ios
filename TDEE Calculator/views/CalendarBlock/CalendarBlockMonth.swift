@@ -27,9 +27,10 @@ struct CustomButtonBackgroundStyle: ButtonStyle {
 
 struct CalendarBlockMonth: View {
     
-    let calendar = Calendar.current
+    @EnvironmentObject var appState: AppState
     
-    @Binding var selectedDay: Date
+    let calendar = Calendar.current
+    let selectedDay: Date
 
     
     func getMonthTitle() -> Text {
@@ -50,7 +51,7 @@ struct CalendarBlockMonth: View {
         
         let nextMonthScope = calendar.dateComponents([.year, .month], from: nextMonth)
         
-        self.selectedDay = calendar.date(from: nextMonthScope)!
+        appState.changeDay(to: calendar.date(from: nextMonthScope)!)
     }
     
     func getMonthChangeButton(icon: String, delta: Int) -> some View {
@@ -97,7 +98,7 @@ struct CalendarBlockMonth: View {
 struct CalendarBlockMonth_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlockMonth(selectedDay: .constant(Date()))
+        CalendarBlockMonth(selectedDay: Date())
             .padding(.vertical, 8)
             .background(Color.appPrimary)
     }
