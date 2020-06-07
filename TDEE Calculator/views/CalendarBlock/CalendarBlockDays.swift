@@ -13,12 +13,20 @@ struct CalendarBlockDays: View {
     let calendar = Calendar.current
     
     let selectedDay: Date
+    let isTrendsPage: Bool
     
-    func getDay(day: Date) -> some View {
+    func getDay(day: Date, isSelectedWeek: Bool) -> some View {
+        
+        let isSelectedDay = calendar
+            .isDate(day, equalTo: self.selectedDay, toGranularity: .day)
+        
+        let isSelectedMonth = calendar
+            .isDate(day, equalTo: self.selectedDay, toGranularity: .month)
         
         return DayButton(
             day: day,
-            selectedDay: self.selectedDay
+            isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
+            isSelectedMonth: isSelectedMonth
         )
     }
     
@@ -30,22 +38,27 @@ struct CalendarBlockDays: View {
         
         let week = weeks[iWeek]
         
+        let isSelectedWeek = week.contains(where: checkIfDayIsSelected)
+        
         return ZStack {
             
-            if week.contains(where: checkIfDayIsSelected) {
+            if isSelectedWeek {
 
-                Color.appPrimaryWeekBackground
-                    .frame(height: 30.0)
+                if self.isTrendsPage {
+                    Color.appPrimary.frame(height: 10)
+                }
+                else {
+                    Color.appPrimaryWeekBackground.frame(height: 30)
+                }
             }
 
             HStack {
                 ForEach(0 ..< week.count) { iDay in
                     
-                    self.getDay(day: week[iDay])
+                    self.getDay(day: week[iDay], isSelectedWeek: isSelectedWeek)
                 }
             }
             .padding(.vertical, 1.0)
-            
 
         }
     }
@@ -95,9 +108,19 @@ struct CalendarBlockDays: View {
     }
 }
 
-struct CalendarBlockDays_Previews: PreviewProvider {
+struct CalendarBlockDays_EntryPage_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlockDays(selectedDay: Date())
+            
+        CalendarBlockDays(selectedDay: Date(), isTrendsPage: false)
     }
 }
+
+struct CalendarBlockDays_TrendsPage_Previews: PreviewProvider {
+    
+    static var previews: some View {
+            
+        CalendarBlockDays(selectedDay: Date(), isTrendsPage: true)
+    }
+}
+

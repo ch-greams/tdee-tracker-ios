@@ -18,6 +18,7 @@
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
 		F65F83CC248B980900F8407B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CB248B980900F8407B /* AppState.swift */; };
 		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
+		F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D0248D65DD00F8407B /* TrendsPage.swift */; };
 		F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE332485A06500D1FF40 /* EntryPage.swift */; };
 		F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE382485B9EF00D1FF40 /* Color.swift */; };
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
@@ -59,6 +60,7 @@
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F65F83CB248B980900F8407B /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
+		F65F83D0248D65DD00F8407B /* TrendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPage.swift; sourceTree = "<group>"; };
 		F6F4DE332485A06500D1FF40 /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		F6F4DE382485B9EF00D1FF40 /* Color.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = Color.swift; path = "TDEE Calculator/Extensions/Color.swift"; sourceTree = SOURCE_ROOT; };
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
@@ -152,9 +154,18 @@
 			children = (
 				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
 				F6F4DE672487107000D1FF40 /* EntryPage */,
+				F65F83CF248D65AA00F8407B /* TrendsPage */,
 				F61BCCFB2485737200A01500 /* ContentView.swift */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		F65F83CF248D65AA00F8407B /* TrendsPage */ = {
+			isa = PBXGroup;
+			children = (
+				F65F83D0248D65DD00F8407B /* TrendsPage.swift */,
+			);
+			path = TrendsPage;
 			sourceTree = "<group>";
 		};
 		F6F4DE3B2485BA3200D1FF40 /* extensions */ = {
@@ -310,6 +321,7 @@
 				F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */,
 				F65F83CC248B980900F8407B /* AppState.swift in Sources */,
 				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
+				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,

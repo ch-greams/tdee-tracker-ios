@@ -26,7 +26,7 @@ struct EntryPage: View {
             VStack(alignment: .center, spacing: 0) {
 
                 // TODO: Drop selectedDay param altogether?
-                CalendarBlock(selectedDay: self.appState.selectedDay)
+                CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
                 
                 RecAmountBlock()
             }

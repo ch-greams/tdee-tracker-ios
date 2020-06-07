@@ -13,6 +13,7 @@ import SwiftUI
 struct CalendarBlock: View {
     
     let selectedDay: Date
+    let isTrendsPage: Bool
 
 
     func getWeekdayTitles() -> some View {
@@ -44,7 +45,7 @@ struct CalendarBlock: View {
 
                 self.getWeekdayTitles()
                 
-                CalendarBlockDays(selectedDay: self.selectedDay)
+                CalendarBlockDays(selectedDay: self.selectedDay, isTrendsPage: self.isTrendsPage)
 
             }
             .frame(width: 358, height: 320)
@@ -57,11 +58,25 @@ struct CalendarBlock: View {
     }
 }
 
-struct CalendarBlock_Previews: PreviewProvider {
+struct CalendarBlock_EntryPage_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarBlock(selectedDay: Date())
+        
+        CalendarBlock(selectedDay: Date(), isTrendsPage: false)
             .padding(.top, 8)
             .background(Color.appPrimary)
+
     }
 }
+
+struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        
+        CalendarBlock(selectedDay: Date(), isTrendsPage: true)
+            .padding(.top, 8)
+            .background(Color.appPrimary)
+
+    }
+}
+

@@ -31,7 +31,7 @@ struct ContentView: View {
                 .tabItem { self.tabbarItem(text: "Entry", image: "calendar.badge.plus") }
                 .tag(Tab.entryPage)
 
-            EntryPage()
+            TrendsPage()
                 .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
                 .tag(Tab.trendsPage)
 

@@ -29,7 +29,9 @@ struct DayButton: View {
     @EnvironmentObject var appState: AppState
     
     var day: Date
-    let selectedDay: Date
+
+    let isSelectedDay: Bool
+    let isSelectedMonth: Bool
     
     func getButton() -> some View {
         
@@ -38,21 +40,16 @@ struct DayButton: View {
         
         let stringDate = dateFormatter.string(from: self.day)
         
-        let isSelected = Calendar.current.isDate(self.day, equalTo: self.selectedDay, toGranularity: .day)
-        
-        let isActiveMonth = Calendar.current
-            .isDate(day, equalTo: self.selectedDay, toGranularity: .month)
-        
-        let color = isSelected
+        let color = self.isSelectedDay
             ? Color.white
-            : ( isActiveMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
+            : ( self.isSelectedMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
 
         
         let button = Button(stringDate) {
 
             self.appState.changeDay(to: self.day)
         }
-        .buttonStyle(DayButtonStyle(color: color, isSelected: isSelected))
+        .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
         
         return button
     }
@@ -64,24 +61,20 @@ struct DayButton: View {
 
 struct DayButton_Previews: PreviewProvider {
     
-    static let day = Date(timeIntervalSinceReferenceDate: 0)
-    
-    static let otherDay = Date(timeIntervalSinceReferenceDate: 1000000)
-    
-    static let otherMonth = Date(timeIntervalSinceReferenceDate: 10000000)
+    static let day = Date()
     
     static var previews: some View {
         
         HStack {
             
             // Selected Day
-            DayButton(day: Self.day, selectedDay: Self.day)
+            DayButton(day: Self.day, isSelectedDay: true, isSelectedMonth: true)
             
             // Not selected Day, current month
-            DayButton(day: Self.day, selectedDay: Self.otherDay)
+            DayButton(day: Self.day, isSelectedDay: false, isSelectedMonth: true)
             
             // Not selected Day, other month
-            DayButton(day: Self.day, selectedDay: Self.otherMonth)
+            DayButton(day: Self.day, isSelectedDay: false, isSelectedMonth: false)
         }
     }
 }
