@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum DayEntryData {
+
+    case Empty, Partial, Full
+}
+
 class DayEntry: NSObject, NSCoding {
 
     //var date: Date

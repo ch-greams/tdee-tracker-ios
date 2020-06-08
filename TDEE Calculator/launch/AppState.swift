@@ -56,7 +56,7 @@ class AppState: ObservableObject {
         
         if let savedEntriesData = self.store.data(forKey: AppStateKey.entries.rawValue) {
             
-            if let entries: [ Date : DayEntry ] = Self.decode(data: savedEntriesData) {
+            if let entries: [ Date : DayEntry ] = Utils.decode(data: savedEntriesData) {
 
                 self.entries = entries
             }
@@ -66,7 +66,7 @@ class AppState: ObservableObject {
     // NOTE: Do not run this on every change
     private func saveEntries() {
         
-        if let encodedData = Self.encode(data: self.entries) {
+        if let encodedData = Utils.encode(data: self.entries) {
             
             self.store.set(encodedData, forKey: AppStateKey.entries.rawValue)
         }
@@ -100,18 +100,6 @@ class AppState: ObservableObject {
             self.food = ""
         }
     }
-
-    // MARK: - Helpers
-    
-    private static func encode<T>(data: T) -> Data? {
-        
-        return try? NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: false)
-    }
-    
-    private static func decode<T>(data: Data) -> T? {
-
-        return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T
-    }
     
     // MARK: - API
     
@@ -130,6 +118,20 @@ class AppState: ObservableObject {
     func getEntry(date: Date) -> DayEntry? {
         
         return self.entries[date]
+    }
+    
+    func isDateHasData(date: Date) -> DayEntryData {
+        
+        if let dayEntry = self.getEntry(date: date) {
+            
+            return (
+                dayEntry.food != nil && dayEntry.weight != nil
+                    ? DayEntryData.Full
+                    : DayEntryData.Partial
+            )
+        }
+        
+        return DayEntryData.Empty
     }
     
     

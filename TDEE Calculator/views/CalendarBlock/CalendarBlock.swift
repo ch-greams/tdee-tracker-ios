@@ -27,7 +27,7 @@ struct CalendarBlock: View {
         
         return HStack(alignment: .center) {
             ForEach(weekdays, id: \.self) { day in
-                Text("\(day)")
+                Text(day)
                     .font(.appCalendarWeekday)
                     .frame(width: 40, height: 40)
                     .foregroundColor(Color.appPrimaryText)
@@ -60,22 +60,28 @@ struct CalendarBlock: View {
 
 struct CalendarBlock_EntryPage_Previews: PreviewProvider {
     
+    static let appState = AppState()
+
     static var previews: some View {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: false)
             .padding(.top, 8)
             .background(Color.appPrimary)
+            .environmentObject(appState)
 
     }
 }
 
 struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
     
+    static let appState = AppState()
+    
     static var previews: some View {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: true)
             .padding(.top, 8)
             .background(Color.appPrimary)
+            .environmentObject(appState)
 
     }
 }

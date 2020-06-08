@@ -26,12 +26,14 @@ struct DayButtonStyle: ButtonStyle {
 
 struct DayButton: View {
     
-    @EnvironmentObject var appState: AppState
+    let day: Date
     
-    var day: Date
-
+    let selectDayFunc: (Date) -> ()
+    
     let isSelectedDay: Bool
     let isSelectedMonth: Bool
+    
+    let hasData: DayEntryData
     
     func getButton() -> some View {
         
@@ -47,7 +49,7 @@ struct DayButton: View {
         
         let button = Button(stringDate) {
 
-            self.appState.changeDay(to: self.day)
+            self.selectDayFunc(self.day)
         }
         .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
         
@@ -55,7 +57,28 @@ struct DayButton: View {
     }
     
     var body: some View {
-        getButton()
+        
+        ZStack {
+            
+            if self.hasData == DayEntryData.Full {
+
+                Circle()
+                    .size(CGSize(width: 4, height: 4))
+                    .foregroundColor(.appPrimary)
+                    .padding(0)
+            }
+            else if self.hasData == DayEntryData.Partial {
+                
+                Circle()
+                    .size(CGSize(width: 4, height: 4))
+                    .foregroundColor(.appSecondary)
+                    .padding(0)
+            }
+            
+            getButton()
+        }
+        .frame(width: 40, height: 40)
+        
     }
 }
 
@@ -65,16 +88,43 @@ struct DayButton_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        HStack {
+        VStack {
             
-            // Selected Day
-            DayButton(day: Self.day, isSelectedDay: true, isSelectedMonth: true)
+            HStack {
+                
+                // Selected Day
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Full)
+                
+                // Not selected Day, current month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Full)
+                
+                // Not selected Day, other month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Full)
+            }
             
-            // Not selected Day, current month
-            DayButton(day: Self.day, isSelectedDay: false, isSelectedMonth: true)
+            HStack {
+                
+                // Selected Day
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Partial)
+                
+                // Not selected Day, current month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Partial)
+                
+                // Not selected Day, other month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Partial)
+            }
             
-            // Not selected Day, other month
-            DayButton(day: Self.day, isSelectedDay: false, isSelectedMonth: false)
+            HStack {
+                
+                // Selected Day
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Empty)
+                
+                // Not selected Day, current month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Empty)
+                
+                // Not selected Day, other month
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Empty)
+            }
         }
     }
 }

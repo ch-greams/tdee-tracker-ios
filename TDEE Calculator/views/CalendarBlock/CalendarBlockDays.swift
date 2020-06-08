@@ -12,6 +12,8 @@ struct CalendarBlockDays: View {
     
     let calendar = Calendar.current
     
+    @EnvironmentObject var appState: AppState
+    
     let selectedDay: Date
     let isTrendsPage: Bool
     
@@ -25,8 +27,10 @@ struct CalendarBlockDays: View {
         
         return DayButton(
             day: day,
+            selectDayFunc: self.appState.changeDay,
             isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
-            isSelectedMonth: isSelectedMonth
+            isSelectedMonth: isSelectedMonth,
+            hasData: self.appState.isDateHasData(date: day)
         )
     }
     
@@ -110,17 +114,23 @@ struct CalendarBlockDays: View {
 
 struct CalendarBlockDays_EntryPage_Previews: PreviewProvider {
     
+    static let appState = AppState()
+    
     static var previews: some View {
             
         CalendarBlockDays(selectedDay: Date(), isTrendsPage: false)
+            .environmentObject(appState)
     }
 }
 
 struct CalendarBlockDays_TrendsPage_Previews: PreviewProvider {
     
+    static let appState = AppState()
+
     static var previews: some View {
             
         CalendarBlockDays(selectedDay: Date(), isTrendsPage: true)
+            .environmentObject(appState)
     }
 }
 

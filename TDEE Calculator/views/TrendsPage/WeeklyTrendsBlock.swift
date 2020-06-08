@@ -66,7 +66,7 @@ struct WeeklyTrendsBlock: View {
             
             self.getSeparator()
             
-            self.getLine(label: "WEIGHT CHANGE", value: "+ 0.3", unit: "KG", changeIcon: "chevron.up")
+            self.getLine(label: "WEIGHT CHANGE", value: "-0.3", unit: "KG", changeIcon: "chevron.up")
             
         }
         .frame(width: 358, height: 280)
