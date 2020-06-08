@@ -44,8 +44,18 @@ extension Font {
         Self.custom("Oswald-Light", size: 24)
     }
 
+    public static var appTrendsItemLabel: Font {
+        Self.custom("Oswald-Light", size: 18)
+    }
     
+    public static var appTrendsItemValue: Font {
+        Self.custom("Oswald-Bold", size: 32)
+    }
 
+    public static var appTrendsItemUnit: Font {
+        Self.custom("Oswald-Light", size: 14)
+    }
+    
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }

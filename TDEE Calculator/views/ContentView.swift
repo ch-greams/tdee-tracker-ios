@@ -50,7 +50,10 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(appState)
     }
 }

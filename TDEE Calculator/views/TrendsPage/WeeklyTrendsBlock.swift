@@ -12,38 +12,61 @@ struct WeeklyTrendsBlock: View {
 
     let selectedDay: Date
 
-    func getLine(label: String, value: String, unit: String, change: String) -> some View {
+    func getLine(label: String, value: String, unit: String, changeIcon: String) -> some View {
         
         return HStack(alignment: .center, spacing: 0) {
         
             Text(label)
-                .frame(width: 140, alignment: .leading)
-                .padding(.leading, 30)
-                .padding(.trailing, 20)
+                .font(.appTrendsItemLabel)
+                .foregroundColor(.appPrimary)
+                .frame(width: 120, alignment: .leading)
+                .padding(.horizontal, 30)
             
             Text(value)
-                .frame(width: 50, alignment: .trailing)
+                .font(.appTrendsItemValue)
+                .foregroundColor(.appPrimary)
+                .frame(width: 72, alignment: .trailing)
                 .padding(.trailing, 10)
 
             Text(unit)
-                .frame(width: 50, alignment: .leading)
+                .font(.appTrendsItemUnit)
+                .foregroundColor(.appPrimary)
+                .frame(width: 30, alignment: .leading)
                 .padding(.trailing, 10)
 
-            Text(change)
+            Image(systemName: changeIcon)
+                .foregroundColor(.appPrimary)
                 .padding(.trailing, 30)
-
         }
-        .frame(height: 68)
+        .frame(height: 64)
+    }
+    
+    func getSeparator() -> some View {
+        return Rectangle()
+            .foregroundColor(.appPrimaryTextLight)
+            .frame(height: 1)
+            .padding(.horizontal, 16)
     }
     
     var body: some View {
         
         VStack(alignment: .center, spacing: 0) {
 
-            self.getLine(label: "FOOD", value: "2843", unit: "KCAL", change: "+")
-            self.getLine(label: "WEIGHT", value: "76", unit: "KG", change: "+")
-            self.getLine(label: "TDEE", value: "2843", unit: "KCAL", change: "+")
-            self.getLine(label: "WEIGHT CHANGE", value: "+ 0.3", unit: "KG", change: "+")
+            // TODO: Use ForEach?
+            
+            self.getLine(label: "FOOD", value: "2843", unit: "KCAL", changeIcon: "chevron.up")
+            
+            self.getSeparator()
+            
+            self.getLine(label: "WEIGHT", value: "76", unit: "KG", changeIcon: "chevron.down")
+            
+            self.getSeparator()
+            
+            self.getLine(label: "TDEE", value: "2843", unit: "KCAL", changeIcon: "chevron.down")
+            
+            self.getSeparator()
+            
+            self.getLine(label: "WEIGHT CHANGE", value: "+ 0.3", unit: "KG", changeIcon: "chevron.up")
             
         }
         .frame(width: 358, height: 280)
