@@ -31,6 +31,7 @@ class AppState: ObservableObject {
     
     @Published private var entries: [ Date : DayEntry ] = [:]
     
+    @Published var summaries: [ Date: WeekSummary ] = [:]
     
      // MARK: - Lifecycle
     
@@ -48,6 +49,8 @@ class AppState: ObservableObject {
         self.loadEntries()
         
         self.loadSelectedDayData(for: self.selectedDay)
+        
+        self.refreshSummary()
     }
     
     // MARK: - Private
@@ -101,26 +104,37 @@ class AppState: ObservableObject {
         }
     }
     
+    private func refreshSummary() {
+        
+        let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
+
+        let summaries: [ Date: WeekSummary ] = Utils.getWeekSummaries(weeks: weeks)
+        
+        self.summaries = summaries
+    }
+    
     // MARK: - API
     
-    func changeDay(to date: Date) {
+    public func changeDay(to date: Date) {
         
         self.selectedDay = date
         
         self.loadSelectedDayData(for: self.selectedDay)
     }
 
-    func changeEntry(date: Date, entry: DayEntry) {
+    public func changeEntry(date: Date, entry: DayEntry) {
         
         self.entries[date] = entry
+        
+        self.refreshSummary()
     }
     
-    func getEntry(date: Date) -> DayEntry? {
+    public func getEntry(date: Date) -> DayEntry? {
         
         return self.entries[date]
     }
     
-    func isDateHasData(date: Date) -> DayEntryData {
+    public func isDayHasData(date: Date) -> DayEntryData {
         
         if let dayEntry = self.getEntry(date: date) {
             
@@ -135,7 +149,7 @@ class AppState: ObservableObject {
     }
     
     
-    func updateWeightInEntry() {
+    public func updateWeightInEntry() {
         
         if let formattedNumber = NumberFormatter().number(from: self.weight) {
             
@@ -158,7 +172,7 @@ class AppState: ObservableObject {
         }
     }
     
-    func updateFoodInEntry() {
+    public func updateFoodInEntry() {
         
         if let formattedNumber = NumberFormatter().number(from: self.food) {
             
@@ -181,4 +195,11 @@ class AppState: ObservableObject {
         }
     }
 
+    
+    public func getSelectedWeekSummary() -> WeekSummary {
+        
+        let firstDayOfWeek = self.selectedDay.startOfWeek!
+        
+        return self.summaries[firstDayOfWeek] ?? WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
+    }
 }

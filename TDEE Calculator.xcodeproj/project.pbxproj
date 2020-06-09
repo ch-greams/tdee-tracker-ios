@@ -46,6 +46,9 @@
 		F6F4DE9B24871EE000D1FF40 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE8F24871EE000D1FF40 /* Roboto-Medium.ttf */; };
 		F6F4DE9C24871EE000D1FF40 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE9024871EE000D1FF40 /* Roboto-BlackItalic.ttf */; };
 		F6F72030248DD1C6003873A1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7202F248DD1C6003873A1 /* Utils.swift */; };
+		F6F72032248E7C92003873A1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72031248E7C92003873A1 /* Date.swift */; };
+		F6F72034248EE6AE003873A1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72033248EE6AE003873A1 /* Collection.swift */; };
+		F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72035248EE6CA003873A1 /* Sequence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +93,9 @@
 		F6F4DE8F24871EE000D1FF40 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		F6F4DE9024871EE000D1FF40 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		F6F7202F248DD1C6003873A1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F6F72031248E7C92003873A1 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F6F72033248EE6AE003873A1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		F6F72035248EE6CA003873A1 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +186,9 @@
 				F6F4DE382485B9EF00D1FF40 /* Color.swift */,
 				F6F4DE652486FDC800D1FF40 /* Font.swift */,
 				F65F83C9248A890000F8407B /* UIApplication.swift */,
+				F6F72035248EE6CA003873A1 /* Sequence.swift */,
+				F6F72031248E7C92003873A1 /* Date.swift */,
+				F6F72033248EE6AE003873A1 /* Collection.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -321,6 +330,7 @@
 			files = (
 				F61BCCF82485737200A01500 /* AppDelegate.swift in Sources */,
 				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
+				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
 				F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */,
 				F61BCCFA2485737200A01500 /* SceneDelegate.swift in Sources */,
@@ -330,11 +340,13 @@
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
+				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
 				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
 				F61BCCFC2485737200A01500 /* ContentView.swift in Sources */,
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
 				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
+				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
 			);

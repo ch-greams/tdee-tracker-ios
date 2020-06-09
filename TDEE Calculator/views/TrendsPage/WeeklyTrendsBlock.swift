@@ -11,6 +11,8 @@ import SwiftUI
 struct WeeklyTrendsBlock: View {
 
     let selectedDay: Date
+    
+    let summary: WeekSummary
 
     func getLine(label: String, value: String, unit: String, changeIcon: String) -> some View {
         
@@ -54,19 +56,19 @@ struct WeeklyTrendsBlock: View {
 
             // TODO: Use ForEach?
             
-            self.getLine(label: "FOOD", value: "2843", unit: "KCAL", changeIcon: "chevron.up")
+            self.getLine(label: "FOOD", value: String(self.summary.avgFood ?? 0), unit: "KCAL", changeIcon: "chevron.up")
             
             self.getSeparator()
             
-            self.getLine(label: "WEIGHT", value: "76", unit: "KG", changeIcon: "chevron.down")
+            self.getLine(label: "WEIGHT", value: String(self.summary.avgWeight), unit: "KG", changeIcon: "chevron.down")
             
             self.getSeparator()
             
-            self.getLine(label: "TDEE", value: "2843", unit: "KCAL", changeIcon: "chevron.down")
+            self.getLine(label: "TDEE", value: String(self.summary.tdee ?? 0), unit: "KCAL", changeIcon: "chevron.down")
             
             self.getSeparator()
             
-            self.getLine(label: "WEIGHT CHANGE", value: "-0.3", unit: "KG", changeIcon: "chevron.up")
+            self.getLine(label: "WEIGHT CHANGE", value: String(self.summary.deltaWeight ?? 0), unit: "KG", changeIcon: "chevron.up")
             
         }
         .frame(width: 358, height: 280)
@@ -79,8 +81,10 @@ struct WeeklyTrendsBlock: View {
 
 struct WeeklyTrendsBlock_Previews: PreviewProvider {
 
+    static let summary = WeekSummary(avgFood: 2800, avgWeight: 76.50, deltaWeight: -0.75, tdee: 2845)
+    
     static var previews: some View {
-        WeeklyTrendsBlock(selectedDay: Date())
+        WeeklyTrendsBlock(selectedDay: Date(), summary: summary)
             .background(Color.appPrimary)
     }
 }

@@ -30,7 +30,7 @@ struct CalendarBlockDays: View {
             selectDayFunc: self.appState.changeDay,
             isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
             isSelectedMonth: isSelectedMonth,
-            hasData: self.appState.isDateHasData(date: day)
+            hasData: self.appState.isDayHasData(date: day)
         )
     }
     
