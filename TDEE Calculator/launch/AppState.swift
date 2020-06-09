@@ -11,8 +11,8 @@ import SwiftUI
 
 enum AppStateKey: String, CaseIterable {
 
+    // TODO: Change to PascalCase later (it'll mess up existing data)
     case entries
-
 }
 
 
@@ -199,7 +199,55 @@ class AppState: ObservableObject {
     public func getSelectedWeekSummary() -> WeekSummary {
         
         let firstDayOfWeek = self.selectedDay.startOfWeek!
+        let defaultSummary = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
         
-        return self.summaries[firstDayOfWeek] ?? WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
+        return self.summaries[firstDayOfWeek] ?? defaultSummary
+    }
+    
+
+    // TODO: Save calculations?
+    public func getTrendsChange() -> (
+        avgFood: WeekSummaryChange,
+        avgWeight: WeekSummaryChange,
+        deltaWeight: WeekSummaryChange,
+        tdee: WeekSummaryChange
+    ) {
+        
+        let currentSummary = self.getSelectedWeekSummary()
+        
+        if let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay) {
+
+            if let prevWeekFirstDay = prevWeek.startOfWeek {
+
+                if let prevWeekSummary = self.summaries[prevWeekFirstDay] {
+
+                    return (
+                        avgFood: Utils.getWeekSummaryParamChange(
+                            previous: prevWeekSummary.avgFood,
+                            current: currentSummary.avgFood
+                        ),
+                        avgWeight: Utils.getWeekSummaryParamChange(
+                            previous: prevWeekSummary.avgWeight,
+                            current: currentSummary.avgWeight
+                        ),
+                        deltaWeight: Utils.getWeekSummaryParamChange(
+                            previous: prevWeekSummary.deltaWeight,
+                            current: currentSummary.deltaWeight
+                        ),
+                        tdee: Utils.getWeekSummaryParamChange(
+                            previous: prevWeekSummary.tdee,
+                            current: currentSummary.tdee
+                        )
+                    )
+                }
+            }
+        }
+        
+        return (
+            avgFood: WeekSummaryChange.None,
+            avgWeight: WeekSummaryChange.None,
+            deltaWeight: WeekSummaryChange.None,
+            tdee: WeekSummaryChange.None
+        )
     }
 }

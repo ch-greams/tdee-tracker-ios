@@ -17,6 +17,10 @@ struct WeekSummary {
     let tdee: Int?
 }
 
+enum WeekSummaryChange {
+    case Up, None, Down
+}
+
 class Utils {
     
     // MARK: - Constants
@@ -127,6 +131,20 @@ class Utils {
         }
         
         return weekSummaries
+    }
+    
+    public static func getWeekSummaryParamChange<T: Comparable>(previous: T?, current: T?) -> WeekSummaryChange {
+
+        if previous == nil || current == nil {
+            return WeekSummaryChange.None
+        }
+        else {
+            return (
+                ( current == previous )
+                    ? WeekSummaryChange.None
+                    : ( current! > previous! ) ? WeekSummaryChange.Up : WeekSummaryChange.Down
+            )
+        }
     }
     
     // MARK: - Serialization

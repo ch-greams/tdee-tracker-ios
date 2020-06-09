@@ -27,11 +27,13 @@ struct TrendsPage: View {
                 // TODO: Drop selectedDay param altogether?
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: true)
                 
-                WeeklyTrendsBlock(selectedDay: self.appState.selectedDay, summary: self.appState.getSelectedWeekSummary())
+                WeeklyTrendsBlock(
+                    selectedDay: self.appState.selectedDay,
+                    summary: self.appState.getSelectedWeekSummary(),
+                    trendsChange: self.appState.getTrendsChange()
+                )
             }
-  
         }
-
     }
 }
 
