@@ -29,7 +29,7 @@ struct WeeklyTrendsBlock: View {
             case WeekSummaryChange.Down:
                 return "chevron.down"
             default:
-                return ""
+                return "ellipsis"
         }
     }
 

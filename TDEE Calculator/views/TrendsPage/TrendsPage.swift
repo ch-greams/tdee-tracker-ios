@@ -12,9 +12,6 @@ struct TrendsPage: View {
 
     @EnvironmentObject var appState: AppState
 
-    @State private var isWeightInputOpen: Bool = false
-    @State private var isFoodInputOpen: Bool = false
-
     
     var body: some View {
 

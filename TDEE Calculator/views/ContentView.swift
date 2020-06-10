@@ -39,7 +39,7 @@ struct ContentView: View {
                 .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
                 .tag(Tab.progressPage)
 
-            EntryPage()
+            SetupPage()
                 .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
                 .tag(Tab.setupPage)
         }

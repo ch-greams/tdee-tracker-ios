@@ -47,11 +47,8 @@ struct DayButton: View {
             : ( self.isSelectedMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
 
         
-        let button = Button(stringDate) {
-
-            self.selectDayFunc(self.day)
-        }
-        .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
+        let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
+            .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
         
         return button
     }

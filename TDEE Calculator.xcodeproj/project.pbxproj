@@ -13,6 +13,7 @@
 		F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCCFD2485737400A01500 /* Assets.xcassets */; };
 		F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD002485737400A01500 /* Preview Assets.xcassets */; };
 		F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD022485737400A01500 /* LaunchScreen.storyboard */; };
+		F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */; };
 		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
 		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
@@ -49,6 +50,11 @@
 		F6F72032248E7C92003873A1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72031248E7C92003873A1 /* Date.swift */; };
 		F6F72034248EE6AE003873A1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72033248EE6AE003873A1 /* Collection.swift */; };
 		F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72035248EE6CA003873A1 /* Sequence.swift */; };
+		F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72038248FCE62003873A1 /* SetupPage.swift */; };
+		F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203A24913322003873A1 /* TargetSurplus.swift */; };
+		F6F7203D249137C0003873A1 /* SetupGoalsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203C249137C0003873A1 /* SetupGoalsBlock.swift */; };
+		F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */; };
+		F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,7 @@
 		F61BCD002485737400A01500 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F61BCD032485737400A01500 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61BCD052485737400A01500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUnitsBlock.swift; sourceTree = "<group>"; };
 		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
 		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -96,6 +103,11 @@
 		F6F72031248E7C92003873A1 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F6F72033248EE6AE003873A1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		F6F72035248EE6CA003873A1 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		F6F72038248FCE62003873A1 /* SetupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPage.swift; sourceTree = "<group>"; };
+		F6F7203A24913322003873A1 /* TargetSurplus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSurplus.swift; sourceTree = "<group>"; };
+		F6F7203C249137C0003873A1 /* SetupGoalsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupGoalsBlock.swift; sourceTree = "<group>"; };
+		F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupBlockTitle.swift; sourceTree = "<group>"; };
+		F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRemindersBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +175,7 @@
 		F63516A4248A54BE00A8A7E9 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F6F72037248F3DEA003873A1 /* SetupPage */,
 				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
 				F6F4DE672487107000D1FF40 /* EntryPage */,
 				F65F83CF248D65AA00F8407B /* TrendsPage */,
@@ -237,6 +250,19 @@
 				F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */,
 			);
 			path = CalendarBlock;
+			sourceTree = "<group>";
+		};
+		F6F72037248F3DEA003873A1 /* SetupPage */ = {
+			isa = PBXGroup;
+			children = (
+				F6F72038248FCE62003873A1 /* SetupPage.swift */,
+				F6F7203A24913322003873A1 /* TargetSurplus.swift */,
+				F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */,
+				F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */,
+				F6F7203C249137C0003873A1 /* SetupGoalsBlock.swift */,
+				F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */,
+			);
+			path = SetupPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,14 +358,17 @@
 				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
 				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
+				F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */,
 				F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */,
 				F61BCCFA2485737200A01500 /* SceneDelegate.swift in Sources */,
 				F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */,
 				F65F83CC248B980900F8407B /* AppState.swift in Sources */,
 				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
+				F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
+				F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */,
 				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
 				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
@@ -347,8 +376,11 @@
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
 				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
+				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
+				F6F7203D249137C0003873A1 /* SetupGoalsBlock.swift in Sources */,
 				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
+				F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
