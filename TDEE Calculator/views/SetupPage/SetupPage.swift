@@ -9,25 +9,14 @@
 import SwiftUI
 
 
-struct ToggleButtonStyle: ButtonStyle {
-    
-    var isSelected: Bool
-    
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 90, height: 40)
-            .font(.appSetupToggleValue)
-            .foregroundColor(!self.isSelected ? Color.appPrimary : Color.white)
-            .background(self.isSelected ? Color.appPrimary : Color.white)
-            .border(Color.appPrimary)
-    }
-}
 
 
 struct SetupPage: View {
 
     @EnvironmentObject var appState: AppState
 
+    @State private var isGoalOpen: Bool = false
+    
     
     var body: some View {
 
@@ -37,13 +26,28 @@ struct SetupPage: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                SetupUnitsBlock()
+                if !isGoalOpen {
+                    
+                    SetupUnitsBlock()
+                    
+
+                    SetupRemindersBlock()
+                }
+
+                SetupGoalBlock(isGoalOpen: self.$isGoalOpen)
+                    .padding(.top, isGoalOpen ? 60 : 0)
                 
+                if isGoalOpen {
+                
+                    Button("Done", action: {
+                        UIApplication.shared.endEditing()
+                        self.isGoalOpen = false
+                    })
+                        .buttonStyle(ToggleButtonStyle(isSelected: true))
+                        .frame(width: 160)
+                        .border(Color.white)
+                }
 
-                SetupRemindersBlock()
-
-
-                SetupGoalsBlock()
             }
         }
     }

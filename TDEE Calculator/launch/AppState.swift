@@ -33,6 +33,10 @@ class AppState: ObservableObject {
     
     @Published var summaries: [ Date: WeekSummary ] = [:]
     
+    @Published var goalWeight: Double = 0
+    @Published var goalWeeklyDelta: Double = 0
+    
+
      // MARK: - Lifecycle
     
     init(store: UserDefaults = .standard) {

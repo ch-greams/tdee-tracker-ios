@@ -18,6 +18,21 @@ enum EnergyUnit: String, Equatable {
     case kj = "KJ"
 }
 
+struct ToggleButtonStyle: ButtonStyle {
+    
+    var isSelected: Bool
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: 90, height: 40)
+            .font(.appSetupToggleValue)
+            .foregroundColor(!self.isSelected ? Color.appPrimary : Color.white)
+            .background(self.isSelected ? Color.appPrimary : Color.white)
+            .border(Color.appPrimary)
+    }
+}
+
+
 struct SetupUnitsBlock: View {
     
     @State private var selectedWeightUnit: WeightUnit = WeightUnit.kg
@@ -73,10 +88,7 @@ struct SetupUnitsBlock: View {
             
             self.getToggleBlock(
                 title: "Weight",
-                setValue: {
-                    self.selectedWeightUnit = $0
-                    print("\(self.selectedWeightUnit) \($0)")
-                },
+                setValue: { self.selectedWeightUnit = $0 },
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
                 selected: self.selectedWeightUnit
@@ -84,10 +96,7 @@ struct SetupUnitsBlock: View {
             
             self.getToggleBlock(
                 title: "Energy",
-                setValue: {
-                    self.selectedEnergyUnit = $0
-                    print("\(self.selectedEnergyUnit) \($0)")
-                },
+                setValue: { self.selectedEnergyUnit = $0 },
                 first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
                 second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
                 selected: self.selectedEnergyUnit

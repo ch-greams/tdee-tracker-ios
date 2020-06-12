@@ -63,7 +63,7 @@ struct EntryPage: View {
                 unit: "kg"
             )
                 .padding(.horizontal, 7)
-                .animation(.default)
+                .animation(.easeOut(duration: 0.16))
                 .padding(.top, self.isWeightInputOpen ? 160 : 458)
                 .onTapGesture { self.isWeightInputOpen = true }
                 .zIndex(self.isWeightInputOpen ? 1 : 0)
@@ -74,7 +74,7 @@ struct EntryPage: View {
                 unit: "kcal"
             )
                 .padding(.horizontal, 7)
-                .animation(.default)
+                .animation(.easeOut(duration: 0.16))
                 .padding(.top, self.isFoodInputOpen ? 160 : 562)
                 .onTapGesture { self.isFoodInputOpen = true }
                 .zIndex(self.isFoodInputOpen ? 1 : 0)

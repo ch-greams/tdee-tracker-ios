@@ -32,7 +32,6 @@ struct EntryInputBlock: View {
                 .frame(width: 140, height: 44)
                 .multilineTextAlignment(.trailing)
                 .border(Color.appPrimary)
-                .font(.appEntryRecommendedAmount)
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 16)
                 .keyboardType(.numberPad)   // limit input to numbers

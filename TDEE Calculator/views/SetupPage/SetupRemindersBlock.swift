@@ -10,10 +10,15 @@ import SwiftUI
 
 struct SetupRemindersBlock: View {
     
-    @State private var value: String = ""
+    @State private var value: Date = Date()
 
     
     func getInputBlock(title: String) -> some View {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a" // or H:mm for 24h
+        let stringDate = formatter.string(from: self.value)
+
         
         let inputBlock = HStack(alignment: .center, spacing: 0) {
 
@@ -23,16 +28,12 @@ struct SetupRemindersBlock: View {
                 .padding(.horizontal, 16)
                 .foregroundColor(.appPrimary)
             
-            TextField("", text: self.$value)
-                .font(.appEntryValue)
+            Text(stringDate)
+                .font(.appTrendsItemValue)
                 .frame(width: 180, height: 44)
                 .border(Color.appPrimary)
-                .font(.appEntryRecommendedAmount)
                 .foregroundColor(.appPrimary)
                 .padding(.trailing, 8)
-                .multilineTextAlignment(.trailing)
-                .keyboardType(.numberPad)   // limit input to numbers
-                //.accentColor(.clear)        // hide cursor
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -49,7 +50,6 @@ struct SetupRemindersBlock: View {
     
     var body: some View {
         
-        
         VStack(alignment: .center, spacing: 0) {
 
             SetupBlockTitle(title: "Reminders")
@@ -58,6 +58,14 @@ struct SetupRemindersBlock: View {
             
             self.getInputBlock(title: "Weight")
         }
+        
+        
+        /*
+        DatePicker("", selection: self.$value, displayedComponents: .hourAndMinute)
+            .labelsHidden()
+            .font(.appTrendsItemValue)
+            .foregroundColor(.white)
+        */
     }
 }
 
