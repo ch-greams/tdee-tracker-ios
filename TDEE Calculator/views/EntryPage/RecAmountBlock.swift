@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RecAmountBlock: View {
     
-    let recommendedAmount: Int = 2843
+    let value: Int
     let unit: String = "kcal"
     
     var body: some View {
@@ -25,7 +25,7 @@ struct RecAmountBlock: View {
             
             Spacer()
             
-            Text("~\(self.recommendedAmount)")
+            Text("~\(self.value)")
                 .foregroundColor(.white)
                 .font(.appEntryRecommendedAmount)
             Text(self.unit.uppercased())
@@ -39,6 +39,6 @@ struct RecAmountBlock: View {
 
 struct RecAmountBlock_Previews: PreviewProvider {
     static var previews: some View {
-        RecAmountBlock().background(Color.appPrimary)
+        RecAmountBlock(value: 2843).background(Color.appPrimary)
     }
 }

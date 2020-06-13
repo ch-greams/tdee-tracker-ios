@@ -12,10 +12,8 @@ struct SetupGoalBlock: View {
     
     @EnvironmentObject var appState: AppState
     
-    @State private var goalWeightInput: String = ""
-    @State private var goalWeeklyDeltaInput: String = ""
-    
     @Binding var isGoalOpen: Bool
+
     
     func getInputBlock(title: String, unit: String, input: Binding<String>, updateFunc: @escaping () -> Void ) -> some View {
         
@@ -55,35 +53,43 @@ struct SetupGoalBlock: View {
     
     var body: some View {
         
-        
         return VStack(alignment: .center, spacing: 0) {
             
             SetupBlockTitle(title: "Goal")
             
-            self.getInputBlock(title: "Goal", unit: "kg", input: self.$goalWeightInput, updateFunc: {
+            self.getInputBlock(
+                title: "Goal",
+                unit: "kg",
+                input: self.$appState.goalWeightInput,
+                updateFunc: {
                 
-                print(self.goalWeightInput)
-                print(self.appState.goalWeight)
-                
-                if let value = NumberFormatter().number(from: self.goalWeightInput) {
-                    self.appState.goalWeight = value.doubleValue
-                }
-                
-                self.goalWeightInput = String(self.appState.goalWeight)
-                
-                print(self.goalWeightInput)
-                print(self.appState.goalWeight)
+                    if let value = NumberFormatter().number(from: self.$appState.goalWeightInput.wrappedValue) {
+                        self.appState.goalWeight = value.doubleValue
+                    }
+                    
+                    self.appState.updateTargetSurplus()
+                    self.appState.saveGoalWeight()
+                    
+                    self.appState.goalWeightInput = String(self.appState.goalWeight)
             })
             
-            self.getInputBlock(title: "Weekly Change", unit: "kg", input: self.$goalWeeklyDeltaInput, updateFunc: {
-                if let value = NumberFormatter().number(from: self.goalWeeklyDeltaInput) {
-                    self.appState.goalWeight = value.doubleValue
-                }
-                
-                self.goalWeeklyDeltaInput = String(self.appState.goalWeeklyDelta)
+            self.getInputBlock(
+                title: "Weekly Change",
+                unit: "kg",
+                input: self.$appState.goalWeeklyDeltaInput,
+                updateFunc: {
+
+                    if let value = NumberFormatter().number(from: self.$appState.goalWeeklyDeltaInput.wrappedValue) {
+                        self.appState.goalWeeklyDelta = value.doubleValue
+                    }
+                    
+                    self.appState.updateTargetSurplus()
+                    self.appState.saveGoalWeeklyDelta()
+
+                    self.appState.goalWeeklyDeltaInput = String(self.appState.goalWeeklyDelta)
             })
             
-            TargetSurplus(value: 257, unit: "kcal")
+            TargetSurplus(value: self.appState.goalTargetSurplus, unit: "kcal")
             
         }
     }

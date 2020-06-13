@@ -28,7 +28,7 @@ struct EntryPage: View {
                 // TODO: Drop selectedDay param altogether?
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
                 
-                RecAmountBlock()
+                RecAmountBlock(value: self.appState.recommendedAmount)
             }
             
             if self.isWeightInputOpen || self.isFoodInputOpen {

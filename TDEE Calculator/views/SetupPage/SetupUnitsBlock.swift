@@ -8,15 +8,6 @@
 
 import SwiftUI
 
-enum WeightUnit: String, Equatable {
-    case kg = "KG"
-    case lb = "LB"
-}
-
-enum EnergyUnit: String, Equatable {
-    case kcal = "KCAL"
-    case kj = "KJ"
-}
 
 struct ToggleButtonStyle: ButtonStyle {
     
@@ -35,9 +26,7 @@ struct ToggleButtonStyle: ButtonStyle {
 
 struct SetupUnitsBlock: View {
     
-    @State private var selectedWeightUnit: WeightUnit = WeightUnit.kg
-    @State private var selectedEnergyUnit: EnergyUnit = EnergyUnit.kcal
-    
+    @EnvironmentObject var appState: AppState
     
     
     func getToggleBlock<T: Equatable>(
@@ -88,27 +77,31 @@ struct SetupUnitsBlock: View {
             
             self.getToggleBlock(
                 title: "Weight",
-                setValue: { self.selectedWeightUnit = $0 },
+                setValue: self.appState.updateWeightUnit as (WeightUnit) -> Void,
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
-                selected: self.selectedWeightUnit
+                selected: self.appState.weightUnit
             )
             
             self.getToggleBlock(
                 title: "Energy",
-                setValue: { self.selectedEnergyUnit = $0 },
+                setValue: self.appState.updateEnergyUnit as (EnergyUnit) -> Void,
                 first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
                 second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
-                selected: self.selectedEnergyUnit
+                selected: self.appState.energyUnit
             )
         }
     }
 }
 
 struct SetupUnitsBlock_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
     static var previews: some View {
         SetupUnitsBlock()
             .padding(.vertical, 8)
             .background(Color.appPrimary)
+            .environmentObject(appState)
     }
 }

@@ -19,8 +19,17 @@ struct SetupPage: View {
     
     
     var body: some View {
-
-        ZStack(alignment: .top) {
+        
+        let doneAction = {
+            UIApplication.shared.endEditing()
+            self.isGoalOpen = false
+            
+            //self.appState.updateTargetSurplus()
+            //self.appState.saveGoalWeight()
+            //self.appState.saveGoalWeeklyDelta()
+        }
+        
+        return ZStack(alignment: .top) {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
@@ -30,7 +39,6 @@ struct SetupPage: View {
                     
                     SetupUnitsBlock()
                     
-
                     SetupRemindersBlock()
                 }
 
@@ -39,10 +47,7 @@ struct SetupPage: View {
                 
                 if isGoalOpen {
                 
-                    Button("Done", action: {
-                        UIApplication.shared.endEditing()
-                        self.isGoalOpen = false
-                    })
+                    Button("Done", action: doneAction)
                         .buttonStyle(ToggleButtonStyle(isSelected: true))
                         .frame(width: 160)
                         .border(Color.white)

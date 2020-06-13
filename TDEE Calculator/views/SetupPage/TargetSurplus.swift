@@ -25,7 +25,7 @@ struct TargetSurplus: View {
                 .padding(.leading, 32)
                 .padding(.trailing, 50)
             
-            Text("~\(self.value)")
+            Text(String(self.value))
                 .foregroundColor(.white)
                 .font(.appTrendsItemValue)
                 .padding(.trailing, 16)
