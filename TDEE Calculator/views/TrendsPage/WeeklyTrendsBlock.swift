@@ -41,12 +41,13 @@ struct WeeklyTrendsBlock: View {
                 .font(.appTrendsItemLabel)
                 .foregroundColor(.appPrimary)
                 .frame(width: 120, alignment: .leading)
-                .padding(.horizontal, 30)
+                .padding(.leading, 30)
+                .padding(.trailing, 10)
             
             Text(value)
                 .font(.appTrendsItemValue)
                 .foregroundColor(.appPrimary)
-                .frame(width: 72, alignment: .trailing)
+                .frame(width: 92, alignment: .trailing)
                 .padding(.trailing, 10)
 
             Text(unit)
@@ -87,7 +88,7 @@ struct WeeklyTrendsBlock: View {
             
             self.getLine(
                 label: "WEIGHT",
-                value: String(self.summary.avgWeight),
+                value: String(format: "%.2f", self.summary.avgWeight),
                 unit: "KG",
                 changeIcon: self.getChangeIcon(change: self.trendsChange.avgWeight)
             )
@@ -105,7 +106,7 @@ struct WeeklyTrendsBlock: View {
             
             self.getLine(
                 label: "WEIGHT CHANGE",
-                value: String(self.summary.deltaWeight ?? 0),
+                value: String(format: "%.2f", self.summary.deltaWeight ?? 0),
                 unit: "KG",
                 changeIcon: self.getChangeIcon(change: self.trendsChange.deltaWeight)
             )
