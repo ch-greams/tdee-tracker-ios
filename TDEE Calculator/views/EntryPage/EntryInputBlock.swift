@@ -12,9 +12,13 @@ import SwiftUI
 struct EntryInputBlock: View {
     
     @Binding var value: String
+    
+    var onCommit: () -> Void
+    
     var icon: String
     var unit: String
 
+    
     var body: some View {
         
         let result = HStack {
@@ -26,7 +30,7 @@ struct EntryInputBlock: View {
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 8)
     
-            TextField("", text: self.$value)
+            TextField("", text: self.$value, onCommit: self.onCommit)
                 .font(.appEntryValue)
                 .padding([.top, .leading, .trailing], 4.0)
                 .frame(width: 140, height: 44)
@@ -34,8 +38,7 @@ struct EntryInputBlock: View {
                 .border(Color.appPrimary)
                 .foregroundColor(.appPrimary)
                 .padding(.horizontal, 16)
-                .keyboardType(.numberPad)   // limit input to numbers
-                //.accentColor(.clear)        // hide cursor
+                .keyboardType(.numbersAndPunctuation)
             
             Text(unit.uppercased())
                 .font(.appEntryUnit)
@@ -64,9 +67,9 @@ struct EntryInputBlock_Previews: PreviewProvider {
         
         VStack(alignment: .center, spacing: 0) {
             
-            EntryInputBlock(value: .constant("76.5"), icon: "body-sharp", unit: "kg")
+            EntryInputBlock(value: .constant("76.5"), onCommit: { print("weight") }, icon: "body-sharp", unit: "kg")
             
-            EntryInputBlock(value: .constant("2843"), icon: "fast-food-sharp", unit: "kcal")
+            EntryInputBlock(value: .constant("2843"), onCommit: { print("food") }, icon: "fast-food-sharp", unit: "kcal")
             
         }
         .padding(7)

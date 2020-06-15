@@ -16,16 +16,16 @@ enum DayEntryData {
 class DayEntry: NSObject, NSCoding {
 
     //var date: Date
-    var weight: Int?    // TODO: Change to Double
+    var weight: Double?
     var food: Int?
     
-    init(weight: Int?, food: Int?) {
+    init(weight: Double?, food: Int?) {
         self.weight = weight
         self.food = food
     }
     
     required init(coder aDecoder: NSCoder) {
-        self.weight = aDecoder.decodeObject(forKey: "weight") as? Int
+        self.weight = aDecoder.decodeObject(forKey: "weight") as? Double
         self.food = aDecoder.decodeObject(forKey: "food") as? Int
     }
 

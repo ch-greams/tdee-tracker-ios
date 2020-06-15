@@ -16,10 +16,54 @@ struct EntryPage: View {
     @State private var isWeightInputOpen: Bool = false
     @State private var isFoodInputOpen: Bool = false
 
+    func updateWeightFunc() {
+    
+        if let value = NumberFormatter().number(from: self.appState.weightInput) {
+            self.appState.weight = value.doubleValue
+        }
+        
+        self.appState.updateWeightInEntry()
+        self.appState.refreshGoalBasedValues()
+        
+        self.appState.weightInput = String(self.appState.weight)
+    }
+    
+    func updateFoodFunc() {
+    
+        if let value = NumberFormatter().number(from: self.appState.foodInput) {
+            self.appState.food = value.intValue
+        }
+        
+        self.appState.updateFoodInEntry()
+        self.appState.refreshGoalBasedValues()
+        
+        self.appState.foodInput = String(self.appState.food)
+    }
+    
+    
+    func onSubmit() {
+
+        UIApplication.shared.endEditing()
+        
+        if self.isWeightInputOpen {
+            
+            self.updateWeightFunc()
+            self.isWeightInputOpen = false
+        }
+        
+        if self.isFoodInputOpen {
+            
+            self.updateFoodFunc()
+            self.isFoodInputOpen = false
+        }
+    }
+    
     
     var body: some View {
 
-        ZStack(alignment: .top) {
+        
+        
+        return ZStack(alignment: .top) {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
@@ -35,30 +79,15 @@ struct EntryPage: View {
 
                 // NOTE: Use "Save" button to finish data entry?
                 Color.appFade.edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        
-                        UIApplication.shared.endEditing()
-                        
-                        if self.isWeightInputOpen {
-                            
-                            self.appState.updateWeightInEntry()
-                            self.isWeightInputOpen = false
-                        }
-                        
-                        if self.isFoodInputOpen {
-                            
-                            self.appState.updateFoodInEntry()
-                            self.isFoodInputOpen = false
-                        }
-                        
-                    }
+                    .onTapGesture(perform: self.onSubmit)
                     .zIndex(1)
             
             }
 
 
             EntryInputBlock(
-                value: $appState.weight,
+                value: self.$appState.weightInput,
+                onCommit: self.onSubmit,
                 icon: "body-sharp",
                 unit: "kg"
             )
@@ -69,7 +98,8 @@ struct EntryPage: View {
                 .zIndex(self.isWeightInputOpen ? 1 : 0)
 
             EntryInputBlock(
-                value: $appState.food,
+                value: self.$appState.foodInput,
+                onCommit: self.onSubmit,
                 icon: "fast-food-sharp",
                 unit: "kcal"
             )

@@ -15,7 +15,12 @@ struct SetupGoalBlock: View {
     @Binding var isGoalOpen: Bool
 
     
-    func getInputBlock(title: String, unit: String, input: Binding<String>, updateFunc: @escaping () -> Void ) -> some View {
+    func getInputBlock(
+        title: String,
+        unit: String,
+        input: Binding<String>,
+        updateFunc: @escaping () -> Void
+    ) -> some View {
         
         return HStack(alignment: .center, spacing: 0) {
 
@@ -49,8 +54,7 @@ struct SetupGoalBlock: View {
             .shadow(color: .appFade, radius: 1, x: 1, y: 1)
         
     }
-    
-    
+
     var body: some View {
         
         return VStack(alignment: .center, spacing: 0) {
@@ -63,15 +67,16 @@ struct SetupGoalBlock: View {
                 input: self.$appState.goalWeightInput,
                 updateFunc: {
                 
-                    if let value = NumberFormatter().number(from: self.$appState.goalWeightInput.wrappedValue) {
+                    if let value = NumberFormatter().number(from: self.appState.goalWeightInput) {
                         self.appState.goalWeight = value.doubleValue
                     }
                     
-                    self.appState.updateTargetSurplus()
+                    self.appState.refreshGoalBasedValues()
                     self.appState.saveGoalWeight()
                     
                     self.appState.goalWeightInput = String(self.appState.goalWeight)
-            })
+                }
+            )
             
             self.getInputBlock(
                 title: "Weekly Change",
@@ -79,15 +84,16 @@ struct SetupGoalBlock: View {
                 input: self.$appState.goalWeeklyDeltaInput,
                 updateFunc: {
 
-                    if let value = NumberFormatter().number(from: self.$appState.goalWeeklyDeltaInput.wrappedValue) {
+                    if let value = NumberFormatter().number(from: self.appState.goalWeeklyDeltaInput) {
                         self.appState.goalWeeklyDelta = value.doubleValue
                     }
                     
-                    self.appState.updateTargetSurplus()
+                    self.appState.refreshGoalBasedValues()
                     self.appState.saveGoalWeeklyDelta()
 
                     self.appState.goalWeeklyDeltaInput = String(self.appState.goalWeeklyDelta)
-            })
+                }
+            )
             
             TargetSurplus(value: self.appState.goalTargetSurplus, unit: "kcal")
             

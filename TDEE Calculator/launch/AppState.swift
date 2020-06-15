@@ -14,7 +14,7 @@ enum AppStateKey: String, CaseIterable {
     // TODO: Change to PascalCase later (it'll mess up existing data)
     case entries
     case weightUnit, energyUnit
-    case goalWeight, goalWeeklyDelta, goalTargetSurplus
+    case goalWeight, goalWeeklyDelta
 }
 
 enum WeightUnit: String, Equatable {
@@ -38,28 +38,28 @@ class AppState: ObservableObject {
     // NOTE: Possible issues when user changes timezones
     @Published var selectedDay: Date
 
-    @Published var weight: String = ""
-    @Published var food: String = ""
+    @Published var weight: Double = 0.0
+    @Published var food: Int = 0
+    
+    @Published var weightInput: String = ""
+    @Published var foodInput: String = ""
     
     @Published private var entries: [ Date : DayEntry ] = [:]
     
     @Published var summaries: [ Date: WeekSummary ] = [:]
-    
-    // TODO: Save in the store or calculate each time?
-    @Published var recommendedAmount: Int = 0
     
     @Published var weightUnit: WeightUnit = WeightUnit.kg
     @Published var energyUnit: EnergyUnit = EnergyUnit.kcal
     
     @Published var goalWeight: Double = 0.0
     @Published var goalWeeklyDelta: Double = 0.0
-    // TODO: Save in the store or calculate each time?
-    @Published var goalTargetSurplus: Int = 0
     
     @Published var goalWeightInput: String = "0.0"
     @Published var goalWeeklyDeltaInput: String = "0.0"
 
-    
+    // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
+    @Published var recommendedAmount: Int = 0
+    @Published var goalTargetSurplus: Int = 0
 
      // MARK: - Lifecycle
     
@@ -113,26 +113,32 @@ class AppState: ObservableObject {
             
             if let existingWeight = existingEntry.weight {
                 
-                self.weight = String(existingWeight)
+                self.weight = existingWeight
+                self.weightInput = String(existingWeight)
             }
             else {
-                
-                self.weight = ""
+
+                self.weight = 0.0
+                self.weightInput = ""
             }
             
             if let existingFood = existingEntry.food {
                 
-                self.food = String(existingFood)
+                self.food = existingFood
+                self.foodInput = String(existingFood)
             }
             else {
                 
-                self.food = ""
+                self.food = 0
+                self.foodInput = ""
             }
         }
         else {
-
-            self.weight = ""
-            self.food = ""
+            
+            self.weight = 0.0
+            self.weightInput = ""
+            self.food = 0
+            self.foodInput = ""
         }
     }
     
@@ -192,10 +198,7 @@ class AppState: ObservableObject {
             self.goalWeeklyDeltaInput = String(self.goalWeeklyDelta)
         }
 
-        // TODO: Always calculate?
-        if let goalTargetSurplus: Int = self.load(key: AppStateKey.goalTargetSurplus) {
-            self.goalTargetSurplus = goalTargetSurplus
-        }
+        self.refreshGoalBasedValues()
     }
     
     // MARK: - API
@@ -212,6 +215,8 @@ class AppState: ObservableObject {
         self.entries[date] = entry
         
         self.refreshSummary()
+        
+        self.refreshGoalBasedValues()
     }
     
     public func getEntry(date: Date) -> DayEntry? {
@@ -238,48 +243,42 @@ class AppState: ObservableObject {
     
     public func updateWeightInEntry() {
         
-        if let formattedNumber = NumberFormatter().number(from: self.weight) {
+        if let entry = self.getEntry(date: self.selectedDay) {
             
-            if let entry = self.getEntry(date: self.selectedDay) {
-                
-                self.changeEntry(
-                    date: self.selectedDay,
-                    entry: DayEntry(weight: formattedNumber.intValue, food: entry.food)
-                )
-            }
-            else {
-
-                self.changeEntry(
-                    date: self.selectedDay,
-                    entry: DayEntry(weight: formattedNumber.intValue, food: nil)
-                )
-            }
-        
-            self.saveEntries()
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: self.weight, food: entry.food)
+            )
         }
+        else {
+
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: self.weight, food: nil)
+            )
+        }
+    
+        self.saveEntries()
     }
     
     public func updateFoodInEntry() {
         
-        if let formattedNumber = NumberFormatter().number(from: self.food) {
+        if let entry = self.getEntry(date: self.selectedDay) {
             
-            if let entry = self.getEntry(date: self.selectedDay) {
-                
-                self.changeEntry(
-                    date: self.selectedDay,
-                    entry: DayEntry(weight: entry.weight, food: formattedNumber.intValue)
-                )
-            }
-            else {
-
-                self.changeEntry(
-                    date: self.selectedDay,
-                    entry: DayEntry(weight: nil, food: formattedNumber.intValue)
-                )
-            }
-            
-            self.saveEntries()
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: entry.weight, food: self.food)
+            )
         }
+        else {
+
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: nil, food: self.food)
+            )
+        }
+        
+        self.saveEntries()
     }
 
     // Trends Page
@@ -342,32 +341,64 @@ class AppState: ObservableObject {
 
     // Setup Page calculations
     
+    // TODO: Move statics to Utils
+    
+    private static func getCurrentSummary(summaries: [Date : WeekSummary], today: Date) -> WeekSummary? {
+        
+        if let currentWeekStart = today.startOfWeek {
+            
+            if let currentSummary = summaries[currentWeekStart] {
+                
+                return currentSummary
+            }
+        }
+        
+        return nil
+    }
+    
+    private static func getGoalTargetSurplus(
+        currentSummary: WeekSummary,
+        goalWeight: Double,
+        goalWeeklyDelta: Double
+    ) -> Int {
+        
+        let deltaWeight: Double = goalWeight - currentSummary.avgWeight
+        
+        let weeksToGoal: Double = deltaWeight / goalWeeklyDelta
+        
+        let deltaCalories: Double = deltaWeight * Utils.CALORIES_PER_KILO
+        
+        return Int( ( deltaCalories / weeksToGoal ) / 7 )
+    }
+    
+    private static func getRecommendedAmount(
+        currentSummary: WeekSummary,
+        goalTargetSurplus: Int
+    ) -> Int {
+
+        if let currentTdee = currentSummary.tdee {
+
+            return currentTdee + goalTargetSurplus
+        }
+        
+        return 0
+    }
     
     /// Regenerate goalTargetSurplus and recommendedAmount values
-    public func updateTargetSurplus() {
+    public func refreshGoalBasedValues() {
         
-        if let currentWeekStart = Date().startOfWeek {
+        if let currentSummary = Self.getCurrentSummary(summaries: self.summaries, today: Date()) {
             
-            if let currentSummary = self.summaries[currentWeekStart] {
-                
-                let deltaWeight: Double = self.goalWeight - currentSummary.avgWeight
-                
-                let weeksToGoal: Double = deltaWeight / self.goalWeeklyDelta
-                
-                let deltaCalories: Double = deltaWeight * Utils.CALORIES_PER_KILO
-                
-                self.goalTargetSurplus = Int( ( deltaCalories / weeksToGoal ) / 7 )
-                
-                if let currentTdee = currentSummary.tdee {
-
-                    self.recommendedAmount = currentTdee + self.goalTargetSurplus
-                }
-                
-                // TODO: Re-think this
-                // Update goalTargetSurplus in store
-                
-                self.save(key: AppStateKey.goalTargetSurplus, value: self.goalTargetSurplus)
-            }
+            self.goalTargetSurplus = Self.getGoalTargetSurplus(
+                currentSummary: currentSummary,
+                goalWeight: self.goalWeight,
+                goalWeeklyDelta: self.goalWeeklyDelta
+            )
+            
+            self.recommendedAmount = Self.getRecommendedAmount(
+                currentSummary: currentSummary,
+                goalTargetSurplus: self.goalTargetSurplus
+            )
         }
     }
     
