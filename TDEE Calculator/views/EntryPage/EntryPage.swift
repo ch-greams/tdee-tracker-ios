@@ -60,8 +60,6 @@ struct EntryPage: View {
     
     
     var body: some View {
-
-        
         
         return ZStack(alignment: .top) {
 
@@ -76,12 +74,9 @@ struct EntryPage: View {
             }
             
             if self.isWeightInputOpen || self.isFoodInputOpen {
-
-                // NOTE: Use "Save" button to finish data entry?
                 Color.appFade.edgesIgnoringSafeArea(.all)
                     .onTapGesture(perform: self.onSubmit)
                     .zIndex(1)
-            
             }
 
 

@@ -21,13 +21,19 @@ struct EntryInputBlock: View {
     
     var body: some View {
         
+        let baseColor = (
+            NumberFormatter().number(from: self.value) == nil
+                ? Color.appSecondary
+                : Color.appPrimary
+        )
+        
         let result = HStack {
 
             Image(icon)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 30.0)
-                .foregroundColor(.appPrimary)
+                .foregroundColor(baseColor)
                 .padding(.horizontal, 8)
     
             TextField("", text: self.$value, onCommit: self.onCommit)
@@ -35,8 +41,8 @@ struct EntryInputBlock: View {
                 .padding([.top, .leading, .trailing], 4.0)
                 .frame(width: 140, height: 44)
                 .multilineTextAlignment(.trailing)
-                .border(Color.appPrimary)
-                .foregroundColor(.appPrimary)
+                .border(baseColor)
+                .foregroundColor(baseColor)
                 .padding(.horizontal, 16)
                 .keyboardType(.numbersAndPunctuation)
             
@@ -44,7 +50,7 @@ struct EntryInputBlock: View {
                 .font(.appEntryUnit)
                 .padding(.trailing, 16.0)
                 .frame(width: 60, alignment: .leading)
-                .foregroundColor(.appPrimary)
+                .foregroundColor(baseColor)
 
 
         }
@@ -67,9 +73,13 @@ struct EntryInputBlock_Previews: PreviewProvider {
         
         VStack(alignment: .center, spacing: 0) {
             
-            EntryInputBlock(value: .constant("76.5"), onCommit: { print("weight") }, icon: "body-sharp", unit: "kg")
+            EntryInputBlock(
+                value: .constant("76.5"), onCommit: { print("weight") }, icon: "body-sharp", unit: "kg"
+            )
             
-            EntryInputBlock(value: .constant("2843"), onCommit: { print("food") }, icon: "fast-food-sharp", unit: "kcal")
+            EntryInputBlock(
+                value: .constant("2843"), onCommit: { print("food") }, icon: "fast-food-sharp", unit: "kcal"
+            )
             
         }
         .padding(7)
