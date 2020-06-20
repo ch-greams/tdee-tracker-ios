@@ -61,7 +61,7 @@ class AppState: ObservableObject {
     @Published var recommendedAmount: Int = 0
     @Published var goalTargetSurplus: Int = 0
 
-     // MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     init(store: UserDefaults = .standard) {
         

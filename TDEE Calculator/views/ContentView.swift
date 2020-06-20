@@ -35,7 +35,7 @@ struct ContentView: View {
                 .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
                 .tag(Tab.trendsPage)
 
-            EntryPage()
+            ProgressPage()
                 .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
                 .tag(Tab.progressPage)
 

@@ -14,6 +14,8 @@
 		F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD002485737400A01500 /* Preview Assets.xcassets */; };
 		F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD022485737400A01500 /* LaunchScreen.storyboard */; };
 		F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */; };
+		F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B7249B2B350053B7AC /* ProgressPage.swift */; };
+		F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B9249B2C290053B7AC /* DeltaChart.swift */; };
 		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
 		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
@@ -67,6 +69,8 @@
 		F61BCD032485737400A01500 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61BCD052485737400A01500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUnitsBlock.swift; sourceTree = "<group>"; };
+		F631E9B7249B2B350053B7AC /* ProgressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPage.swift; sourceTree = "<group>"; };
+		F631E9B9249B2C290053B7AC /* DeltaChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaChart.swift; sourceTree = "<group>"; };
 		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
 		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -160,6 +164,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F631E9B6249B2B150053B7AC /* ProgressPage */ = {
+			isa = PBXGroup;
+			children = (
+				F631E9B7249B2B350053B7AC /* ProgressPage.swift */,
+				F631E9B9249B2C290053B7AC /* DeltaChart.swift */,
+			);
+			path = ProgressPage;
+			sourceTree = "<group>";
+		};
 		F63516A3248A54A600A8A7E9 /* launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +188,7 @@
 		F63516A4248A54BE00A8A7E9 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F631E9B6249B2B150053B7AC /* ProgressPage */,
 				F6F72037248F3DEA003873A1 /* SetupPage */,
 				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
 				F6F4DE672487107000D1FF40 /* EntryPage */,
@@ -356,6 +370,7 @@
 			files = (
 				F61BCCF82485737200A01500 /* AppDelegate.swift in Sources */,
 				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
+				F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */,
 				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
 				F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */,
@@ -377,6 +392,7 @@
 				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
 				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
+				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */,
 				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
