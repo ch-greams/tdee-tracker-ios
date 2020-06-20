@@ -35,7 +35,7 @@ struct DeltaChart: View {
     
     let totalStepsHeight: CGFloat = 180
     
-    let entries: [ Int : Double ] = [
+    let weeklyDeltas: [ Int : Double ] = [
       1 : 0.085,
       2 : 0.878,
       3 : 0.03,
@@ -49,8 +49,6 @@ struct DeltaChart: View {
       11 : 0.24,
       12 : 0.966
     ]
-    
-    // let entries: [ Int : Double ] = [ 1 : 0.15 ]
     
     // MARK: - Size Calculation
     
@@ -125,28 +123,28 @@ struct DeltaChart: View {
     
     var body: some View {
         
-        let maxEntryValue = self.entries.values.max { $0 < $1 } ?? 0.0
-        let stepValue = self.getStepValue(value: maxEntryValue)
-        let stepCount = Int( ( maxEntryValue / stepValue ).rounded(.up) )
+        let maxWeeklyDeltaValue = self.weeklyDeltas.values.max { $0 < $1 } ?? 0.0
+        let stepValue = self.getStepValue(value: maxWeeklyDeltaValue)
+        let stepCount = Int( ( maxWeeklyDeltaValue / stepValue ).rounded(.up) )
         
         let steps = self.getSteps(stepValue: stepValue, stepCount: stepCount)
         let stepHeight = self.getStepHeight(stepCount: stepCount)
         
         // NOTE: Have to calculate height otherwise GeometryReader will take everything it can
-        let blockHeight = self.totalStepsHeight + self.stepZeroHeight
+        let totalChartHeight = self.totalStepsHeight + self.stepZeroHeight
 
-        var entryHeights: [ CGFloat ] = []
+        var weeklyDeltaHeights: [ CGFloat ] = []
         
-        for index in 1...self.entries.count {
+        for index in 1...self.weeklyDeltas.count {
             
-            var entryHeight: CGFloat = 0
+            var weeklyDeltaHeight: CGFloat = 0
             
-            if let entryValue = self.entries[index] {
+            if let weeklyDeltaValue = self.weeklyDeltas[index] {
                 
-                entryHeight = CGFloat( entryValue / stepValue ) * stepHeight
+                weeklyDeltaHeight = CGFloat( weeklyDeltaValue / stepValue ) * stepHeight
             }
             
-            entryHeights.append(entryHeight)
+            weeklyDeltaHeights.append(weeklyDeltaHeight)
         }
         
         
@@ -158,11 +156,11 @@ struct DeltaChart: View {
                 
                 HStack(alignment: .top, spacing: 0) {
                         
-                    ForEach(0 ..< entryHeights.count) { iWeek in
+                    ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
                         
                         VStack(alignment: .center, spacing: 0) {
                             Rectangle()
-                                .padding(.top, self.totalStepsHeight - entryHeights[iWeek])
+                                .padding(.top, self.totalStepsHeight - weeklyDeltaHeights[iWeek])
                                 .frame(width: 20, height: self.totalStepsHeight)
                                 .padding(.top, 11)
                                 .padding(.horizontal, 1)
@@ -178,7 +176,7 @@ struct DeltaChart: View {
                 }
                     .padding(.leading, 60)
             }
-                .frame(maxHeight: blockHeight)
+                .frame(maxHeight: totalChartHeight)
                 
         }
         
