@@ -62,9 +62,11 @@ struct DeltaChart: View {
         
         var result: [ String ] = []
         
-        for step in 1...stepCount {
-            // NOTE: Use Decimal so you won't get numbers like 0.600...01 instead of 0.6
-            result.append("\( Decimal(step) * Decimal(stepValue) ) KG")
+        if stepCount > 0 {
+            for step in 1...stepCount {
+                // NOTE: Use Decimal so you won't get numbers like 0.600...01 instead of 0.6
+                result.append("\( Decimal(step) * Decimal(stepValue) ) KG")
+            }
         }
         
         return result.reversed()

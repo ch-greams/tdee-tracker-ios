@@ -15,6 +15,14 @@ struct ProgressPage: View {
     
     var body: some View {
 
+        let startDate = Date()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d"
+        let startDateStr = formatter.string(from: startDate)
+        
+        let title = "Starting from \(startDateStr)".uppercased()
+        
         let currentValue = self.appState.currentWeight - self.appState.startWeight
         let goalValue = self.appState.goalWeight - self.appState.startWeight
         
@@ -24,7 +32,7 @@ struct ProgressPage: View {
             
             VStack(alignment: .center, spacing: 0) {
             
-                Text("Starting from April 12th")
+                Text(title)
                     .font(.appCalendarMonth)
                     .foregroundColor(.white)
                 

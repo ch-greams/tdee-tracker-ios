@@ -61,8 +61,8 @@ class AppState: ObservableObject {
     @Published var recommendedAmount: Int = 0
     @Published var goalTargetSurplus: Int = 0
 
-    @Published var startWeight: Double = 0
-    @Published var currentWeight: Double = 0
+    @Published var startWeight: Double = 0.0
+    @Published var currentWeight: Double = 0.0
     @Published var estimatedTimeLeft: Int = 0
     
     @Published var weeklyWeightDeltas: [ Double ] = []
@@ -90,7 +90,11 @@ class AppState: ObservableObject {
         
         self.loadConfiguration()
         
-        self.estimatedTimeLeft = self.getEstimatedTimeLeft()
+        self.estimatedTimeLeft = self.getEstimatedTimeLeft(
+            goalWeight: self.goalWeight,
+            currentWeight: self.currentWeight,
+            goalWeeklyDelta: self.goalWeeklyDelta
+        )
     }
     
     // MARK: - Private
@@ -358,25 +362,42 @@ class AppState: ObservableObject {
         let sortedWeeks = self.summaries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
         
-        let firstDayOfFirstWeek = sortedWeeks[0]
-        
-        return self.summaries[firstDayOfFirstWeek] ?? Utils.DEFAULT_SUMMARY
+        if let firstDayOfWeek = sortedWeeks.first {
+            return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
+        }
+        else {
+            return Utils.DEFAULT_SUMMARY
+        }
     }
     
     public func getLastWeekSummary() -> WeekSummary {
         
         let sortedWeeks = self.summaries.keys
-            .sorted(by: { $0.timeIntervalSince1970 > $1.timeIntervalSince1970 })
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
         
-        let firstDayOfFirstWeek = sortedWeeks[0]
-        
-        return self.summaries[firstDayOfFirstWeek] ?? Utils.DEFAULT_SUMMARY
+        if let firstDayOfWeek = sortedWeeks.last {
+            return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
+        }
+        else {
+            return Utils.DEFAULT_SUMMARY
+        }
     }
     
-    public func getEstimatedTimeLeft() -> Int {
+    public func getEstimatedTimeLeft(
+        goalWeight: Double,
+        currentWeight: Double,
+        goalWeeklyDelta: Double
+    ) -> Int {
 
-        let leftWeight = self.goalWeight - self.currentWeight
-        return Int( ( leftWeight / self.goalWeeklyDelta ).rounded(.up) )
+        let leftWeight = goalWeight - currentWeight
+
+        let estimatedTimeLeft = (
+            goalWeeklyDelta != 0
+                ? Int( ( leftWeight / goalWeeklyDelta ).rounded(.up) )
+                : 0
+        )
+        
+        return estimatedTimeLeft
     }
     
     public func getWeeklyWeightDeltas() -> [ Double ] {
@@ -384,30 +405,33 @@ class AppState: ObservableObject {
         let sortedWeeks = self.summaries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
         
-        let firstWeek = sortedWeeks.first!
-        let lastWeek = sortedWeeks.last!
-        
-        let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
-        let weekCount = components.weekOfYear ?? 0
-        
-        var weekDates: [ Date ] = []
-        
-        // NOTE: Start from 1 to skip first week, since there'll be no delta
-        for iWeek in 1 ... weekCount {
-            
-            if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
-                
-                weekDates.append(curWeek)
-            }
-        }
-        
         var weeklyWeightDeltas: [ Double ] = []
         
-        for weekDate in weekDates {
+        if sortedWeeks.count > 0 {
             
-            let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
+            let firstWeek = sortedWeeks.first!
+            let lastWeek = sortedWeeks.last!
             
-            weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+            let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
+            let weekCount = components.weekOfYear ?? 0
+            
+            var weekDates: [ Date ] = []
+            
+            // NOTE: Start from 1 to skip first week, since there'll be no delta
+            for iWeek in 1 ... weekCount {
+                
+                if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
+                    
+                    weekDates.append(curWeek)
+                }
+            }
+            
+            for weekDate in weekDates {
+                
+                let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
+                
+                weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+            }
         }
 
         return weeklyWeightDeltas
@@ -474,7 +498,11 @@ class AppState: ObservableObject {
                 goalTargetSurplus: self.goalTargetSurplus
             )
             
-            self.estimatedTimeLeft = self.getEstimatedTimeLeft()
+            self.estimatedTimeLeft = self.getEstimatedTimeLeft(
+                goalWeight: self.goalWeight,
+                currentWeight: self.currentWeight,
+                goalWeeklyDelta: self.goalWeeklyDelta
+            )
         }
     }
     
