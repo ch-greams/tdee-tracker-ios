@@ -57,7 +57,7 @@ class Utils {
     }
     
     private static func getWeekSummary(
-        entries: [ DayEntry ], prevWeekSummary: WeekSummary, prevTdee: [ Int ]
+        entries: [ DayEntry ], prevWeekAvgWeight: Double?, prevTdee: [ Int ]
     ) -> WeekSummary {
         
         // avgFood
@@ -69,7 +69,7 @@ class Utils {
         let avgWeight: Double = weightEntries.average()
         
         // deltaWeight
-        let weeklyDeltaWeight = avgWeight - prevWeekSummary.avgWeight;
+        let weeklyDeltaWeight = avgWeight - (prevWeekAvgWeight ?? avgWeight);
         let doubleAccuracy: Double = 100
         let deltaWeight = Double( round( doubleAccuracy * weeklyDeltaWeight ) / doubleAccuracy )
         
@@ -91,17 +91,9 @@ class Utils {
         
         var weekSummaries: [ Date: WeekSummary ] = [:]
         var tdeeArray: [ Int ] = []
-        
-        let startWeight: Double = 76.0
-        let defaultPrevWeekSummary = WeekSummary(
-            avgFood: nil,
-            avgWeight: startWeight,
-            deltaWeight: nil,
-            tdee: nil
-        )
     
         let sortedWeeks = weeks.keys.sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
-        var lastWeekSummary = defaultPrevWeekSummary
+        var lastWeekAvgWeight: Double? = nil
 
         for startWeekDate in sortedWeeks {
             
@@ -109,12 +101,12 @@ class Utils {
                 
                 let weekSummary = Self.getWeekSummary(
                     entries: currentWeek,
-                    prevWeekSummary: lastWeekSummary,
+                    prevWeekAvgWeight: lastWeekAvgWeight,
                     prevTdee: tdeeArray
                 )
                 
                 weekSummaries[startWeekDate] = weekSummary
-                lastWeekSummary = weekSummary
+                lastWeekAvgWeight = weekSummary.avgWeight
                 tdeeArray.append(weekSummary.tdee!)
             }
         }

@@ -13,21 +13,6 @@ struct ProgressPage: View {
     
     @EnvironmentObject var appState: AppState
     
-    let weeklyDeltas: [ Int : Double ] = [
-      1 : 0.085,
-      2 : 0.878,
-      3 : 0.03,
-      4 : 0.084,
-      5 : 0.524,
-      6 : 0.098,
-      7 : 0.235,
-      8 : 0.778,
-      9 : 0.23,
-      10 : 0.525,
-      11 : 0.24,
-      12 : 0.966
-    ]
-    
     var body: some View {
 
         let currentValue = self.appState.currentWeight - self.appState.startWeight
@@ -43,7 +28,7 @@ struct ProgressPage: View {
                     .font(.appCalendarMonth)
                     .foregroundColor(.white)
                 
-                DeltaChart(weeklyDeltas: weeklyDeltas)
+                DeltaChart(weeklyDeltas: self.appState.weeklyWeightDeltas)
                     .padding(.top, 20)
 
                 ProgressCircle(

@@ -64,6 +64,8 @@ class AppState: ObservableObject {
     @Published var startWeight: Double = 0
     @Published var currentWeight: Double = 0
     @Published var estimatedTimeLeft: Int = 0
+    
+    @Published var weeklyWeightDeltas: [ Double ] = []
 
     // MARK: - Lifecycle
     
@@ -155,6 +157,8 @@ class AppState: ObservableObject {
         let summaries: [ Date: WeekSummary ] = Utils.getWeekSummaries(weeks: weeks)
         
         self.summaries = summaries
+        
+        self.weeklyWeightDeltas = self.getWeeklyWeightDeltas()
         
         self.startWeight = self.getFirstWeekSummary().avgWeight
         self.currentWeight = self.getLastWeekSummary().avgWeight
@@ -348,6 +352,7 @@ class AppState: ObservableObject {
     
     // MARK: - Progress Page
     
+    // TODO: Merge getFirst and getLast into setProgressValues ?
     public func getFirstWeekSummary() -> WeekSummary {
         
         let sortedWeeks = self.summaries.keys
@@ -372,6 +377,40 @@ class AppState: ObservableObject {
 
         let leftWeight = self.goalWeight - self.currentWeight
         return Int( ( leftWeight / self.goalWeeklyDelta ).rounded(.up) )
+    }
+    
+    public func getWeeklyWeightDeltas() -> [ Double ] {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        let firstWeek = sortedWeeks.first!
+        let lastWeek = sortedWeeks.last!
+        
+        let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
+        let weekCount = components.weekOfYear ?? 0
+        
+        var weekDates: [ Date ] = []
+        
+        // NOTE: Start from 1 to skip first week, since there'll be no delta
+        for iWeek in 1 ... weekCount {
+            
+            if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
+                
+                weekDates.append(curWeek)
+            }
+        }
+        
+        var weeklyWeightDeltas: [ Double ] = []
+        
+        for weekDate in weekDates {
+            
+            let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
+            
+            weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+        }
+
+        return weeklyWeightDeltas
     }
     
     // MARK: - Setup Page calculations

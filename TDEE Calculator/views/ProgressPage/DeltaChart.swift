@@ -32,7 +32,7 @@ struct DeltaChart: View {
     let stepZeroHeight: CGFloat = 20
     let totalStepsHeight: CGFloat = 180
     
-    let weeklyDeltas: [ Int : Double ]
+    let weeklyDeltas: [ Double ]
     
     // MARK: - Size Calculation
     
@@ -107,7 +107,7 @@ struct DeltaChart: View {
     
     var body: some View {
         
-        let maxWeeklyDeltaValue = self.weeklyDeltas.values.max { $0 < $1 } ?? 0.0
+        let maxWeeklyDeltaValue = self.weeklyDeltas.max { $0 < $1 } ?? 0.0
         let stepValue = self.getStepValue(value: maxWeeklyDeltaValue)
         let stepCount = Int( ( maxWeeklyDeltaValue / stepValue ).rounded(.up) )
         
@@ -119,16 +119,9 @@ struct DeltaChart: View {
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
-        for index in 1...self.weeklyDeltas.count {
+        for weeklyDeltaValue in self.weeklyDeltas {
             
-            var weeklyDeltaHeight: CGFloat = 0
-            
-            if let weeklyDeltaValue = self.weeklyDeltas[index] {
-                
-                weeklyDeltaHeight = CGFloat( weeklyDeltaValue / stepValue ) * stepHeight
-            }
-            
-            weeklyDeltaHeights.append(weeklyDeltaHeight)
+            weeklyDeltaHeights.append( CGFloat( weeklyDeltaValue / stepValue ) * stepHeight )
         }
         
         
@@ -171,19 +164,19 @@ struct DeltaChart: View {
 
 struct DeltaChart_Previews: PreviewProvider {
     
-    static let weeklyDeltas: [ Int : Double ] = [
-      1 : 0.085,
-      2 : 0.878,
-      3 : 0.03,
-      4 : 0.084,
-      5 : 0.524,
-      6 : 0.098,
-      7 : 0.235,
-      8 : 0.778,
-      9 : 0.23,
-      10 : 0.525,
-      11 : 0.24,
-      12 : 0.966
+    static let weeklyDeltas: [ Double ] = [
+      0.085,
+      0.878,
+      0.03,
+      0.084,
+      0.524,
+      0.098,
+      0.235,
+      0.778,
+      0.23,
+      0.525,
+      0.24,
+      0.966
     ]
     
     static var previews: some View {
