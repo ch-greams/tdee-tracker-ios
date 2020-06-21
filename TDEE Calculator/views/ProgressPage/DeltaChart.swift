@@ -27,28 +27,12 @@ struct Line: Shape {
 
 
 struct DeltaChart: View {
-    
-    
+
     let dash: [ CGFloat ] = [ 4 ]
-    
     let stepZeroHeight: CGFloat = 20
-    
     let totalStepsHeight: CGFloat = 180
     
-    let weeklyDeltas: [ Int : Double ] = [
-      1 : 0.085,
-      2 : 0.878,
-      3 : 0.03,
-      4 : 0.084,
-      5 : 0.524,
-      6 : 0.098,
-      7 : 0.235,
-      8 : 0.778,
-      9 : 0.23,
-      10 : 0.525,
-      11 : 0.24,
-      12 : 0.966
-    ]
+    let weeklyDeltas: [ Int : Double ]
     
     // MARK: - Size Calculation
     
@@ -165,6 +149,7 @@ struct DeltaChart: View {
                                 .padding(.top, 11)
                                 .padding(.horizontal, 1)
                                 .foregroundColor(Color.white)
+                                .opacity(0.85)
                             
                             // TODO: Replace with keys
                             Text(String(iWeek + 1))
@@ -185,7 +170,24 @@ struct DeltaChart: View {
 }
 
 struct DeltaChart_Previews: PreviewProvider {
+    
+    static let weeklyDeltas: [ Int : Double ] = [
+      1 : 0.085,
+      2 : 0.878,
+      3 : 0.03,
+      4 : 0.084,
+      5 : 0.524,
+      6 : 0.098,
+      7 : 0.235,
+      8 : 0.778,
+      9 : 0.23,
+      10 : 0.525,
+      11 : 0.24,
+      12 : 0.966
+    ]
+    
     static var previews: some View {
-        DeltaChart().background(Color.appPrimary)
+        DeltaChart(weeklyDeltas: Self.weeklyDeltas)
+            .background(Color.appPrimary)
     }
 }

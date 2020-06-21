@@ -44,7 +44,6 @@ struct ContentView: View {
                 .tag(Tab.setupPage)
         }
         .accentColor(Color.appPrimaryDark)
-        
 
     }
 }
