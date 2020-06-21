@@ -15,6 +15,8 @@ struct ProgressCircle: View {
     let currentValue: Double
     let goalValue: Double
     let unit: String
+    
+    let estimatedTimeLeft: Int
 
     var body: some View {
         
@@ -47,7 +49,7 @@ struct ProgressCircle: View {
                     .font(.appProgressCircleValues)
                     .foregroundColor(.white)
 
-                Text("~ 9 weeks")
+                Text("~ \(self.estimatedTimeLeft) weeks")
                     .font(.appProgressCircleEstimate)
                     .foregroundColor(.white)
             }
@@ -60,7 +62,7 @@ struct ProgressCircle: View {
 struct ProgressCircle_Previews: PreviewProvider {
     static var previews: some View {
         
-        ProgressCircle(currentValue: 3.3, goalValue: 5.1, unit: "kg")
+        ProgressCircle(currentValue: 3.3, goalValue: 5.1, unit: "kg", estimatedTimeLeft: 7)
             .padding(.vertical, 20)
             .background(Color.appPrimary)
     }

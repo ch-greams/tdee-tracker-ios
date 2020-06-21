@@ -30,7 +30,10 @@ struct ProgressPage: View {
     
     var body: some View {
 
-        ZStack(alignment: .top) {
+        let currentValue = self.appState.currentWeight - self.appState.startWeight
+        let goalValue = self.appState.goalWeight - self.appState.startWeight
+        
+        return ZStack(alignment: .top) {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
@@ -43,7 +46,12 @@ struct ProgressPage: View {
                 DeltaChart(weeklyDeltas: weeklyDeltas)
                     .padding(.top, 20)
 
-                ProgressCircle(currentValue: 3.3, goalValue: 5.1, unit: "kg")
+                ProgressCircle(
+                    currentValue: currentValue,
+                    goalValue: goalValue,
+                    unit: "kg",
+                    estimatedTimeLeft: self.appState.estimatedTimeLeft
+                )
                     .padding(.top, 40)
             }
         }

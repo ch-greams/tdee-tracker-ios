@@ -29,20 +29,9 @@ class Utils {
     
     static let LAST_TDEE_VALUES_TO_USE: Int = 3
     
+    static let DEFAULT_SUMMARY = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
+    
     // MARK: - Data Transformation
-    
-    /*
-     
-    static var startDate: Date?
-    
-    public static func setStartDate(days: [ Date: DayEntry ]) {
-
-        let sortedDates = days.keys.sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
-        
-        Self.startDate = sortedDates[0]
-    }
-
-    */
     
     public static func getWeeks(days: [ Date: DayEntry ]) -> [ Date: [ DayEntry ] ] {
         

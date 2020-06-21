@@ -61,6 +61,10 @@ class AppState: ObservableObject {
     @Published var recommendedAmount: Int = 0
     @Published var goalTargetSurplus: Int = 0
 
+    @Published var startWeight: Double = 0
+    @Published var currentWeight: Double = 0
+    @Published var estimatedTimeLeft: Int = 0
+
     // MARK: - Lifecycle
     
     init(store: UserDefaults = .standard) {
@@ -83,6 +87,8 @@ class AppState: ObservableObject {
         // Load configuration
         
         self.loadConfiguration()
+        
+        self.estimatedTimeLeft = self.getEstimatedTimeLeft()
     }
     
     // MARK: - Private
@@ -149,6 +155,9 @@ class AppState: ObservableObject {
         let summaries: [ Date: WeekSummary ] = Utils.getWeekSummaries(weeks: weeks)
         
         self.summaries = summaries
+        
+        self.startWeight = self.getFirstWeekSummary().avgWeight
+        self.currentWeight = self.getLastWeekSummary().avgWeight
     }
     
     // Generic save & load
@@ -239,7 +248,7 @@ class AppState: ObservableObject {
     }
     
     
-    // Entry update
+    // MARK: - Entry update
     
     public func updateWeightInEntry() {
         
@@ -281,14 +290,13 @@ class AppState: ObservableObject {
         self.saveEntries()
     }
 
-    // Trends Page
+    // MARK: - Trends Page
     
     public func getSelectedWeekSummary() -> WeekSummary {
         
         let firstDayOfWeek = self.selectedDay.startOfWeek!
-        let defaultSummary = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
         
-        return self.summaries[firstDayOfWeek] ?? defaultSummary
+        return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
     }
     
 
@@ -338,8 +346,35 @@ class AppState: ObservableObject {
         )
     }
     
+    // MARK: - Progress Page
+    
+    public func getFirstWeekSummary() -> WeekSummary {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        let firstDayOfFirstWeek = sortedWeeks[0]
+        
+        return self.summaries[firstDayOfFirstWeek] ?? Utils.DEFAULT_SUMMARY
+    }
+    
+    public func getLastWeekSummary() -> WeekSummary {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 > $1.timeIntervalSince1970 })
+        
+        let firstDayOfFirstWeek = sortedWeeks[0]
+        
+        return self.summaries[firstDayOfFirstWeek] ?? Utils.DEFAULT_SUMMARY
+    }
+    
+    public func getEstimatedTimeLeft() -> Int {
 
-    // Setup Page calculations
+        let leftWeight = self.goalWeight - self.currentWeight
+        return Int( ( leftWeight / self.goalWeeklyDelta ).rounded(.up) )
+    }
+    
+    // MARK: - Setup Page calculations
     
     // TODO: Move statics to Utils
     
@@ -399,6 +434,8 @@ class AppState: ObservableObject {
                 currentSummary: currentSummary,
                 goalTargetSurplus: self.goalTargetSurplus
             )
+            
+            self.estimatedTimeLeft = self.getEstimatedTimeLeft()
         }
     }
     
