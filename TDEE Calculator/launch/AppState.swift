@@ -58,8 +58,8 @@ class AppState: ObservableObject {
     @Published var goalWeeklyDeltaInput: String = "0.0"
 
     // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
-    @Published var recommendedAmount: Int = 0
-    @Published var goalTargetSurplus: Int = 0
+    @Published var recommendedFoodAmount: Int = 0
+    @Published var goalTargetFoodSurplus: Int = 0
 
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
@@ -80,6 +80,17 @@ class AppState: ObservableObject {
         
         // MARK: - Other setup
         
+        self.loadAllStuff()
+    }
+
+    
+    // MARK: - Private
+
+    // TODO: Some optimization?
+    private func loadAllStuff() {
+
+        // Load entries and summary
+        
         self.loadEntries()
         
         self.loadSelectedDayData(for: self.selectedDay)
@@ -90,15 +101,15 @@ class AppState: ObservableObject {
         
         self.loadConfiguration()
         
+        // Progress page values
+        
         self.estimatedTimeLeft = self.getEstimatedTimeLeft(
             goalWeight: self.goalWeight,
             currentWeight: self.currentWeight,
             goalWeeklyDelta: self.goalWeeklyDelta
         )
     }
-    
-    // MARK: - Private
-    
+
     private func loadEntries() {
         
         if let savedEntriesData = self.store.data(forKey: AppStateKey.entries.rawValue) {
@@ -158,7 +169,11 @@ class AppState: ObservableObject {
         
         let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
 
-        let summaries: [ Date: WeekSummary ] = Utils.getWeekSummaries(weeks: weeks)
+        let summaries: [ Date: WeekSummary ] = Utils.getWeekSummaries(
+            weeks: weeks,
+            energyUnit: self.energyUnit,
+            weightUnit: self.weightUnit
+        )
         
         self.summaries = summaries
         
@@ -414,23 +429,26 @@ class AppState: ObservableObject {
             
             let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
             let weekCount = components.weekOfYear ?? 0
-            
-            var weekDates: [ Date ] = []
-            
-            // NOTE: Start from 1 to skip first week, since there'll be no delta
-            for iWeek in 1 ... weekCount {
+
+            if weekCount > 0 {
                 
-                if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
+                var weekDates: [ Date ] = []
+                
+                // NOTE: Start from 1 to skip first week, since there'll be no delta
+                for iWeek in 1 ... weekCount {
                     
-                    weekDates.append(curWeek)
+                    if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
+                        
+                        weekDates.append(curWeek)
+                    }
                 }
-            }
-            
-            for weekDate in weekDates {
                 
-                let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
-                
-                weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+                for weekDate in weekDates {
+                    
+                    let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
+                    
+                    weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+                }
             }
         }
 
@@ -457,16 +475,22 @@ class AppState: ObservableObject {
     private static func getGoalTargetSurplus(
         currentSummary: WeekSummary,
         goalWeight: Double,
-        goalWeeklyDelta: Double
+        goalWeeklyDelta: Double,
+        energyUnit: EnergyUnit,
+        weightUnit: WeightUnit
     ) -> Int {
         
         let deltaWeight: Double = goalWeight - currentSummary.avgWeight
         
         let weeksToGoal: Double = deltaWeight / goalWeeklyDelta
         
-        let deltaCalories: Double = deltaWeight * Utils.CALORIES_PER_KILO
+        let deltaCalories = Utils.getEnergyFromWeight(
+            weight: deltaWeight,
+            energyUnit: energyUnit,
+            weightUnit: weightUnit
+        )
         
-        return Int( ( deltaCalories / weeksToGoal ) / 7 )
+        return Int( ( Double(deltaCalories) / weeksToGoal ) / 7 )
     }
     
     private static func getRecommendedAmount(
@@ -487,15 +511,17 @@ class AppState: ObservableObject {
         
         if let currentSummary = Self.getCurrentSummary(summaries: self.summaries, today: Date()) {
             
-            self.goalTargetSurplus = Self.getGoalTargetSurplus(
+            self.goalTargetFoodSurplus = Self.getGoalTargetSurplus(
                 currentSummary: currentSummary,
                 goalWeight: self.goalWeight,
-                goalWeeklyDelta: self.goalWeeklyDelta
+                goalWeeklyDelta: self.goalWeeklyDelta,
+                energyUnit: self.energyUnit,
+                weightUnit: self.weightUnit
             )
             
-            self.recommendedAmount = Self.getRecommendedAmount(
+            self.recommendedFoodAmount = Self.getRecommendedAmount(
                 currentSummary: currentSummary,
-                goalTargetSurplus: self.goalTargetSurplus
+                goalTargetSurplus: self.goalTargetFoodSurplus
             )
             
             self.estimatedTimeLeft = self.getEstimatedTimeLeft(
@@ -514,15 +540,43 @@ class AppState: ObservableObject {
         self.save(key: AppStateKey.goalWeeklyDelta, value: self.goalWeeklyDelta)
     }
     
-    public func updateWeightUnit(_ value: WeightUnit) {
+    public func updateWeightUnit(_ newValue: WeightUnit) {
         
-        self.weightUnit = value
+        let oldValue = self.weightUnit
+        self.weightUnit = newValue
+        
+        // TODO: Convert existing data
+        
+        self.entries = Utils.convertWeightInEntries(entries: self.entries, from: oldValue, to: newValue)
+        
+        self.goalWeight = Utils.convertWeight(value: self.goalWeight, from: oldValue, to: newValue)
+        self.goalWeeklyDelta = Utils.convertWeight(value: self.goalWeeklyDelta, from: oldValue, to: newValue)
+        
+        self.saveEntries()
+
+        self.saveGoalWeight()
+        self.saveGoalWeeklyDelta()
+
         self.save(key: AppStateKey.weightUnit, value: self.weightUnit.rawValue)
+        
+        // TODO: Optimize refresh?
+        self.loadAllStuff()
     }
     
-    public func updateEnergyUnit(_ value: EnergyUnit) {
+    public func updateEnergyUnit(_ newValue: EnergyUnit) {
         
-        self.energyUnit = value
+        let oldValue = self.energyUnit
+        self.energyUnit = newValue
+        
+        // TODO: Convert existing data
+
+        self.entries = Utils.convertEnergyInEntries(entries: self.entries, from: oldValue, to: newValue)
+
+        self.saveEntries()
+        
         self.save(key: AppStateKey.energyUnit, value: self.energyUnit.rawValue)
+
+        // TODO: Optimize refresh?
+        self.loadAllStuff()
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct RecAmountBlock: View {
     
     let value: Int
-    let unit: String = "kcal"
+    let unit: String
     
     var body: some View {
         
@@ -39,6 +39,6 @@ struct RecAmountBlock: View {
 
 struct RecAmountBlock_Previews: PreviewProvider {
     static var previews: some View {
-        RecAmountBlock(value: 2843).background(Color.appPrimary)
+        RecAmountBlock(value: 2843, unit: "kcal").background(Color.appPrimary)
     }
 }

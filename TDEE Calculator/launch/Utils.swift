@@ -25,7 +25,12 @@ class Utils {
     
     // MARK: - Constants
     
-    static let CALORIES_PER_KILO: Double = 7716.17
+    private static let KCAL_PER_KG: Double = 7716.17
+
+    private static let KCAL_TO_KJ_MULTIPLIER: Double = 4.184
+    
+    private static let KG_TO_LB_MULTIPLIER: Double = 2.20462
+
     
     static let LAST_TDEE_VALUES_TO_USE: Int = 3
     
@@ -57,7 +62,11 @@ class Utils {
     }
     
     private static func getWeekSummary(
-        entries: [ DayEntry ], prevWeekAvgWeight: Double?, prevTdee: [ Int ]
+        entries: [ DayEntry ],
+        prevWeekAvgWeight: Double?,
+        prevTdee: [ Int ],
+        energyUnit: EnergyUnit,
+        weightUnit: WeightUnit
     ) -> WeekSummary {
         
         // avgFood
@@ -75,11 +84,16 @@ class Utils {
         
         // tdee
         let dailyDelta = weeklyDeltaWeight / 7;
-        let avgDailyDeltaCal = Int( dailyDelta * Utils.CALORIES_PER_KILO );
+
+        let avgDailyDeltaCal = Self.getEnergyFromWeight(
+            weight: dailyDelta,
+            energyUnit: energyUnit,
+            weightUnit: weightUnit
+        )
         
         let currentTdee = avgFood - avgDailyDeltaCal;
 
-        var prevTdeeToUse = prevTdee.suffix(Utils.LAST_TDEE_VALUES_TO_USE)
+        var prevTdeeToUse = prevTdee.suffix(Self.LAST_TDEE_VALUES_TO_USE)
         prevTdeeToUse.append(currentTdee)
 
         let tdee = prevTdeeToUse.average()
@@ -87,7 +101,9 @@ class Utils {
         return WeekSummary(avgFood: avgFood, avgWeight: avgWeight, deltaWeight: deltaWeight, tdee: tdee)
     }
     
-    public static func getWeekSummaries(weeks: [ Date: [ DayEntry ] ]) -> [ Date: WeekSummary ] {
+    public static func getWeekSummaries(
+        weeks: [ Date: [ DayEntry ] ], energyUnit: EnergyUnit, weightUnit: WeightUnit
+    ) -> [ Date: WeekSummary ] {
         
         var weekSummaries: [ Date: WeekSummary ] = [:]
         var tdeeArray: [ Int ] = []
@@ -102,7 +118,9 @@ class Utils {
                 let weekSummary = Self.getWeekSummary(
                     entries: currentWeek,
                     prevWeekAvgWeight: lastWeekAvgWeight,
-                    prevTdee: tdeeArray
+                    prevTdee: tdeeArray,
+                    energyUnit: energyUnit,
+                    weightUnit: weightUnit
                 )
                 
                 weekSummaries[startWeekDate] = weekSummary
@@ -138,5 +156,85 @@ class Utils {
     public static func decode<T>(data: Data) -> T? {
 
         return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T
+    }
+    
+    // MARK: - Other
+    
+    public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {
+        
+        switch (energyUnit, weightUnit) {
+            
+            case (EnergyUnit.kcal, WeightUnit.kg):
+                return Int( weight * Self.KCAL_PER_KG )
+            
+            case (EnergyUnit.kj, WeightUnit.kg):
+                return Int( weight * Self.KCAL_PER_KG * Self.KCAL_TO_KJ_MULTIPLIER )
+
+            case (EnergyUnit.kcal, WeightUnit.lb):
+                return Int( weight * ( Self.KCAL_PER_KG / Self.KG_TO_LB_MULTIPLIER ) )
+
+            case (EnergyUnit.kj, WeightUnit.lb):
+                return Int( weight * ( Self.KCAL_PER_KG / Self.KG_TO_LB_MULTIPLIER ) * Self.KCAL_TO_KJ_MULTIPLIER )
+        }
+    }
+    
+    public static func convertEnergy(value: Int, from: EnergyUnit, to: EnergyUnit) -> Int {
+        
+        switch (from, to) {
+
+            case (EnergyUnit.kcal, EnergyUnit.kj):
+                return Int( Double(value) * Self.KCAL_TO_KJ_MULTIPLIER )
+
+            case (EnergyUnit.kj, EnergyUnit.kcal):
+                return Int( Double(value) / Self.KCAL_TO_KJ_MULTIPLIER )
+
+            default:
+                return value
+        }
+    }
+    
+    public static func convertWeight(value: Double, from: WeightUnit, to: WeightUnit) -> Double {
+        
+        switch (from, to) {
+
+            case (WeightUnit.kg, WeightUnit.lb):
+                return (value * Self.KG_TO_LB_MULTIPLIER).rounded(to: 2)
+
+            case (WeightUnit.lb, WeightUnit.kg):
+                return (value / Self.KG_TO_LB_MULTIPLIER).rounded(to: 2)
+
+            default:
+                return value
+        }
+    }
+    
+    public static func convertWeightInEntries(
+        entries: [ Date : DayEntry ], from: WeightUnit, to: WeightUnit
+    ) -> [ Date : DayEntry ] {
+        
+        return entries.mapValues {
+            
+            if let weightValue = $0.weight {
+                return DayEntry(weight: Self.convertWeight(value: weightValue, from: from, to: to), food: $0.food)
+            }
+            else {
+                return $0
+            }
+        }
+    }
+    
+    public static func convertEnergyInEntries(
+        entries: [ Date : DayEntry ], from: EnergyUnit, to: EnergyUnit
+    ) -> [ Date : DayEntry ] {
+        
+        return entries.mapValues {
+            
+            if let foodValue = $0.food {
+                return DayEntry(weight: $0.weight, food: Self.convertEnergy(value: foodValue, from: from, to: to))
+            }
+            else {
+                return $0
+            }
+        }
     }
 }

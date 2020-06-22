@@ -57,13 +57,16 @@ struct SetupGoalBlock: View {
 
     var body: some View {
         
+        let weightUnitLabel = self.appState.weightUnit.rawValue
+        let energyUnitLabel = self.appState.energyUnit.rawValue
+        
         return VStack(alignment: .center, spacing: 0) {
             
             SetupBlockTitle(title: "Goal")
             
             self.getInputBlock(
                 title: "Goal",
-                unit: "kg",
+                unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 updateFunc: {
                 
@@ -80,7 +83,7 @@ struct SetupGoalBlock: View {
             
             self.getInputBlock(
                 title: "Weekly Change",
-                unit: "kg",
+                unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyDeltaInput,
                 updateFunc: {
 
@@ -95,7 +98,7 @@ struct SetupGoalBlock: View {
                 }
             )
             
-            TargetSurplus(value: self.appState.goalTargetSurplus, unit: "kcal")
+            TargetSurplus(value: self.appState.goalTargetFoodSurplus, unit: energyUnitLabel)
             
         }
     }

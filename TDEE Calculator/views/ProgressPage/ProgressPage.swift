@@ -42,7 +42,7 @@ struct ProgressPage: View {
                 ProgressCircle(
                     currentValue: currentValue,
                     goalValue: goalValue,
-                    unit: "kg",
+                    unit: self.appState.weightUnit.rawValue,
                     estimatedTimeLeft: self.appState.estimatedTimeLeft
                 )
                     .padding(.top, 40)

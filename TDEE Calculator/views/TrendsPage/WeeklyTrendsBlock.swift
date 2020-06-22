@@ -9,7 +9,10 @@
 import SwiftUI
 
 struct WeeklyTrendsBlock: View {
-
+    
+    let weightUnitLabel: String
+    let energyUnitLabel: String
+    
     let selectedDay: Date
     
     let summary: WeekSummary
@@ -80,7 +83,7 @@ struct WeeklyTrendsBlock: View {
             self.getLine(
                 label: "FOOD",
                 value: String(self.summary.avgFood ?? 0),
-                unit: "KCAL",
+                unit: self.energyUnitLabel.uppercased(),
                 changeIcon: self.getChangeIcon(change: self.trendsChange.avgFood)
             )
             
@@ -89,7 +92,7 @@ struct WeeklyTrendsBlock: View {
             self.getLine(
                 label: "WEIGHT",
                 value: String(format: "%.2f", self.summary.avgWeight),
-                unit: "KG",
+                unit: self.weightUnitLabel.uppercased(),
                 changeIcon: self.getChangeIcon(change: self.trendsChange.avgWeight)
             )
             
@@ -98,7 +101,7 @@ struct WeeklyTrendsBlock: View {
             self.getLine(
                 label: "TDEE",
                 value: String(self.summary.tdee ?? 0),
-                unit: "KCAL",
+                unit: self.energyUnitLabel.uppercased(),
                 changeIcon: self.getChangeIcon(change: self.trendsChange.tdee)
             )
             
@@ -107,7 +110,7 @@ struct WeeklyTrendsBlock: View {
             self.getLine(
                 label: "WEIGHT CHANGE",
                 value: String(format: "%.2f", self.summary.deltaWeight ?? 0),
-                unit: "KG",
+                unit: self.weightUnitLabel.uppercased(),
                 changeIcon: self.getChangeIcon(change: self.trendsChange.deltaWeight)
             )
             
@@ -121,16 +124,22 @@ struct WeeklyTrendsBlock: View {
 }
 
 struct WeeklyTrendsBlock_Previews: PreviewProvider {
-
+    
     static let summary = WeekSummary(avgFood: 2800, avgWeight: 76.50, deltaWeight: -0.75, tdee: 2845)
     
     static var previews: some View {
-        WeeklyTrendsBlock(selectedDay: Date(), summary: summary, trendsChange: (
-            avgFood: WeekSummaryChange.Up,
-            avgWeight: WeekSummaryChange.Down,
-            deltaWeight: WeekSummaryChange.Down,
-            tdee: WeekSummaryChange.Up
-        ))
+        WeeklyTrendsBlock(
+            weightUnitLabel: "kg",
+            energyUnitLabel: "kcal",
+            selectedDay: Date(),
+            summary: summary,
+            trendsChange: (
+                avgFood: WeekSummaryChange.Up,
+                avgWeight: WeekSummaryChange.Down,
+                deltaWeight: WeekSummaryChange.Down,
+                tdee: WeekSummaryChange.Up
+            )
+        )
             .background(Color.appPrimary)
     }
 }

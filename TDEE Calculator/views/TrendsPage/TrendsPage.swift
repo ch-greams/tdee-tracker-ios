@@ -25,6 +25,8 @@ struct TrendsPage: View {
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: true)
                 
                 WeeklyTrendsBlock(
+                    weightUnitLabel: self.appState.weightUnit.rawValue,
+                    energyUnitLabel: self.appState.energyUnit.rawValue,
                     selectedDay: self.appState.selectedDay,
                     summary: self.appState.getSelectedWeekSummary(),
                     trendsChange: self.appState.getTrendsChange()

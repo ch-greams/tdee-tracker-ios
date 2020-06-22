@@ -70,7 +70,10 @@ struct EntryPage: View {
                 // TODO: Drop selectedDay param altogether?
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
                 
-                RecAmountBlock(value: self.appState.recommendedAmount)
+                RecAmountBlock(
+                    value: self.appState.recommendedFoodAmount,
+                    unit: self.appState.energyUnit.rawValue
+                )
             }
             
             if self.isWeightInputOpen || self.isFoodInputOpen {
@@ -84,7 +87,7 @@ struct EntryPage: View {
                 value: self.$appState.weightInput,
                 onCommit: self.onSubmit,
                 icon: "body-sharp",
-                unit: "kg"
+                unit: self.appState.weightUnit.rawValue
             )
                 .padding(.horizontal, 7)
                 .animation(.easeOut(duration: 0.16))
@@ -96,7 +99,7 @@ struct EntryPage: View {
                 value: self.$appState.foodInput,
                 onCommit: self.onSubmit,
                 icon: "fast-food-sharp",
-                unit: "kcal"
+                unit: self.appState.energyUnit.rawValue
             )
                 .padding(.horizontal, 7)
                 .animation(.easeOut(duration: 0.16))
