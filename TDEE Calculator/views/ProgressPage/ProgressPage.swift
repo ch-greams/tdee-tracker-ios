@@ -36,7 +36,10 @@ struct ProgressPage: View {
                     .font(.appCalendarMonth)
                     .foregroundColor(.white)
                 
-                DeltaChart(weeklyDeltas: self.appState.weeklyWeightDeltas)
+                DeltaChart(
+                    weeklyDeltas: self.appState.weeklyWeightDeltas,
+                    weightUnit: self.appState.weightUnit.rawValue
+                )
                     .padding(.top, 20)
 
                 ProgressCircle(
