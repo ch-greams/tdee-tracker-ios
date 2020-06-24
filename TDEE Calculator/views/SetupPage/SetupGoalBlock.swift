@@ -65,7 +65,7 @@ struct SetupGoalBlock: View {
             SetupBlockTitle(title: "Goal")
             
             self.getInputBlock(
-                title: "Goal",
+                title: "Goal Weight",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 updateFunc: {
