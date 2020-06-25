@@ -8,21 +8,7 @@
 
 import SwiftUI
 
-struct DayButtonStyle: ButtonStyle {
-    
-    var color: Color
-    var isSelected: Bool
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 40, height: 40)
-            .font(isSelected ? .appCalendarDaySelected : .appCalendarDay)
-            .foregroundColor(color)
-            .background(self.isSelected ? Color.appPrimary : nil)
-            .cornerRadius(20)
-            
-    }
-}
+
 
 struct DayButton: View {
     

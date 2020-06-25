@@ -14,46 +14,6 @@ struct SetupGoalBlock: View {
     
     @Binding var isGoalOpen: Bool
 
-    
-    func getInputBlock(
-        title: String,
-        unit: String,
-        input: Binding<String>,
-        updateFunc: @escaping () -> Void
-    ) -> some View {
-        
-        HStack(alignment: .center, spacing: 0) {
-
-            Text(title.uppercased())
-                .font(.appTrendsItemLabel)
-                .frame(width: 128, alignment: .leading)
-                .padding(.horizontal, 16)
-                .foregroundColor(.appPrimary)
-            
-            TextField("", text: input, onCommit: updateFunc)
-                .font(.appTrendsItemValue)
-                .frame(width: 140, height: 44)
-                .border(Color.appPrimary)
-                .foregroundColor(.appPrimary)
-                .padding(.trailing, 8)
-                .multilineTextAlignment(.trailing)
-                .keyboardType(.numbersAndPunctuation)   // limit input to numbers
-                .onTapGesture { self.isGoalOpen = true }
-            
-            Text(unit.uppercased())
-                .font(.appTrendsItemLabel)
-                .frame(width: 42, alignment: .leading)
-                .foregroundColor(.appPrimary)
-        }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: 74)
-            .background(Color.white)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
-            .clipped()
-            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
-        
-    }
 
     var body: some View {
         
@@ -64,11 +24,11 @@ struct SetupGoalBlock: View {
             
             SetupBlockTitle(title: "Goal")
             
-            self.getInputBlock(
+            InputBlock.Number(
                 title: "Goal Weight",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
-                updateFunc: {
+                updateInput: {
                 
                     if let value = NumberFormatter().number(from: self.appState.goalWeightInput) {
                         self.appState.goalWeight = value.doubleValue
@@ -78,14 +38,15 @@ struct SetupGoalBlock: View {
                     self.appState.saveGoalWeight()
                     
                     self.appState.goalWeightInput = String(self.appState.goalWeight)
-                }
+                },
+                openInput: { self.isGoalOpen = true }
             )
             
-            self.getInputBlock(
+            InputBlock.Number(
                 title: "Weekly Change",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyDeltaInput,
-                updateFunc: {
+                updateInput: {
 
                     if let value = NumberFormatter().number(from: self.appState.goalWeeklyDeltaInput) {
                         self.appState.goalWeeklyDelta = value.doubleValue
@@ -95,7 +56,8 @@ struct SetupGoalBlock: View {
                     self.appState.saveGoalWeeklyDelta()
 
                     self.appState.goalWeeklyDeltaInput = String(self.appState.goalWeeklyDelta)
-                }
+                },
+                openInput: { self.isGoalOpen = true }
             )
             
             TargetSurplus(value: self.appState.goalTargetFoodSurplus, unit: energyUnitLabel)

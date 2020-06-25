@@ -86,7 +86,20 @@ extension Font {
         Self.custom("Oswald-Light", size: 28)
     }
     
+    // MARK: - Welcome Page
     
+    public static var appWelcomeTitle: Font {
+        Self.custom("Oswald-Medium", size: 48)
+    }
+    
+    public static var appWelcomeSubtitle: Font {
+        Self.custom("Oswald-Light", size: 28)
+    }
+    
+    public static var appWelcomeHint: Font {
+        Self.custom("Oswald-Light", size: 22)
+    }
+
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }

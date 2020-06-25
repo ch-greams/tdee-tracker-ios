@@ -9,21 +9,6 @@
 import SwiftUI
 
 
-struct CustomButtonBackgroundStyle: ButtonStyle {
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 44.0, height: 10.0)
-            .padding()
-            .foregroundColor(.appPrimary)
-            .background(Color(hue: 0, saturation: 0, brightness: 0.96))
-            .padding(.horizontal, 8)
-            .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
-            
-    }
-}
-
 
 struct CalendarBlockMonth: View {
     
@@ -60,7 +45,7 @@ struct CalendarBlockMonth: View {
             Image(systemName: icon)
                 .font(.headline)
         }
-            .buttonStyle(CustomButtonBackgroundStyle())
+            .buttonStyle(ChangeMonthButtonStyle())
     }
     
     var body: some View {
