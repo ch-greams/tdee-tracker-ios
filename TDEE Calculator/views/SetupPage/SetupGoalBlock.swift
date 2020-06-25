@@ -22,7 +22,7 @@ struct SetupGoalBlock: View {
         updateFunc: @escaping () -> Void
     ) -> some View {
         
-        return HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
                 .font(.appTrendsItemLabel)

@@ -12,6 +12,8 @@ struct ContentView: View {
     
     @State var selectedTab = Tab.entryPage
     
+    var isFirstOpening: Bool = false
+    
     enum Tab: Int {
         case entryPage, trendsPage, progressPage, setupPage
     }
@@ -22,8 +24,8 @@ struct ContentView: View {
             Text(text)
         }
     }
-    
-    var body: some View {
+
+    var mainAppView: some View {
         
         TabView(selection: $selectedTab) {
             
@@ -43,8 +45,13 @@ struct ContentView: View {
                 .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
                 .tag(Tab.setupPage)
         }
-        .accentColor(Color.appPrimaryDark)
+            .accentColor(Color.appPrimaryDark)
+        
+    }
+    
+    var body: some View {
 
+        self.isFirstOpening ? AnyView( WelcomePage() ) : AnyView( self.mainAppView )
     }
 }
 

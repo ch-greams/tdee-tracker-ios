@@ -16,7 +16,7 @@ struct CalendarBlock: View {
     let isTrendsPage: Bool
 
 
-    func getWeekdayTitles() -> some View {
+    var weekdayTitles: some View {
         
         let dateFormatter = DateFormatter()
         
@@ -43,16 +43,16 @@ struct CalendarBlock: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                self.getWeekdayTitles()
+                self.weekdayTitles
                 
                 CalendarBlockDays(selectedDay: self.selectedDay, isTrendsPage: self.isTrendsPage)
 
             }
-            .frame(width: 358, height: 320)
-            .background(Color(.white))
-            .padding(8)
-            .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+                .frame(width: 358, height: 320)
+                .background(Color(.white))
+                .padding(8)
+                .clipped()
+                .shadow(color: .gray, radius: 1, x: 1, y: 1)
         }
 
     }

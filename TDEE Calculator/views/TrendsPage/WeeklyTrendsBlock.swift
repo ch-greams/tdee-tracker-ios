@@ -67,7 +67,7 @@ struct WeeklyTrendsBlock: View {
         .frame(height: 64)
     }
     
-    func getSeparator() -> some View {
+    var separator: some View {
         return Rectangle()
             .foregroundColor(.appPrimaryTextLight)
             .frame(height: 1)
@@ -87,7 +87,7 @@ struct WeeklyTrendsBlock: View {
                 changeIcon: self.getChangeIcon(change: self.trendsChange.avgFood)
             )
             
-            self.getSeparator()
+            self.separator
             
             self.getLine(
                 label: "WEIGHT",
@@ -96,7 +96,7 @@ struct WeeklyTrendsBlock: View {
                 changeIcon: self.getChangeIcon(change: self.trendsChange.avgWeight)
             )
             
-            self.getSeparator()
+            self.separator
             
             self.getLine(
                 label: "TDEE",
@@ -105,7 +105,7 @@ struct WeeklyTrendsBlock: View {
                 changeIcon: self.getChangeIcon(change: self.trendsChange.tdee)
             )
             
-            self.getSeparator()
+            self.separator
             
             self.getLine(
                 label: "WEIGHT CHANGE",
@@ -115,11 +115,11 @@ struct WeeklyTrendsBlock: View {
             )
             
         }
-        .frame(width: 358, height: 280)
-        .background(Color(.white))
-        .padding(8)
-        .clipped()
-        .shadow(color: .gray, radius: 1, x: 1, y: 1)
+            .frame(width: 358, height: 280)
+            .background(Color(.white))
+            .padding(8)
+            .clipped()
+            .shadow(color: .gray, radius: 1, x: 1, y: 1)
     }
 }
 

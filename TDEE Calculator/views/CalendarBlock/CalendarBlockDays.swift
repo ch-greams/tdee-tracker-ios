@@ -67,7 +67,7 @@ struct CalendarBlockDays: View {
         }
     }
 
-    func getWeeks() -> Array<Array<Date>> {
+    var weeks: Array<Array<Date>> {
         
         var weeks: Array<Array<Date>> = []
         
@@ -93,10 +93,10 @@ struct CalendarBlockDays: View {
         return weeks
         
     }
-
-    func getDaysInCurrentMonth() -> some View {
+    
+    var body: some View {
         
-        let weeks = getWeeks()
+        let weeks = self.weeks
         
         return VStack(alignment: .center, spacing: 0) {
             ForEach(0 ..< weeks.count) { iWeek in
@@ -104,11 +104,6 @@ struct CalendarBlockDays: View {
                 self.getWeekdays(weeks: weeks, iWeek: iWeek)
             }
         }
-    }
-    
-    
-    var body: some View {
-        self.getDaysInCurrentMonth()
     }
 }
 

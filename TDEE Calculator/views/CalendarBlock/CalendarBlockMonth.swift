@@ -33,7 +33,7 @@ struct CalendarBlockMonth: View {
     let selectedDay: Date
 
     
-    func getMonthTitle() -> Text {
+    var monthTitle: Text {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM YYYY"
@@ -60,26 +60,7 @@ struct CalendarBlockMonth: View {
             Image(systemName: icon)
                 .font(.headline)
         }
-        .buttonStyle(CustomButtonBackgroundStyle())
-    }
-    
-    func getWeekdayTitles() -> some View {
-        
-        let dateFormatter = DateFormatter()
-        
-        let weekdays = dateFormatter.shortWeekdaySymbols.compactMap { $0.uppercased() }
-        
-        // Try this fix if weekdays order won't change with locale change
-        // let weekdaysSorted = Array(weekdays[ firstWeekday - 1 ..< weekdays.count ]) + weekdays[ 0 ..< firstWeekday - 1]
-        
-        return HStack(alignment: .center) {
-            ForEach(weekdays, id: \.self) { day in
-                Text("\(day)")
-                    .font(.appCalendarWeekday)
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(Color.appPrimaryText)
-            }
-        }
+            .buttonStyle(CustomButtonBackgroundStyle())
     }
     
     var body: some View {
@@ -88,7 +69,7 @@ struct CalendarBlockMonth: View {
 
             self.getMonthChangeButton(icon: "arrow.left", delta: -1)
             
-            self.getMonthTitle().frame(width: 174.0)
+            self.monthTitle.frame(width: 174.0)
             
             self.getMonthChangeButton(icon: "arrow.right", delta: 1)
         }

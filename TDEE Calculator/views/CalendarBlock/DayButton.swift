@@ -35,7 +35,7 @@ struct DayButton: View {
     
     let hasData: DayEntryData
     
-    func getButton() -> some View {
+    var button: some View {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
@@ -72,7 +72,7 @@ struct DayButton: View {
                     .padding(0)
             }
             
-            getButton()
+            self.button
         }
         .frame(width: 40, height: 40)
         
