@@ -23,7 +23,11 @@ struct ProgressCircle: View {
         let width: CGFloat = 40
         let diameter: CGFloat = 340
         
-        let progress = currentValue / goalValue
+        let absCurrentValue = abs(self.currentValue)
+        let absGoalValue = abs(self.goalValue)
+        let absEstimatedTimeLeft = abs(self.estimatedTimeLeft)
+        
+        let progress = absCurrentValue / absGoalValue
         
         return ZStack {
             
@@ -45,11 +49,11 @@ struct ProgressCircle: View {
                     .font(.appProgressCirclePercent)
                     .foregroundColor(.white)
 
-                Text(String(format: "%.1f / %.1f \(unit)", currentValue, goalValue))
+                Text(String(format: "%.1f / %.1f \(unit)", absCurrentValue, absGoalValue))
                     .font(.appProgressCircleValues)
                     .foregroundColor(.white)
 
-                Text("~ \(self.estimatedTimeLeft) weeks")
+                Text("~ \(absEstimatedTimeLeft) weeks")
                     .font(.appProgressCircleEstimate)
                     .foregroundColor(.white)
             }
