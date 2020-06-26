@@ -8,41 +8,37 @@
 
 import SwiftUI
 
-struct RecommendedAmountBlock: View {
-
-    func getBody() -> some View {
+struct RecAmountBlock: View {
     
-        let label = "Recommended daily amount".uppercased()
+    let value: Int
+    let unit: String
+    
+    var body: some View {
         
-        return HStack {
+        HStack {
 
-            Text(label)
+            Text("Recommended daily amount".uppercased())
                 .multilineTextAlignment(.center)
-                .frame(width: 84.0)
+                .frame(width: 84)
                 .foregroundColor(.white)
                 .font(.appEntryRecommendedLabel)
             
             Spacer()
             
-            Text("~2843")
+            Text("~\(self.value)")
                 .foregroundColor(.white)
                 .font(.appEntryRecommendedAmount)
-            Text("KCAL")
+            Text(self.unit.uppercased())
                 .foregroundColor(.white)
                 .font(.appEntryUnit)
         }
-        .padding(.horizontal, 36.0)
-        .padding(.vertical, 10.0)
-    }
-    
-    var body: some View {
-        
-        getBody()
+            .padding(.horizontal, 36.0)
+            .padding(.vertical, 10.0)
     }
 }
 
-struct RecommendedAmountBlock_Previews: PreviewProvider {
+struct RecAmountBlock_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendedAmountBlock().background(Color.appPrimaryDark)
+        RecAmountBlock(value: 2843, unit: "kcal").background(Color.appPrimary)
     }
 }

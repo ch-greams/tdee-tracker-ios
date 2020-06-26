@@ -13,12 +13,27 @@
 		F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCCFD2485737400A01500 /* Assets.xcassets */; };
 		F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD002485737400A01500 /* Preview Assets.xcassets */; };
 		F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD022485737400A01500 /* LaunchScreen.storyboard */; };
+		F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */; };
+		F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B7249B2B350053B7AC /* ProgressPage.swift */; };
+		F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B9249B2C290053B7AC /* DeltaChart.swift */; };
+		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
+		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
+		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
+		F652133924A495B9003C2214 /* InputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133824A495B9003C2214 /* InputBlock.swift */; };
+		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
+		F65F83CC248B980900F8407B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CB248B980900F8407B /* AppState.swift */; };
+		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
+		F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D0248D65DD00F8407B /* TrendsPage.swift */; };
+		F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */; };
+		F66932FF24A0A71B00076C8C /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66932FE24A0A71B00076C8C /* Double.swift */; };
+		F669330224A484CC00076C8C /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F669330124A484CC00076C8C /* WelcomePage.swift */; };
+		F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */; };
 		F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE332485A06500D1FF40 /* EntryPage.swift */; };
 		F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE382485B9EF00D1FF40 /* Color.swift */; };
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
 		F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */; };
 		F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE652486FDC800D1FF40 /* Font.swift */; };
-		F6F4DE69248710B200D1FF40 /* RecommendedAmountBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE68248710B200D1FF40 /* RecommendedAmountBlock.swift */; };
+		F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */; };
 		F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */; };
 		F6F4DE7F24871ED200D1FF40 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */; };
 		F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */; };
@@ -38,6 +53,15 @@
 		F6F4DE9A24871EE000D1FF40 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE8E24871EE000D1FF40 /* Roboto-ThinItalic.ttf */; };
 		F6F4DE9B24871EE000D1FF40 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE8F24871EE000D1FF40 /* Roboto-Medium.ttf */; };
 		F6F4DE9C24871EE000D1FF40 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE9024871EE000D1FF40 /* Roboto-BlackItalic.ttf */; };
+		F6F72030248DD1C6003873A1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7202F248DD1C6003873A1 /* Utils.swift */; };
+		F6F72032248E7C92003873A1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72031248E7C92003873A1 /* Date.swift */; };
+		F6F72034248EE6AE003873A1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72033248EE6AE003873A1 /* Collection.swift */; };
+		F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72035248EE6CA003873A1 /* Sequence.swift */; };
+		F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72038248FCE62003873A1 /* SetupPage.swift */; };
+		F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203A24913322003873A1 /* TargetSurplus.swift */; };
+		F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */; };
+		F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */; };
+		F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,12 +73,27 @@
 		F61BCD002485737400A01500 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F61BCD032485737400A01500 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61BCD052485737400A01500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUnitsBlock.swift; sourceTree = "<group>"; };
+		F631E9B7249B2B350053B7AC /* ProgressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPage.swift; sourceTree = "<group>"; };
+		F631E9B9249B2C290053B7AC /* DeltaChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaChart.swift; sourceTree = "<group>"; };
+		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
+		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
+		F652133624A48C23003C2214 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		F652133824A495B9003C2214 /* InputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBlock.swift; sourceTree = "<group>"; };
+		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		F65F83CB248B980900F8407B /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
+		F65F83D0248D65DD00F8407B /* TrendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPage.swift; sourceTree = "<group>"; };
+		F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTrendsBlock.swift; sourceTree = "<group>"; };
+		F66932FE24A0A71B00076C8C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		F669330124A484CC00076C8C /* WelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
+		F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircle.swift; sourceTree = "<group>"; };
 		F6F4DE332485A06500D1FF40 /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		F6F4DE382485B9EF00D1FF40 /* Color.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = Color.swift; path = "TDEE Calculator/Extensions/Color.swift"; sourceTree = SOURCE_ROOT; };
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F6F4DE652486FDC800D1FF40 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		F6F4DE68248710B200D1FF40 /* RecommendedAmountBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedAmountBlock.swift; sourceTree = "<group>"; };
+		F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecAmountBlock.swift; sourceTree = "<group>"; };
 		F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryInputBlock.swift; sourceTree = "<group>"; };
 		F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
@@ -74,6 +113,15 @@
 		F6F4DE8E24871EE000D1FF40 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		F6F4DE8F24871EE000D1FF40 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		F6F4DE9024871EE000D1FF40 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		F6F7202F248DD1C6003873A1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F6F72031248E7C92003873A1 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F6F72033248EE6AE003873A1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		F6F72035248EE6CA003873A1 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		F6F72038248FCE62003873A1 /* SetupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPage.swift; sourceTree = "<group>"; };
+		F6F7203A24913322003873A1 /* TargetSurplus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSurplus.swift; sourceTree = "<group>"; };
+		F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupGoalBlock.swift; sourceTree = "<group>"; };
+		F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupBlockTitle.swift; sourceTree = "<group>"; };
+		F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRemindersBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,16 +154,14 @@
 		F61BCCF62485737200A01500 /* TDEE Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
-				F6F4DE672487107000D1FF40 /* EntryPage */,
-				F61BCCF72485737200A01500 /* AppDelegate.swift */,
-				F61BCCFB2485737200A01500 /* ContentView.swift */,
-				F61BCCF92485737200A01500 /* SceneDelegate.swift */,
+				F63516A3248A54A600A8A7E9 /* launch */,
+				F63516A4248A54BE00A8A7E9 /* views */,
+				F652133524A48BD9003C2214 /* shared */,
+				F6F4DE3B2485BA3200D1FF40 /* extensions */,
+				F6F4DE402486FB4400D1FF40 /* fonts */,
 				F61BCCFD2485737400A01500 /* Assets.xcassets */,
 				F61BCD022485737400A01500 /* LaunchScreen.storyboard */,
 				F61BCD052485737400A01500 /* Info.plist */,
-				F6F4DE402486FB4400D1FF40 /* Fonts */,
-				F6F4DE3B2485BA3200D1FF40 /* Extensions */,
 				F61BCCFF2485737400A01500 /* Preview Content */,
 			);
 			path = "TDEE Calculator";
@@ -129,16 +175,83 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F6F4DE3B2485BA3200D1FF40 /* Extensions */ = {
+		F631E9B6249B2B150053B7AC /* ProgressPage */ = {
+			isa = PBXGroup;
+			children = (
+				F631E9B7249B2B350053B7AC /* ProgressPage.swift */,
+				F631E9B9249B2C290053B7AC /* DeltaChart.swift */,
+				F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */,
+			);
+			path = ProgressPage;
+			sourceTree = "<group>";
+		};
+		F63516A3248A54A600A8A7E9 /* launch */ = {
+			isa = PBXGroup;
+			children = (
+				F61BCCF72485737200A01500 /* AppDelegate.swift */,
+				F61BCCF92485737200A01500 /* SceneDelegate.swift */,
+				F65F83CB248B980900F8407B /* AppState.swift */,
+			);
+			path = launch;
+			sourceTree = "<group>";
+		};
+		F63516A4248A54BE00A8A7E9 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F669330024A4849700076C8C /* WelcomePage */,
+				F6F4DE672487107000D1FF40 /* EntryPage */,
+				F65F83CF248D65AA00F8407B /* TrendsPage */,
+				F6F4DE6A2487174400D1FF40 /* CalendarBlock */,
+				F631E9B6249B2B150053B7AC /* ProgressPage */,
+				F6F72037248F3DEA003873A1 /* SetupPage */,
+				F61BCCFB2485737200A01500 /* ContentView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		F652133524A48BD9003C2214 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				F65F83CD248D5DA000F8407B /* DayEntry.swift */,
+				F6F7202F248DD1C6003873A1 /* Utils.swift */,
+				F652133624A48C23003C2214 /* ButtonStyle.swift */,
+				F652133824A495B9003C2214 /* InputBlock.swift */,
+			);
+			path = shared;
+			sourceTree = "<group>";
+		};
+		F65F83CF248D65AA00F8407B /* TrendsPage */ = {
+			isa = PBXGroup;
+			children = (
+				F65F83D0248D65DD00F8407B /* TrendsPage.swift */,
+				F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */,
+			);
+			path = TrendsPage;
+			sourceTree = "<group>";
+		};
+		F669330024A4849700076C8C /* WelcomePage */ = {
+			isa = PBXGroup;
+			children = (
+				F669330124A484CC00076C8C /* WelcomePage.swift */,
+			);
+			path = WelcomePage;
+			sourceTree = "<group>";
+		};
+		F6F4DE3B2485BA3200D1FF40 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F6F4DE382485B9EF00D1FF40 /* Color.swift */,
 				F6F4DE652486FDC800D1FF40 /* Font.swift */,
+				F65F83C9248A890000F8407B /* UIApplication.swift */,
+				F6F72035248EE6CA003873A1 /* Sequence.swift */,
+				F6F72031248E7C92003873A1 /* Date.swift */,
+				F6F72033248EE6AE003873A1 /* Collection.swift */,
+				F66932FE24A0A71B00076C8C /* Double.swift */,
 			);
-			path = Extensions;
+			path = extensions;
 			sourceTree = "<group>";
 		};
-		F6F4DE402486FB4400D1FF40 /* Fonts */ = {
+		F6F4DE402486FB4400D1FF40 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
 				F6F4DE7C24871ED200D1FF40 /* Oswald-Bold.ttf */,
@@ -160,14 +273,14 @@
 				F6F4DE8824871EE000D1FF40 /* Roboto-Thin.ttf */,
 				F6F4DE8E24871EE000D1FF40 /* Roboto-ThinItalic.ttf */,
 			);
-			path = Fonts;
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		F6F4DE672487107000D1FF40 /* EntryPage */ = {
 			isa = PBXGroup;
 			children = (
 				F6F4DE332485A06500D1FF40 /* EntryPage.swift */,
-				F6F4DE68248710B200D1FF40 /* RecommendedAmountBlock.swift */,
+				F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */,
 				F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */,
 			);
 			path = EntryPage;
@@ -177,9 +290,24 @@
 			isa = PBXGroup;
 			children = (
 				F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */,
+				F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */,
+				F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */,
 				F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */,
 			);
 			path = CalendarBlock;
+			sourceTree = "<group>";
+		};
+		F6F72037248F3DEA003873A1 /* SetupPage */ = {
+			isa = PBXGroup;
+			children = (
+				F6F72038248FCE62003873A1 /* SetupPage.swift */,
+				F6F7203A24913322003873A1 /* TargetSurplus.swift */,
+				F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */,
+				F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */,
+				F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */,
+				F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */,
+			);
+			path = SetupPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,15 +400,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61BCCF82485737200A01500 /* AppDelegate.swift in Sources */,
+				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
+				F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */,
+				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
+				F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
+				F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */,
+				F66932FF24A0A71B00076C8C /* Double.swift in Sources */,
 				F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */,
+				F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */,
 				F61BCCFA2485737200A01500 /* SceneDelegate.swift in Sources */,
 				F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */,
+				F65F83CC248B980900F8407B /* AppState.swift in Sources */,
+				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
+				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
+				F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */,
+				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
+				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
+				F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */,
+				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
+				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
+				F669330224A484CC00076C8C /* WelcomePage.swift in Sources */,
 				F61BCCFC2485737200A01500 /* ContentView.swift in Sources */,
+				F652133924A495B9003C2214 /* InputBlock.swift in Sources */,
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
-				F6F4DE69248710B200D1FF40 /* RecommendedAmountBlock.swift in Sources */,
+				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
+				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
+				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
+				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,
+				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
+				F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */,
 				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
+				F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

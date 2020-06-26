@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @EnvironmentObject var appState: AppState
     
     @State var selectedTab = Tab.entryPage
     
@@ -22,8 +24,8 @@ struct ContentView: View {
             Text(text)
         }
     }
-    
-    var body: some View {
+
+    var mainAppView: some View {
         
         TabView(selection: $selectedTab) {
             
@@ -31,26 +33,35 @@ struct ContentView: View {
                 .tabItem { self.tabbarItem(text: "Entry", image: "calendar.badge.plus") }
                 .tag(Tab.entryPage)
 
-            EntryPage()
+            TrendsPage()
                 .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
                 .tag(Tab.trendsPage)
 
-            EntryPage()
+            ProgressPage()
                 .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
                 .tag(Tab.progressPage)
 
-            EntryPage()
+            SetupPage()
                 .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
                 .tag(Tab.setupPage)
         }
-        .accentColor(Color.appPrimaryDark)
+            .accentColor(Color.appPrimaryDark)
         
+    }
+    
+    var body: some View {
 
+        self.appState.isFirstSetupDone
+            ? AnyView( self.mainAppView )
+            : AnyView( WelcomePage() )
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(appState)
     }
 }

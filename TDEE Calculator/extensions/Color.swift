@@ -13,6 +13,10 @@ extension Color {
     
     // Colors without assets are unused
     
+    public static var appFade: Color {
+        Color("black-50", bundle: nil)
+    }
+    
     public static var appPrimary: Color {
         Color("teal", bundle: nil)
     }
@@ -31,6 +35,10 @@ extension Color {
 
     public static var appPrimaryTextLight: Color {
         Color("greyLight")
+    }
+    
+    public static var appPrimaryWeekBackground: Color {
+        Color("greyLight-1")
     }
     
     public static var appSecondary: Color {
