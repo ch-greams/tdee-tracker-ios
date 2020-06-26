@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @EnvironmentObject var appState: AppState
     
     @State var selectedTab = Tab.entryPage
-    
-    var isFirstOpening: Bool = false
     
     enum Tab: Int {
         case entryPage, trendsPage, progressPage, setupPage
@@ -51,7 +51,9 @@ struct ContentView: View {
     
     var body: some View {
 
-        self.isFirstOpening ? AnyView( WelcomePage() ) : AnyView( self.mainAppView )
+        self.appState.isFirstSetupDone
+            ? AnyView( self.mainAppView )
+            : AnyView( WelcomePage() )
     }
 }
 

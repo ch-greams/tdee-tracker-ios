@@ -25,6 +25,8 @@ class Utils {
     
     // MARK: - Constants
     
+    private static let calendar = Calendar.current
+    
     private static let KCAL_PER_KG: Double = 7716.17
 
     private static let KCAL_TO_KJ_MULTIPLIER: Double = 4.184
@@ -144,6 +146,12 @@ class Utils {
                     : ( current! > previous! ) ? WeekSummaryChange.Up : WeekSummaryChange.Down
             )
         }
+    }
+    
+    public static func getTodayDate() -> Date {
+
+        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
+        return Utils.calendar.date(from: dayScope)!
     }
     
     // MARK: - Serialization

@@ -10,137 +10,263 @@ import SwiftUI
 
 struct WelcomePage: View {
     
-    var isFirstStep: Bool = false
+    @EnvironmentObject var appState: AppState
     
-    let weightUnitHint = "Please select measurement unit that would be used for bodyweight values"
-    let energyUnitHint = "And this measurement unit will be used for food and energy values"
+    @State var isSecondStep: Bool = false
     
-    let curWeightHint = "For the best result always measure it at the same time in the morning"
-    let goalWeightHint = "Goal weight is what you strife for"
-    let deltaHint = "Based on your current weight weekly change must not be bigger than 0.72 kg"
+    // MARK: - Step #1
     
-    let settingsHint = "Parameters can be changed at any time later in application settings"
+    @State var isWeightUnitSelected: Bool = false
+    @State var isEnergyUnitSelected: Bool = false
+
+    @State var weightUnit: WeightUnit?
+    @State var energyUnit: EnergyUnit?
+
+    // MARK: - Step #2
     
-    func getFirstStepBlock(showEnergyBlock: Bool) -> some View {
+    @State var isCurrentWeightOpen: Bool = false
+    @State var isGoalWeightOpen: Bool = false
+    @State var isDeltaWeightOpen: Bool = false
+    
+    var isCurrentWeightEntered: Bool { self.appState.weight > 0 }
+    var isGoalWeightEntered: Bool { self.appState.goalWeight > 0 }
+    var isDeltaWeightEntered: Bool { self.appState.goalWeeklyDelta > 0 }
+    
+    // MARK: - Constants
+    
+    let WEIGHT_UNIT_HINT = "Please select measurement unit that would be used for bodyweight values"
+    let ENERGY_UNIT_HINT = "And this measurement unit will be used for food and energy values"
+    
+    let CURRENT_WEIGHT_HINT = "For the best result always measure it at the same time in the morning"
+    let GOAL_WEIGHT_HINT = "Goal weight is what you strife for"
+    
+    let SETTINGS_HINT = "Parameters can be changed at any time in the application settings"
+    
+    var deltaWeightHint: String {
         
+        let onePercent = self.appState.weight / 100
+        let onePercentLabel = String(format: "%.2f", onePercent)
+        
+        let weightUnitLabel = self.appState.weightUnit.rawValue
+        
+        return "Based on your current weight weekly change must not be bigger than \(onePercentLabel) \(weightUnitLabel)"
+    }
+    
+    func getTitle(title: String, subtitle: String) -> some View {
+
         VStack(alignment: .center, spacing: 0) {
-            
-            Text("Welcome")
+
+            Text(title)
                 .font(.appWelcomeTitle)
                 .foregroundColor(.white)
                 .padding(.bottom, 20)
             
-            Text("Let’s get started")
+            Text(subtitle)
                 .font(.appWelcomeSubtitle)
                 .foregroundColor(.white)
-                .padding(.bottom, 50)
-            
-            InputBlock.Toggle(
-                title: "Weight",
-                setValue: { print($0.rawValue) }, //self.appState.updateWeightUnit as (WeightUnit) -> Void,
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
-                selected: nil //self.appState.weightUnit as WeightUnit?
-            )
-                .padding(.bottom, 20)
-            
-            
-            if showEnergyBlock {
-               
-                InputBlock.Toggle(
-                    title: "Energy",
-                    setValue: { print($0.rawValue) }, //self.appState.updateWeightUnit as (WeightUnit) -> Void,
-                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
-                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
-                    selected: nil //self.appState.weightUnit as WeightUnit?
-                )
-                    .padding(.bottom, 20)
-            }
-            
-            Text(showEnergyBlock ? self.energyUnitHint : self.weightUnitHint)
-                .font(.appWelcomeHint)
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 28)
                 .padding(.bottom, 40)
-            
-            if showEnergyBlock {
-            
-                Button(action: { print("NEXT") }, label: { Text("NEXT").font(.appSetupToggleValue) })
-                    .buttonStyle(WelcomeActionButtonStyle())
-                    .padding(.top, 160)
-            }
         }
     }
     
-    func getSecondStepBlock(showGoal: Bool, showDone: Bool) -> some View {
+    // MARK: - Step #1
+    
+    var unitsBlock: some View {
         
         VStack(alignment: .center, spacing: 0) {
             
-            Text("Almost Ready")
-                .font(.appWelcomeTitle)
-                .foregroundColor(.white)
-                .padding(.bottom, 20)
-            
-            Text("Define your goals")
-                .font(.appWelcomeSubtitle)
-                .foregroundColor(.white)
-                .padding(.bottom, 50)
-
-            InputBlock.Number(
-                title: "Today’s weight",
-                unit: "kg",
-                input: .constant("72.3"),
-                updateInput: { print("updateInput") },
-                openInput: { print("openInput") }
+            InputBlock.Toggle(
+                title: "Weight",
+                setValue: {
+                    self.weightUnit = $0
+                    self.isWeightUnitSelected = true
+                },
+                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
+                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
+                selected: self.weightUnit as WeightUnit?
             )
                 .padding(.bottom, 20)
 
-            if !showGoal {
+            if !self.isWeightUnitSelected {
+               
+                Text(self.WEIGHT_UNIT_HINT)
+                    .font(.appWelcomeHint)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 28)
+                    .padding(.bottom, 40)
+                
+            }
+            else {
 
-                Text(self.curWeightHint)
+                InputBlock.Toggle(
+                    title: "Energy",
+                    setValue: {
+                        self.energyUnit = $0
+                        self.isEnergyUnitSelected = true
+                    },
+                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
+                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
+                    selected: self.energyUnit as EnergyUnit?
+                )
+                    .padding(.bottom, 20)
+
+                Text(!self.isEnergyUnitSelected ? self.ENERGY_UNIT_HINT : self.SETTINGS_HINT)
                     .font(.appWelcomeHint)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                     .padding(.bottom, 40)
             }
+        }
+    }
+    
+    func completeFirstStep() {
+        
+        self.appState.setUnits(weightUnit: self.weightUnit, energyUnit: self.energyUnit)
+        
+        self.isSecondStep = true
+    }
+    
+    var firstStepBlock: some View {
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            self.getTitle(title: "Welcome", subtitle: "Let’s get started")
+            
+            self.unitsBlock.frame(height: 460, alignment: .top)
+            
+            if self.isWeightUnitSelected && self.isEnergyUnitSelected {
+                
+                Button(
+                    action: self.completeFirstStep,
+                    label: { Text("NEXT").font(.appSetupToggleValue) }
+                )
+                    .buttonStyle(WelcomeActionButtonStyle())
+            }
+        }
+    }
+    
+    // MARK: - Step #2 Inputs & Hints
+    
+    var currentWeightInputBlock: some View {
+        
+        InputBlock.Number(
+            title: "Today’s weight",
+            unit: self.appState.weightUnit.rawValue,
+            input: self.$appState.weightInput,
+            updateInput: self.appState.updateWeightFromInput,
+            openInput: { self.isCurrentWeightOpen = true }
+        )
+            .padding(.bottom, 10)
+    }
+    
+    var currentWeightInputHintBlock: some View {
+        
+        Text(self.CURRENT_WEIGHT_HINT)
+            .font(.appWelcomeHint)
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 28)
+            .padding(.bottom, 40)
+    }
+    
+    var goalWeightInputBlock: some View {
+        
+        InputBlock.Number(
+            title: "Goal weight",
+            unit: self.appState.weightUnit.rawValue,
+            input: self.$appState.goalWeightInput,
+            updateInput: self.appState.saveGoalWeightFromInput,
+            openInput: { self.isGoalWeightOpen = true }
+        )
+            .padding(.bottom, 10)
+    }
+    
+    var goalWeightInputHintBlock: some View {
+        Text(self.GOAL_WEIGHT_HINT)
+            .font(.appWelcomeHint)
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 28)
+            .padding(.bottom, 40)
+    }
+    
+    var deltaWeightInputBlock: some View {
+        
+        InputBlock.Number(
+            title: "Weekly change",
+            unit: self.appState.weightUnit.rawValue,
+            input: self.$appState.goalWeeklyDeltaInput,
+            updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
+            openInput: { self.isDeltaWeightOpen = true }
+        )
+            .padding(.bottom, 10)
+    }
+    
+    var deltaWeightInputHintBlock: some View {
+
+        Text(self.deltaWeightHint)
+            .font(.appWelcomeHint)
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 28)
+            .padding(.bottom, 40)
+    }
+    
+    // MARK: - Step #2 General
+    
+    var settingsBlock: some View {
+
+        VStack(alignment: .center, spacing: 0) {
+            
+            self.currentWeightInputBlock
+
+            if !self.isCurrentWeightEntered {
+
+                self.currentWeightInputHintBlock
+            }
             else {
                 
-                InputBlock.Number(
-                    title: "Goal weight",
-                    unit: "kg",
-                    input: .constant("76.5"),
-                    updateInput: { print("updateInput") },
-                    openInput: { print("openInput") }
-                )
-                    .padding(.bottom, 20)
+                self.goalWeightInputBlock
 
-                if !showDone {
+                if !self.isGoalWeightEntered {
                     
-                    Text(self.goalWeightHint)
-                        .font(.appWelcomeHint)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 28)
-                        .padding(.bottom, 40)
+                    self.goalWeightInputHintBlock
                 }
                 else {
 
-                    InputBlock.Number(
-                        title: "Weekly change",
-                        unit: "kg",
-                        input: .constant("0.3"),
-                        updateInput: { print("updateInput") },
-                        openInput: { print("openInput") }
-                    )
+                    self.deltaWeightInputBlock
                     
-                    TargetSurplus(value: 243, unit: "kg")
-                
-                    Button(action: { print("DONE") }, label: { Text("DONE").font(.appSetupToggleValue) })
-                        .buttonStyle(WelcomeActionButtonStyle())
-                        .padding(.top, 120)
+                    if !self.isDeltaWeightEntered {
+                        
+                        self.deltaWeightInputHintBlock
+                    }
+                    else {
+                        TargetSurplus(
+                            value: self.appState.goalTargetFoodSurplus,
+                            unit: self.appState.energyUnit.rawValue
+                        )
+                    }
                 }
+            }
+        }
+    }
+    
+    var secondStepBlock: some View {
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+
+            self.settingsBlock.frame(height: 460, alignment: .top)
+            
+            if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
+                
+                Button(
+                    action: self.appState.completeFirstSetup,
+                    label: { Text("DONE").font(.appSetupToggleValue) }
+                )
+                    .buttonStyle(WelcomeActionButtonStyle())
             }
         }
     }
@@ -151,20 +277,23 @@ struct WelcomePage: View {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
-            if self.isFirstStep {
+            if !self.isSecondStep {
                 
-                self.getFirstStepBlock(showEnergyBlock: true)
+                self.firstStepBlock
             }
             else {
 
-                self.getSecondStepBlock(showGoal: false, showDone: false)
+                self.secondStepBlock
             }
         }
     }
 }
 
 struct WelcomePage_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+
     static var previews: some View {
-        WelcomePage()
+        WelcomePage().environmentObject(appState)
     }
 }

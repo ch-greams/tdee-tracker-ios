@@ -16,29 +16,6 @@ struct EntryPage: View {
     @State private var isWeightInputOpen: Bool = false
     @State private var isFoodInputOpen: Bool = false
 
-    func updateWeightFunc() {
-    
-        if let value = NumberFormatter().number(from: self.appState.weightInput) {
-            self.appState.weight = value.doubleValue
-        }
-        
-        self.appState.updateWeightInEntry()
-        self.appState.refreshGoalBasedValues()
-        
-        self.appState.weightInput = String(self.appState.weight)
-    }
-    
-    func updateFoodFunc() {
-    
-        if let value = NumberFormatter().number(from: self.appState.foodInput) {
-            self.appState.food = value.intValue
-        }
-        
-        self.appState.updateFoodInEntry()
-        self.appState.refreshGoalBasedValues()
-        
-        self.appState.foodInput = String(self.appState.food)
-    }
     
     
     func onSubmit() {
@@ -47,13 +24,13 @@ struct EntryPage: View {
         
         if self.isWeightInputOpen {
             
-            self.updateWeightFunc()
+            self.appState.updateWeightFromInput()
             self.isWeightInputOpen = false
         }
         
         if self.isFoodInputOpen {
             
-            self.updateFoodFunc()
+            self.appState.updateEnergyFromInput()
             self.isFoodInputOpen = false
         }
     }

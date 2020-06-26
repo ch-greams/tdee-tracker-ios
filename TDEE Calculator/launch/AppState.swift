@@ -11,10 +11,10 @@ import SwiftUI
 
 enum AppStateKey: String, CaseIterable {
 
-    // TODO: Change to PascalCase later (it'll mess up existing data)
-    case entries
-    case weightUnit, energyUnit
-    case goalWeight, goalWeeklyDelta
+    case Entries
+    case WeightUnit, EnergyUnit
+    case GoalWeight, GoalWeeklyDelta
+    case IsFirstSetupDone
 }
 
 enum WeightUnit: String, Equatable {
@@ -35,6 +35,8 @@ class AppState: ObservableObject {
 
     private let store: UserDefaults
     
+    @Published var isFirstSetupDone: Bool = false
+    
     // NOTE: Possible issues when user changes timezones
     @Published var selectedDay: Date
 
@@ -54,8 +56,8 @@ class AppState: ObservableObject {
     @Published var goalWeight: Double = 0.0
     @Published var goalWeeklyDelta: Double = 0.0
     
-    @Published var goalWeightInput: String = "0.0"
-    @Published var goalWeeklyDeltaInput: String = "0.0"
+    @Published var goalWeightInput: String = ""
+    @Published var goalWeeklyDeltaInput: String = ""
 
     // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
     @Published var recommendedFoodAmount: Int = 0
@@ -75,8 +77,7 @@ class AppState: ObservableObject {
         
         self.store = store
 
-        let dayScope = calendar.dateComponents([.year, .month, .day], from: Date())
-        self.selectedDay = calendar.date(from: dayScope)!
+        self.selectedDay = Utils.getTodayDate()
         
         // MARK: - Other setup
         
@@ -85,10 +86,14 @@ class AppState: ObservableObject {
 
     
     // MARK: - Private
-
+    
     // TODO: Some optimization?
     private func loadAllStuff() {
 
+        if let isDone: Bool = self.load(key: AppStateKey.IsFirstSetupDone) {
+            self.isFirstSetupDone = isDone
+        }
+        
         // Load entries and summary
         
         self.loadEntries()
@@ -112,7 +117,7 @@ class AppState: ObservableObject {
 
     private func loadEntries() {
         
-        if let savedEntriesData = self.store.data(forKey: AppStateKey.entries.rawValue) {
+        if let savedEntriesData = self.store.data(forKey: AppStateKey.Entries.rawValue) {
             
             if let entries: [ Date : DayEntry ] = Utils.decode(data: savedEntriesData) {
 
@@ -126,7 +131,7 @@ class AppState: ObservableObject {
         
         if let encodedData = Utils.encode(data: self.entries) {
             
-            self.store.set(encodedData, forKey: AppStateKey.entries.rawValue)
+            self.store.set(encodedData, forKey: AppStateKey.Entries.rawValue)
         }
     }
     
@@ -203,7 +208,7 @@ class AppState: ObservableObject {
     
     private func loadConfiguration() {
 
-        if let weightUnitString: String = self.load(key: AppStateKey.weightUnit) {
+        if let weightUnitString: String = self.load(key: AppStateKey.WeightUnit) {
 
             if let weightUnit = WeightUnit(rawValue: weightUnitString) {
                 
@@ -211,7 +216,7 @@ class AppState: ObservableObject {
             }
         }
         
-        if let energyUnitString: String = self.load(key: AppStateKey.energyUnit) {
+        if let energyUnitString: String = self.load(key: AppStateKey.EnergyUnit) {
             
             if let energyUnit = EnergyUnit(rawValue: energyUnitString) {
                 
@@ -220,12 +225,12 @@ class AppState: ObservableObject {
         }
 
         
-        if let goalWeight: Double = self.load(key: AppStateKey.goalWeight) {
+        if let goalWeight: Double = self.load(key: AppStateKey.GoalWeight) {
             self.goalWeight = goalWeight
             self.goalWeightInput = String(self.goalWeight)
         }
         
-        if let goalWeeklyDelta: Double = self.load(key: AppStateKey.goalWeeklyDelta) {
+        if let goalWeeklyDelta: Double = self.load(key: AppStateKey.GoalWeeklyDelta) {
             self.goalWeeklyDelta = goalWeeklyDelta
             self.goalWeeklyDeltaInput = String(self.goalWeeklyDelta)
         }
@@ -273,7 +278,7 @@ class AppState: ObservableObject {
     
     // MARK: - Entry update
     
-    public func updateWeightInEntry() {
+    private func updateWeightInEntry() {
         
         if let entry = self.getEntry(date: self.selectedDay) {
             
@@ -293,7 +298,19 @@ class AppState: ObservableObject {
         self.saveEntries()
     }
     
-    public func updateFoodInEntry() {
+    public func updateWeightFromInput() {
+
+        if let value = NumberFormatter().number(from: self.weightInput) {
+            self.weight = value.doubleValue
+        }
+
+        self.updateWeightInEntry()
+        self.refreshGoalBasedValues()
+
+        self.weightInput = String(self.weight)
+    }
+    
+    private func updateFoodInEntry() {
         
         if let entry = self.getEntry(date: self.selectedDay) {
             
@@ -313,6 +330,18 @@ class AppState: ObservableObject {
         self.saveEntries()
     }
 
+    public func updateEnergyFromInput() {
+
+        if let value = NumberFormatter().number(from: self.foodInput) {
+            self.food = value.intValue
+        }
+        
+        self.updateFoodInEntry()
+        self.refreshGoalBasedValues()
+        
+        self.foodInput = String(self.food)
+    }
+    
     // MARK: - Trends Page
     
     public func getSelectedWeekSummary() -> WeekSummary {
@@ -460,11 +489,11 @@ class AppState: ObservableObject {
     // TODO: Move statics to Utils
     
     private static func getCurrentSummary(summaries: [Date : WeekSummary], today: Date) -> WeekSummary? {
-        
+
         if let currentWeekStart = today.startOfWeek {
-            
+
             if let currentSummary = summaries[currentWeekStart] {
-                
+
                 return currentSummary
             }
         }
@@ -532,12 +561,36 @@ class AppState: ObservableObject {
         }
     }
     
-    public func saveGoalWeight() {
-        self.save(key: AppStateKey.goalWeight, value: self.goalWeight)
+    private func saveGoalWeight() {
+        self.save(key: AppStateKey.GoalWeight, value: self.goalWeight)
     }
     
-    public func saveGoalWeeklyDelta() {
-        self.save(key: AppStateKey.goalWeeklyDelta, value: self.goalWeeklyDelta)
+    public func saveGoalWeightFromInput() {
+        
+        if let value = NumberFormatter().number(from: self.goalWeightInput) {
+            self.goalWeight = value.doubleValue
+        }
+
+        self.saveGoalWeight()
+        self.refreshGoalBasedValues()
+        
+        self.goalWeightInput = String(self.goalWeight)
+    }
+    
+    private func saveGoalWeeklyDelta() {
+        self.save(key: AppStateKey.GoalWeeklyDelta, value: self.goalWeeklyDelta)
+    }
+    
+    public func saveGoalWeeklyDeltaFromInput() {
+
+        if let value = NumberFormatter().number(from: self.goalWeeklyDeltaInput) {
+            self.goalWeeklyDelta = value.doubleValue
+        }
+        
+        self.saveGoalWeeklyDelta()
+        self.refreshGoalBasedValues()
+
+        self.goalWeeklyDeltaInput = String(self.goalWeeklyDelta)
     }
     
     public func updateWeightUnit(_ newValue: WeightUnit) {
@@ -557,7 +610,7 @@ class AppState: ObservableObject {
         self.saveGoalWeight()
         self.saveGoalWeeklyDelta()
 
-        self.save(key: AppStateKey.weightUnit, value: self.weightUnit.rawValue)
+        self.save(key: AppStateKey.WeightUnit, value: self.weightUnit.rawValue)
         
         // TODO: Optimize refresh?
         self.loadAllStuff()
@@ -574,9 +627,28 @@ class AppState: ObservableObject {
 
         self.saveEntries()
         
-        self.save(key: AppStateKey.energyUnit, value: self.energyUnit.rawValue)
+        self.save(key: AppStateKey.EnergyUnit, value: self.energyUnit.rawValue)
 
         // TODO: Optimize refresh?
         self.loadAllStuff()
+    }
+    
+    // MARK: - Welcome Page setup
+    
+    /// No need for recalculatios since there should be no data during setup phase
+    public func setUnits(weightUnit: WeightUnit?, energyUnit: EnergyUnit?) {
+        
+        if let wu = weightUnit, let eu = energyUnit {
+            
+            self.weightUnit = wu
+            self.energyUnit = eu
+        }
+    }
+    
+    public func completeFirstSetup() {
+        
+        self.isFirstSetupDone = true
+        
+        self.save(key: AppStateKey.IsFirstSetupDone, value: self.isFirstSetupDone)
     }
 }

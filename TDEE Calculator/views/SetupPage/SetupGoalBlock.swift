@@ -28,17 +28,7 @@ struct SetupGoalBlock: View {
                 title: "Goal Weight",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
-                updateInput: {
-                
-                    if let value = NumberFormatter().number(from: self.appState.goalWeightInput) {
-                        self.appState.goalWeight = value.doubleValue
-                    }
-                    
-                    self.appState.refreshGoalBasedValues()
-                    self.appState.saveGoalWeight()
-                    
-                    self.appState.goalWeightInput = String(self.appState.goalWeight)
-                },
+                updateInput: self.appState.saveGoalWeightFromInput,
                 openInput: { self.isGoalOpen = true }
             )
             
@@ -46,17 +36,7 @@ struct SetupGoalBlock: View {
                 title: "Weekly Change",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyDeltaInput,
-                updateInput: {
-
-                    if let value = NumberFormatter().number(from: self.appState.goalWeeklyDeltaInput) {
-                        self.appState.goalWeeklyDelta = value.doubleValue
-                    }
-                    
-                    self.appState.refreshGoalBasedValues()
-                    self.appState.saveGoalWeeklyDelta()
-
-                    self.appState.goalWeeklyDeltaInput = String(self.appState.goalWeeklyDelta)
-                },
+                updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
                 openInput: { self.isGoalOpen = true }
             )
             
