@@ -184,8 +184,8 @@ class AppState: ObservableObject {
         
         self.weeklyWeightDeltas = self.getWeeklyWeightDeltas()
         
-        self.startWeight = self.getFirstWeekSummary().avgWeight
-        self.currentWeight = self.getLastWeekSummary().avgWeight
+        self.startWeight = self.firstWeekSummary.avgWeight
+        self.currentWeight = self.lastWeekSummary.avgWeight
     }
     
     // Generic save & load
@@ -208,20 +208,14 @@ class AppState: ObservableObject {
     
     private func loadConfiguration() {
 
-        if let weightUnitString: String = self.load(key: AppStateKey.WeightUnit) {
-
-            if let weightUnit = WeightUnit(rawValue: weightUnitString) {
+        if let str: String = self.load(key: AppStateKey.WeightUnit), let weightUnit = WeightUnit(rawValue: str) {
                 
-                self.weightUnit = weightUnit
-            }
+            self.weightUnit = weightUnit
         }
         
-        if let energyUnitString: String = self.load(key: AppStateKey.EnergyUnit) {
-            
-            if let energyUnit = EnergyUnit(rawValue: energyUnitString) {
+        if let str: String = self.load(key: AppStateKey.EnergyUnit), let energyUnit = EnergyUnit(rawValue: str) {
                 
-                self.energyUnit = energyUnit
-            }
+            self.energyUnit = energyUnit
         }
 
         
@@ -344,7 +338,7 @@ class AppState: ObservableObject {
     
     // MARK: - Trends Page
     
-    public func getSelectedWeekSummary() -> WeekSummary {
+    public var selectedWeekSummary: WeekSummary {
         
         let firstDayOfWeek = self.selectedDay.startOfWeek!
         
@@ -353,40 +347,37 @@ class AppState: ObservableObject {
     
 
     // TODO: Save calculations?
-    public func getTrendsChange() -> (
+    public var trendsChange: (
         avgFood: WeekSummaryChange,
         avgWeight: WeekSummaryChange,
         deltaWeight: WeekSummaryChange,
         tdee: WeekSummaryChange
     ) {
         
-        let currentSummary = self.getSelectedWeekSummary()
+        let currentSummary = self.selectedWeekSummary
         
         if let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay) {
 
-            if let prevWeekFirstDay = prevWeek.startOfWeek {
+            if let w = prevWeek.startOfWeek, let prevWeekSummary = self.summaries[w] {
 
-                if let prevWeekSummary = self.summaries[prevWeekFirstDay] {
-
-                    return (
-                        avgFood: Utils.getWeekSummaryParamChange(
-                            previous: prevWeekSummary.avgFood,
-                            current: currentSummary.avgFood
-                        ),
-                        avgWeight: Utils.getWeekSummaryParamChange(
-                            previous: prevWeekSummary.avgWeight,
-                            current: currentSummary.avgWeight
-                        ),
-                        deltaWeight: Utils.getWeekSummaryParamChange(
-                            previous: prevWeekSummary.deltaWeight,
-                            current: currentSummary.deltaWeight
-                        ),
-                        tdee: Utils.getWeekSummaryParamChange(
-                            previous: prevWeekSummary.tdee,
-                            current: currentSummary.tdee
-                        )
+                return (
+                    avgFood: Utils.getWeekSummaryParamChange(
+                        previous: prevWeekSummary.avgFood,
+                        current: currentSummary.avgFood
+                    ),
+                    avgWeight: Utils.getWeekSummaryParamChange(
+                        previous: prevWeekSummary.avgWeight,
+                        current: currentSummary.avgWeight
+                    ),
+                    deltaWeight: Utils.getWeekSummaryParamChange(
+                        previous: prevWeekSummary.deltaWeight,
+                        current: currentSummary.deltaWeight
+                    ),
+                    tdee: Utils.getWeekSummaryParamChange(
+                        previous: prevWeekSummary.tdee,
+                        current: currentSummary.tdee
                     )
-                }
+                )
             }
         }
         
@@ -401,7 +392,7 @@ class AppState: ObservableObject {
     // MARK: - Progress Page
     
     // TODO: Merge getFirst and getLast into setProgressValues ?
-    public func getFirstWeekSummary() -> WeekSummary {
+    public var firstWeekSummary: WeekSummary {
         
         let sortedWeeks = self.summaries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
@@ -414,7 +405,7 @@ class AppState: ObservableObject {
         }
     }
     
-    public func getLastWeekSummary() -> WeekSummary {
+    public var lastWeekSummary: WeekSummary {
         
         let sortedWeeks = self.summaries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
@@ -490,12 +481,9 @@ class AppState: ObservableObject {
     
     private static func getCurrentSummary(summaries: [Date : WeekSummary], today: Date) -> WeekSummary? {
 
-        if let currentWeekStart = today.startOfWeek {
+        if let w = today.startOfWeek, let currentSummary = summaries[w] {
 
-            if let currentSummary = summaries[currentWeekStart] {
-
-                return currentSummary
-            }
+            return currentSummary
         }
         
         return nil

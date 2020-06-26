@@ -28,8 +28,8 @@ struct TrendsPage: View {
                     weightUnitLabel: self.appState.weightUnit.rawValue,
                     energyUnitLabel: self.appState.energyUnit.rawValue,
                     selectedDay: self.appState.selectedDay,
-                    summary: self.appState.getSelectedWeekSummary(),
-                    trendsChange: self.appState.getTrendsChange()
+                    summary: self.appState.selectedWeekSummary,
+                    trendsChange: self.appState.trendsChange
                 )
             }
         }
