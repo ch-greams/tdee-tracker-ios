@@ -66,8 +66,6 @@ class AppState: ObservableObject {
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
     @Published var estimatedTimeLeft: Int = 0
-    
-    @Published var weeklyWeightDeltas: [ Double ] = []
 
     // MARK: - Lifecycle
     
@@ -181,8 +179,6 @@ class AppState: ObservableObject {
         )
         
         self.summaries = summaries
-        
-        self.weeklyWeightDeltas = self.getWeeklyWeightDeltas()
         
         self.startWeight = self.firstWeekSummary.avgWeight
         self.currentWeight = self.lastWeekSummary.avgWeight
@@ -435,7 +431,7 @@ class AppState: ObservableObject {
         return estimatedTimeLeft
     }
     
-    public func getWeeklyWeightDeltas() -> [ Double ] {
+    public var weeklyWeightDeltas: [ Double ] {
         
         let sortedWeeks = self.summaries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
