@@ -147,8 +147,7 @@ struct DeltaChart: View {
                                 .padding(.horizontal, 1)
                                 .foregroundColor(Color.white)
                                 .opacity(0.85)
-                            
-                            // TODO: Replace with keys
+
                             Text(String(iWeek + 1))
                                 .font(.appProgressChartSegment)
                                 .padding(.top, 4)
@@ -169,18 +168,7 @@ struct DeltaChart: View {
 struct DeltaChart_Previews: PreviewProvider {
     
     static let weeklyDeltas: [ Double ] = [
-      0.085,
-      0.878,
-      0.03,
-      0.084,
-      0.524,
-      0.098,
-      0.235,
-      0.778,
-      0.23,
-      0.525,
-      0.24,
-      0.966
+        0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966
     ]
     
     static var previews: some View {

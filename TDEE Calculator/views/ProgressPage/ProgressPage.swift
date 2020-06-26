@@ -14,12 +14,10 @@ struct ProgressPage: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-
-        let startDate = Date()
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d"
-        let startDateStr = formatter.string(from: startDate)
+        let startDateStr = formatter.string(from: self.appState.firstEntryDate)
         
         let title = "Starting from \(startDateStr)".uppercased()
         

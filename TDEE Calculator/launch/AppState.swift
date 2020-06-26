@@ -471,6 +471,14 @@ class AppState: ObservableObject {
         return weeklyWeightDeltas
     }
     
+    public var firstEntryDate: Date {
+        
+        let sortedEntries = self.entries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        return sortedEntries[0]
+    }
+    
     // MARK: - Setup Page calculations
     
     // TODO: Move statics to Utils
