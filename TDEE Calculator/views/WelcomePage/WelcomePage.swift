@@ -242,8 +242,8 @@ struct WelcomePage: View {
                         self.deltaWeightInputHintBlock
                     }
                     else {
-                        TargetSurplus(
-                            value: self.appState.goalTargetFoodSurplus,
+                        TargetDelta(
+                            value: self.appState.goalTargetFoodDelta,
                             unit: self.appState.energyUnit.rawValue
                         )
                     }

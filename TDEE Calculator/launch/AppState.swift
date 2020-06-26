@@ -61,7 +61,7 @@ class AppState: ObservableObject {
 
     // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
     @Published var recommendedFoodAmount: Int = 0
-    @Published var goalTargetFoodSurplus: Int = 0
+    @Published var goalTargetFoodDelta: Int = 0
 
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
@@ -503,7 +503,7 @@ class AppState: ObservableObject {
         
         let deltaWeight: Double = goalWeight - currentSummary.avgWeight
         
-        let weeksToGoal: Double = deltaWeight / goalWeeklyDelta
+        let weeksToGoal: Double = abs( deltaWeight / goalWeeklyDelta )
         
         let deltaCalories = Utils.getEnergyFromWeight(
             weight: deltaWeight,
@@ -532,7 +532,7 @@ class AppState: ObservableObject {
         
         if let currentSummary = Self.getCurrentSummary(summaries: self.summaries, today: Date()) {
             
-            self.goalTargetFoodSurplus = Self.getGoalTargetSurplus(
+            self.goalTargetFoodDelta = Self.getGoalTargetSurplus(
                 currentSummary: currentSummary,
                 goalWeight: self.goalWeight,
                 goalWeeklyDelta: self.goalWeeklyDelta,
@@ -542,7 +542,7 @@ class AppState: ObservableObject {
             
             self.recommendedFoodAmount = Self.getRecommendedAmount(
                 currentSummary: currentSummary,
-                goalTargetSurplus: self.goalTargetFoodSurplus
+                goalTargetSurplus: self.goalTargetFoodDelta
             )
             
             self.estimatedTimeLeft = self.getEstimatedTimeLeft(

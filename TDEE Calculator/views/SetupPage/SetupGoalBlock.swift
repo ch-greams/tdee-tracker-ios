@@ -40,7 +40,7 @@ struct SetupGoalBlock: View {
                 openInput: { self.isGoalOpen = true }
             )
             
-            TargetSurplus(value: self.appState.goalTargetFoodSurplus, unit: energyUnitLabel)
+            TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
             
         }
     }
