@@ -16,7 +16,7 @@ struct TargetDelta: View {
 
     var body: some View {
         
-        let changeType = self.value > 0 ? "surplus" : "deficit"
+        let changeType = ( self.value > 0 ) ? "surplus" : "deficit"
         
         return HStack(alignment: .center, spacing: 0) {
 

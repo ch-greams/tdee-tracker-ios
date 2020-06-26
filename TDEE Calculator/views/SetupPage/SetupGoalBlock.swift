@@ -35,7 +35,7 @@ struct SetupGoalBlock: View {
             InputBlock.Number(
                 title: "Weekly Change",
                 unit: weightUnitLabel,
-                input: self.$appState.goalWeeklyDeltaInput,
+                input: self.$appState.goalWeeklyWeightDeltaInput,
                 updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
                 openInput: { self.isGoalOpen = true }
             )

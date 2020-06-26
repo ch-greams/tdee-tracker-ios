@@ -30,7 +30,7 @@ struct WelcomePage: View {
     
     var isCurrentWeightEntered: Bool { self.appState.weight > 0 }
     var isGoalWeightEntered: Bool { self.appState.goalWeight > 0 }
-    var isDeltaWeightEntered: Bool { self.appState.goalWeeklyDelta > 0 }
+    var isDeltaWeightEntered: Bool { self.appState.goalWeeklyWeightDelta > 0 }
     
     // MARK: - Constants
     
@@ -196,7 +196,7 @@ struct WelcomePage: View {
         InputBlock.Number(
             title: "Weekly change",
             unit: self.appState.weightUnit.rawValue,
-            input: self.$appState.goalWeeklyDeltaInput,
+            input: self.$appState.goalWeeklyWeightDeltaInput,
             updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
             openInput: { self.isDeltaWeightOpen = true }
         )
