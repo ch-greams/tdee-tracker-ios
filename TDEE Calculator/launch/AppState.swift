@@ -271,6 +271,13 @@ class AppState: ObservableObject {
     
     // MARK: - Entry update
     
+    public var isFutureDate: Bool {
+        
+        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .weekOfYear)
+        
+        return result == ComparisonResult.orderedDescending
+    }
+    
     private func updateWeightInEntry() {
         
         if let entry = self.getEntry(date: self.selectedDay) {

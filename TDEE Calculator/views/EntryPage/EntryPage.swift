@@ -38,6 +38,8 @@ struct EntryPage: View {
     
     var body: some View {
         
+        let lockIconSize: CGFloat = 80
+        
         return ZStack(alignment: .top) {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
@@ -86,7 +88,21 @@ struct EntryPage: View {
                 .padding(.top, self.isFoodInputOpen ? 160 : 562)
                 .onTapGesture { self.isFoodInputOpen = true }
                 .zIndex(self.isFoodInputOpen ? 1 : 0)
-                
+
+            if self.appState.isFutureDate {
+
+                HStack{
+                    Image(systemName: "clock.fill")
+                        .frame(width: lockIconSize, height: lockIconSize)
+                        .font(.system(size: lockIconSize))
+                        .foregroundColor(.appPrimaryDark)
+                }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    .frame(height: 210)
+                    .background(Color.appPrimary)
+                    .opacity(0.8)
+                    .padding(.top, 458)
+            }
         }
 
 
