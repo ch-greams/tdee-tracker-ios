@@ -33,7 +33,7 @@
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
 		F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */; };
 		F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE652486FDC800D1FF40 /* Font.swift */; };
-		F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */; };
+		F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */; };
 		F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */; };
 		F6F4DE7F24871ED200D1FF40 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */; };
 		F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */; };
@@ -93,7 +93,7 @@
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F6F4DE652486FDC800D1FF40 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecAmountBlock.swift; sourceTree = "<group>"; };
+		F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryHintBlock.swift; sourceTree = "<group>"; };
 		F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryInputBlock.swift; sourceTree = "<group>"; };
 		F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				F6F4DE332485A06500D1FF40 /* EntryPage.swift */,
-				F6F4DE68248710B200D1FF40 /* RecAmountBlock.swift */,
+				F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */,
 				F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */,
 			);
 			path = EntryPage;
@@ -425,7 +425,7 @@
 				F61BCCFC2485737200A01500 /* ContentView.swift in Sources */,
 				F652133924A495B9003C2214 /* InputBlock.swift in Sources */,
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
-				F6F4DE69248710B200D1FF40 /* RecAmountBlock.swift in Sources */,
+				F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
 				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
 				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,

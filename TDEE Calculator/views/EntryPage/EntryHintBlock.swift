@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RecAmountBlock: View {
+struct EntryHintBlock: View {
     
     let isEnoughData: Bool
     
@@ -73,12 +73,12 @@ struct RecAmountBlock: View {
     }
 }
 
-struct RecAmountBlock_Previews: PreviewProvider {
+struct EntryHintBlock_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack {
-            RecAmountBlock(isEnoughData: false, value: 2843, unit: "kcal").background(Color.appPrimary)
-            RecAmountBlock(isEnoughData: true, value: 2843, unit: "kcal").background(Color.appPrimary)
+            EntryHintBlock(isEnoughData: false, value: 2843, unit: "kcal").background(Color.appPrimary)
+            EntryHintBlock(isEnoughData: true, value: 2843, unit: "kcal").background(Color.appPrimary)
         }
     }
 }

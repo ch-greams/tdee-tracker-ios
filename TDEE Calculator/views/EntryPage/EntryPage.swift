@@ -47,7 +47,7 @@ struct EntryPage: View {
                 // TODO: Drop selectedDay param altogether?
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
                 
-                RecAmountBlock(
+                EntryHintBlock(
                     isEnoughData: self.appState.isEnoughDataForRecommendation,
                     value: self.appState.recommendedFoodAmount,
                     unit: self.appState.energyUnit.rawValue
