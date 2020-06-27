@@ -58,7 +58,7 @@
 		F6F72034248EE6AE003873A1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72033248EE6AE003873A1 /* Collection.swift */; };
 		F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72035248EE6CA003873A1 /* Sequence.swift */; };
 		F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F72038248FCE62003873A1 /* SetupPage.swift */; };
-		F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203A24913322003873A1 /* TargetSurplus.swift */; };
+		F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203A24913322003873A1 /* TargetDelta.swift */; };
 		F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */; };
 		F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */; };
 		F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */; };
@@ -118,7 +118,7 @@
 		F6F72033248EE6AE003873A1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		F6F72035248EE6CA003873A1 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		F6F72038248FCE62003873A1 /* SetupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPage.swift; sourceTree = "<group>"; };
-		F6F7203A24913322003873A1 /* TargetSurplus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSurplus.swift; sourceTree = "<group>"; };
+		F6F7203A24913322003873A1 /* TargetDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDelta.swift; sourceTree = "<group>"; };
 		F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupGoalBlock.swift; sourceTree = "<group>"; };
 		F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupBlockTitle.swift; sourceTree = "<group>"; };
 		F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRemindersBlock.swift; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				F6F72038248FCE62003873A1 /* SetupPage.swift */,
-				F6F7203A24913322003873A1 /* TargetSurplus.swift */,
+				F6F7203A24913322003873A1 /* TargetDelta.swift */,
 				F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */,
 				F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */,
 				F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */,
@@ -414,7 +414,7 @@
 				F65F83CC248B980900F8407B /* AppState.swift in Sources */,
 				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
-				F6F7203B24913322003873A1 /* TargetSurplus.swift in Sources */,
+				F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
 				F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */,

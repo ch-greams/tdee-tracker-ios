@@ -8,24 +8,26 @@
 
 import SwiftUI
 
-struct TargetSurplus: View {
-
+struct TargetDelta: View {
+    
     let value: Int
     let unit: String
     
 
     var body: some View {
         
-        HStack(alignment: .center, spacing: 0) {
+        let changeType = ( self.value > 0 ) ? "surplus" : "deficit"
+        
+        return HStack(alignment: .center, spacing: 0) {
 
-            Text("Target surplus".uppercased())
-                .frame(width: 114)
+            Text("Target \(changeType)".uppercased())
+                .frame(width: 114, alignment: .leading)
                 .foregroundColor(.white)
                 .font(.appTrendsItemLabel)
                 .padding(.leading, 32)
                 .padding(.trailing, 50)
             
-            Text(String(self.value))
+            Text(String(abs(self.value)))
                 .foregroundColor(.white)
                 .font(.appTrendsItemValue)
                 .padding(.trailing, 16)
@@ -40,9 +42,9 @@ struct TargetSurplus: View {
     }
 }
 
-struct TargetSurplus_Previews: PreviewProvider {
+struct TargetDelta_Previews: PreviewProvider {
     static var previews: some View {
-        TargetSurplus(value: 257, unit: "kcal")
+        TargetDelta(value: 257, unit: "kcal")
             .background(Color.appPrimary)
     }
 }

@@ -111,7 +111,9 @@ struct DeltaChart: View {
     
     var body: some View {
         
-        let maxWeeklyDeltaValue = self.weeklyDeltas.max { $0 < $1 } ?? 0.0
+        let absWeeklyDeltas = self.weeklyDeltas.map { abs($0) }
+        
+        let maxWeeklyDeltaValue = absWeeklyDeltas.max { $0 < $1 } ?? 0.0
         let stepValue = self.getStepValue(value: maxWeeklyDeltaValue)
         let stepCount = Int( ( maxWeeklyDeltaValue / stepValue ).rounded(.up) )
         
@@ -123,7 +125,7 @@ struct DeltaChart: View {
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
-        for weeklyDeltaValue in self.weeklyDeltas {
+        for weeklyDeltaValue in absWeeklyDeltas {
             
             weeklyDeltaHeights.append( CGFloat( weeklyDeltaValue / stepValue ) * stepHeight )
         }

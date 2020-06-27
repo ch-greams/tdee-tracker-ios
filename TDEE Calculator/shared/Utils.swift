@@ -148,7 +148,7 @@ class Utils {
         }
     }
     
-    public static func getTodayDate() -> Date {
+    public static var todayDate: Date {
 
         let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
         return Utils.calendar.date(from: dayScope)!

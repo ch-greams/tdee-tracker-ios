@@ -48,6 +48,7 @@ struct EntryPage: View {
                 CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
                 
                 RecAmountBlock(
+                    isEnoughData: self.appState.isEnoughDataForRecommendation,
                     value: self.appState.recommendedFoodAmount,
                     unit: self.appState.energyUnit.rawValue
                 )
