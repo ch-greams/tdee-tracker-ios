@@ -18,7 +18,7 @@ struct EntryHintBlock: View {
     
     var notEnoughDataBlock: some View {
         
-        let hint = "After first week we'll be able to provide here recommended daily intake amount"
+        let hint = "After first week we'll be able to provide recommended daily intake amount"
         
         return HStack {
 

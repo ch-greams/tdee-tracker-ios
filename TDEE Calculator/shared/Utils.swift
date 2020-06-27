@@ -34,9 +34,22 @@ class Utils {
     private static let KG_TO_LB_MULTIPLIER: Double = 2.20462
 
     
-    static let LAST_TDEE_VALUES_TO_USE: Int = 3
+    private static let MAX_WEIGHT_ENTRY_KG: Double = 450.0
     
-    static let DEFAULT_SUMMARY = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
+    private static let MIN_WEIGHT_ENTRY_KG: Double = 30.0
+    
+    private static let MAX_FOOD_ENTRY_KCAL: Int = 9999
+    
+    private static let MIN_FOOD_ENTRY_KCAL: Int = 1000
+    
+    private static let MAX_WEEKLY_WEIGHT_DELTA_KG: Double = 4.5
+    
+    private static let MIN_WEEKLY_WEIGHT_DELTA_KG: Double = 0.0
+
+    
+    private static let LAST_TDEE_VALUES_TO_USE: Int = 3
+    
+    public static let DEFAULT_SUMMARY = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
     
     // MARK: - Data Transformation
     
@@ -166,6 +179,44 @@ class Utils {
         return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T
     }
     
+    // MARK: - Validation
+    
+    public static func isWeightValueValid(value: Double, unit: WeightUnit) -> Bool {
+        
+        switch unit {
+            case WeightUnit.kg:
+                return ( value >= Self.MIN_WEIGHT_ENTRY_KG )
+                    && ( value <= Self.MAX_WEIGHT_ENTRY_KG )
+            case WeightUnit.lb:
+                return ( value >= Self.MIN_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER )
+                    && ( value <= Self.MAX_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER )
+        }
+    }
+    
+    public static func isFoodValueValid(value: Int, unit: EnergyUnit) -> Bool {
+        
+        switch unit {
+            case EnergyUnit.kcal:
+                return ( value >= Self.MIN_FOOD_ENTRY_KCAL )
+                    && ( value <= Self.MAX_FOOD_ENTRY_KCAL )
+            case EnergyUnit.kj:
+                return ( value >= Int( Double(Self.MIN_FOOD_ENTRY_KCAL) * Self.KCAL_TO_KJ_MULTIPLIER ) )
+                    && ( value <= Int( Double(Self.MAX_FOOD_ENTRY_KCAL) * Self.KCAL_TO_KJ_MULTIPLIER ) )
+        }
+    }
+    
+    public static func isWeeklyWeightDeltaValueValid(value: Double, unit: WeightUnit) -> Bool {
+        
+        switch unit {
+            case WeightUnit.kg:
+                return ( value >= Self.MIN_WEEKLY_WEIGHT_DELTA_KG )
+                    && ( value <= Self.MAX_WEEKLY_WEIGHT_DELTA_KG )
+            case WeightUnit.lb:
+                return ( value >= Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
+                    && ( value <= Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
+        }
+    }
+
     // MARK: - Other
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {

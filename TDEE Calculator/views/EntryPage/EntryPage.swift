@@ -44,8 +44,10 @@ struct EntryPage: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                // TODO: Drop selectedDay param altogether?
-                CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: false)
+                CalendarBlock(
+                    selectedDay: self.appState.selectedDay,
+                    isTrendsPage: false
+                )
                 
                 EntryHintBlock(
                     isEnoughData: self.appState.isEnoughDataForRecommendation,

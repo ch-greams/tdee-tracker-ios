@@ -54,13 +54,13 @@ struct EntryInputBlock: View {
 
 
         }
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .frame(height: 70)
-        .padding()
-        .background(Color.white)
-        .padding(1)
-        .clipped()
-        .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(height: 70)
+            .padding()
+            .background(Color.white)
+            .padding(1)
+            .clipped()
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
         
         return result
     }

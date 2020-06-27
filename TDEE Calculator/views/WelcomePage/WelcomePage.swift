@@ -237,16 +237,15 @@ struct WelcomePage: View {
 
                     self.deltaWeightInputBlock
                     
-                    if !self.isDeltaWeightEntered {
-                        
-                        self.deltaWeightInputHintBlock
-                    }
-                    else {
+                    if self.isDeltaWeightEntered {
                         TargetDelta(
                             value: self.appState.goalTargetFoodDelta,
                             unit: self.appState.energyUnit.rawValue
                         )
+                            .padding(.bottom, 20)
                     }
+                    
+                    self.deltaWeightInputHintBlock
                 }
             }
         }
