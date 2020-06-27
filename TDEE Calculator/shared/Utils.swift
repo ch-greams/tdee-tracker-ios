@@ -181,6 +181,46 @@ class Utils {
     
     // MARK: - Validation
     
+    public static func getWeightOutsideOfValidRangeText(unit: WeightUnit) -> String {
+        
+        switch unit {
+            case WeightUnit.kg:
+                let minWeight = Self.MIN_WEIGHT_ENTRY_KG
+                let maxWeight = Self.MAX_WEIGHT_ENTRY_KG
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+            case WeightUnit.lb:
+                let minWeight = Self.MIN_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
+                let maxWeight = Self.MAX_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+        }
+    }
+    
+    public static func getFoodOutsideOfValidRangeText(unit: EnergyUnit) -> String {
+        
+        switch unit {
+            case EnergyUnit.kcal:
+                return "Value outside of valid range (\(Self.MIN_FOOD_ENTRY_KCAL), \(Self.MAX_FOOD_ENTRY_KCAL))"
+            case EnergyUnit.kj:
+                let minFood = Int( Double( Self.MIN_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
+                let maxFood = Int( Double( Self.MAX_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
+                return "Value outside of valid range (\(minFood), \(maxFood))"
+        }
+    }
+    
+    public static func getDeltaWeightOutsideOfValidRangeText(unit: WeightUnit) -> String {
+        
+        switch unit {
+            case WeightUnit.kg:
+                let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG
+                let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+            case WeightUnit.lb:
+                let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
+                let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+        }
+    }
+    
     public static func isWeightValueValid(value: Double, unit: WeightUnit) -> Bool {
         
         switch unit {

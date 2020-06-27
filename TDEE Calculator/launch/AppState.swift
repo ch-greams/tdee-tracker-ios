@@ -37,6 +37,8 @@ class AppState: ObservableObject {
     
     @Published var isFirstSetupDone: Bool = false
     
+    @Published var messageText: String = ""
+    
     // NOTE: Possible issues when user changes timezones
     @Published var selectedDay: Date
 
@@ -311,6 +313,13 @@ class AppState: ObservableObject {
                 self.updateWeightInEntry()
                 self.refreshGoalBasedValues()
             }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
         }
 
         self.weightInput = self.weight > 0 ? String(self.weight) : ""
@@ -348,6 +357,13 @@ class AppState: ObservableObject {
                 
                 self.updateFoodInEntry()
                 self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getFoodOutsideOfValidRangeText(unit: self.energyUnit),
+                    time: 3
+                )
             }
         }
 
@@ -552,6 +568,13 @@ class AppState: ObservableObject {
                 self.saveGoalWeight()
                 self.refreshGoalBasedValues()
             }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
         }
 
         self.goalWeightInput = self.goalWeight > 0 ? String(self.goalWeight) : ""
@@ -573,6 +596,13 @@ class AppState: ObservableObject {
 
                 self.saveGoalWeeklyDelta()
                 self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getDeltaWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
             }
         }
 
@@ -643,4 +673,16 @@ class AppState: ObservableObject {
         
         return self.summaries.count > 1
     }
+    
+    // MARK: - Other
+    
+    public func showMessage(text: String, time: TimeInterval) {
+        
+        self.messageText = text
+        
+        Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { _ in
+            self.messageText = ""
+        })
+    }
+    
 }

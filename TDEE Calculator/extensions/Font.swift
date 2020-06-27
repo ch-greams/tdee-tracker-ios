@@ -99,7 +99,13 @@ extension Font {
     public static var appWelcomeHint: Font {
         Self.custom("Oswald-Light", size: 22)
     }
+    
+    // MARK: - Other
 
+    public static var appWarningText: Font {
+        Self.custom("Oswald-Light", size: 16)
+    }
+    
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }
