@@ -24,6 +24,26 @@ struct ContentView: View {
             Text(text)
         }
     }
+    
+    var warningMessageBlock: some View {
+        
+        HStack {
+
+            Text(self.appState.messageText.uppercased())
+                .multilineTextAlignment(.center)
+                .frame(height: 60)
+                .foregroundColor(.white)
+                .font(.appWarningText)
+
+        }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 40.0)
+            .background(Color.appSecondary)
+            .padding(.vertical, 1)
+            .padding(.horizontal, 8)
+            .clipped()
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+    }
 
     var mainAppView: some View {
         
@@ -50,10 +70,23 @@ struct ContentView: View {
     }
     
     var body: some View {
+        
+        ZStack(alignment: .top) {
 
-        self.appState.isFirstSetupDone
-            ? AnyView( self.mainAppView )
-            : AnyView( WelcomePage() )
+            if self.appState.isFirstSetupDone {
+                
+                self.mainAppView
+            }
+            else {
+
+                WelcomePage()
+            }
+            
+            if !self.appState.messageText.isEmpty {
+
+                self.warningMessageBlock
+            }
+        }
     }
 }
 

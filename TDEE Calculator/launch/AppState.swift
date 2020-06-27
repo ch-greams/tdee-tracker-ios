@@ -37,6 +37,8 @@ class AppState: ObservableObject {
     
     @Published var isFirstSetupDone: Bool = false
     
+    @Published var messageText: String = ""
+    
     // NOTE: Possible issues when user changes timezones
     @Published var selectedDay: Date
 
@@ -271,6 +273,13 @@ class AppState: ObservableObject {
     
     // MARK: - Entry update
     
+    public var isFutureDate: Bool {
+        
+        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .weekOfYear)
+        
+        return result == ComparisonResult.orderedDescending
+    }
+    
     private func updateWeightInEntry() {
         
         if let entry = self.getEntry(date: self.selectedDay) {
@@ -293,14 +302,27 @@ class AppState: ObservableObject {
     
     public func updateWeightFromInput() {
 
-        if let value = NumberFormatter().number(from: self.weightInput) {
-            self.weight = value.doubleValue
+        if let numberValue = NumberFormatter().number(from: self.weightInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeightValueValid(value: value, unit: self.weightUnit) {
+
+                self.weight = value
+
+                self.updateWeightInEntry()
+                self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
         }
 
-        self.updateWeightInEntry()
-        self.refreshGoalBasedValues()
-
-        self.weightInput = String(self.weight)
+        self.weightInput = self.weight > 0 ? String(self.weight) : ""
     }
     
     private func updateFoodInEntry() {
@@ -325,14 +347,27 @@ class AppState: ObservableObject {
 
     public func updateEnergyFromInput() {
 
-        if let value = NumberFormatter().number(from: self.foodInput) {
-            self.food = value.intValue
+        if let numberValue = NumberFormatter().number(from: self.foodInput) {
+            
+            let value = numberValue.intValue
+            
+            if Utils.isFoodValueValid(value: value, unit: self.energyUnit) {
+
+                self.food = value
+                
+                self.updateFoodInEntry()
+                self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getFoodOutsideOfValidRangeText(unit: self.energyUnit),
+                    time: 3
+                )
+            }
         }
-        
-        self.updateFoodInEntry()
-        self.refreshGoalBasedValues()
-        
-        self.foodInput = String(self.food)
+
+        self.foodInput = self.food > 0 ? String(self.food) : ""
     }
     
     // MARK: - Trends Page
@@ -522,14 +557,27 @@ class AppState: ObservableObject {
     
     public func saveGoalWeightFromInput() {
         
-        if let value = NumberFormatter().number(from: self.goalWeightInput) {
-            self.goalWeight = value.doubleValue
+        if let numberValue = NumberFormatter().number(from: self.goalWeightInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeightValueValid(value: value, unit: self.weightUnit) {
+
+                self.goalWeight = value
+                
+                self.saveGoalWeight()
+                self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
         }
 
-        self.saveGoalWeight()
-        self.refreshGoalBasedValues()
-        
-        self.goalWeightInput = String(self.goalWeight)
+        self.goalWeightInput = self.goalWeight > 0 ? String(self.goalWeight) : ""
     }
     
     private func saveGoalWeeklyDelta() {
@@ -538,14 +586,27 @@ class AppState: ObservableObject {
     
     public func saveGoalWeeklyDeltaFromInput() {
 
-        if let value = NumberFormatter().number(from: self.goalWeeklyWeightDeltaInput) {
-            self.goalWeeklyWeightDelta = value.doubleValue
-        }
-        
-        self.saveGoalWeeklyDelta()
-        self.refreshGoalBasedValues()
+        if let numberValue = NumberFormatter().number(from: self.goalWeeklyWeightDeltaInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeeklyWeightDeltaValueValid(value: value, unit: self.weightUnit) {
 
-        self.goalWeeklyWeightDeltaInput = String(self.goalWeeklyWeightDelta)
+                self.goalWeeklyWeightDelta = value
+
+                self.saveGoalWeeklyDelta()
+                self.refreshGoalBasedValues()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getDeltaWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
+        }
+
+        self.goalWeeklyWeightDeltaInput = self.goalWeeklyWeightDelta >= 0 ? String(self.goalWeeklyWeightDelta) : ""
     }
     
     public func updateWeightUnit(_ newValue: WeightUnit) {
@@ -612,4 +673,16 @@ class AppState: ObservableObject {
         
         return self.summaries.count > 1
     }
+    
+    // MARK: - Other
+    
+    public func showMessage(text: String, time: TimeInterval) {
+        
+        self.messageText = text
+        
+        Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { _ in
+            self.messageText = ""
+        })
+    }
+    
 }
