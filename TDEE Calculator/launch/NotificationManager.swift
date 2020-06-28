@@ -65,7 +65,7 @@ class NotificationManager {
         content.body = notification.body
         content.badge = 1
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
         
         Self.center.add(request) { error in error.map { print("Notification error: \($0)") } }
@@ -86,25 +86,11 @@ class NotificationManager {
         }
     }
 
-    public static func scheduleReocurring(date: Date, notification: Notification) {
-        
-        let components = Calendar.current.dateComponents([ .hour, .minute ], from: date)
-        
-        Self.scheduleNotification(dateComponents: components, notification: notification)
-    }
+    public static func updateNotificationTime(dateComponents: DateComponents, type: ReminderType) {
 
-    public static func updateNotificationTimes(weightTime: Date, foodTime: Date) {
-        
-        Self.center.removeAllPendingNotificationRequests()
-        
-        Self.scheduleReocurring(
-            date: weightTime,
-            notification: Self.getNotification(notificationType: ReminderType.WeightInput)
-        )
-        
-        Self.scheduleReocurring(
-            date: foodTime,
-            notification: Self.getNotification(notificationType: ReminderType.FoodInput)
+        Self.schedule(
+            dateComponents: dateComponents,
+            notification: Self.getNotification(notificationType: type)
         )
     }
 }

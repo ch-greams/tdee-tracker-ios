@@ -17,18 +17,7 @@ struct SetupPage: View {
 
     @State private var isGoalOpen: Bool = false
     @State private var isReminderOpen: Bool = false
-    
-    func doneAction() {
 
-        UIApplication.shared.endEditing()
-        self.isGoalOpen = false
-        self.isReminderOpen = false
-
-        NotificationManager.updateNotificationTimes(
-            weightTime: self.appState.reminderWeightTime,
-            foodTime: self.appState.reminderFoodTime
-        )
-    }
     
     var body: some View {
         
@@ -53,15 +42,6 @@ struct SetupPage: View {
 
                     SetupGoalBlock(isOpen: self.$isGoalOpen)
                         .padding(.top, self.isGoalOpen ? 60 : 0)
-                }
-                
-                // TODO: Move into specific views?
-                if self.isGoalOpen || self.isReminderOpen {
-                
-                    Button("Done", action: self.doneAction)
-                        .buttonStyle(ToggleButtonStyle(isSelected: true))
-                        .frame(width: 160)
-                        .border(Color.white)
                 }
             }
         }

@@ -20,6 +20,11 @@ struct SetupGoalBlock: View {
         let weightUnitLabel = self.appState.weightUnit.rawValue
         let energyUnitLabel = self.appState.energyUnit.rawValue
         
+        let doneAction = {
+            UIApplication.shared.endEditing()
+            self.isOpen = false
+        }
+        
         return VStack(alignment: .center, spacing: 0) {
             
             SetupBlockTitle(title: "Goal")
@@ -42,6 +47,12 @@ struct SetupGoalBlock: View {
             
             TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
             
+            if self.isOpen {
+                Button("Done", action: doneAction)
+                    .buttonStyle(ToggleButtonStyle(isSelected: true))
+                    .frame(width: 160)
+                    .border(Color.white)
+            }
         }
     }
 }

@@ -57,7 +57,12 @@ struct SetupRemindersBlock: View {
     
     var body: some View {
         
-        VStack(alignment: .center, spacing: 0) {
+        let doneAction = {
+            self.isOpen = false
+            self.appState.saveUpdatedReminders()
+        }
+        
+        return VStack(alignment: .center, spacing: 0) {
 
             SetupBlockTitle(title: "Reminders")
             
@@ -65,7 +70,7 @@ struct SetupRemindersBlock: View {
                 
                 self.getInputBlock(
                     title: "Weight",
-                    value: self.appState.reminderWeightTime,
+                    value: self.appState.reminderWeightDate,
                     inputType: ReminderType.WeightInput
                 )
             }
@@ -74,7 +79,7 @@ struct SetupRemindersBlock: View {
 
                 self.getInputBlock(
                     title: "Food",
-                    value: self.appState.reminderFoodTime,
+                    value: self.appState.reminderFoodDate,
                     inputType: ReminderType.FoodInput
                 )
             }
@@ -84,14 +89,19 @@ struct SetupRemindersBlock: View {
                     "",
                     selection: (
                         self.selectedInput == ReminderType.WeightInput
-                            ? self.$appState.reminderWeightTime
-                            : self.$appState.reminderFoodTime
+                            ? self.$appState.reminderWeightDate
+                            : self.$appState.reminderFoodDate
                     ),
                     displayedComponents: .hourAndMinute
                 )
                     .labelsHidden()
                     .font(.appTrendsItemValue)
                     .foregroundColor(.white)
+                
+                Button("Done", action: doneAction)
+                    .buttonStyle(ToggleButtonStyle(isSelected: true))
+                    .frame(width: 160)
+                    .border(Color.white)
             }
         }
     }

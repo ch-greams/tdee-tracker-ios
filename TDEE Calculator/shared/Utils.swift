@@ -17,6 +17,14 @@ struct WeekSummary {
     let tdee: Int?
 }
 
+struct WeekSummaryTrends {
+
+    let avgFood: WeekSummaryChange
+    let avgWeight: WeekSummaryChange
+    let deltaWeight: WeekSummaryChange
+    let tdee: WeekSummaryChange
+}
+
 enum WeekSummaryChange {
     case Up, None, Down
 }
