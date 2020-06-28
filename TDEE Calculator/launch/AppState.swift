@@ -68,6 +68,9 @@ class AppState: ObservableObject {
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
     @Published var estimatedTimeLeft: Int = 0
+    
+    @Published var reminderWeightTime: Date
+    @Published var reminderFoodTime: Date
 
     // MARK: - Lifecycle
     
@@ -78,6 +81,12 @@ class AppState: ObservableObject {
         self.store = store
 
         self.selectedDay = Utils.todayDate
+        
+        // MARK: - Reminders
+        
+        self.reminderWeightTime = Utils.getDateFromTimeComponents(hour: 9, minute: 0) ?? Date()
+        
+        self.reminderFoodTime = Utils.getDateFromTimeComponents(hour: 21, minute: 0) ?? Date()
         
         // MARK: - Other setup
         

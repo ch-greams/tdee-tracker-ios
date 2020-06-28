@@ -17,76 +17,99 @@ struct Notification {
     var body: String
 }
 
+enum ReminderType {
+    case Weight, Food
+}
+
 class NotificationManager {
 
-    private var notifications: [ Notification ] = []
+    private static var center: UNUserNotificationCenter {
+        UNUserNotificationCenter.current()
+    }
     
-    func completionHandler(granted: Bool, error: Error?) {
-
-        if granted == true && error == nil {
-            self.scheduleNotifications()
+    private static func getNotification(notificationType: ReminderType) -> Notification {
+        
+        switch notificationType {
+            case ReminderType.Weight:
+                return Notification(
+                    id: UUID().uuidString,
+                    title: "Update Entry",
+                    body: "It's time to add your weight"
+                )
+            case ReminderType.Food:
+                return Notification(
+                    id: UUID().uuidString,
+                    title: "Update Entry",
+                    body: "It's time to add your food"
+                )
         }
     }
-    
-    func requestPermission() {
+
+    private static func requestPermission(dateComponents: DateComponents, notification: Notification) {
         
-        UNUserNotificationCenter.current().requestAuthorization(
+        Self.center.requestAuthorization(
             options: [.alert, .badge, .alert],
-            completionHandler: self.completionHandler
-        )
-    }
+            completionHandler: { (granted, error) in
 
-    func addNotification(title: String, body: String) {
-        self.notifications.append(
-            Notification(id: UUID().uuidString, title: title, body: body)
-        )
-    }
-
-    func scheduleNotifications() {
-
-        for notification in self.notifications {
-
-            let content = UNMutableNotificationContent()
-            content.title = notification.title
-            content.body = notification.body
-            content.badge = 1
-            
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request) { error in
-                
-                if error == nil {
-                    print("Scheduling notification with id: \(notification.id)")
+                if granted == true && error == nil {
+                    Self.scheduleNotification(dateComponents: dateComponents, notification: notification)
                 }
+            }
+        )
+    }
+    
+    private static func scheduleNotification(dateComponents: DateComponents, notification: Notification) {
+        
+        let content = UNMutableNotificationContent()
+        content.title = notification.title
+        content.body = notification.body
+        content.badge = 1
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
+        
+        Self.center.add(request) { error in
+            if error == nil {
+                print("Scheduling notification: \(notification.id)")
             }
         }
     }
-
     
-    func schedule() {
+    private static func schedule(dateComponents: DateComponents, notification: Notification) {
 
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
+        Self.center.getNotificationSettings { settings in
 
             switch settings.authorizationStatus {
                 case .notDetermined:
-                    self.requestPermission()
+                    Self.requestPermission(dateComponents: dateComponents, notification: notification)
                 case .authorized, .provisional:
-                    self.scheduleNotifications()
+                    Self.scheduleNotification(dateComponents: dateComponents, notification: notification)
                 default:
                     break
             }
         }
     }
-    
-    
-    
-    public static func scheduleNotification(title: String, body: String) {
 
-        let nm = NotificationManager()
+    public static func scheduleReocurring(date: Date, notification: Notification) {
+        
+        let components = Calendar.current.dateComponents([ .hour, .minute ], from: date)
+        
+        Self.scheduleNotification(dateComponents: components, notification: notification)
+    }
 
-        nm.addNotification(title: title, body: body)
-        nm.schedule()
+    public static func updateNotificationTimes(weightTime: Date, foodTime: Date) {
+        
+        Self.center.removeAllPendingNotificationRequests()
+        
+        Self.scheduleReocurring(
+            date: weightTime,
+            notification: Self.getNotification(notificationType: ReminderType.Weight)
+        )
+        
+        Self.scheduleReocurring(
+            date: foodTime,
+            notification: Self.getNotification(notificationType: ReminderType.Food)
+        )
     }
 }
 

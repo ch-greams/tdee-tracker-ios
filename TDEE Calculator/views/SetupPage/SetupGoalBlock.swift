@@ -12,7 +12,7 @@ struct SetupGoalBlock: View {
     
     @EnvironmentObject var appState: AppState
     
-    @Binding var isGoalOpen: Bool
+    @Binding var isOpen: Bool
 
 
     var body: some View {
@@ -29,7 +29,7 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 updateInput: self.appState.saveGoalWeightFromInput,
-                openInput: { self.isGoalOpen = true }
+                openInput: { self.isOpen = true }
             )
             
             InputBlock.Number(
@@ -37,7 +37,7 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,
                 updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
-                openInput: { self.isGoalOpen = true }
+                openInput: { self.isOpen = true }
             )
             
             TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
@@ -51,7 +51,7 @@ struct SetupGoalBlock_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        SetupGoalBlock(isGoalOpen: .constant(true))
+        SetupGoalBlock(isOpen: .constant(true))
             .padding(.vertical, 8)
             .background(Color.appPrimary)
             .environmentObject(appState)
