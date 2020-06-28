@@ -675,6 +675,11 @@ class AppState: ObservableObject {
         self.isFirstSetupDone = true
         
         self.save(key: AppStateKey.IsFirstSetupDone, value: self.isFirstSetupDone)
+        
+        NotificationManager.updateNotificationTimes(
+            weightTime: self.reminderWeightTime,
+            foodTime: self.reminderFoodTime
+        )
     }
     
     // TODO: Think about counting amount of entries during first week too
