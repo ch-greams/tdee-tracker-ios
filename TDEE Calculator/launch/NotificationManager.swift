@@ -17,8 +17,8 @@ struct Notification {
     var body: String
 }
 
-enum ReminderType {
-    case Weight, Food
+enum ReminderType: String {
+    case WeightInput, FoodInput
 }
 
 class NotificationManager {
@@ -30,15 +30,15 @@ class NotificationManager {
     private static func getNotification(notificationType: ReminderType) -> Notification {
         
         switch notificationType {
-            case ReminderType.Weight:
+            case ReminderType.WeightInput:
                 return Notification(
-                    id: UUID().uuidString,
+                    id: notificationType.rawValue,
                     title: "Update Entry",
                     body: "It's time to add your weight"
                 )
-            case ReminderType.Food:
+            case ReminderType.FoodInput:
                 return Notification(
-                    id: UUID().uuidString,
+                    id: notificationType.rawValue,
                     title: "Update Entry",
                     body: "It's time to add your food"
                 )
@@ -68,11 +68,7 @@ class NotificationManager {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
         
-        Self.center.add(request) { error in
-            if error == nil {
-                print("Scheduling notification: \(notification.id)")
-            }
-        }
+        Self.center.add(request) { error in error.map { print("Notification error: \($0)") } }
     }
     
     private static func schedule(dateComponents: DateComponents, notification: Notification) {
@@ -103,12 +99,12 @@ class NotificationManager {
         
         Self.scheduleReocurring(
             date: weightTime,
-            notification: Self.getNotification(notificationType: ReminderType.Weight)
+            notification: Self.getNotification(notificationType: ReminderType.WeightInput)
         )
         
         Self.scheduleReocurring(
             date: foodTime,
-            notification: Self.getNotification(notificationType: ReminderType.Food)
+            notification: Self.getNotification(notificationType: ReminderType.FoodInput)
         )
     }
 }

@@ -14,7 +14,7 @@ struct SetupRemindersBlock: View {
     
     @EnvironmentObject var appState: AppState
     
-    @State private var selectedInput = ReminderType.Weight
+    @State private var selectedInput = ReminderType.WeightInput
     
     @Binding var isOpen: Bool
     
@@ -61,21 +61,21 @@ struct SetupRemindersBlock: View {
 
             SetupBlockTitle(title: "Reminders")
             
-            if !self.isOpen || self.selectedInput == ReminderType.Weight {
+            if !self.isOpen || self.selectedInput == ReminderType.WeightInput {
                 
                 self.getInputBlock(
                     title: "Weight",
                     value: self.appState.reminderWeightTime,
-                    inputType: ReminderType.Weight
+                    inputType: ReminderType.WeightInput
                 )
             }
 
-            if !self.isOpen || self.selectedInput == ReminderType.Food {
+            if !self.isOpen || self.selectedInput == ReminderType.FoodInput {
 
                 self.getInputBlock(
                     title: "Food",
                     value: self.appState.reminderFoodTime,
-                    inputType: ReminderType.Food
+                    inputType: ReminderType.FoodInput
                 )
             }
 
@@ -83,7 +83,7 @@ struct SetupRemindersBlock: View {
                 DatePicker(
                     "",
                     selection: (
-                        self.selectedInput == ReminderType.Weight
+                        self.selectedInput == ReminderType.WeightInput
                             ? self.$appState.reminderWeightTime
                             : self.$appState.reminderFoodTime
                     ),
