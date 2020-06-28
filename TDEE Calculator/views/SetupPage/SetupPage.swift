@@ -16,43 +16,33 @@ struct SetupPage: View {
     @EnvironmentObject var appState: AppState
 
     @State private var isGoalOpen: Bool = false
-    
+    @State private var isReminderOpen: Bool = false
+
     
     var body: some View {
         
-        let doneAction = {
-            UIApplication.shared.endEditing()
-            self.isGoalOpen = false
-            
-            //self.appState.updateTargetSurplus()
-            //self.appState.saveGoalWeight()
-            //self.appState.saveGoalWeeklyDelta()
-        }
-        
-        return ZStack(alignment: .top) {
+        ZStack(alignment: .top) {
 
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center, spacing: 0) {
 
-                if !isGoalOpen {
+                if !self.isGoalOpen && !self.isReminderOpen {
                     
                     SetupUnitsBlock()
-                    
-                    SetupRemindersBlock()
+                }
+                
+                if !self.isGoalOpen {
+
+                    SetupRemindersBlock(isOpen: self.$isReminderOpen)
+                        .padding(.top, self.isReminderOpen ? 60 : 0)
                 }
 
-                SetupGoalBlock(isGoalOpen: self.$isGoalOpen)
-                    .padding(.top, isGoalOpen ? 60 : 0)
-                
-                if isGoalOpen {
-                
-                    Button("Done", action: doneAction)
-                        .buttonStyle(ToggleButtonStyle(isSelected: true))
-                        .frame(width: 160)
-                        .border(Color.white)
-                }
+                if !self.isReminderOpen {
 
+                    SetupGoalBlock(isOpen: self.$isGoalOpen)
+                        .padding(.top, self.isGoalOpen ? 60 : 0)
+                }
             }
         }
     }

@@ -12,13 +12,18 @@ struct SetupGoalBlock: View {
     
     @EnvironmentObject var appState: AppState
     
-    @Binding var isGoalOpen: Bool
+    @Binding var isOpen: Bool
 
 
     var body: some View {
         
         let weightUnitLabel = self.appState.weightUnit.rawValue
         let energyUnitLabel = self.appState.energyUnit.rawValue
+        
+        let doneAction = {
+            UIApplication.shared.endEditing()
+            self.isOpen = false
+        }
         
         return VStack(alignment: .center, spacing: 0) {
             
@@ -29,7 +34,7 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 updateInput: self.appState.saveGoalWeightFromInput,
-                openInput: { self.isGoalOpen = true }
+                openInput: { self.isOpen = true }
             )
             
             InputBlock.Number(
@@ -37,11 +42,17 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,
                 updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
-                openInput: { self.isGoalOpen = true }
+                openInput: { self.isOpen = true }
             )
             
             TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
             
+            if self.isOpen {
+                Button("Done", action: doneAction)
+                    .buttonStyle(ToggleButtonStyle(isSelected: true))
+                    .frame(width: 160)
+                    .border(Color.white)
+            }
         }
     }
 }
@@ -51,7 +62,7 @@ struct SetupGoalBlock_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        SetupGoalBlock(isGoalOpen: .constant(true))
+        SetupGoalBlock(isOpen: .constant(true))
             .padding(.vertical, 8)
             .background(Color.appPrimary)
             .environmentObject(appState)

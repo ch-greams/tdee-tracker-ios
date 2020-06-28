@@ -17,12 +17,7 @@ struct WeeklyTrendsBlock: View {
     
     let summary: WeekSummary
     
-    let trendsChange: (
-        avgFood: WeekSummaryChange,
-        avgWeight: WeekSummaryChange,
-        deltaWeight: WeekSummaryChange,
-        tdee: WeekSummaryChange
-    )
+    let trendsChange: WeekSummaryTrends
     
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
@@ -133,7 +128,7 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             energyUnitLabel: "kcal",
             selectedDay: Date(),
             summary: summary,
-            trendsChange: (
+            trendsChange: WeekSummaryTrends(
                 avgFood: WeekSummaryChange.Up,
                 avgWeight: WeekSummaryChange.Down,
                 deltaWeight: WeekSummaryChange.Down,

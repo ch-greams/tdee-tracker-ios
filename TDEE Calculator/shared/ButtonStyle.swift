@@ -68,3 +68,16 @@ struct WelcomeActionButtonStyle: ButtonStyle {
     }
 }
 
+
+struct ReminderTimeButtonStyle: ButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: 180, height: 44)
+            .border(Color.appPrimary)
+            .background(Color.white)
+            .font(.appTrendsItemValue)
+            .foregroundColor(.appPrimary)
+            
+    }
+}

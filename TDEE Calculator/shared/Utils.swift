@@ -17,6 +17,14 @@ struct WeekSummary {
     let tdee: Int?
 }
 
+struct WeekSummaryTrends {
+
+    let avgFood: WeekSummaryChange
+    let avgWeight: WeekSummaryChange
+    let deltaWeight: WeekSummaryChange
+    let tdee: WeekSummaryChange
+}
+
 enum WeekSummaryChange {
     case Up, None, Down
 }
@@ -160,13 +168,7 @@ class Utils {
             )
         }
     }
-    
-    public static var todayDate: Date {
 
-        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
-        return Utils.calendar.date(from: dayScope)!
-    }
-    
     // MARK: - Serialization
 
     public static func encode<T>(data: T) -> Data? {
@@ -255,6 +257,20 @@ class Utils {
                 return ( value >= Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
                     && ( value <= Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
         }
+    }
+
+    // MARK: - Date
+    
+    public static var todayDate: Date {
+
+        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
+        return Utils.calendar.date(from: dayScope)!
+    }
+    
+    public static func getDateFromTimeComponents(hour: Int, minute: Int) -> Date? {
+        
+        let dateComponents = DateComponents(hour: hour, minute: minute)
+        return calendar.date(from: dateComponents)
     }
 
     // MARK: - Other
