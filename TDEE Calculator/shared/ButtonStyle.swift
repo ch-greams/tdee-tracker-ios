@@ -19,7 +19,6 @@ struct ToggleButtonStyle: ButtonStyle {
             .font(.appSetupToggleValue)
             .foregroundColor(!self.isSelected ? Color.appPrimary : Color.white)
             .background(self.isSelected ? Color.appPrimary : Color.white)
-            .border(Color.appPrimary)
     }
 }
 

@@ -24,16 +24,16 @@ struct SetupUnitsBlock: View {
             InputBlock.Toggle(
                 title: "Weight",
                 setValue: self.appState.updateWeightUnit as (WeightUnit) -> Void,
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
+                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
+                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.appState.weightUnit as WeightUnit?
             )
             
             InputBlock.Toggle(
                 title: "Energy",
                 setValue: self.appState.updateEnergyUnit as (EnergyUnit) -> Void,
-                first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
-                second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
+                first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
+                second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                 selected: self.appState.energyUnit as EnergyUnit?
             )
         }

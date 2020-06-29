@@ -26,10 +26,16 @@ class InputBlock {
             .padding(.horizontal, 16)
             .foregroundColor(.appPrimary)
 
-        let firstButton = Button(first.label, action: { setValue(first.value) })
+        let firstButton = Button(
+            first.label.uppercased(),
+            action: { setValue(first.value) }
+        )
             .buttonStyle(ToggleButtonStyle(isSelected: selected == first.value))
         
-        let secondButton = Button(second.label, action: { setValue(second.value) })
+        let secondButton = Button(
+            second.label.uppercased(),
+            action: { setValue(second.value) }
+        )
             .buttonStyle(ToggleButtonStyle(isSelected: selected == second.value))
 
         
@@ -37,9 +43,14 @@ class InputBlock {
 
             label
             
-            firstButton
+            HStack(alignment: .center, spacing: 1) {
 
-            secondButton
+                firstButton
+
+                secondButton
+            }
+                .padding(1)
+                .background(Color.appPrimary)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .frame(height: 74)
@@ -102,16 +113,25 @@ struct InputBlock_Previews: PreviewProvider {
         ZStack {
             
             Color.appPrimary.edgesIgnoringSafeArea(.all)
-         
-            InputBlock.Number(
-                title: "Title",
-                unit: "kg",
-                input: .constant("17.4"),
-                updateInput: { print("updateInput") },
-                openInput: { print("openInput") }
-            )
+            
+            VStack {
+             
+                InputBlock.Toggle(
+                    title: "Title",
+                    setValue: { print($0) },
+                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
+                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                    selected: EnergyUnit.kcal
+                )
+                
+                InputBlock.Number(
+                    title: "Title",
+                    unit: "kg",
+                    input: .constant("17.4"),
+                    updateInput: { print("updateInput") },
+                    openInput: { print("openInput") }
+                )
+            }
         }
-        
-
     }
 }
