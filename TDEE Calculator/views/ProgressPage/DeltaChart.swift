@@ -150,23 +150,30 @@ struct DeltaChart: View {
             
                 self.getChartBackground(steps: steps, stepHeight: stepHeight, width: Int(geometry.size.width))
                 
-                HStack(alignment: .top, spacing: 0) {
-                        
-                    ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
-                        
-                        VStack(alignment: .center, spacing: 0) {
-                            Rectangle()
-                                .padding(.top, self.TOTAL_STEPS_HEIGHT - weeklyDeltaHeights[iWeek])
-                                .frame(width: 20, height: self.TOTAL_STEPS_HEIGHT)
-                                .padding(.top, 11)
-                                .padding(.horizontal, 1)
-                                .foregroundColor(Color.white)
-                                .opacity(0.85)
+                // NOTE: Top HStack is necessary for mask
+                HStack {
 
-                            Text(String(iWeek + 1))
-                                .font(.appProgressChartSegment)
-                                .padding(.top, 4)
-                                .foregroundColor(Color.white)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                    
+                        HStack(alignment: .top, spacing: 0) {
+
+                            ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
+                                
+                                VStack(alignment: .center, spacing: 0) {
+                                    Rectangle()
+                                        .padding(.top, self.TOTAL_STEPS_HEIGHT - weeklyDeltaHeights[iWeek])
+                                        .frame(width: 28, height: self.TOTAL_STEPS_HEIGHT)
+                                        .padding(.top, 11)
+                                        .padding(.horizontal, 1)
+                                        .foregroundColor(Color.white)
+                                        .opacity(0.85)
+
+                                    Text(String(iWeek + 1))
+                                        .font(.appProgressChartSegment)
+                                        .padding(.top, 4)
+                                        .foregroundColor(Color.white)
+                                }
+                            }
                         }
                     }
                 }
@@ -183,6 +190,7 @@ struct DeltaChart: View {
 struct DeltaChart_Previews: PreviewProvider {
     
     static let weeklyDeltas: [ Double ] = [
+        0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966,
         0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966
     ]
     
