@@ -139,17 +139,22 @@ class Utils {
             
             if let currentWeek = weeks[startWeekDate] {
                 
-                let weekSummary = Self.getWeekSummary(
-                    entries: currentWeek,
-                    prevWeekAvgWeight: lastWeekAvgWeight,
-                    prevTdee: tdeeArray,
-                    energyUnit: energyUnit,
-                    weightUnit: weightUnit
-                )
+                let entries = currentWeek.filter { $0.weight != nil && $0.food != nil }
                 
-                weekSummaries[startWeekDate] = weekSummary
-                lastWeekAvgWeight = weekSummary.avgWeight
-                tdeeArray.append(weekSummary.tdee!)
+                if entries.count > 0 {
+
+                    let weekSummary = Self.getWeekSummary(
+                        entries: entries,
+                        prevWeekAvgWeight: lastWeekAvgWeight,
+                        prevTdee: tdeeArray,
+                        energyUnit: energyUnit,
+                        weightUnit: weightUnit
+                    )
+                    
+                    weekSummaries[startWeekDate] = weekSummary
+                    lastWeekAvgWeight = weekSummary.avgWeight
+                    tdeeArray.append(weekSummary.tdee!)
+                }
             }
         }
         

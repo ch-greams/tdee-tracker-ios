@@ -51,7 +51,7 @@ class AppState: ObservableObject {
     
     @Published private var entries: [ Date : DayEntry ] = [:]
     
-    @Published var summaries: [ Date: WeekSummary ] = [:]
+    @Published private var summaries: [ Date: WeekSummary ] = [:]
     
     @Published var weightUnit: WeightUnit = WeightUnit.kg
     @Published var energyUnit: EnergyUnit = EnergyUnit.kcal
@@ -85,7 +85,7 @@ class AppState: ObservableObject {
     }
     
     public var recommendedFoodAmount: Int {
-        return self.lastWeekSummary.tdee.map { $0 + self.goalTargetFoodDelta } ?? 0
+        return self.lastWeekSummary.tdee.map { $0 > 0 ? $0 + self.goalTargetFoodDelta : 0 } ?? 0
     }
 
     public var estimatedTimeLeft: Int {
