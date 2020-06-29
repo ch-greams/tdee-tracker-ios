@@ -45,12 +45,10 @@ class AppState: ObservableObject {
 
     @Published var weight: Double = 0.0
     @Published var food: Int = 0
-    
     @Published var weightInput: String = ""
     @Published var foodInput: String = ""
     
     @Published private var entries: [ Date : DayEntry ] = [:]
-    
     @Published private var summaries: [ Date: WeekSummary ] = [:]
     
     @Published var weightUnit: WeightUnit = WeightUnit.kg
@@ -58,16 +56,20 @@ class AppState: ObservableObject {
     
     @Published var goalWeight: Double = 0.0
     @Published var goalWeeklyWeightDelta: Double = 0.0
-    
     @Published var goalWeightInput: String = ""
     @Published var goalWeeklyWeightDeltaInput: String = ""
 
-    @Published var startWeight: Double = 0.0
-    @Published var currentWeight: Double = 0.0
-    
     @Published var reminderWeightDate: Date
     @Published var reminderFoodDate: Date
 
+
+    public var startWeight: Double {
+        return self.firstWeekSummary.avgWeight
+    }
+    
+    public var currentWeight: Double {
+        return self.lastWeekSummary.avgWeight
+    }
     
     public var goalTargetFoodDelta: Int {
         
@@ -350,9 +352,6 @@ class AppState: ObservableObject {
         )
         
         self.summaries = summaries
-        
-        self.startWeight = self.firstWeekSummary.avgWeight
-        self.currentWeight = self.lastWeekSummary.avgWeight
     }
     
     // Generic save & load
