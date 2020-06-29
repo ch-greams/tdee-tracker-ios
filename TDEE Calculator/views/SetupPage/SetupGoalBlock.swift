@@ -22,6 +22,10 @@ struct SetupGoalBlock: View {
         
         let doneAction = {
             UIApplication.shared.endEditing()
+            
+            self.appState.saveGoalWeightFromInput()
+            self.appState.saveGoalWeeklyDeltaFromInput()
+            
             self.isOpen = false
         }
         
