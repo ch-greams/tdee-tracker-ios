@@ -62,9 +62,6 @@ class AppState: ObservableObject {
     @Published var goalWeightInput: String = ""
     @Published var goalWeeklyWeightDeltaInput: String = ""
 
-    // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
-    @Published var goalTargetFoodDelta: Int = 0
-
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
     
@@ -72,6 +69,20 @@ class AppState: ObservableObject {
     @Published var reminderFoodDate: Date
 
     
+    public var goalTargetFoodDelta: Int {
+        
+        let deltaWeight: Double = self.goalWeight - self.currentWeight
+        
+        let weeksToGoal: Double = abs( deltaWeight / self.goalWeeklyWeightDelta )
+        
+        let deltaCalories = Utils.getEnergyFromWeight(
+            weight: deltaWeight,
+            energyUnit: self.energyUnit,
+            weightUnit: self.weightUnit
+        )
+        
+        return Int( ( Double(deltaCalories) / weeksToGoal ) / 7 )
+    }
     
     public var recommendedFoodAmount: Int {
         return self.lastWeekSummary.tdee.map { $0 + self.goalTargetFoodDelta } ?? 0
@@ -384,8 +395,6 @@ class AppState: ObservableObject {
             self.goalWeeklyWeightDelta = goalWeeklyDelta
             self.goalWeeklyWeightDeltaInput = String(self.goalWeeklyWeightDelta)
         }
-
-        self.refreshGoalBasedValues()
     }
     
     // MARK: - API
@@ -402,8 +411,6 @@ class AppState: ObservableObject {
         self.entries[date] = entry
         
         self.refreshSummary()
-        
-        self.refreshGoalBasedValues()
     }
     
     public func getEntry(date: Date) -> DayEntry? {
@@ -459,7 +466,6 @@ class AppState: ObservableObject {
                 self.weight = value
 
                 self.updateWeightInEntry()
-                self.refreshGoalBasedValues()
                 
                 // TODO: Look into how it can be optimized
                 self.saveUpdatedReminders()
@@ -507,7 +513,6 @@ class AppState: ObservableObject {
                 self.food = value
                 
                 self.updateFoodInEntry()
-                self.refreshGoalBasedValues()
                 
                 // TODO: Look into how it can be optimized
                 self.saveUpdatedReminders()
@@ -526,44 +531,6 @@ class AppState: ObservableObject {
     
     // MARK: - Setup Page calculations
     
-    // TODO: Move statics to Utils
-    
-    private static func getGoalTargetDelta(
-        currentWeight: Double,
-        goalWeight: Double,
-        goalWeeklyDelta: Double,
-        energyUnit: EnergyUnit,
-        weightUnit: WeightUnit
-    ) -> Int {
-        
-        let deltaWeight: Double = goalWeight - currentWeight
-        
-        let weeksToGoal: Double = abs( deltaWeight / goalWeeklyDelta )
-        
-        let deltaCalories = Utils.getEnergyFromWeight(
-            weight: deltaWeight,
-            energyUnit: energyUnit,
-            weightUnit: weightUnit
-        )
-        
-        return Int( ( Double(deltaCalories) / weeksToGoal ) / 7 )
-    }
-
-    /// Regenerate goalTargetSurplus and recommendedAmount values
-    /// NOTE: Using latest week data for all values below
-    public func refreshGoalBasedValues() {
-        
-        self.goalTargetFoodDelta = Self.getGoalTargetDelta(
-            currentWeight: self.currentWeight,
-            goalWeight: self.goalWeight,
-            goalWeeklyDelta: self.goalWeeklyWeightDelta,
-            energyUnit: self.energyUnit,
-            weightUnit: self.weightUnit
-        )
-        
-        
-    }
-    
     private func saveGoalWeight() {
         self.save(key: AppStateKey.GoalWeight, value: self.goalWeight)
     }
@@ -579,7 +546,6 @@ class AppState: ObservableObject {
                 self.goalWeight = value
                 
                 self.saveGoalWeight()
-                self.refreshGoalBasedValues()
             }
             else {
                 
@@ -608,7 +574,6 @@ class AppState: ObservableObject {
                 self.goalWeeklyWeightDelta = value
 
                 self.saveGoalWeeklyDelta()
-                self.refreshGoalBasedValues()
             }
             else {
                 
