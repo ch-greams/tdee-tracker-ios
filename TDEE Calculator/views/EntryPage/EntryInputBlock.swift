@@ -32,13 +32,13 @@ struct EntryInputBlock: View {
             Image(icon)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 30.0)
+                .frame(width: 30)
                 .foregroundColor(baseColor)
                 .padding(.horizontal, 8)
     
             TextField("", text: self.$value, onCommit: self.onCommit)
                 .font(.appEntryValue)
-                .padding([.top, .leading, .trailing], 4.0)
+                .padding([.top, .leading, .trailing], 4)
                 .frame(width: 140, height: 44)
                 .multilineTextAlignment(.trailing)
                 .border(baseColor)
@@ -48,7 +48,7 @@ struct EntryInputBlock: View {
             
             Text(unit.uppercased())
                 .font(.appEntryUnit)
-                .padding(.trailing, 16.0)
+                .padding(.trailing, 16)
                 .frame(width: 60, alignment: .leading)
                 .foregroundColor(baseColor)
 

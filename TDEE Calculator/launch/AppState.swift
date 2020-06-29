@@ -187,7 +187,7 @@ class AppState: ObservableObject {
         let sortedEntries = self.entries.keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
         
-        return sortedEntries[0]
+        return sortedEntries.first ?? Date()
     }
 
     // TODO: Think about counting amount of entries during first week too

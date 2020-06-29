@@ -8,20 +8,48 @@
 
 import SwiftUI
 
+enum TabBarTag: Int {
+    case entryPage, trendsPage, progressPage, setupPage
+}
+
+struct TabBarItem {
+    
+    let label: String
+    let icon: String
+    let tag: TabBarTag
+}
+
 struct ContentView: View {
 
     @EnvironmentObject var appState: AppState
     
-    @State var selectedTab = Tab.entryPage
+    @State var selectedTab = TabBarTag.entryPage
     
-    enum Tab: Int {
-        case entryPage, trendsPage, progressPage, setupPage
-    }
+    let tabBarItems: [ TabBarItem ] = [
+        TabBarItem(label: "Entry", icon: "create-sharp", tag: TabBarTag.entryPage),
+        TabBarItem(label: "Trends", icon: "calendar-sharp", tag: TabBarTag.trendsPage),
+        TabBarItem(label: "Progress", icon: "stats-chart-sharp", tag: TabBarTag.progressPage),
+        TabBarItem(label: "Setup", icon: "options-sharp", tag: TabBarTag.setupPage)
+    ]
     
-    func tabbarItem(text: String, image: String) -> some View {
-        VStack {
-            Image(systemName: image)
-            Text(text)
+    func tabbarItem(item: TabBarItem) -> some View {
+
+        let currentColor: Color = ( item.tag == self.selectedTab ) ? .appPrimaryLight : .white
+        
+        return Button(action: { self.selectedTab = item.tag }) {
+
+            VStack(alignment: .center, spacing: 2) {
+                Image(item.icon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 26)
+                    .foregroundColor(currentColor)
+                    .padding(.top, 12)
+
+                Text(item.label)
+                    .font(.appNavbarElement)
+                    .foregroundColor(currentColor)
+            }
         }
     }
     
@@ -37,7 +65,7 @@ struct ContentView: View {
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 40.0)
+            .padding(.horizontal, 40)
             .background(Color.appSecondary)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
@@ -45,37 +73,53 @@ struct ContentView: View {
             .shadow(color: .appFade, radius: 1, x: 1, y: 1)
     }
 
+    
     var mainAppView: some View {
         
-        TabView(selection: $selectedTab) {
-            
-            EntryPage()
-                .tabItem { self.tabbarItem(text: "Entry", image: "calendar.badge.plus") }
-                .tag(Tab.entryPage)
+        switch self.selectedTab {
 
-            TrendsPage()
-                .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
-                .tag(Tab.trendsPage)
-
-            ProgressPage()
-                .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
-                .tag(Tab.progressPage)
-
-            SetupPage()
-                .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
-                .tag(Tab.setupPage)
+            case TabBarTag.entryPage:
+                return AnyView( EntryPage() )
+            case TabBarTag.trendsPage:
+                return AnyView( TrendsPage() )
+            case TabBarTag.progressPage:
+                return AnyView( ProgressPage() )
+            case TabBarTag.setupPage:
+                return AnyView( SetupPage() )
         }
-            .accentColor(Color.appPrimaryDark)
-        
     }
+    
+    var navbarView: some View {
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.appPrimaryLight)
+                .opacity(0.5)
+            
+            HStack(alignment: .center, spacing: 54) {
+                
+                ForEach(self.tabBarItems, id: \.label) { item in
+                    self.tabbarItem(item: item)
+                }
+            }
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .frame(height: 84, alignment: .top)
+                .background(Color.appPrimaryDark)
+        }
+    }
+    
     
     var body: some View {
         
-        ZStack(alignment: .top) {
+        ZStack(alignment: .bottom) {
 
             if self.appState.isFirstSetupDone {
-                
+
                 self.mainAppView
+                
+                self.navbarView
             }
             else {
 
@@ -86,7 +130,8 @@ struct ContentView: View {
 
                 self.warningMessageBlock
             }
-        }
+
+        }.edgesIgnoringSafeArea(.bottom)
     }
 }
 

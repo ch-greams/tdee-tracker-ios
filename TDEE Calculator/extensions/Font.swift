@@ -106,6 +106,11 @@ extension Font {
         Self.custom("Oswald-Light", size: 16)
     }
     
+    public static var appNavbarElement: Font {
+        Self.custom("Oswald-Light", size: 12)
+    }
+    
+    
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }
