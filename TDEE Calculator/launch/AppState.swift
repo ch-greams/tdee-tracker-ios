@@ -63,17 +63,31 @@ class AppState: ObservableObject {
     @Published var goalWeeklyWeightDeltaInput: String = ""
 
     // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
-    @Published var recommendedFoodAmount: Int = 0
     @Published var goalTargetFoodDelta: Int = 0
 
     @Published var startWeight: Double = 0.0
     @Published var currentWeight: Double = 0.0
-    @Published var estimatedTimeLeft: Int = 0
     
     @Published var reminderWeightDate: Date
     @Published var reminderFoodDate: Date
 
+    
+    
+    public var recommendedFoodAmount: Int {
+        return self.lastWeekSummary.tdee.map { $0 + self.goalTargetFoodDelta } ?? 0
+    }
 
+    public var estimatedTimeLeft: Int {
+
+        let leftWeight = self.goalWeight - self.currentWeight
+        
+        return (
+            self.goalWeeklyWeightDelta != 0
+                ? Int( ( leftWeight / self.goalWeeklyWeightDelta ).rounded(.up) )
+                : 0
+        )
+    }
+    
     public var isFutureDate: Bool {
         
         let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .weekOfYear)
@@ -246,14 +260,6 @@ class AppState: ObservableObject {
             // Load configuration
             
             self.loadConfiguration()
-            
-            // Progress page values
-            
-            self.estimatedTimeLeft = self.getEstimatedTimeLeft(
-                goalWeight: self.goalWeight,
-                currentWeight: self.currentWeight,
-                goalWeeklyDelta: self.goalWeeklyWeightDelta
-            )
             
             // Load reminders
             
@@ -518,25 +524,6 @@ class AppState: ObservableObject {
         self.foodInput = self.food > 0 ? String(self.food) : ""
     }
     
-    // MARK: - Progress Page
-    
-    public func getEstimatedTimeLeft(
-        goalWeight: Double,
-        currentWeight: Double,
-        goalWeeklyDelta: Double
-    ) -> Int {
-
-        let leftWeight = goalWeight - currentWeight
-
-        let estimatedTimeLeft = (
-            goalWeeklyDelta != 0
-                ? Int( ( leftWeight / goalWeeklyDelta ).rounded(.up) )
-                : 0
-        )
-        
-        return estimatedTimeLeft
-    }
-    
     // MARK: - Setup Page calculations
     
     // TODO: Move statics to Utils
@@ -574,13 +561,7 @@ class AppState: ObservableObject {
             weightUnit: self.weightUnit
         )
         
-        self.recommendedFoodAmount = self.lastWeekSummary.tdee.map { $0 + self.goalTargetFoodDelta } ?? 0
         
-        self.estimatedTimeLeft = self.getEstimatedTimeLeft(
-            goalWeight: self.goalWeight,
-            currentWeight: self.currentWeight,
-            goalWeeklyDelta: self.goalWeeklyWeightDelta
-        )
     }
     
     private func saveGoalWeight() {

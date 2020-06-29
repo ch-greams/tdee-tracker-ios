@@ -18,7 +18,7 @@ struct EntryHintBlock: View {
     
     var notEnoughDataBlock: some View {
         
-        let hint = "After first week we'll be able to provide recommended daily intake amount"
+        let hint = "After enough entries were added you will see here recommended daily amount"
         
         return HStack {
 
@@ -61,7 +61,8 @@ struct EntryHintBlock: View {
     var body: some View {
         
         ZStack {
-            if self.isEnoughData {
+
+            if self.isEnoughData && self.value > 0 {
 
                 self.defaultBlock
             }

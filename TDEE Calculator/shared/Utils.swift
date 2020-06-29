@@ -101,27 +101,28 @@ class Utils {
         let avgWeight: Double = weightEntries.average()
         
         // deltaWeight
-        let weeklyDeltaWeight = avgWeight - (prevWeekAvgWeight ?? avgWeight);
-        let doubleAccuracy: Double = 100
-        let deltaWeight = Double( round( doubleAccuracy * weeklyDeltaWeight ) / doubleAccuracy )
+        let weeklyDeltaWeight = ( avgWeight - (prevWeekAvgWeight ?? avgWeight) ).rounded(to: 2)
         
         // tdee
-        let dailyDelta = weeklyDeltaWeight / 7;
-
         let avgDailyDeltaCal = Self.getEnergyFromWeight(
-            weight: dailyDelta,
+            weight: ( weeklyDeltaWeight / 7 ),
             energyUnit: energyUnit,
             weightUnit: weightUnit
         )
         
-        let currentTdee = avgFood - avgDailyDeltaCal;
+        let currentTdee = avgFood - avgDailyDeltaCal
 
         var prevTdeeToUse = prevTdee.suffix(Self.LAST_TDEE_VALUES_TO_USE)
         prevTdeeToUse.append(currentTdee)
 
         let tdee = prevTdeeToUse.average()
         
-        return WeekSummary(avgFood: avgFood, avgWeight: avgWeight, deltaWeight: deltaWeight, tdee: tdee)
+        return WeekSummary(
+            avgFood: avgFood,
+            avgWeight: avgWeight,
+            deltaWeight: weeklyDeltaWeight,
+            tdee: tdee
+        )
     }
     
     public static func getWeekSummaries(
