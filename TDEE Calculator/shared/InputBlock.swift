@@ -86,7 +86,7 @@ class InputBlock {
                 .foregroundColor(.appPrimary)
                 .padding(.trailing, 8)
                 .multilineTextAlignment(.trailing)
-                .keyboardType(.numbersAndPunctuation)   // limit input to numbers
+                .keyboardType(.numbersAndPunctuation)
                 .onTapGesture(perform: openInput)
             
             Text(unit.uppercased())

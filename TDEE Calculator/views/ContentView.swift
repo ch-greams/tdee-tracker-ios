@@ -110,28 +110,38 @@ struct ContentView: View {
         }
     }
     
-    
-    var body: some View {
+    var mainView: some View {
         
-        ZStack(alignment: .bottom) {
-
+        ZStack(alignment: .top) {
+                
             if self.appState.isFirstSetupDone {
 
                 self.mainAppView
-                
-                self.navbarView
             }
             else {
 
                 WelcomePage()
             }
-            
+
             if !self.appState.messageText.isEmpty {
 
                 self.warningMessageBlock
             }
+        }
+    }
+    
+    var body: some View {
+        
+        ZStack(alignment: .bottom) {
+            
+            self.mainView
 
-        }.edgesIgnoringSafeArea(.bottom)
+            if self.appState.isFirstSetupDone {
+                
+                self.navbarView
+            }
+        }
+            .edgesIgnoringSafeArea(.bottom)
     }
 }
 
