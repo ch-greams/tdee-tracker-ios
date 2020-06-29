@@ -23,6 +23,18 @@ struct WeekSummaryTrends {
     let avgWeight: WeekSummaryChange
     let deltaWeight: WeekSummaryChange
     let tdee: WeekSummaryChange
+    
+    init(
+        avgFood: WeekSummaryChange = WeekSummaryChange.None,
+        avgWeight: WeekSummaryChange = WeekSummaryChange.None,
+        deltaWeight: WeekSummaryChange = WeekSummaryChange.None,
+        tdee: WeekSummaryChange = WeekSummaryChange.None
+    ) {
+        self.avgFood = avgFood
+        self.avgWeight = avgWeight
+        self.deltaWeight = deltaWeight
+        self.tdee = tdee
+    }
 }
 
 enum WeekSummaryChange {

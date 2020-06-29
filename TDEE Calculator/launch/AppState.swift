@@ -114,7 +114,7 @@ class AppState: ObservableObject {
             .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
     }
     
-    // TODO: Merge getFirst and getLast into setProgressValues ?
+
     public var firstWeekSummary: WeekSummary {
         
         let sortedWeeks = self.summaries.keys
@@ -133,42 +133,37 @@ class AppState: ObservableObject {
             .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
     }
 
-    // TODO: Save calculations?
     public var trendsChange: WeekSummaryTrends {
+
+        guard
+            let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay),
+            let prevWeekStartDate = prevWeek.startOfWeek,
+            let prevWeekSummary = self.summaries[prevWeekStartDate]
+        else {
+
+            return WeekSummaryTrends()
+        }
         
         // NOTE: Caching property value
         let currentSummary = self.selectedWeekSummary
         
-        if let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay) {
-
-            if let w = prevWeek.startOfWeek, let prevWeekSummary = self.summaries[w] {
-
-                return WeekSummaryTrends(
-                    avgFood: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.avgFood,
-                        current: currentSummary.avgFood
-                    ),
-                    avgWeight: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.avgWeight,
-                        current: currentSummary.avgWeight
-                    ),
-                    deltaWeight: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.deltaWeight,
-                        current: currentSummary.deltaWeight
-                    ),
-                    tdee: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.tdee,
-                        current: currentSummary.tdee
-                    )
-                )
-            }
-        }
-        
         return WeekSummaryTrends(
-            avgFood: WeekSummaryChange.None,
-            avgWeight: WeekSummaryChange.None,
-            deltaWeight: WeekSummaryChange.None,
-            tdee: WeekSummaryChange.None
+            avgFood: Utils.getWeekSummaryParamChange(
+                previous: prevWeekSummary.avgFood,
+                current: currentSummary.avgFood
+            ),
+            avgWeight: Utils.getWeekSummaryParamChange(
+                previous: prevWeekSummary.avgWeight,
+                current: currentSummary.avgWeight
+            ),
+            deltaWeight: Utils.getWeekSummaryParamChange(
+                previous: prevWeekSummary.deltaWeight,
+                current: currentSummary.deltaWeight
+            ),
+            tdee: Utils.getWeekSummaryParamChange(
+                previous: prevWeekSummary.tdee,
+                current: currentSummary.tdee
+            )
         )
     }
     
