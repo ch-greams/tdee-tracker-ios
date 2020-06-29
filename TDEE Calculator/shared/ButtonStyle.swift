@@ -35,7 +35,6 @@ struct DayButtonStyle: ButtonStyle {
             .foregroundColor(color)
             .background(self.isSelected ? Color.appPrimary : nil)
             .cornerRadius(20)
-            
     }
 }
 
@@ -51,19 +50,18 @@ struct ChangeMonthButtonStyle: ButtonStyle {
             .padding(.horizontal, 8)
             .clipped()
             .shadow(color: .gray, radius: 1, x: 1, y: 1)
-            
     }
 }
 
 
-struct WelcomeActionButtonStyle: ButtonStyle {
+struct AppDefaultButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(width: 176, height: 44)
+            .font(.appDefaultButtonLabel)
             .foregroundColor(.appPrimary)
             .background(Color.white)
-            
     }
 }
 
@@ -77,6 +75,5 @@ struct ReminderTimeButtonStyle: ButtonStyle {
             .background(Color.white)
             .font(.appTrendsItemValue)
             .foregroundColor(.appPrimary)
-            
     }
 }

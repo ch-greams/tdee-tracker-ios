@@ -98,10 +98,8 @@ struct SetupRemindersBlock: View {
                     .font(.appTrendsItemValue)
                     .foregroundColor(.white)
                 
-                Button("Done", action: doneAction)
-                    .buttonStyle(ToggleButtonStyle(isSelected: true))
-                    .frame(width: 160)
-                    .border(Color.white)
+                Button("CONFIRM", action: doneAction)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }

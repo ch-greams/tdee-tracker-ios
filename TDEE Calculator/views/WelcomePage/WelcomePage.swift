@@ -137,11 +137,8 @@ struct WelcomePage: View {
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button(
-                    action: self.completeFirstStep,
-                    label: { Text("NEXT").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                Button("NEXT", action: self.completeFirstStep)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }
@@ -261,11 +258,8 @@ struct WelcomePage: View {
             
             if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
                 
-                Button(
-                    action: self.appState.completeFirstSetup,
-                    label: { Text("DONE").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                Button("DONE", action: self.appState.completeFirstSetup)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }
