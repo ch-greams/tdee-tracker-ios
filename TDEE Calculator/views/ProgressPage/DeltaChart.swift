@@ -28,9 +28,11 @@ struct Line: Shape {
 
 struct DeltaChart: View {
 
-    let dash: [ CGFloat ] = [ 4 ]
-    let stepZeroHeight: CGFloat = 20
-    let totalStepsHeight: CGFloat = 180
+    let STEP_LINE_DASH: [ CGFloat ] = [ 4 ]
+    let STEP_ZERO_HEIGHT: CGFloat = 20
+    let TOTAL_STEPS_HEIGHT: CGFloat = 180
+    
+    let MIN_MAX_DELTA_VALUE: Double = 0.2
     
     let weeklyDeltas: [ Double ]
     
@@ -40,7 +42,7 @@ struct DeltaChart: View {
     
     func getStepHeight(stepCount: Int) -> CGFloat {
         
-        return self.totalStepsHeight / CGFloat(stepCount)
+        return self.TOTAL_STEPS_HEIGHT / CGFloat(stepCount)
     }
 
     func getStepValue(value: Double) -> Double {
@@ -76,6 +78,13 @@ struct DeltaChart: View {
 
     // MARK: - Chart Background
     
+    func getMaxWeeklyDeltaValue(weeklyDeltas: [ Double ], maxValue: Double) -> Double {
+
+        return weeklyDeltas
+            .max { $0 < $1 }
+            .map { ( $0 < maxValue ) ? maxValue : $0 } ?? maxValue
+    }
+    
     func getLineBlock(mark: String, length: Int, height: CGFloat, withDash: Bool = true) -> some View {
         
         VStack(alignment: .leading, spacing: 0) {
@@ -87,7 +96,7 @@ struct DeltaChart: View {
                 .foregroundColor(Color.white)
             
             Line(length: length)
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: ( withDash ? self.dash : [] )))
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: ( withDash ? self.STEP_LINE_DASH : [] )))
                 .frame(height: 1)
                 .foregroundColor(Color.white)
         }
@@ -103,7 +112,7 @@ struct DeltaChart: View {
                 self.getLineBlock(mark: step, length: width, height: stepHeight)
             }
             
-            self.getLineBlock(mark: "0 KG", length: width, height: self.stepZeroHeight, withDash: false)
+            self.getLineBlock(mark: "0 KG", length: width, height: self.STEP_ZERO_HEIGHT, withDash: false)
         }
     }
 
@@ -113,7 +122,11 @@ struct DeltaChart: View {
         
         let absWeeklyDeltas = self.weeklyDeltas.map { abs($0) }
         
-        let maxWeeklyDeltaValue = absWeeklyDeltas.max { $0 < $1 } ?? 0.0
+        let maxWeeklyDeltaValue = self.getMaxWeeklyDeltaValue(
+            weeklyDeltas: absWeeklyDeltas,
+            maxValue: self.MIN_MAX_DELTA_VALUE
+        )
+
         let stepValue = self.getStepValue(value: maxWeeklyDeltaValue)
         let stepCount = Int( ( maxWeeklyDeltaValue / stepValue ).rounded(.up) )
         
@@ -121,7 +134,7 @@ struct DeltaChart: View {
         let stepHeight = self.getStepHeight(stepCount: stepCount)
         
         // NOTE: Have to calculate height otherwise GeometryReader will take everything it can
-        let totalChartHeight = self.totalStepsHeight + self.stepZeroHeight
+        let totalChartHeight = self.TOTAL_STEPS_HEIGHT + self.STEP_ZERO_HEIGHT
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
@@ -137,23 +150,30 @@ struct DeltaChart: View {
             
                 self.getChartBackground(steps: steps, stepHeight: stepHeight, width: Int(geometry.size.width))
                 
-                HStack(alignment: .top, spacing: 0) {
-                        
-                    ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
-                        
-                        VStack(alignment: .center, spacing: 0) {
-                            Rectangle()
-                                .padding(.top, self.totalStepsHeight - weeklyDeltaHeights[iWeek])
-                                .frame(width: 20, height: self.totalStepsHeight)
-                                .padding(.top, 11)
-                                .padding(.horizontal, 1)
-                                .foregroundColor(Color.white)
-                                .opacity(0.85)
+                // NOTE: Top HStack is necessary for mask
+                HStack {
 
-                            Text(String(iWeek + 1))
-                                .font(.appProgressChartSegment)
-                                .padding(.top, 4)
-                                .foregroundColor(Color.white)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                    
+                        HStack(alignment: .top, spacing: 0) {
+
+                            ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
+                                
+                                VStack(alignment: .center, spacing: 0) {
+                                    Rectangle()
+                                        .padding(.top, self.TOTAL_STEPS_HEIGHT - weeklyDeltaHeights[iWeek])
+                                        .frame(width: 28, height: self.TOTAL_STEPS_HEIGHT)
+                                        .padding(.top, 11)
+                                        .padding(.horizontal, 1)
+                                        .foregroundColor(Color.white)
+                                        .opacity(0.85)
+
+                                    Text(String(iWeek + 1))
+                                        .font(.appProgressChartSegment)
+                                        .padding(.top, 4)
+                                        .foregroundColor(Color.white)
+                                }
+                            }
                         }
                     }
                 }
@@ -170,11 +190,21 @@ struct DeltaChart: View {
 struct DeltaChart_Previews: PreviewProvider {
     
     static let weeklyDeltas: [ Double ] = [
+        0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966,
         0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966
     ]
     
     static var previews: some View {
-        DeltaChart(weeklyDeltas: Self.weeklyDeltas, weightUnit: "KG")
-            .background(Color.appPrimary)
+        
+        VStack {
+
+            // NOTE: With data
+            DeltaChart(weeklyDeltas: Self.weeklyDeltas, weightUnit: "KG")
+                .background(Color.appPrimary)
+            
+            // NOTE: Empty
+            DeltaChart(weeklyDeltas: [], weightUnit: "KG")
+                .background(Color.appPrimary)
+        }
     }
 }

@@ -48,10 +48,8 @@ struct SetupGoalBlock: View {
             TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
             
             if self.isOpen {
-                Button("Done", action: doneAction)
-                    .buttonStyle(ToggleButtonStyle(isSelected: true))
-                    .frame(width: 160)
-                    .border(Color.white)
+                Button("CONFIRM", action: doneAction)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }

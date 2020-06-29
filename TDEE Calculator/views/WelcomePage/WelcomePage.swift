@@ -80,8 +80,8 @@ struct WelcomePage: View {
                     self.weightUnit = $0
                     self.isWeightUnitSelected = true
                 },
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
+                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
+                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.weightUnit as WeightUnit?
             )
                 .padding(.bottom, 20)
@@ -104,8 +104,8 @@ struct WelcomePage: View {
                         self.energyUnit = $0
                         self.isEnergyUnitSelected = true
                     },
-                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
-                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
+                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
+                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: self.energyUnit as EnergyUnit?
                 )
                     .padding(.bottom, 20)
@@ -137,11 +137,8 @@ struct WelcomePage: View {
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button(
-                    action: self.completeFirstStep,
-                    label: { Text("NEXT").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                Button("NEXT", action: self.completeFirstStep)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }
@@ -261,11 +258,8 @@ struct WelcomePage: View {
             
             if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
                 
-                Button(
-                    action: self.appState.completeFirstSetup,
-                    label: { Text("DONE").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                Button("DONE", action: self.appState.completeFirstSetup)
+                    .buttonStyle(AppDefaultButtonStyle())
             }
         }
     }

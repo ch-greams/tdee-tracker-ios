@@ -100,12 +100,20 @@ extension Font {
         Self.custom("Oswald-Light", size: 22)
     }
     
-    // MARK: - Other
+    // MARK: - General
 
     public static var appWarningText: Font {
         Self.custom("Oswald-Light", size: 16)
     }
     
+    public static var appNavbarElement: Font {
+        Self.custom("Oswald-Light", size: 12)
+    }
+    
+    public static var appDefaultButtonLabel: Font {
+        Self.custom("Oswald-Medium", size: 18)
+    }
+
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }
