@@ -113,7 +113,6 @@ class AppState: ObservableObject {
         return self.selectedDay.startOfWeek
             .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
     }
-    
 
     public var firstWeekSummary: WeekSummary {
         
@@ -135,36 +134,17 @@ class AppState: ObservableObject {
 
     public var trendsChange: WeekSummaryTrends {
 
-        guard
+        if
             let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay),
             let prevWeekStartDate = prevWeek.startOfWeek,
-            let prevWeekSummary = self.summaries[prevWeekStartDate]
+            let previousSummary = self.summaries[prevWeekStartDate] {
+            
+            return WeekSummaryTrends(previousSummary: previousSummary, currentSummary: self.selectedWeekSummary)
+        }
         else {
-
+            
             return WeekSummaryTrends()
         }
-        
-        // NOTE: Caching property value
-        let currentSummary = self.selectedWeekSummary
-        
-        return WeekSummaryTrends(
-            avgFood: Utils.getWeekSummaryParamChange(
-                previous: prevWeekSummary.avgFood,
-                current: currentSummary.avgFood
-            ),
-            avgWeight: Utils.getWeekSummaryParamChange(
-                previous: prevWeekSummary.avgWeight,
-                current: currentSummary.avgWeight
-            ),
-            deltaWeight: Utils.getWeekSummaryParamChange(
-                previous: prevWeekSummary.deltaWeight,
-                current: currentSummary.deltaWeight
-            ),
-            tdee: Utils.getWeekSummaryParamChange(
-                previous: prevWeekSummary.tdee,
-                current: currentSummary.tdee
-            )
-        )
     }
     
     public var weeklyWeightDeltas: [ Double ] {
@@ -390,6 +370,18 @@ class AppState: ObservableObject {
     }
     
     // MARK: - API
+
+    private func changeEntry(date: Date, entry: DayEntry) {
+        
+        self.entries[date] = entry
+        
+        self.refreshSummary()
+    }
+    
+    private func getEntry(date: Date) -> DayEntry? {
+        
+        return self.entries[date]
+    }
     
     public func changeDay(to date: Date) {
         
@@ -398,18 +390,6 @@ class AppState: ObservableObject {
         self.loadSelectedDayData(for: self.selectedDay)
     }
 
-    public func changeEntry(date: Date, entry: DayEntry) {
-        
-        self.entries[date] = entry
-        
-        self.refreshSummary()
-    }
-    
-    public func getEntry(date: Date) -> DayEntry? {
-        
-        return self.entries[date]
-    }
-    
     public func isDayHasData(date: Date) -> DayEntryData {
 
         if let dayEntry = self.getEntry(date: date) {
@@ -423,8 +403,7 @@ class AppState: ObservableObject {
 
         return DayEntryData.Empty
     }
-    
-    
+
     // MARK: - Entry update
 
     private func updateWeightInEntry() {
@@ -447,6 +426,26 @@ class AppState: ObservableObject {
         self.saveEntries()
     }
     
+    private func updateFoodInEntry() {
+        
+        if let entry = self.getEntry(date: self.selectedDay) {
+            
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: entry.weight, food: self.food)
+            )
+        }
+        else {
+
+            self.changeEntry(
+                date: self.selectedDay,
+                entry: DayEntry(weight: nil, food: self.food)
+            )
+        }
+        
+        self.saveEntries()
+    }
+
     public func updateWeightFromInput() {
 
         if let numberValue = NumberFormatter().number(from: self.weightInput) {
@@ -471,26 +470,6 @@ class AppState: ObservableObject {
         }
 
         self.weightInput = self.weight > 0 ? String(self.weight) : ""
-    }
-    
-    private func updateFoodInEntry() {
-        
-        if let entry = self.getEntry(date: self.selectedDay) {
-            
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: entry.weight, food: self.food)
-            )
-        }
-        else {
-
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: nil, food: self.food)
-            )
-        }
-        
-        self.saveEntries()
     }
 
     public func updateEnergyFromInput() {
@@ -524,7 +503,11 @@ class AppState: ObservableObject {
     private func saveGoalWeight() {
         self.save(key: AppStateKey.GoalWeight, value: self.goalWeight)
     }
-    
+
+    private func saveGoalWeeklyDelta() {
+        self.save(key: AppStateKey.GoalWeeklyWeightDelta, value: self.goalWeeklyWeightDelta)
+    }
+
     public func saveGoalWeightFromInput() {
         
         if let numberValue = NumberFormatter().number(from: self.goalWeightInput) {
@@ -548,11 +531,7 @@ class AppState: ObservableObject {
 
         self.goalWeightInput = self.goalWeight > 0 ? String(self.goalWeight) : ""
     }
-    
-    private func saveGoalWeeklyDelta() {
-        self.save(key: AppStateKey.GoalWeeklyWeightDelta, value: self.goalWeeklyWeightDelta)
-    }
-    
+
     public func saveGoalWeeklyDeltaFromInput() {
 
         if let numberValue = NumberFormatter().number(from: self.goalWeeklyWeightDeltaInput) {
@@ -693,8 +672,7 @@ class AppState: ObservableObject {
             type: ReminderType.Food
         )
     }
-    
-    
+
     public func updateReminders(_ reminderToUpdate: ReminderType? = nil) {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -715,7 +693,7 @@ class AppState: ObservableObject {
 
     // MARK: - Other
     
-    public func showMessage(text: String, time: TimeInterval) {
+    private func showMessage(text: String, time: TimeInterval) {
         
         self.messageText = text
         

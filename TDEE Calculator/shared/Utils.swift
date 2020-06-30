@@ -35,6 +35,26 @@ struct WeekSummaryTrends {
         self.deltaWeight = deltaWeight
         self.tdee = tdee
     }
+    
+    init(previousSummary: WeekSummary, currentSummary: WeekSummary) {
+
+        self.avgFood = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgFood,
+            current: currentSummary.avgFood
+        )
+        self.avgWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgWeight,
+            current: currentSummary.avgWeight
+        )
+        self.deltaWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.deltaWeight,
+            current: currentSummary.deltaWeight
+        )
+        self.tdee = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.tdee,
+            current: currentSummary.tdee
+        )
+    }
 }
 
 enum WeekSummaryChange {
@@ -291,7 +311,7 @@ class Utils {
         return calendar.date(from: dateComponents)
     }
 
-    // MARK: - Other
+    // MARK: - Conversions
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {
         
