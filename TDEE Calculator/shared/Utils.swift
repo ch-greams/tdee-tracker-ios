@@ -185,7 +185,10 @@ class Utils {
                     
                     weekSummaries[startWeekDate] = weekSummary
                     lastWeekAvgWeight = weekSummary.avgWeight
-                    tdeeArray.append(weekSummary.tdee!)
+                    
+                    if let lastWeekTDEE = weekSummary.tdee {
+                        tdeeArray.append(lastWeekTDEE)
+                    }
                 }
             }
         }

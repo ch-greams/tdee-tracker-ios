@@ -12,8 +12,8 @@ import SwiftUI
 
 struct ProgressCircle: View {
     
-    let currentValue: Double
-    let goalValue: Double
+    let currentWeightValue: Double
+    let goalWeightValue: Double
     let unit: String
     
     let estimatedTimeLeft: Int
@@ -23,11 +23,11 @@ struct ProgressCircle: View {
         let width: CGFloat = 40
         let diameter: CGFloat = 340
         
-        let absCurrentValue = abs(self.currentValue)
-        let absGoalValue = abs(self.goalValue)
-        let absEstimatedTimeLeft = abs(self.estimatedTimeLeft)
+        let absCurrentWeightValue = self.currentWeightValue
+        let absGoalWeightValue = self.goalWeightValue
+        let absEstimatedTimeLeft = self.estimatedTimeLeft
         
-        let progress = absCurrentValue / absGoalValue
+        let progress = absCurrentWeightValue / absGoalWeightValue
         
         return ZStack {
             
@@ -45,17 +45,25 @@ struct ProgressCircle: View {
             
             VStack {
                 
-                Text(String(format: "%.1f%%", progress * 100))
-                    .font(.appProgressCirclePercent)
-                    .foregroundColor(.white)
+                if progress > 1 {
+                    
+                    Text("DONE!")
+                        .font(.appProgressCirclePercent)
+                        .foregroundColor(.white)
+                }
+                else {
+                    Text(String(format: "%.1f%%", progress * 100))
+                        .font(.appProgressCirclePercent)
+                        .foregroundColor(.white)
 
-                Text(String(format: "%.1f / %.1f \(unit)", absCurrentValue, absGoalValue))
-                    .font(.appProgressCircleValues)
-                    .foregroundColor(.white)
+                    Text(String(format: "%.1f / %.1f \(unit)", absCurrentWeightValue, absGoalWeightValue))
+                        .font(.appProgressCircleValues)
+                        .foregroundColor(.white)
 
-                Text("~ \(absEstimatedTimeLeft) weeks")
-                    .font(.appProgressCircleEstimate)
-                    .foregroundColor(.white)
+                    Text("~ \(absEstimatedTimeLeft) weeks")
+                        .font(.appProgressCircleEstimate)
+                        .foregroundColor(.white)
+                }
             }
             
         }.frame(height: diameter)
@@ -66,7 +74,7 @@ struct ProgressCircle: View {
 struct ProgressCircle_Previews: PreviewProvider {
     static var previews: some View {
         
-        ProgressCircle(currentValue: 3.3, goalValue: 5.1, unit: "kg", estimatedTimeLeft: 7)
+        ProgressCircle(currentWeightValue: 3.3, goalWeightValue: 5.1, unit: "kg", estimatedTimeLeft: 7)
             .padding(.vertical, 20)
             .background(Color.appPrimary)
     }

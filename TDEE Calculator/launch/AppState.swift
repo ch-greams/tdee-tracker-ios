@@ -63,42 +63,70 @@ class AppState: ObservableObject {
     @Published var reminderFoodDate: Date
 
 
-    public var startWeight: Double {
-        return self.firstWeekSummary.avgWeight
+
+    public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {
+        
+        let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
+        
+        let weekWeights: [ Date: Double ] = weeks
+            .compactMapValues { entries in
+                entries.compactMap { entry in entry.weight }.average()
+            }
+            .filter { $0.value > 0 }
+        
+        let sortedWeeks = weekWeights.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+
+        let startWeight = sortedWeeks.first.map { weekWeights[$0] ?? 0 } ?? 0
+        let currentWeight = sortedWeeks.last.map { weekWeights[$0] ?? 0 } ?? 0
+        
+        // NOTE: Check is user working towards the goal, if not startWeight will be adjusted
+        let isThisLoss = self.goalWeight < startWeight
+        let isUserWorking = (
+            ( isThisLoss && ( startWeight > currentWeight ) ) ||
+            ( !isThisLoss && ( startWeight < currentWeight ) )
+        )
+        
+        let progressWeight = ( isUserWorking ? abs(currentWeight - startWeight) : 0 )
+        
+        let startPoint = ( isUserWorking ? startWeight : currentWeight )
+        
+        let goalWeight = abs(self.goalWeight - startPoint)
+        
+        if self.goalWeeklyWeightDelta != 0 {
+
+            let leftWeight = self.goalWeight - currentWeight
+            let estimatedTimeLeft = abs( Int( ( leftWeight / self.goalWeeklyWeightDelta ).rounded(.up) ) )
+            
+            return (
+                progressWeight: progressWeight,
+                goalWeight: goalWeight,
+                estimatedTimeLeft: estimatedTimeLeft
+            )
+        }
+        else {
+            return (
+                progressWeight: progressWeight,
+                goalWeight: goalWeight,
+                estimatedTimeLeft: 0
+            )
+        }
     }
     
-    public var currentWeight: Double {
-        return self.lastWeekSummary.avgWeight
-    }
     
     public var goalTargetFoodDelta: Int {
         
-        let deltaWeight: Double = self.goalWeight - self.currentWeight
-        
-        let weeksToGoal: Double = abs( deltaWeight / self.goalWeeklyWeightDelta )
-        
-        let deltaCalories = Utils.getEnergyFromWeight(
-            weight: deltaWeight,
+        let weeklyFoodDelta = Utils.getEnergyFromWeight(
+            weight: self.goalWeeklyWeightDelta,
             energyUnit: self.energyUnit,
             weightUnit: self.weightUnit
         )
         
-        return Int( ( Double(deltaCalories) / weeksToGoal ) / 7 )
+        return (weeklyFoodDelta / 7)
     }
     
     public var recommendedFoodAmount: Int {
         return self.lastWeekSummary.tdee.map { $0 > 0 ? $0 + self.goalTargetFoodDelta : 0 } ?? 0
-    }
-
-    public var estimatedTimeLeft: Int {
-
-        let leftWeight = self.goalWeight - self.currentWeight
-        
-        return (
-            self.goalWeeklyWeightDelta != 0
-                ? Int( ( leftWeight / self.goalWeeklyWeightDelta ).rounded(.up) )
-                : 0
-        )
     }
     
     public var isFutureDate: Bool {

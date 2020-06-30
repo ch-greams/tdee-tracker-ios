@@ -21,8 +21,7 @@ struct ProgressPage: View {
         
         let title = "Starting from \(startDateStr)".uppercased()
         
-        let currentValue = self.appState.currentWeight - self.appState.startWeight
-        let goalValue = self.appState.goalWeight - self.appState.startWeight
+        let progressData = self.appState.progressData
         
         return ZStack(alignment: .top) {
 
@@ -41,10 +40,10 @@ struct ProgressPage: View {
                     .padding(.top, 20)
 
                 ProgressCircle(
-                    currentValue: currentValue,
-                    goalValue: goalValue,
+                    currentWeightValue: progressData.progressWeight,
+                    goalWeightValue: progressData.goalWeight,
                     unit: self.appState.weightUnit.rawValue,
-                    estimatedTimeLeft: self.appState.estimatedTimeLeft
+                    estimatedTimeLeft: progressData.estimatedTimeLeft
                 )
                     .padding(.top, 40)
             }
