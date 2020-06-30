@@ -103,7 +103,7 @@ class AppState: ObservableObject {
     
     public var isFutureDate: Bool {
         
-        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .weekOfYear)
+        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .day)
         
         return result == ComparisonResult.orderedDescending
     }

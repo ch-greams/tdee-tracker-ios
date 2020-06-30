@@ -23,11 +23,11 @@ extension Font {
     }
     
     public static var appCalendarDay: Font {
-        Self.custom("Roboto-Thin", size: 24)
+        Self.custom("Oswald-ExtraLight", size: 22)
     }
     
     public static var appCalendarDaySelected: Font {
-        Self.custom("Roboto-Bold", size: 24)
+        Self.custom("Oswald-Medium", size: 22)
     }
     
     // MARK: - Entry Page
