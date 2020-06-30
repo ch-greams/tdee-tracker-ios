@@ -458,9 +458,8 @@ class AppState: ObservableObject {
                 self.weight = value
 
                 self.updateWeightInEntry()
-                
-                // TODO: Look into how it can be optimized
-                self.saveUpdatedReminders()
+
+                self.updateReminders(ReminderType.Weight)
             }
             else {
                 
@@ -505,9 +504,8 @@ class AppState: ObservableObject {
                 self.food = value
                 
                 self.updateFoodInEntry()
-                
-                // TODO: Look into how it can be optimized
-                self.saveUpdatedReminders()
+
+                self.updateReminders(ReminderType.Food)
             }
             else {
                 
@@ -635,7 +633,7 @@ class AppState: ObservableObject {
         
         self.save(key: AppStateKey.IsFirstSetupDone, value: self.isFirstSetupDone)
         
-        self.saveUpdatedReminders()
+        self.updateReminders()
     }
 
     // MARK: - Reminders
@@ -673,7 +671,7 @@ class AppState: ObservableObject {
         
         NotificationManager.updateNotificationTime(
             dateComponents: nextDateTimeComponents,
-            type: ReminderType.WeightInput
+            type: ReminderType.Weight
         )
     }
     
@@ -692,20 +690,26 @@ class AppState: ObservableObject {
         
         NotificationManager.updateNotificationTime(
             dateComponents: nextDateTimeComponents,
-            type: ReminderType.FoodInput
+            type: ReminderType.Food
         )
     }
     
     
-    public func saveUpdatedReminders() {
+    public func updateReminders(_ reminderToUpdate: ReminderType? = nil) {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         if self.isFirstSetupDone {
-
-            self.saveWeightReminder(weight: self.todayEntry.weight)
-
-            self.saveFoodReminder(food: self.todayEntry.food)
+            
+            switch reminderToUpdate {
+                case Optional(ReminderType.Weight):
+                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                case Optional(ReminderType.Food):
+                    self.saveFoodReminder(food: self.todayEntry.food)
+                default:
+                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                    self.saveFoodReminder(food: self.todayEntry.food)
+            }
         }
     }
 
@@ -719,5 +723,4 @@ class AppState: ObservableObject {
             self.messageText = ""
         })
     }
-
 }
