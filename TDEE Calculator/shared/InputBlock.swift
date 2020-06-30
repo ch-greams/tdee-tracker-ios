@@ -130,7 +130,7 @@ class InputBlock {
     
             TextField("", text: value, onCommit: onCommit)
                 .font(.appEntryValue)
-                .padding([.top, .leading, .trailing], 4)
+                .padding(.trailing, 8)
                 .frame(width: 140, height: 44)
                 .multilineTextAlignment(.trailing)
                 .border(baseColor)

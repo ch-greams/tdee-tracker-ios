@@ -41,7 +41,7 @@ extension Font {
     }
     
     public static var appEntryValue: Font {
-        Self.custom("Roboto-Light", size: 40)
+        Self.custom("Oswald-Bold", size: 36)
     }
 
     public static var appEntryUnit: Font {
@@ -71,7 +71,7 @@ extension Font {
     // MARK: - Progress Page
     
     public static var appProgressChartSegment: Font {
-        Self.custom("Roboto-Light", size: 10)
+        Self.custom("Oswald-Light", size: 10)
     }
     
     public static var appProgressCirclePercent: Font {
