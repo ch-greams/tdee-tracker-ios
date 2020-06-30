@@ -212,7 +212,6 @@ class AppState: ObservableObject {
         return sortedEntries.first ?? Date()
     }
 
-    // TODO: Think about counting amount of entries during first week too
     public var isEnoughDataForRecommendation: Bool {
         
         return self.summaries.count > 1
@@ -242,14 +241,13 @@ class AppState: ObservableObject {
         
         // MARK: - Other setup
         
-        self.loadAllStuff()
+        self.loadExistingData()
     }
 
     
     // MARK: - Private
 
-    // TODO: Some optimization?
-    private func loadAllStuff() {
+    private func loadExistingData() {
 
         if let isDone: Bool = self.load(key: AppStateKey.IsFirstSetupDone) {
             self.isFirstSetupDone = isDone
@@ -586,39 +584,37 @@ class AppState: ObservableObject {
         let oldValue = self.weightUnit
         self.weightUnit = newValue
         
-        // TODO: Convert existing data
-        
+        // NOTE: Convert existing weight data
         self.entries = Utils.convertWeightInEntries(entries: self.entries, from: oldValue, to: newValue)
-        
         self.goalWeight = Utils.convertWeight(value: self.goalWeight, from: oldValue, to: newValue)
         self.goalWeeklyWeightDelta = Utils.convertWeight(value: self.goalWeeklyWeightDelta, from: oldValue, to: newValue)
         
+        // NOTE: Save existing weight data
         self.saveEntries()
-
         self.saveGoalWeight()
         self.saveGoalWeeklyDelta()
-
         self.save(key: AppStateKey.WeightUnit, value: self.weightUnit.rawValue)
         
-        // TODO: Optimize refresh?
-        self.loadAllStuff()
+        // NOTE: It's possible to optimize unit switch, but you'll have to update inputs and few other vars manually
+        // NOTE: While dropping loadExistingData() hard reset, it'll create a weak point here for any new variable
+        self.loadExistingData()
     }
     
     public func updateEnergyUnit(_ newValue: EnergyUnit) {
         
         let oldValue = self.energyUnit
         self.energyUnit = newValue
-        
-        // TODO: Convert existing data
 
+        // NOTE: Convert existing energy data
         self.entries = Utils.convertEnergyInEntries(entries: self.entries, from: oldValue, to: newValue)
-
-        self.saveEntries()
         
+        // NOTE: Save existing energy data
+        self.saveEntries()
         self.save(key: AppStateKey.EnergyUnit, value: self.energyUnit.rawValue)
 
-        // TODO: Optimize refresh?
-        self.loadAllStuff()
+        // NOTE: It's possible to optimize unit switch, but you'll have to update inputs and few other vars manually
+        // NOTE: While dropping loadExistingData() hard reset, it'll create a weak point here for any new variable
+        self.loadExistingData()
     }
     
     // MARK: - Welcome Page setup
