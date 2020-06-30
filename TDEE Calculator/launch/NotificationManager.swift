@@ -18,7 +18,7 @@ struct Notification {
 }
 
 enum ReminderType: String {
-    case WeightInput, FoodInput
+    case Weight, Food
 }
 
 class NotificationManager {
@@ -30,13 +30,13 @@ class NotificationManager {
     private static func getNotification(notificationType: ReminderType) -> Notification {
         
         switch notificationType {
-            case ReminderType.WeightInput:
+            case ReminderType.Weight:
                 return Notification(
                     id: notificationType.rawValue,
                     title: "Update Entry",
                     body: "It's time to add your weight"
                 )
-            case ReminderType.FoodInput:
+            case ReminderType.Food:
                 return Notification(
                     id: notificationType.rawValue,
                     title: "Update Entry",

@@ -163,14 +163,14 @@ struct DeltaChart: View {
                                     Rectangle()
                                         .padding(.top, self.TOTAL_STEPS_HEIGHT - weeklyDeltaHeights[iWeek])
                                         .frame(width: 28, height: self.TOTAL_STEPS_HEIGHT)
-                                        .padding(.top, 11)
+                                        .padding(.top, 15)
                                         .padding(.horizontal, 1)
                                         .foregroundColor(Color.white)
                                         .opacity(0.85)
 
                                     Text(String(iWeek + 1))
                                         .font(.appProgressChartSegment)
-                                        .padding(.top, 4)
+                                        .padding(.top, 1)
                                         .foregroundColor(Color.white)
                                 }
                             }
@@ -190,7 +190,7 @@ struct DeltaChart: View {
 struct DeltaChart_Previews: PreviewProvider {
     
     static let weeklyDeltas: [ Double ] = [
-        0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966,
+        0.085, 1, 0.03, 0.084, 0.6, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966,
         0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966
     ]
     

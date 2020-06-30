@@ -30,7 +30,7 @@ struct DayButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 40, height: 40)
+            .frame(width: 40, height: 40, alignment: .center)
             .font(isSelected ? .appCalendarDaySelected : .appCalendarDay)
             .foregroundColor(color)
             .background(self.isSelected ? Color.appPrimary : nil)

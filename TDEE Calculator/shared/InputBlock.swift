@@ -66,7 +66,7 @@ class InputBlock {
         title: String,
         unit: String,
         input: Binding<String>,
-        updateInput: @escaping () -> Void,
+        onCommit: @escaping () -> Void,
         openInput: @escaping () -> Void
     ) -> some View {
         
@@ -78,7 +78,7 @@ class InputBlock {
                 .padding(.horizontal, 16)
                 .foregroundColor(.appPrimary)
             
-            TextField("", text: input, onCommit: updateInput)
+            TextField("", text: input, onCommit: onCommit)
                 .font(.appTrendsItemValue)
                 .padding(.trailing, 8)
                 .frame(width: 140, height: 44)
@@ -86,7 +86,7 @@ class InputBlock {
                 .foregroundColor(.appPrimary)
                 .padding(.trailing, 8)
                 .multilineTextAlignment(.trailing)
-                .keyboardType(.numbersAndPunctuation)
+                .keyboardType(.decimalPad)
                 .onTapGesture(perform: openInput)
             
             Text(unit.uppercased())
@@ -103,6 +103,61 @@ class InputBlock {
             .shadow(color: .appFade, radius: 1, x: 1, y: 1)
         
     }
+    
+    
+    public static func EntryNumber(
+        icon: String,
+        unit: String,
+        value: Binding<String>,
+        onCommit: @escaping () -> Void,
+        openInput: @escaping () -> Void
+    ) -> some View {
+
+        let baseColor = (
+            NumberFormatter().number(from: value.wrappedValue) == nil
+                ? Color.appSecondary
+                : Color.appPrimary
+        )
+        
+        let result = HStack(alignment: .center, spacing: 0) {
+
+            Image(icon)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30)
+                .foregroundColor(baseColor)
+                .padding(.horizontal, 8)
+    
+            TextField("", text: value, onCommit: onCommit)
+                .font(.appEntryValue)
+                .padding(.trailing, 8)
+                .frame(width: 140, height: 44)
+                .multilineTextAlignment(.trailing)
+                .border(baseColor)
+                .foregroundColor(baseColor)
+                .padding(.horizontal, 16)
+                .keyboardType(.decimalPad)
+                .onTapGesture(perform: openInput)
+            
+            Text(unit.uppercased())
+                .font(.appEntryUnit)
+                .padding(.trailing, 16)
+                .frame(width: 60, alignment: .leading)
+                .foregroundColor(baseColor)
+
+
+        }
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(height: 70)
+            .padding()
+            .background(Color.white)
+            .padding(1)
+            .clipped()
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .padding(.horizontal, 7)
+        
+        return result
+    }
 }
 
 struct InputBlock_Previews: PreviewProvider {
@@ -114,7 +169,7 @@ struct InputBlock_Previews: PreviewProvider {
             
             Color.appPrimary.edgesIgnoringSafeArea(.all)
             
-            VStack {
+            VStack(alignment: .center, spacing: 8) {
              
                 InputBlock.Toggle(
                     title: "Title",
@@ -128,7 +183,23 @@ struct InputBlock_Previews: PreviewProvider {
                     title: "Title",
                     unit: "kg",
                     input: .constant("17.4"),
-                    updateInput: { print("updateInput") },
+                    onCommit: { print("onCommit") },
+                    openInput: { print("openInput") }
+                )
+                
+                InputBlock.EntryNumber(
+                    icon: "body-sharp",
+                    unit: "kg",
+                    value: .constant("71.4"),
+                    onCommit: { print("onCommit") },
+                    openInput: { print("openInput") }
+                )
+                
+                InputBlock.EntryNumber(
+                    icon: "fast-food-sharp",
+                    unit: "kcal",
+                    value: .constant("2934"),
+                    onCommit: { print("onCommit") },
                     openInput: { print("openInput") }
                 )
             }

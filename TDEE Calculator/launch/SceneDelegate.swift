@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        self.appState.saveUpdatedReminders()
+        self.appState.updateReminders()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -64,9 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         
         // NOTE: Clearing badge number if it appeared when the app was active
-        self.appState.saveUpdatedReminders()
+        self.appState.updateReminders()
     }
-
-
 }
 

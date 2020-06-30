@@ -23,6 +23,38 @@ struct WeekSummaryTrends {
     let avgWeight: WeekSummaryChange
     let deltaWeight: WeekSummaryChange
     let tdee: WeekSummaryChange
+    
+    init(
+        avgFood: WeekSummaryChange = WeekSummaryChange.None,
+        avgWeight: WeekSummaryChange = WeekSummaryChange.None,
+        deltaWeight: WeekSummaryChange = WeekSummaryChange.None,
+        tdee: WeekSummaryChange = WeekSummaryChange.None
+    ) {
+        self.avgFood = avgFood
+        self.avgWeight = avgWeight
+        self.deltaWeight = deltaWeight
+        self.tdee = tdee
+    }
+    
+    init(previousSummary: WeekSummary, currentSummary: WeekSummary) {
+
+        self.avgFood = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgFood,
+            current: currentSummary.avgFood
+        )
+        self.avgWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgWeight,
+            current: currentSummary.avgWeight
+        )
+        self.deltaWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.deltaWeight,
+            current: currentSummary.deltaWeight
+        )
+        self.tdee = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.tdee,
+            current: currentSummary.tdee
+        )
+    }
 }
 
 enum WeekSummaryChange {
@@ -101,27 +133,28 @@ class Utils {
         let avgWeight: Double = weightEntries.average()
         
         // deltaWeight
-        let weeklyDeltaWeight = avgWeight - (prevWeekAvgWeight ?? avgWeight);
-        let doubleAccuracy: Double = 100
-        let deltaWeight = Double( round( doubleAccuracy * weeklyDeltaWeight ) / doubleAccuracy )
+        let weeklyDeltaWeight = ( avgWeight - (prevWeekAvgWeight ?? avgWeight) ).rounded(to: 2)
         
         // tdee
-        let dailyDelta = weeklyDeltaWeight / 7;
-
         let avgDailyDeltaCal = Self.getEnergyFromWeight(
-            weight: dailyDelta,
+            weight: ( weeklyDeltaWeight / 7 ),
             energyUnit: energyUnit,
             weightUnit: weightUnit
         )
         
-        let currentTdee = avgFood - avgDailyDeltaCal;
+        let currentTdee = avgFood - avgDailyDeltaCal
 
         var prevTdeeToUse = prevTdee.suffix(Self.LAST_TDEE_VALUES_TO_USE)
         prevTdeeToUse.append(currentTdee)
 
         let tdee = prevTdeeToUse.average()
         
-        return WeekSummary(avgFood: avgFood, avgWeight: avgWeight, deltaWeight: deltaWeight, tdee: tdee)
+        return WeekSummary(
+            avgFood: avgFood,
+            avgWeight: avgWeight,
+            deltaWeight: weeklyDeltaWeight,
+            tdee: tdee
+        )
     }
     
     public static func getWeekSummaries(
@@ -138,17 +171,22 @@ class Utils {
             
             if let currentWeek = weeks[startWeekDate] {
                 
-                let weekSummary = Self.getWeekSummary(
-                    entries: currentWeek,
-                    prevWeekAvgWeight: lastWeekAvgWeight,
-                    prevTdee: tdeeArray,
-                    energyUnit: energyUnit,
-                    weightUnit: weightUnit
-                )
+                let entries = currentWeek.filter { $0.weight != nil && $0.food != nil }
                 
-                weekSummaries[startWeekDate] = weekSummary
-                lastWeekAvgWeight = weekSummary.avgWeight
-                tdeeArray.append(weekSummary.tdee!)
+                if entries.count > 0 {
+
+                    let weekSummary = Self.getWeekSummary(
+                        entries: entries,
+                        prevWeekAvgWeight: lastWeekAvgWeight,
+                        prevTdee: tdeeArray,
+                        energyUnit: energyUnit,
+                        weightUnit: weightUnit
+                    )
+                    
+                    weekSummaries[startWeekDate] = weekSummary
+                    lastWeekAvgWeight = weekSummary.avgWeight
+                    tdeeArray.append(weekSummary.tdee!)
+                }
             }
         }
         
@@ -273,7 +311,7 @@ class Utils {
         return calendar.date(from: dateComponents)
     }
 
-    // MARK: - Other
+    // MARK: - Conversions
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {
         

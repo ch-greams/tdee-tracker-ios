@@ -31,9 +31,11 @@ struct DayButton: View {
         let color = self.isSelectedDay
             ? Color.white
             : ( self.isSelectedMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
-
         
-        let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
+        let button = Button(
+            action: { self.selectDayFunc(self.day) },
+            label: { Text(stringDate).padding(.top, -1) }
+        )
             .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
         
         return button
@@ -41,7 +43,7 @@ struct DayButton: View {
     
     var body: some View {
         
-        ZStack {
+        ZStack(alignment: .top) {
             
             if self.hasData == DayEntryData.Full {
 
@@ -60,7 +62,7 @@ struct DayButton: View {
             
             self.button
         }
-        .frame(width: 40, height: 40)
+            .frame(width: 40, height: 40, alignment: .top)
         
     }
 }

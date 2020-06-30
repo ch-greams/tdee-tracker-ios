@@ -21,8 +21,10 @@ struct TrendsPage: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                // TODO: Drop selectedDay param altogether?
-                CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: true)
+                CalendarBlock(
+                    selectedDay: self.appState.selectedDay,
+                    isTrendsPage: true
+                )
                 
                 WeeklyTrendsBlock(
                     weightUnitLabel: self.appState.weightUnit.rawValue,
