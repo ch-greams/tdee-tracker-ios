@@ -65,28 +65,26 @@ struct EntryPage: View {
             }
 
 
-            EntryInputBlock(
+            InputBlock.EntryNumber(
+                icon: "body-sharp",
+                unit: self.appState.weightUnit.rawValue,
                 value: self.$appState.weightInput,
                 onCommit: self.onSubmit,
-                icon: "body-sharp",
-                unit: self.appState.weightUnit.rawValue
+                openInput: { self.isWeightInputOpen = true }
             )
-                .padding(.horizontal, 7)
                 .animation(.easeOut(duration: 0.16))
                 .padding(.top, self.isWeightInputOpen ? 160 : 458)
-                .onTapGesture { self.isWeightInputOpen = true }
                 .zIndex(self.isWeightInputOpen ? 1 : 0)
 
-            EntryInputBlock(
+            InputBlock.EntryNumber(
+                icon: "fast-food-sharp",
+                unit: self.appState.energyUnit.rawValue,
                 value: self.$appState.foodInput,
                 onCommit: self.onSubmit,
-                icon: "fast-food-sharp",
-                unit: self.appState.energyUnit.rawValue
+                openInput: { self.isFoodInputOpen = true }
             )
-                .padding(.horizontal, 7)
                 .animation(.easeOut(duration: 0.16))
                 .padding(.top, self.isFoodInputOpen ? 160 : 562)
-                .onTapGesture { self.isFoodInputOpen = true }
                 .zIndex(self.isFoodInputOpen ? 1 : 0)
 
             if self.appState.isFutureDate {

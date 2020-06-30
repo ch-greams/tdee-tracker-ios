@@ -37,7 +37,7 @@ struct SetupGoalBlock: View {
                 title: "Goal Weight",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
-                updateInput: self.appState.saveGoalWeightFromInput,
+                onCommit: self.appState.saveGoalWeightFromInput,
                 openInput: { self.isOpen = true }
             )
             
@@ -45,7 +45,7 @@ struct SetupGoalBlock: View {
                 title: "Weekly Change",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,
-                updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
+                onCommit: self.appState.saveGoalWeeklyDeltaFromInput,
                 openInput: { self.isOpen = true }
             )
             

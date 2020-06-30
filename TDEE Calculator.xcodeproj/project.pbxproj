@@ -35,7 +35,6 @@
 		F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */; };
 		F6F4DE662486FDC800D1FF40 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE652486FDC800D1FF40 /* Font.swift */; };
 		F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */; };
-		F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */; };
 		F6F4DE7F24871ED200D1FF40 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */; };
 		F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */; };
 		F6F4DE8124871ED200D1FF40 /* Oswald-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F4DE7B24871ED200D1FF40 /* Oswald-ExtraLight.ttf */; };
@@ -96,7 +95,6 @@
 		F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F6F4DE652486FDC800D1FF40 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryHintBlock.swift; sourceTree = "<group>"; };
-		F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryInputBlock.swift; sourceTree = "<group>"; };
 		F6F4DE7924871ED200D1FF40 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		F6F4DE7A24871ED200D1FF40 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		F6F4DE7B24871ED200D1FF40 /* Oswald-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 			children = (
 				F6F4DE332485A06500D1FF40 /* EntryPage.swift */,
 				F6F4DE68248710B200D1FF40 /* EntryHintBlock.swift */,
-				F6F4DE6B2487177900D1FF40 /* EntryInputBlock.swift */,
 			);
 			path = EntryPage;
 			sourceTree = "<group>";
@@ -435,7 +432,6 @@
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */,
 				F6E765CD24A77140009A0B90 /* NotificationManager.swift in Sources */,
-				F6F4DE6C2487177900D1FF40 /* EntryInputBlock.swift in Sources */,
 				F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

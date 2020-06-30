@@ -151,7 +151,7 @@ struct WelcomePage: View {
             title: "Today’s weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.weightInput,
-            updateInput: self.appState.updateWeightFromInput,
+            onCommit: self.appState.updateWeightFromInput,
             openInput: { self.isCurrentWeightOpen = true }
         )
             .padding(.bottom, 10)
@@ -173,7 +173,7 @@ struct WelcomePage: View {
             title: "Goal weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.goalWeightInput,
-            updateInput: self.appState.saveGoalWeightFromInput,
+            onCommit: self.appState.saveGoalWeightFromInput,
             openInput: { self.isGoalWeightOpen = true }
         )
             .padding(.bottom, 10)
@@ -194,7 +194,7 @@ struct WelcomePage: View {
             title: "Weekly change",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.goalWeeklyWeightDeltaInput,
-            updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
+            onCommit: self.appState.saveGoalWeeklyDeltaFromInput,
             openInput: { self.isDeltaWeightOpen = true }
         )
             .padding(.bottom, 10)
