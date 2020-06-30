@@ -86,7 +86,7 @@ class InputBlock {
                 .foregroundColor(.appPrimary)
                 .padding(.trailing, 8)
                 .multilineTextAlignment(.trailing)
-                .keyboardType(.numbersAndPunctuation)
+                .keyboardType(.decimalPad)
                 .onTapGesture(perform: openInput)
             
             Text(unit.uppercased())
@@ -119,7 +119,7 @@ class InputBlock {
                 : Color.appPrimary
         )
         
-        let result = HStack {
+        let result = HStack(alignment: .center, spacing: 0) {
 
             Image(icon)
                 .resizable()
@@ -136,7 +136,7 @@ class InputBlock {
                 .border(baseColor)
                 .foregroundColor(baseColor)
                 .padding(.horizontal, 16)
-                .keyboardType(.numbersAndPunctuation)
+                .keyboardType(.decimalPad)
                 .onTapGesture(perform: openInput)
             
             Text(unit.uppercased())

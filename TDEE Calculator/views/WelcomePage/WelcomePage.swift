@@ -250,16 +250,55 @@ struct WelcomePage: View {
     
     var secondStepBlock: some View {
         
-        VStack(alignment: .center, spacing: 0) {
+        let inputHeight: CGFloat = 86
+        let backdrop = Color.appFade.edgesIgnoringSafeArea(.all)
+        
+        return ZStack(alignment: .top) {
             
-            self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+            VStack(alignment: .center, spacing: 0) {
 
-            self.settingsBlock.frame(height: 460, alignment: .top)
-            
-            if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
-                
-                Button("DONE", action: self.appState.completeFirstSetup)
-                    .buttonStyle(AppDefaultButtonStyle())
+                self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+
+                self.settingsBlock.frame(height: 460, alignment: .top)
+
+                if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
+
+                    Button("DONE", action: self.appState.completeFirstSetup)
+                        .buttonStyle(AppDefaultButtonStyle())
+                }
+            }
+
+            if self.isCurrentWeightOpen {
+
+                backdrop.onTapGesture {
+                    UIApplication.shared.endEditing()
+                    self.appState.updateWeightFromInput()
+                    self.isCurrentWeightOpen = false
+                }
+
+                self.currentWeightInputBlock.padding(.top, 173)
+            }
+
+            if self.isGoalWeightOpen {
+
+                backdrop.onTapGesture {
+                    UIApplication.shared.endEditing()
+                    self.appState.saveGoalWeightFromInput()
+                    self.isGoalWeightOpen = false
+                }
+
+                self.goalWeightInputBlock.padding(.top, 173 + inputHeight)
+            }
+
+            if self.isDeltaWeightOpen {
+
+                backdrop.onTapGesture {
+                    UIApplication.shared.endEditing()
+                    self.appState.saveGoalWeeklyDeltaFromInput()
+                    self.isDeltaWeightOpen = false
+                }
+
+                self.deltaWeightInputBlock.padding(.top, 173 + 2 * inputHeight)
             }
         }
     }
