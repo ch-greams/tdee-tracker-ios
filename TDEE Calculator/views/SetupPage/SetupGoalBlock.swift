@@ -38,7 +38,8 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 onCommit: self.appState.saveGoalWeightFromInput,
-                openInput: { self.isOpen = true }
+                openInput: { self.isOpen = true },
+                isOpen: false
             )
             
             InputBlock.Number(
@@ -46,7 +47,8 @@ struct SetupGoalBlock: View {
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,
                 onCommit: self.appState.saveGoalWeeklyDeltaFromInput,
-                openInput: { self.isOpen = true }
+                openInput: { self.isOpen = true },
+                isOpen: false
             )
             
             TargetDelta(value: self.appState.goalTargetFoodDelta, unit: energyUnitLabel)
