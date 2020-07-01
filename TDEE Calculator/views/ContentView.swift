@@ -112,11 +112,22 @@ struct ContentView: View {
     
     var mainView: some View {
         
+        ZStack(alignment: .bottom) {
+            
+            self.mainAppView
+
+            self.navbarView
+        }
+            .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    var body: some View {
+        
         ZStack(alignment: .top) {
                 
             if self.appState.isFirstSetupDone {
 
-                self.mainAppView
+                self.mainView
             }
             else {
 
@@ -128,20 +139,6 @@ struct ContentView: View {
                 self.warningMessageBlock
             }
         }
-    }
-    
-    var body: some View {
-        
-        ZStack(alignment: .bottom) {
-            
-            self.mainView
-
-            if self.appState.isFirstSetupDone {
-                
-                self.navbarView
-            }
-        }
-            .edgesIgnoringSafeArea(.bottom)
     }
 }
 
