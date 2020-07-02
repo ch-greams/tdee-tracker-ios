@@ -38,72 +38,76 @@ struct EntryPage: View {
     
     var body: some View {
         
+        let isFutureDate = self.appState.isFutureDate
+        
         let lockIconSize: CGFloat = 80
         
-        return ZStack(alignment: .top) {
+        return VStack(alignment: .center, spacing: 0) {
 
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
-            
-            VStack(alignment: .center, spacing: 0) {
-
+            if !self.isWeightInputOpen && !self.isFoodInputOpen {
+                
                 CalendarBlock(
                     selectedDay: self.appState.selectedDay,
                     isTrendsPage: false
                 )
-                
-                EntryHintBlock(
-                    isEnoughData: self.appState.isEnoughDataForRecommendation,
-                    value: self.appState.recommendedFoodAmount,
-                    unit: self.appState.energyUnit.rawValue
-                )
             }
             
-            if self.isWeightInputOpen || self.isFoodInputOpen {
-                Color.appFade.edgesIgnoringSafeArea(.all)
-                    .onTapGesture(perform: self.onSubmit)
-                    .zIndex(1)
-            }
-
-
-            InputBlock.EntryNumber(
-                icon: "body-sharp",
-                unit: self.appState.weightUnit.rawValue,
-                value: self.$appState.weightInput,
-                onCommit: self.onSubmit,
-                openInput: { self.isWeightInputOpen = true }
-            )
-                .animation(.easeOut(duration: 0.16))
-                .padding(.top, self.isWeightInputOpen ? 160 : 458)
-                .zIndex(self.isWeightInputOpen ? 1 : 0)
-
-            InputBlock.EntryNumber(
-                icon: "fast-food-sharp",
+            EntryHintBlock(
+                value: self.appState.recommendedFoodAmount,
                 unit: self.appState.energyUnit.rawValue,
-                value: self.$appState.foodInput,
-                onCommit: self.onSubmit,
-                openInput: { self.isFoodInputOpen = true }
+                isEnoughData: self.appState.isEnoughDataForRecommendation
             )
-                .animation(.easeOut(duration: 0.16))
-                .padding(.top, self.isFoodInputOpen ? 160 : 562)
-                .zIndex(self.isFoodInputOpen ? 1 : 0)
+                .padding(.top, self.appState.uiSizes.entryHintBlockPadding)
+                .padding(.bottom, self.appState.uiSizes.entryHintBlockPadding - 10)
+            
+            ZStack(alignment: .top) {
 
-            if self.appState.isFutureDate {
+                VStack(alignment: .center, spacing: 0) {
 
-                HStack{
-                    Image(systemName: "clock.fill")
-                        .frame(width: lockIconSize, height: lockIconSize)
-                        .font(.system(size: lockIconSize))
-                        .foregroundColor(.appPrimaryDark)
+                    InputBlock.EntryNumber(
+                       icon: "body-sharp",
+                       unit: self.appState.weightUnit.rawValue,
+                       value: self.$appState.weightInput,
+                       onCommit: self.onSubmit,
+                       openInput: { self.isWeightInputOpen = true },
+                       padding: self.appState.uiSizes.entryInputPadding
+                    )
+
+                    InputBlock.EntryNumber(
+                       icon: "fast-food-sharp",
+                       unit: self.appState.energyUnit.rawValue,
+                       value: self.$appState.foodInput,
+                       onCommit: self.onSubmit,
+                       openInput: { self.isFoodInputOpen = true },
+                       padding: self.appState.uiSizes.entryInputPadding
+                    )
+
+                    if self.isWeightInputOpen || self.isFoodInputOpen {
+
+                       Button("CONFIRM", action: self.onSubmit)
+                            .buttonStyle(AppDefaultButtonStyle())
+                            .padding(.vertical)
+                    }
                 }
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                    .frame(height: 210)
-                    .background(Color.appPrimary)
-                    .opacity(0.8)
-                    .padding(.top, 458)
+                    .padding(.top, 10)
+                    .blur(radius: isFutureDate ? 4 : 0)
+                    .animation(.easeOut(duration: 0.16))
+
+                if isFutureDate {
+
+                    HStack{
+                        Image(systemName: "clock.fill")
+                            .frame(width: lockIconSize, height: lockIconSize)
+                            .font(.system(size: lockIconSize))
+                            .foregroundColor(.appPrimaryDark)
+                    }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                        .frame(height: self.appState.uiSizes.entryBlockerHeight)
+                        .background(Color.appPrimary)
+                        .opacity(0.5)
+                }
             }
         }
-
-
     }
 }
 
@@ -112,6 +116,12 @@ struct EntryPage_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        EntryPage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            EntryPage().environmentObject(appState)
+        }
     }
 }

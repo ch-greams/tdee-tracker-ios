@@ -54,7 +54,11 @@ struct CalendarBlockMonth: View {
 
             self.getMonthChangeButton(icon: "arrow.left", delta: -1)
             
-            self.monthTitle.frame(width: 174.0)
+            Spacer()
+            
+            self.monthTitle
+            
+            Spacer()
             
             self.getMonthChangeButton(icon: "arrow.right", delta: 1)
         }

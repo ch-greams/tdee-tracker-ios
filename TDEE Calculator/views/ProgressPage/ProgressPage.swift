@@ -23,30 +23,28 @@ struct ProgressPage: View {
         
         let progressData = self.appState.progressData
         
-        return ZStack(alignment: .top) {
-
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+        return VStack(alignment: .center, spacing: 0) {
             
-            VStack(alignment: .center, spacing: 0) {
+            Text(title)
+                .font(.appCalendarMonth)
+                .foregroundColor(.white)
+                .padding(.top, 4)
             
-                Text(title)
-                    .font(.appCalendarMonth)
-                    .foregroundColor(.white)
-                
-                DeltaChart(
-                    weeklyDeltas: self.appState.weeklyWeightDeltas,
-                    weightUnit: self.appState.weightUnit.rawValue
-                )
-                    .padding(.top, 20)
+            DeltaChart(
+                totalStepsHeight: self.appState.uiSizes.progressChartHeight,
+                weeklyDeltas: self.appState.weeklyWeightDeltas,
+                weightUnit: self.appState.weightUnit.rawValue
+            )
+                .padding(.vertical, self.appState.uiSizes.progressPageSpacing)
 
-                ProgressCircle(
-                    currentWeightValue: progressData.progressWeight,
-                    goalWeightValue: progressData.goalWeight,
-                    unit: self.appState.weightUnit.rawValue,
-                    estimatedTimeLeft: progressData.estimatedTimeLeft
-                )
-                    .padding(.top, 40)
-            }
+            ProgressCircle(
+                circleDiameter: self.appState.uiSizes.progressCircleDiameter,
+                circleWidth: self.appState.uiSizes.progressCircleWidth,
+                currentWeightValue: progressData.progressWeight,
+                goalWeightValue: progressData.goalWeight,
+                unit: self.appState.weightUnit.rawValue,
+                estimatedTimeLeft: progressData.estimatedTimeLeft
+            )
         }
     }
 }
@@ -56,6 +54,12 @@ struct ProgressPage_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        ProgressPage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            ProgressPage().environmentObject(appState)
+        }
     }
 }

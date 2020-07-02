@@ -12,6 +12,8 @@ import SwiftUI
 
 struct CalendarBlock: View {
     
+    @EnvironmentObject var appState: AppState
+    
     let selectedDay: Date
     let isTrendsPage: Bool
 
@@ -22,14 +24,17 @@ struct CalendarBlock: View {
         
         let weekdays = dateFormatter.shortWeekdaySymbols.compactMap { $0.uppercased() }
         
-        // Try this fix if weekdays order won't change with locale change
+        // TODO: Try this fix if weekdays order won't change with locale change
         // let weekdaysSorted = Array(weekdays[ firstWeekday - 1 ..< weekdays.count ]) + weekdays[ 0 ..< firstWeekday - 1]
         
-        return HStack(alignment: .center) {
+        return HStack(alignment: .center, spacing: self.appState.uiSizes.calendarDaySpacing) {
             ForEach(weekdays, id: \.self) { day in
                 Text(day)
                     .font(.appCalendarWeekday)
-                    .frame(width: 40, height: 40)
+                    .frame(
+                        width: self.appState.uiSizes.calendarDayButton,
+                        height: self.appState.uiSizes.calendarDayButton
+                    )
                     .foregroundColor(Color.appPrimaryText)
             }
         }
@@ -37,7 +42,7 @@ struct CalendarBlock: View {
     
     var body: some View {
     
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .center, spacing: 8) {
             
             CalendarBlockMonth(selectedDay: self.selectedDay)
             
@@ -46,11 +51,10 @@ struct CalendarBlock: View {
                 self.weekdayTitles
                 
                 CalendarBlockDays(selectedDay: self.selectedDay, isTrendsPage: self.isTrendsPage)
-
             }
-                .frame(width: 358, height: 320)
+                .padding(.vertical)
                 .background(Color(.white))
-                .padding(8)
+                .padding(.horizontal, 8)
                 .clipped()
                 .shadow(color: .gray, radius: 1, x: 1, y: 1)
         }
@@ -65,7 +69,7 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
     static var previews: some View {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: false)
-            .padding(.top, 8)
+            .padding(.vertical, 8)
             .background(Color.appPrimary)
             .environmentObject(appState)
 
@@ -79,7 +83,7 @@ struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
     static var previews: some View {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: true)
-            .padding(.top, 8)
+            .padding(.vertical, 8)
             .background(Color.appPrimary)
             .environmentObject(appState)
 

@@ -11,27 +11,30 @@ import SwiftUI
 struct EntryHintBlock: View {
     
     let isEnoughData: Bool
-    
+
     let value: Int
     let unit: String
+
+    init(value: Int, unit: String, isEnoughData: Bool = true, isFutureDate: Bool = false) {
+        self.value = value
+        self.unit = unit
+
+        self.isEnoughData = isEnoughData
+    }
     
-    
-    var notEnoughDataBlock: some View {
+    func getTextBlock(hint: String) -> some View {
         
-        let hint = "After enough entries were added you will see here recommended daily amount"
-        
-        return HStack {
+        HStack {
 
             Text(hint.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(height: 60)
+                .frame(minHeight: 46, maxHeight: 60)
                 .foregroundColor(.white)
                 .font(.appEntryRecommendedLabel)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .padding(.horizontal, 36.0)
-            .padding(.vertical, 10.0)
     }
     
     var defaultBlock: some View {
@@ -55,12 +58,13 @@ struct EntryHintBlock: View {
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 36.0)
-            .padding(.vertical, 10.0)
     }
     
     var body: some View {
         
-        ZStack {
+        let dataHint = "After enough entries were added you will see here recommended daily amount"
+        
+        return ZStack {
 
             if self.isEnoughData && self.value > 0 {
 
@@ -68,7 +72,7 @@ struct EntryHintBlock: View {
             }
             else {
 
-                self.notEnoughDataBlock
+                self.getTextBlock(hint: dataHint)
             }
         }
     }
@@ -78,8 +82,8 @@ struct EntryHintBlock_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack {
-            EntryHintBlock(isEnoughData: false, value: 2843, unit: "kcal").background(Color.appPrimary)
-            EntryHintBlock(isEnoughData: true, value: 2843, unit: "kcal").background(Color.appPrimary)
+            EntryHintBlock(value: 2843, unit: "kcal", isEnoughData: false).background(Color.appPrimary)
+            EntryHintBlock(value: 2843, unit: "kcal").background(Color.appPrimary)
         }
     }
 }

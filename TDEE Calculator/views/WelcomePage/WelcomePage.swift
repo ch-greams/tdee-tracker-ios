@@ -82,9 +82,10 @@ struct WelcomePage: View {
                 },
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
-                selected: self.weightUnit as WeightUnit?
+                selected: self.weightUnit as WeightUnit?,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
-                .padding(.bottom, 20)
+                .padding(.bottom)
 
             if !self.isWeightUnitSelected {
                
@@ -93,7 +94,7 @@ struct WelcomePage: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                    .padding(.bottom)
                 
             }
             else {
@@ -106,16 +107,18 @@ struct WelcomePage: View {
                     },
                     first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
-                    selected: self.energyUnit as EnergyUnit?
+                    selected: self.energyUnit as EnergyUnit?,
+                    maxHeight: self.appState.uiSizes.setupInputHeight
                 )
-                    .padding(.bottom, 20)
+                    .padding(.bottom)
 
                 Text(!self.isEnergyUnitSelected ? self.ENERGY_UNIT_HINT : self.SETTINGS_HINT)
                     .font(.appWelcomeHint)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                    .padding(.bottom)
+                    
             }
         }
     }
@@ -133,12 +136,15 @@ struct WelcomePage: View {
             
             self.getTitle(title: "Welcome", subtitle: "Let’s get started")
             
-            self.unitsBlock.frame(height: 460, alignment: .top)
+            self.unitsBlock
+            
+            Spacer()
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
                 Button("NEXT", action: self.completeFirstStep)
                     .buttonStyle(AppDefaultButtonStyle())
+                    .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
             }
         }
     }
@@ -151,10 +157,17 @@ struct WelcomePage: View {
             title: "Today’s weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.weightInput,
-            onCommit: self.appState.updateWeightFromInput,
-            openInput: { self.isCurrentWeightOpen = true }
+            onCommit: {
+                self.appState.updateWeightFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isCurrentWeightOpen = false
+            },
+            openInput: { self.isCurrentWeightOpen = true },
+            isOpen: self.isCurrentWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var currentWeightInputHintBlock: some View {
@@ -164,7 +177,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     var goalWeightInputBlock: some View {
@@ -173,10 +186,17 @@ struct WelcomePage: View {
             title: "Goal weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.goalWeightInput,
-            onCommit: self.appState.saveGoalWeightFromInput,
-            openInput: { self.isGoalWeightOpen = true }
+            onCommit: {
+                self.appState.saveGoalWeightFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isGoalWeightOpen = false
+            },
+            openInput: { self.isGoalWeightOpen = true },
+            isOpen: self.isGoalWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var goalWeightInputHintBlock: some View {
@@ -185,7 +205,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     var deltaWeightInputBlock: some View {
@@ -194,10 +214,17 @@ struct WelcomePage: View {
             title: "Weekly change",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.goalWeeklyWeightDeltaInput,
-            onCommit: self.appState.saveGoalWeeklyDeltaFromInput,
-            openInput: { self.isDeltaWeightOpen = true }
+            onCommit: {
+                self.appState.saveGoalWeeklyDeltaFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isDeltaWeightOpen = false
+            },
+            openInput: { self.isDeltaWeightOpen = true },
+            isOpen: self.isDeltaWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var deltaWeightInputHintBlock: some View {
@@ -207,7 +234,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     // MARK: - Step #2 General
@@ -239,7 +266,7 @@ struct WelcomePage: View {
                             value: self.appState.goalTargetFoodDelta,
                             unit: self.appState.energyUnit.rawValue
                         )
-                            .padding(.bottom, 20)
+                            .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
                     }
                     
                     self.deltaWeightInputHintBlock
@@ -250,74 +277,31 @@ struct WelcomePage: View {
     
     var secondStepBlock: some View {
         
-        let inputHeight: CGFloat = 86
-        let backdrop = Color.appFade.edgesIgnoringSafeArea(.all)
-        
-        return ZStack(alignment: .top) {
+        ZStack(alignment: .top) {
             
             VStack(alignment: .center, spacing: 0) {
 
                 self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
 
-                self.settingsBlock.frame(height: 460, alignment: .top)
+                self.settingsBlock
 
+                Spacer()
+                
                 if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
 
                     Button("DONE", action: self.appState.completeFirstSetup)
                         .buttonStyle(AppDefaultButtonStyle())
+                        .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
                 }
-            }
-
-            if self.isCurrentWeightOpen {
-
-                backdrop.onTapGesture {
-                    UIApplication.shared.endEditing()
-                    self.appState.updateWeightFromInput()
-                    self.isCurrentWeightOpen = false
-                }
-
-                self.currentWeightInputBlock.padding(.top, 173)
-            }
-
-            if self.isGoalWeightOpen {
-
-                backdrop.onTapGesture {
-                    UIApplication.shared.endEditing()
-                    self.appState.saveGoalWeightFromInput()
-                    self.isGoalWeightOpen = false
-                }
-
-                self.goalWeightInputBlock.padding(.top, 173 + inputHeight)
-            }
-
-            if self.isDeltaWeightOpen {
-
-                backdrop.onTapGesture {
-                    UIApplication.shared.endEditing()
-                    self.appState.saveGoalWeeklyDeltaFromInput()
-                    self.isDeltaWeightOpen = false
-                }
-
-                self.deltaWeightInputBlock.padding(.top, 173 + 2 * inputHeight)
             }
         }
     }
     
     var body: some View {
         
-        ZStack(alignment: .top) {
-
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
-            
-            if !self.isSecondStep {
-                
-                self.firstStepBlock
-            }
-            else {
-
-                self.secondStepBlock
-            }
-        }
+        !self.isSecondStep
+            ? AnyView( self.firstStepBlock )
+            : AnyView( self.secondStepBlock )
     }
 }
 
@@ -326,6 +310,12 @@ struct WelcomePage_Previews: PreviewProvider {
     static let appState = AppState()
 
     static var previews: some View {
-        WelcomePage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            WelcomePage().environmentObject(appState)
+        }
     }
 }

@@ -20,25 +20,27 @@ struct TargetDelta: View {
         
         return HStack(alignment: .center, spacing: 0) {
 
+            Spacer()
+            
             Text("Target \(changeType)".uppercased())
                 .frame(width: 114, alignment: .leading)
                 .foregroundColor(.white)
-                .font(.appTrendsItemLabel)
-                .padding(.leading, 32)
-                .padding(.trailing, 50)
+                .font(.appInputLabel)
+
+            Spacer()
             
             Text(String(abs(self.value)))
                 .foregroundColor(.white)
-                .font(.appTrendsItemValue)
-                .padding(.trailing, 16)
+                .font(.appInputValue)
+                .padding(.trailing)
 
             Text("\(self.unit)/day".uppercased())
                 .foregroundColor(.white)
-                .font(.appTrendsItemLabel)
+                .font(.appInputLabel)
+                
+            Spacer()
         }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: 40)
-            .padding(.vertical, 15)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
     }
 }
 

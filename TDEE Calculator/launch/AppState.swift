@@ -9,6 +9,8 @@
 import Foundation
 import SwiftUI
 
+
+
 enum AppStateKey: String, CaseIterable {
 
     case Entries
@@ -62,6 +64,7 @@ class AppState: ObservableObject {
     @Published var reminderWeightDate: Date
     @Published var reminderFoodDate: Date
 
+    public let uiSizes: UISizes = UIConstants.getUISizes(device: UIDevice.current.name)
 
 
     public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {

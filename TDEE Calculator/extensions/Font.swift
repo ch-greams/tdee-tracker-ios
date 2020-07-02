@@ -22,12 +22,12 @@ extension Font {
         Self.custom("Oswald-ExtraLight", size: 14)
     }
     
-    public static var appCalendarDay: Font {
-        Self.custom("Oswald-ExtraLight", size: 22)
+    public static func appCalendarDay(_ size: CGFloat) -> Font {
+        Self.custom("Oswald-ExtraLight", size: size)
     }
     
-    public static var appCalendarDaySelected: Font {
-        Self.custom("Oswald-Medium", size: 22)
+    public static func appCalendarDaySelected(_ size: CGFloat) -> Font {
+        Self.custom("Oswald-Medium", size: size)
     }
     
     // MARK: - Entry Page
@@ -50,16 +50,16 @@ extension Font {
     
     // MARK: - Trends Page
 
-    public static var appTrendsItemLabel: Font {
-        Self.custom("Oswald-Light", size: 18)
+    public static func appTrendsItemLabel(_ size: CGFloat) -> Font {
+        Self.custom("Oswald-Light", size: size)
     }
     
-    public static var appTrendsItemValue: Font {
-        Self.custom("Oswald-Bold", size: 32)
+    public static func appTrendsItemValue(_ size: CGFloat) -> Font {
+        Self.custom("Oswald-Bold", size: size)
     }
 
-    public static var appTrendsItemUnit: Font {
-        Self.custom("Oswald-Light", size: 14)
+    public static func appTrendsItemUnit(_ size: CGFloat) -> Font {
+        Self.custom("Oswald-Light", size: size)
     }
     
     // MARK: - Setup Page
@@ -114,6 +114,18 @@ extension Font {
         Self.custom("Oswald-Medium", size: 18)
     }
 
+    public static var appInputLabel: Font {
+        Self.custom("Oswald-Light", size: 18)
+    }
+    
+    public static var appInputValue: Font {
+        Self.custom("Oswald-Bold", size: 32)
+    }
+
+    public static var appInputUnit: Font {
+        Self.custom("Oswald-Light", size: 14)
+    }
+    
 //    public static func FHACondFrenchNC(size: CGFloat) -> Font {
 //        return Font.custom("FHA Condensed French NC", size: size)
 //    }
