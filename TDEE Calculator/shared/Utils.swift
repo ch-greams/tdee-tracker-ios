@@ -17,6 +17,46 @@ struct WeekSummary {
     let tdee: Int?
 }
 
+struct WeekSummaryTrends {
+
+    let avgFood: WeekSummaryChange
+    let avgWeight: WeekSummaryChange
+    let deltaWeight: WeekSummaryChange
+    let tdee: WeekSummaryChange
+    
+    init(
+        avgFood: WeekSummaryChange = WeekSummaryChange.None,
+        avgWeight: WeekSummaryChange = WeekSummaryChange.None,
+        deltaWeight: WeekSummaryChange = WeekSummaryChange.None,
+        tdee: WeekSummaryChange = WeekSummaryChange.None
+    ) {
+        self.avgFood = avgFood
+        self.avgWeight = avgWeight
+        self.deltaWeight = deltaWeight
+        self.tdee = tdee
+    }
+    
+    init(previousSummary: WeekSummary, currentSummary: WeekSummary) {
+
+        self.avgFood = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgFood,
+            current: currentSummary.avgFood
+        )
+        self.avgWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.avgWeight,
+            current: currentSummary.avgWeight
+        )
+        self.deltaWeight = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.deltaWeight,
+            current: currentSummary.deltaWeight
+        )
+        self.tdee = Utils.getWeekSummaryParamChange(
+            previous: previousSummary.tdee,
+            current: currentSummary.tdee
+        )
+    }
+}
+
 enum WeekSummaryChange {
     case Up, None, Down
 }
@@ -34,9 +74,22 @@ class Utils {
     private static let KG_TO_LB_MULTIPLIER: Double = 2.20462
 
     
-    static let LAST_TDEE_VALUES_TO_USE: Int = 3
+    private static let MAX_WEIGHT_ENTRY_KG: Double = 450.0
     
-    static let DEFAULT_SUMMARY = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
+    private static let MIN_WEIGHT_ENTRY_KG: Double = 30.0
+    
+    private static let MAX_FOOD_ENTRY_KCAL: Int = 9999
+    
+    private static let MIN_FOOD_ENTRY_KCAL: Int = 1000
+    
+    private static let MAX_WEEKLY_WEIGHT_DELTA_KG: Double = 4.5
+    
+    private static let MIN_WEEKLY_WEIGHT_DELTA_KG: Double = 0.0
+
+    
+    private static let LAST_TDEE_VALUES_TO_USE: Int = 3
+    
+    public static let DEFAULT_SUMMARY = WeekSummary(avgFood: 0, avgWeight: 0, deltaWeight: 0, tdee: 0)
     
     // MARK: - Data Transformation
     
@@ -80,27 +133,28 @@ class Utils {
         let avgWeight: Double = weightEntries.average()
         
         // deltaWeight
-        let weeklyDeltaWeight = avgWeight - (prevWeekAvgWeight ?? avgWeight);
-        let doubleAccuracy: Double = 100
-        let deltaWeight = Double( round( doubleAccuracy * weeklyDeltaWeight ) / doubleAccuracy )
+        let weeklyDeltaWeight = ( avgWeight - (prevWeekAvgWeight ?? avgWeight) ).rounded(to: 2)
         
         // tdee
-        let dailyDelta = weeklyDeltaWeight / 7;
-
         let avgDailyDeltaCal = Self.getEnergyFromWeight(
-            weight: dailyDelta,
+            weight: ( weeklyDeltaWeight / 7 ),
             energyUnit: energyUnit,
             weightUnit: weightUnit
         )
         
-        let currentTdee = avgFood - avgDailyDeltaCal;
+        let currentTdee = avgFood - avgDailyDeltaCal
 
         var prevTdeeToUse = prevTdee.suffix(Self.LAST_TDEE_VALUES_TO_USE)
         prevTdeeToUse.append(currentTdee)
 
         let tdee = prevTdeeToUse.average()
         
-        return WeekSummary(avgFood: avgFood, avgWeight: avgWeight, deltaWeight: deltaWeight, tdee: tdee)
+        return WeekSummary(
+            avgFood: avgFood,
+            avgWeight: avgWeight,
+            deltaWeight: weeklyDeltaWeight,
+            tdee: tdee
+        )
     }
     
     public static func getWeekSummaries(
@@ -117,17 +171,25 @@ class Utils {
             
             if let currentWeek = weeks[startWeekDate] {
                 
-                let weekSummary = Self.getWeekSummary(
-                    entries: currentWeek,
-                    prevWeekAvgWeight: lastWeekAvgWeight,
-                    prevTdee: tdeeArray,
-                    energyUnit: energyUnit,
-                    weightUnit: weightUnit
-                )
+                let entries = currentWeek.filter { $0.weight != nil && $0.food != nil }
                 
-                weekSummaries[startWeekDate] = weekSummary
-                lastWeekAvgWeight = weekSummary.avgWeight
-                tdeeArray.append(weekSummary.tdee!)
+                if entries.count > 0 {
+
+                    let weekSummary = Self.getWeekSummary(
+                        entries: entries,
+                        prevWeekAvgWeight: lastWeekAvgWeight,
+                        prevTdee: tdeeArray,
+                        energyUnit: energyUnit,
+                        weightUnit: weightUnit
+                    )
+                    
+                    weekSummaries[startWeekDate] = weekSummary
+                    lastWeekAvgWeight = weekSummary.avgWeight
+                    
+                    if let lastWeekTDEE = weekSummary.tdee {
+                        tdeeArray.append(lastWeekTDEE)
+                    }
+                }
             }
         }
         
@@ -147,13 +209,7 @@ class Utils {
             )
         }
     }
-    
-    public static func getTodayDate() -> Date {
 
-        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
-        return Utils.calendar.date(from: dayScope)!
-    }
-    
     // MARK: - Serialization
 
     public static func encode<T>(data: T) -> Data? {
@@ -166,7 +222,99 @@ class Utils {
         return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T
     }
     
-    // MARK: - Other
+    // MARK: - Validation
+    
+    public static func getWeightOutsideOfValidRangeText(unit: WeightUnit) -> String {
+        
+        switch unit {
+            case WeightUnit.kg:
+                let minWeight = Self.MIN_WEIGHT_ENTRY_KG
+                let maxWeight = Self.MAX_WEIGHT_ENTRY_KG
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+            case WeightUnit.lb:
+                let minWeight = Self.MIN_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
+                let maxWeight = Self.MAX_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+        }
+    }
+    
+    public static func getFoodOutsideOfValidRangeText(unit: EnergyUnit) -> String {
+        
+        switch unit {
+            case EnergyUnit.kcal:
+                return "Value outside of valid range (\(Self.MIN_FOOD_ENTRY_KCAL), \(Self.MAX_FOOD_ENTRY_KCAL))"
+            case EnergyUnit.kj:
+                let minFood = Int( Double( Self.MIN_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
+                let maxFood = Int( Double( Self.MAX_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
+                return "Value outside of valid range (\(minFood), \(maxFood))"
+        }
+    }
+    
+    public static func getDeltaWeightOutsideOfValidRangeText(unit: WeightUnit) -> String {
+        
+        switch unit {
+            case WeightUnit.kg:
+                let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG
+                let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+            case WeightUnit.lb:
+                let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
+                let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
+                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+        }
+    }
+    
+    public static func isWeightValueValid(value: Double, unit: WeightUnit) -> Bool {
+        
+        switch unit {
+            case WeightUnit.kg:
+                return ( value >= Self.MIN_WEIGHT_ENTRY_KG )
+                    && ( value <= Self.MAX_WEIGHT_ENTRY_KG )
+            case WeightUnit.lb:
+                return ( value >= Self.MIN_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER )
+                    && ( value <= Self.MAX_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER )
+        }
+    }
+    
+    public static func isFoodValueValid(value: Int, unit: EnergyUnit) -> Bool {
+        
+        switch unit {
+            case EnergyUnit.kcal:
+                return ( value >= Self.MIN_FOOD_ENTRY_KCAL )
+                    && ( value <= Self.MAX_FOOD_ENTRY_KCAL )
+            case EnergyUnit.kj:
+                return ( value >= Int( Double(Self.MIN_FOOD_ENTRY_KCAL) * Self.KCAL_TO_KJ_MULTIPLIER ) )
+                    && ( value <= Int( Double(Self.MAX_FOOD_ENTRY_KCAL) * Self.KCAL_TO_KJ_MULTIPLIER ) )
+        }
+    }
+    
+    public static func isWeeklyWeightDeltaValueValid(value: Double, unit: WeightUnit) -> Bool {
+        
+        switch unit {
+            case WeightUnit.kg:
+                return ( value >= Self.MIN_WEEKLY_WEIGHT_DELTA_KG )
+                    && ( value <= Self.MAX_WEEKLY_WEIGHT_DELTA_KG )
+            case WeightUnit.lb:
+                return ( value >= Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
+                    && ( value <= Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER )
+        }
+    }
+
+    // MARK: - Date
+    
+    public static var todayDate: Date {
+
+        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
+        return Utils.calendar.date(from: dayScope)!
+    }
+    
+    public static func getDateFromTimeComponents(hour: Int, minute: Int) -> Date? {
+        
+        let dateComponents = DateComponents(hour: hour, minute: minute)
+        return calendar.date(from: dateComponents)
+    }
+
+    // MARK: - Conversions
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {
         

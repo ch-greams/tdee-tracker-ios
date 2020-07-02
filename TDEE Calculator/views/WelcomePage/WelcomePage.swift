@@ -30,7 +30,7 @@ struct WelcomePage: View {
     
     var isCurrentWeightEntered: Bool { self.appState.weight > 0 }
     var isGoalWeightEntered: Bool { self.appState.goalWeight > 0 }
-    var isDeltaWeightEntered: Bool { self.appState.goalWeeklyDelta > 0 }
+    var isDeltaWeightEntered: Bool { self.appState.goalWeeklyWeightDelta > 0 }
     
     // MARK: - Constants
     
@@ -80,11 +80,12 @@ struct WelcomePage: View {
                     self.weightUnit = $0
                     self.isWeightUnitSelected = true
                 },
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
-                selected: self.weightUnit as WeightUnit?
+                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
+                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
+                selected: self.weightUnit as WeightUnit?,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
-                .padding(.bottom, 20)
+                .padding(.bottom)
 
             if !self.isWeightUnitSelected {
                
@@ -93,7 +94,7 @@ struct WelcomePage: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                    .padding(.bottom)
                 
             }
             else {
@@ -104,18 +105,20 @@ struct WelcomePage: View {
                         self.energyUnit = $0
                         self.isEnergyUnitSelected = true
                     },
-                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
-                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
-                    selected: self.energyUnit as EnergyUnit?
+                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
+                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                    selected: self.energyUnit as EnergyUnit?,
+                    maxHeight: self.appState.uiSizes.setupInputHeight
                 )
-                    .padding(.bottom, 20)
+                    .padding(.bottom)
 
                 Text(!self.isEnergyUnitSelected ? self.ENERGY_UNIT_HINT : self.SETTINGS_HINT)
                     .font(.appWelcomeHint)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                    .padding(.bottom)
+                    
             }
         }
     }
@@ -133,15 +136,15 @@ struct WelcomePage: View {
             
             self.getTitle(title: "Welcome", subtitle: "Let’s get started")
             
-            self.unitsBlock.frame(height: 460, alignment: .top)
+            self.unitsBlock
+            
+            Spacer()
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button(
-                    action: self.completeFirstStep,
-                    label: { Text("NEXT").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                Button("NEXT", action: self.completeFirstStep)
+                    .buttonStyle(AppDefaultButtonStyle())
+                    .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
             }
         }
     }
@@ -154,10 +157,17 @@ struct WelcomePage: View {
             title: "Today’s weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.weightInput,
-            updateInput: self.appState.updateWeightFromInput,
-            openInput: { self.isCurrentWeightOpen = true }
+            onCommit: {
+                self.appState.updateWeightFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isCurrentWeightOpen = false
+            },
+            openInput: { self.isCurrentWeightOpen = true },
+            isOpen: self.isCurrentWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var currentWeightInputHintBlock: some View {
@@ -167,7 +177,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     var goalWeightInputBlock: some View {
@@ -176,10 +186,17 @@ struct WelcomePage: View {
             title: "Goal weight",
             unit: self.appState.weightUnit.rawValue,
             input: self.$appState.goalWeightInput,
-            updateInput: self.appState.saveGoalWeightFromInput,
-            openInput: { self.isGoalWeightOpen = true }
+            onCommit: {
+                self.appState.saveGoalWeightFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isGoalWeightOpen = false
+            },
+            openInput: { self.isGoalWeightOpen = true },
+            isOpen: self.isGoalWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var goalWeightInputHintBlock: some View {
@@ -188,7 +205,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     var deltaWeightInputBlock: some View {
@@ -196,11 +213,18 @@ struct WelcomePage: View {
         InputBlock.Number(
             title: "Weekly change",
             unit: self.appState.weightUnit.rawValue,
-            input: self.$appState.goalWeeklyDeltaInput,
-            updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
-            openInput: { self.isDeltaWeightOpen = true }
+            input: self.$appState.goalWeeklyWeightDeltaInput,
+            onCommit: {
+                self.appState.saveGoalWeeklyDeltaFromInput()
+                
+                UIApplication.shared.endEditing()
+                self.isDeltaWeightOpen = false
+            },
+            openInput: { self.isDeltaWeightOpen = true },
+            isOpen: self.isDeltaWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
-            .padding(.bottom, 10)
+            .padding(.bottom)
     }
     
     var deltaWeightInputHintBlock: some View {
@@ -210,7 +234,7 @@ struct WelcomePage: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
-            .padding(.bottom, 40)
+            .padding(.bottom)
     }
     
     // MARK: - Step #2 General
@@ -237,16 +261,15 @@ struct WelcomePage: View {
 
                     self.deltaWeightInputBlock
                     
-                    if !self.isDeltaWeightEntered {
-                        
-                        self.deltaWeightInputHintBlock
-                    }
-                    else {
-                        TargetSurplus(
-                            value: self.appState.goalTargetFoodSurplus,
+                    if self.isDeltaWeightEntered {
+                        TargetDelta(
+                            value: self.appState.goalTargetFoodDelta,
                             unit: self.appState.energyUnit.rawValue
                         )
+                            .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
                     }
+                    
+                    self.deltaWeightInputHintBlock
                 }
             }
         }
@@ -254,38 +277,31 @@ struct WelcomePage: View {
     
     var secondStepBlock: some View {
         
-        VStack(alignment: .center, spacing: 0) {
+        ZStack(alignment: .top) {
             
-            self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+            VStack(alignment: .center, spacing: 0) {
 
-            self.settingsBlock.frame(height: 460, alignment: .top)
-            
-            if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
+                self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+
+                self.settingsBlock
+
+                Spacer()
                 
-                Button(
-                    action: self.appState.completeFirstSetup,
-                    label: { Text("DONE").font(.appSetupToggleValue) }
-                )
-                    .buttonStyle(WelcomeActionButtonStyle())
+                if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
+
+                    Button("DONE", action: self.appState.completeFirstSetup)
+                        .buttonStyle(AppDefaultButtonStyle())
+                        .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
+                }
             }
         }
     }
     
     var body: some View {
         
-        ZStack(alignment: .top) {
-
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
-            
-            if !self.isSecondStep {
-                
-                self.firstStepBlock
-            }
-            else {
-
-                self.secondStepBlock
-            }
-        }
+        !self.isSecondStep
+            ? AnyView( self.firstStepBlock )
+            : AnyView( self.secondStepBlock )
     }
 }
 
@@ -294,6 +310,12 @@ struct WelcomePage_Previews: PreviewProvider {
     static let appState = AppState()
 
     static var previews: some View {
-        WelcomePage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            WelcomePage().environmentObject(appState)
+        }
     }
 }

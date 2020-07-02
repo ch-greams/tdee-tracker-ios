@@ -21,6 +21,9 @@ struct DayButton: View {
     
     let hasData: DayEntryData
     
+    let fontSize: CGFloat
+    let buttonSize: CGFloat
+    
     var button: some View {
         
         let dateFormatter = DateFormatter()
@@ -31,36 +34,38 @@ struct DayButton: View {
         let color = self.isSelectedDay
             ? Color.white
             : ( self.isSelectedMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
-
         
         let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
-            .buttonStyle(DayButtonStyle(color: color, isSelected: isSelectedDay))
+            .buttonStyle(DayButtonStyle(
+                buttonSize: self.buttonSize,
+                fontSize: self.fontSize,
+                color: color,
+                isSelected: isSelectedDay
+            ))
         
         return button
     }
     
     var body: some View {
         
-        ZStack {
+        ZStack(alignment: .top) {
             
             if self.hasData == DayEntryData.Full {
 
                 Circle()
                     .size(CGSize(width: 4, height: 4))
                     .foregroundColor(.appPrimary)
-                    .padding(0)
             }
             else if self.hasData == DayEntryData.Partial {
                 
                 Circle()
                     .size(CGSize(width: 4, height: 4))
                     .foregroundColor(.appSecondary)
-                    .padding(0)
             }
             
             self.button
         }
-        .frame(width: 40, height: 40)
+            .frame(width: self.buttonSize, height: self.buttonSize, alignment: .top)
         
     }
 }
@@ -76,37 +81,37 @@ struct DayButton_Previews: PreviewProvider {
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Full)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Full)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Full)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
             }
             
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Partial)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Partial)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Partial)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
             }
             
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Empty)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Empty)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Empty)
+                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
             }
         }
     }

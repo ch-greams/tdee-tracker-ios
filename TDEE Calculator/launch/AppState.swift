@@ -9,12 +9,15 @@
 import Foundation
 import SwiftUI
 
+
+
 enum AppStateKey: String, CaseIterable {
 
     case Entries
     case WeightUnit, EnergyUnit
-    case GoalWeight, GoalWeeklyDelta
+    case GoalWeight, GoalWeeklyWeightDelta
     case IsFirstSetupDone
+    case ReminderWeightDate, ReminderFoodDate
 }
 
 enum WeightUnit: String, Equatable {
@@ -37,35 +40,200 @@ class AppState: ObservableObject {
     
     @Published var isFirstSetupDone: Bool = false
     
+    @Published var messageText: String = ""
+    
     // NOTE: Possible issues when user changes timezones
     @Published var selectedDay: Date
 
     @Published var weight: Double = 0.0
     @Published var food: Int = 0
-    
     @Published var weightInput: String = ""
     @Published var foodInput: String = ""
     
     @Published private var entries: [ Date : DayEntry ] = [:]
-    
-    @Published var summaries: [ Date: WeekSummary ] = [:]
+    @Published private var summaries: [ Date: WeekSummary ] = [:]
     
     @Published var weightUnit: WeightUnit = WeightUnit.kg
     @Published var energyUnit: EnergyUnit = EnergyUnit.kcal
     
     @Published var goalWeight: Double = 0.0
-    @Published var goalWeeklyDelta: Double = 0.0
-    
+    @Published var goalWeeklyWeightDelta: Double = 0.0
     @Published var goalWeightInput: String = ""
-    @Published var goalWeeklyDeltaInput: String = ""
+    @Published var goalWeeklyWeightDeltaInput: String = ""
 
-    // NOTE: Not stored in UserDefaults created using refreshGoalBasedValues()
-    @Published var recommendedFoodAmount: Int = 0
-    @Published var goalTargetFoodSurplus: Int = 0
+    @Published var reminderWeightDate: Date
+    @Published var reminderFoodDate: Date
 
-    @Published var startWeight: Double = 0.0
-    @Published var currentWeight: Double = 0.0
-    @Published var estimatedTimeLeft: Int = 0
+    public let uiSizes: UISizes = UIConstants.getUISizes(device: UIDevice.current.name)
+
+
+    public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {
+        
+        let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
+        
+        let weekWeights: [ Date: Double ] = weeks
+            .compactMapValues { entries in
+                entries.compactMap { entry in entry.weight }.average()
+            }
+            .filter { $0.value > 0 }
+        
+        let sortedWeeks = weekWeights.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+
+        let startWeight = sortedWeeks.first.map { weekWeights[$0] ?? 0 } ?? 0
+        let currentWeight = sortedWeeks.last.map { weekWeights[$0] ?? 0 } ?? 0
+        
+        // NOTE: Check is user working towards the goal, if not startWeight will be adjusted
+        let isThisLoss = self.goalWeight < startWeight
+        let isUserWorking = (
+            ( isThisLoss && ( startWeight > currentWeight ) ) ||
+            ( !isThisLoss && ( startWeight < currentWeight ) )
+        )
+        
+        let progressWeight = ( isUserWorking ? abs(currentWeight - startWeight) : 0 )
+        
+        let startPoint = ( isUserWorking ? startWeight : currentWeight )
+        
+        let goalWeight = abs(self.goalWeight - startPoint)
+        
+        if self.goalWeeklyWeightDelta != 0 {
+
+            let leftWeight = self.goalWeight - currentWeight
+            let estimatedTimeLeft = abs( Int( ( leftWeight / self.goalWeeklyWeightDelta ).rounded(.up) ) )
+            
+            return (
+                progressWeight: progressWeight,
+                goalWeight: goalWeight,
+                estimatedTimeLeft: estimatedTimeLeft
+            )
+        }
+        else {
+            return (
+                progressWeight: progressWeight,
+                goalWeight: goalWeight,
+                estimatedTimeLeft: 0
+            )
+        }
+    }
+    
+    
+    public var goalTargetFoodDelta: Int {
+        
+        let weeklyFoodDelta = Utils.getEnergyFromWeight(
+            weight: self.goalWeeklyWeightDelta,
+            energyUnit: self.energyUnit,
+            weightUnit: self.weightUnit
+        )
+        
+        return (weeklyFoodDelta / 7)
+    }
+    
+    public var recommendedFoodAmount: Int {
+        return self.lastWeekSummary.tdee.map { $0 > 0 ? $0 + self.goalTargetFoodDelta : 0 } ?? 0
+    }
+    
+    public var isFutureDate: Bool {
+        
+        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .day)
+        
+        return result == ComparisonResult.orderedDescending
+    }
+
+    public var selectedWeekSummary: WeekSummary {
+        
+        return self.selectedDay.startOfWeek
+            .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
+    }
+
+    public var firstWeekSummary: WeekSummary {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        return sortedWeeks.first
+            .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
+    }
+    
+    public var lastWeekSummary: WeekSummary {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        return sortedWeeks.last
+            .map { self.summaries[$0] ?? Utils.DEFAULT_SUMMARY } ?? Utils.DEFAULT_SUMMARY
+    }
+
+    public var trendsChange: WeekSummaryTrends {
+
+        if
+            let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay),
+            let prevWeekStartDate = prevWeek.startOfWeek,
+            let previousSummary = self.summaries[prevWeekStartDate] {
+            
+            return WeekSummaryTrends(previousSummary: previousSummary, currentSummary: self.selectedWeekSummary)
+        }
+        else {
+            
+            return WeekSummaryTrends()
+        }
+    }
+    
+    public var weeklyWeightDeltas: [ Double ] {
+        
+        let sortedWeeks = self.summaries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        var weeklyWeightDeltas: [ Double ] = []
+        
+        if let firstWeek = sortedWeeks.first, let lastWeek = sortedWeeks.last {
+            
+            let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
+            let weekCount = components.weekOfYear ?? 0
+
+            if weekCount > 0 {
+                
+                var weekDates: [ Date ] = []
+                
+                // NOTE: Start from 1 to skip first week, since there'll be no delta
+                for iWeek in 1 ... weekCount {
+                    
+                    if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
+                        
+                        weekDates.append(curWeek)
+                    }
+                }
+                
+                for weekDate in weekDates {
+                    
+                    let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
+                    
+                    weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
+                }
+            }
+        }
+
+        return weeklyWeightDeltas
+    }
+    
+    public var firstEntryDate: Date {
+        
+        let sortedEntries = self.entries.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        return sortedEntries.first ?? Date()
+    }
+
+    public var isEnoughDataForRecommendation: Bool {
+        
+        return self.summaries.count > 1
+    }
+
+    public var todayEntry: DayEntry {
+        
+        return self.entries[Utils.todayDate] ?? DayEntry(weight: nil, food: nil)
+    }
+    
+
 
     // MARK: - Lifecycle
     
@@ -75,42 +243,51 @@ class AppState: ObservableObject {
         
         self.store = store
 
-        self.selectedDay = Utils.getTodayDate()
+        self.selectedDay = Utils.todayDate
+        
+        // MARK: - Reminders
+        
+        self.reminderWeightDate = Utils.getDateFromTimeComponents(hour: 9, minute: 0) ?? Date()
+        self.reminderFoodDate = Utils.getDateFromTimeComponents(hour: 21, minute: 0) ?? Date()
         
         // MARK: - Other setup
         
-        self.loadAllStuff()
+        self.loadExistingData()
     }
 
     
     // MARK: - Private
-    
-    // TODO: Some optimization?
-    private func loadAllStuff() {
+
+    private func loadExistingData() {
 
         if let isDone: Bool = self.load(key: AppStateKey.IsFirstSetupDone) {
             self.isFirstSetupDone = isDone
         }
         
-        // Load entries and summary
-        
-        self.loadEntries()
-        
-        self.loadSelectedDayData(for: self.selectedDay)
-        
-        self.refreshSummary()
-        
-        // Load configuration
-        
-        self.loadConfiguration()
-        
-        // Progress page values
-        
-        self.estimatedTimeLeft = self.getEstimatedTimeLeft(
-            goalWeight: self.goalWeight,
-            currentWeight: self.currentWeight,
-            goalWeeklyDelta: self.goalWeeklyDelta
-        )
+        if self.isFirstSetupDone {
+
+            // Load entries and summary
+            
+            self.loadEntries()
+            
+            self.loadSelectedDayData(for: self.selectedDay)
+            
+            self.refreshSummary()
+            
+            // Load configuration
+            
+            self.loadConfiguration()
+            
+            // Load reminders
+            
+            if let reminderWeightDate: Date = self.load(key: AppStateKey.ReminderWeightDate) {
+                self.reminderWeightDate = reminderWeightDate
+            }
+            
+            if let reminderFoodDate: Date = self.load(key: AppStateKey.ReminderFoodDate) {
+                self.reminderFoodDate = reminderFoodDate
+            }
+        }
     }
 
     private func loadEntries() {
@@ -179,9 +356,6 @@ class AppState: ObservableObject {
         )
         
         self.summaries = summaries
-        
-        self.startWeight = self.firstWeekSummary.avgWeight
-        self.currentWeight = self.lastWeekSummary.avgWeight
     }
     
     // Generic save & load
@@ -220,15 +394,25 @@ class AppState: ObservableObject {
             self.goalWeightInput = String(self.goalWeight)
         }
         
-        if let goalWeeklyDelta: Double = self.load(key: AppStateKey.GoalWeeklyDelta) {
-            self.goalWeeklyDelta = goalWeeklyDelta
-            self.goalWeeklyDeltaInput = String(self.goalWeeklyDelta)
+        if let goalWeeklyDelta: Double = self.load(key: AppStateKey.GoalWeeklyWeightDelta) {
+            self.goalWeeklyWeightDelta = goalWeeklyDelta
+            self.goalWeeklyWeightDeltaInput = String(self.goalWeeklyWeightDelta)
         }
-
-        self.refreshGoalBasedValues()
     }
     
     // MARK: - API
+
+    private func changeEntry(date: Date, entry: DayEntry) {
+        
+        self.entries[date] = entry
+        
+        self.refreshSummary()
+    }
+    
+    private func getEntry(date: Date) -> DayEntry? {
+        
+        return self.entries[date]
+    }
     
     public func changeDay(to date: Date) {
         
@@ -237,37 +421,22 @@ class AppState: ObservableObject {
         self.loadSelectedDayData(for: self.selectedDay)
     }
 
-    public func changeEntry(date: Date, entry: DayEntry) {
-        
-        self.entries[date] = entry
-        
-        self.refreshSummary()
-        
-        self.refreshGoalBasedValues()
-    }
-    
-    public func getEntry(date: Date) -> DayEntry? {
-        
-        return self.entries[date]
-    }
-    
     public func isDayHasData(date: Date) -> DayEntryData {
-        
+
         if let dayEntry = self.getEntry(date: date) {
-            
+
             return (
                 dayEntry.food != nil && dayEntry.weight != nil
                     ? DayEntryData.Full
                     : DayEntryData.Partial
             )
         }
-        
+
         return DayEntryData.Empty
     }
-    
-    
+
     // MARK: - Entry update
-    
+
     private func updateWeightInEntry() {
         
         if let entry = self.getEntry(date: self.selectedDay) {
@@ -286,18 +455,6 @@ class AppState: ObservableObject {
         }
     
         self.saveEntries()
-    }
-    
-    public func updateWeightFromInput() {
-
-        if let value = NumberFormatter().number(from: self.weightInput) {
-            self.weight = value.doubleValue
-        }
-
-        self.updateWeightInEntry()
-        self.refreshGoalBasedValues()
-
-        self.weightInput = String(self.weight)
     }
     
     private func updateFoodInEntry() {
@@ -320,261 +477,114 @@ class AppState: ObservableObject {
         self.saveEntries()
     }
 
-    public func updateEnergyFromInput() {
+    public func updateWeightFromInput() {
 
-        if let value = NumberFormatter().number(from: self.foodInput) {
-            self.food = value.intValue
-        }
-        
-        self.updateFoodInEntry()
-        self.refreshGoalBasedValues()
-        
-        self.foodInput = String(self.food)
-    }
-    
-    // MARK: - Trends Page
-    
-    public var selectedWeekSummary: WeekSummary {
-        
-        let firstDayOfWeek = self.selectedDay.startOfWeek!
-        
-        return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
-    }
-    
+        if let numberValue = NumberFormatter().number(from: self.weightInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeightValueValid(value: value, unit: self.weightUnit) {
 
-    // TODO: Save calculations?
-    public var trendsChange: (
-        avgFood: WeekSummaryChange,
-        avgWeight: WeekSummaryChange,
-        deltaWeight: WeekSummaryChange,
-        tdee: WeekSummaryChange
-    ) {
-        
-        let currentSummary = self.selectedWeekSummary
-        
-        if let prevWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: self.selectedDay) {
+                self.weight = value
 
-            if let w = prevWeek.startOfWeek, let prevWeekSummary = self.summaries[w] {
+                self.updateWeightInEntry()
 
-                return (
-                    avgFood: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.avgFood,
-                        current: currentSummary.avgFood
-                    ),
-                    avgWeight: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.avgWeight,
-                        current: currentSummary.avgWeight
-                    ),
-                    deltaWeight: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.deltaWeight,
-                        current: currentSummary.deltaWeight
-                    ),
-                    tdee: Utils.getWeekSummaryParamChange(
-                        previous: prevWeekSummary.tdee,
-                        current: currentSummary.tdee
-                    )
+                self.updateReminders(ReminderType.Weight)
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
                 )
             }
         }
-        
-        return (
-            avgFood: WeekSummaryChange.None,
-            avgWeight: WeekSummaryChange.None,
-            deltaWeight: WeekSummaryChange.None,
-            tdee: WeekSummaryChange.None
-        )
-    }
-    
-    // MARK: - Progress Page
-    
-    // TODO: Merge getFirst and getLast into setProgressValues ?
-    public var firstWeekSummary: WeekSummary {
-        
-        let sortedWeeks = self.summaries.keys
-            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
-        
-        if let firstDayOfWeek = sortedWeeks.first {
-            return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
-        }
-        else {
-            return Utils.DEFAULT_SUMMARY
-        }
-    }
-    
-    public var lastWeekSummary: WeekSummary {
-        
-        let sortedWeeks = self.summaries.keys
-            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
-        
-        if let firstDayOfWeek = sortedWeeks.last {
-            return self.summaries[firstDayOfWeek] ?? Utils.DEFAULT_SUMMARY
-        }
-        else {
-            return Utils.DEFAULT_SUMMARY
-        }
-    }
-    
-    public func getEstimatedTimeLeft(
-        goalWeight: Double,
-        currentWeight: Double,
-        goalWeeklyDelta: Double
-    ) -> Int {
 
-        let leftWeight = goalWeight - currentWeight
-
-        let estimatedTimeLeft = (
-            goalWeeklyDelta != 0
-                ? Int( ( leftWeight / goalWeeklyDelta ).rounded(.up) )
-                : 0
-        )
-        
-        return estimatedTimeLeft
+        self.weightInput = self.weight > 0 ? String(self.weight) : ""
     }
-    
-    public var weeklyWeightDeltas: [ Double ] {
-        
-        let sortedWeeks = self.summaries.keys
-            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
-        
-        var weeklyWeightDeltas: [ Double ] = []
-        
-        if sortedWeeks.count > 0 {
+
+    public func updateEnergyFromInput() {
+
+        if let numberValue = NumberFormatter().number(from: self.foodInput) {
             
-            let firstWeek = sortedWeeks.first!
-            let lastWeek = sortedWeeks.last!
+            let value = numberValue.intValue
             
-            let components = self.calendar.dateComponents([.weekOfYear], from: firstWeek, to: lastWeek)
-            let weekCount = components.weekOfYear ?? 0
+            if Utils.isFoodValueValid(value: value, unit: self.energyUnit) {
 
-            if weekCount > 0 {
+                self.food = value
                 
-                var weekDates: [ Date ] = []
+                self.updateFoodInEntry()
+
+                self.updateReminders(ReminderType.Food)
+            }
+            else {
                 
-                // NOTE: Start from 1 to skip first week, since there'll be no delta
-                for iWeek in 1 ... weekCount {
-                    
-                    if let curWeek = calendar.date(byAdding: .weekOfYear, value: iWeek, to: firstWeek) {
-                        
-                        weekDates.append(curWeek)
-                    }
-                }
-                
-                for weekDate in weekDates {
-                    
-                    let summary = self.summaries[weekDate] ?? Utils.DEFAULT_SUMMARY
-                    
-                    weeklyWeightDeltas.append(summary.deltaWeight ?? 0)
-                }
+                self.showMessage(
+                    text: Utils.getFoodOutsideOfValidRangeText(unit: self.energyUnit),
+                    time: 3
+                )
             }
         }
 
-        return weeklyWeightDeltas
+        self.foodInput = self.food > 0 ? String(self.food) : ""
     }
     
     // MARK: - Setup Page calculations
     
-    // TODO: Move statics to Utils
-    
-    private static func getCurrentSummary(summaries: [Date : WeekSummary], today: Date) -> WeekSummary? {
-
-        if let w = today.startOfWeek, let currentSummary = summaries[w] {
-
-            return currentSummary
-        }
-        
-        return nil
-    }
-    
-    private static func getGoalTargetSurplus(
-        currentSummary: WeekSummary,
-        goalWeight: Double,
-        goalWeeklyDelta: Double,
-        energyUnit: EnergyUnit,
-        weightUnit: WeightUnit
-    ) -> Int {
-        
-        let deltaWeight: Double = goalWeight - currentSummary.avgWeight
-        
-        let weeksToGoal: Double = deltaWeight / goalWeeklyDelta
-        
-        let deltaCalories = Utils.getEnergyFromWeight(
-            weight: deltaWeight,
-            energyUnit: energyUnit,
-            weightUnit: weightUnit
-        )
-        
-        return Int( ( Double(deltaCalories) / weeksToGoal ) / 7 )
-    }
-    
-    private static func getRecommendedAmount(
-        currentSummary: WeekSummary,
-        goalTargetSurplus: Int
-    ) -> Int {
-
-        if let currentTdee = currentSummary.tdee {
-
-            return currentTdee + goalTargetSurplus
-        }
-        
-        return 0
-    }
-    
-    /// Regenerate goalTargetSurplus and recommendedAmount values
-    public func refreshGoalBasedValues() {
-        
-        if let currentSummary = Self.getCurrentSummary(summaries: self.summaries, today: Date()) {
-            
-            self.goalTargetFoodSurplus = Self.getGoalTargetSurplus(
-                currentSummary: currentSummary,
-                goalWeight: self.goalWeight,
-                goalWeeklyDelta: self.goalWeeklyDelta,
-                energyUnit: self.energyUnit,
-                weightUnit: self.weightUnit
-            )
-            
-            self.recommendedFoodAmount = Self.getRecommendedAmount(
-                currentSummary: currentSummary,
-                goalTargetSurplus: self.goalTargetFoodSurplus
-            )
-            
-            self.estimatedTimeLeft = self.getEstimatedTimeLeft(
-                goalWeight: self.goalWeight,
-                currentWeight: self.currentWeight,
-                goalWeeklyDelta: self.goalWeeklyDelta
-            )
-        }
-    }
-    
     private func saveGoalWeight() {
         self.save(key: AppStateKey.GoalWeight, value: self.goalWeight)
     }
-    
+
+    private func saveGoalWeeklyDelta() {
+        self.save(key: AppStateKey.GoalWeeklyWeightDelta, value: self.goalWeeklyWeightDelta)
+    }
+
     public func saveGoalWeightFromInput() {
         
-        if let value = NumberFormatter().number(from: self.goalWeightInput) {
-            self.goalWeight = value.doubleValue
+        if let numberValue = NumberFormatter().number(from: self.goalWeightInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeightValueValid(value: value, unit: self.weightUnit) {
+
+                self.goalWeight = value
+                
+                self.saveGoalWeight()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
         }
 
-        self.saveGoalWeight()
-        self.refreshGoalBasedValues()
-        
-        self.goalWeightInput = String(self.goalWeight)
+        self.goalWeightInput = self.goalWeight > 0 ? String(self.goalWeight) : ""
     }
-    
-    private func saveGoalWeeklyDelta() {
-        self.save(key: AppStateKey.GoalWeeklyDelta, value: self.goalWeeklyDelta)
-    }
-    
+
     public func saveGoalWeeklyDeltaFromInput() {
 
-        if let value = NumberFormatter().number(from: self.goalWeeklyDeltaInput) {
-            self.goalWeeklyDelta = value.doubleValue
-        }
-        
-        self.saveGoalWeeklyDelta()
-        self.refreshGoalBasedValues()
+        if let numberValue = NumberFormatter().number(from: self.goalWeeklyWeightDeltaInput) {
+            
+            let value = numberValue.doubleValue.rounded(to: 2)
+            
+            if Utils.isWeeklyWeightDeltaValueValid(value: value, unit: self.weightUnit) {
 
-        self.goalWeeklyDeltaInput = String(self.goalWeeklyDelta)
+                self.goalWeeklyWeightDelta = value
+
+                self.saveGoalWeeklyDelta()
+            }
+            else {
+                
+                self.showMessage(
+                    text: Utils.getDeltaWeightOutsideOfValidRangeText(unit: self.weightUnit),
+                    time: 3
+                )
+            }
+        }
+
+        self.goalWeeklyWeightDeltaInput = self.goalWeeklyWeightDelta >= 0 ? String(self.goalWeeklyWeightDelta) : ""
     }
     
     public func updateWeightUnit(_ newValue: WeightUnit) {
@@ -582,39 +592,37 @@ class AppState: ObservableObject {
         let oldValue = self.weightUnit
         self.weightUnit = newValue
         
-        // TODO: Convert existing data
-        
+        // NOTE: Convert existing weight data
         self.entries = Utils.convertWeightInEntries(entries: self.entries, from: oldValue, to: newValue)
-        
         self.goalWeight = Utils.convertWeight(value: self.goalWeight, from: oldValue, to: newValue)
-        self.goalWeeklyDelta = Utils.convertWeight(value: self.goalWeeklyDelta, from: oldValue, to: newValue)
+        self.goalWeeklyWeightDelta = Utils.convertWeight(value: self.goalWeeklyWeightDelta, from: oldValue, to: newValue)
         
+        // NOTE: Save existing weight data
         self.saveEntries()
-
         self.saveGoalWeight()
         self.saveGoalWeeklyDelta()
-
         self.save(key: AppStateKey.WeightUnit, value: self.weightUnit.rawValue)
         
-        // TODO: Optimize refresh?
-        self.loadAllStuff()
+        // NOTE: It's possible to optimize unit switch, but you'll have to update inputs and few other vars manually
+        // NOTE: While dropping loadExistingData() hard reset, it'll create a weak point here for any new variable
+        self.loadExistingData()
     }
     
     public func updateEnergyUnit(_ newValue: EnergyUnit) {
         
         let oldValue = self.energyUnit
         self.energyUnit = newValue
-        
-        // TODO: Convert existing data
 
+        // NOTE: Convert existing energy data
         self.entries = Utils.convertEnergyInEntries(entries: self.entries, from: oldValue, to: newValue)
-
-        self.saveEntries()
         
+        // NOTE: Save existing energy data
+        self.saveEntries()
         self.save(key: AppStateKey.EnergyUnit, value: self.energyUnit.rawValue)
 
-        // TODO: Optimize refresh?
-        self.loadAllStuff()
+        // NOTE: It's possible to optimize unit switch, but you'll have to update inputs and few other vars manually
+        // NOTE: While dropping loadExistingData() hard reset, it'll create a weak point here for any new variable
+        self.loadExistingData()
     }
     
     // MARK: - Welcome Page setup
@@ -634,5 +642,94 @@ class AppState: ObservableObject {
         self.isFirstSetupDone = true
         
         self.save(key: AppStateKey.IsFirstSetupDone, value: self.isFirstSetupDone)
+        
+        self.updateReminders()
+    }
+
+    // MARK: - Reminders
+    
+    private func getNextDateTimeComponents(hasEntry: Bool, time: Date) -> DateComponents {
+    
+        let nextNotificationDay = (
+            hasEntry ? calendar.date(byAdding: .day, value: 1, to: Utils.todayDate)! : Date()
+        )
+    
+        let nextDateComponents = self.calendar.dateComponents([ .year, .month, .day ], from: nextNotificationDay)
+        let nextTimeComponents = self.calendar.dateComponents([ .hour, .minute ], from: time)
+        
+        return DateComponents(
+            year: nextDateComponents.year,
+            month: nextDateComponents.month,
+            day: nextDateComponents.day,
+            hour: nextTimeComponents.hour,
+            minute: nextTimeComponents.minute
+        )
+    }
+    
+    private func saveWeightReminder(weight: Double?) {
+        
+        let nextDateTimeComponents = self.getNextDateTimeComponents(
+            hasEntry: (weight != nil),
+            time: self.reminderWeightDate
+        )
+        
+        if let nextDateTime = self.calendar.date(from: nextDateTimeComponents) {
+            self.reminderWeightDate = nextDateTime
+        }
+
+        self.save(key: AppStateKey.ReminderWeightDate, value: self.reminderWeightDate)
+        
+        NotificationManager.updateNotificationTime(
+            dateComponents: nextDateTimeComponents,
+            type: ReminderType.Weight
+        )
+    }
+    
+    private func saveFoodReminder(food: Int?) {
+
+        let nextDateTimeComponents = self.getNextDateTimeComponents(
+            hasEntry: (food != nil),
+            time: self.reminderFoodDate
+        )
+        
+        if let nextDateTime = self.calendar.date(from: nextDateTimeComponents) {
+            self.reminderFoodDate = nextDateTime
+        }
+
+        self.save(key: AppStateKey.ReminderFoodDate, value: self.reminderFoodDate)
+        
+        NotificationManager.updateNotificationTime(
+            dateComponents: nextDateTimeComponents,
+            type: ReminderType.Food
+        )
+    }
+
+    public func updateReminders(_ reminderToUpdate: ReminderType? = nil) {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        if self.isFirstSetupDone {
+            
+            switch reminderToUpdate {
+                case Optional(ReminderType.Weight):
+                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                case Optional(ReminderType.Food):
+                    self.saveFoodReminder(food: self.todayEntry.food)
+                default:
+                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                    self.saveFoodReminder(food: self.todayEntry.food)
+            }
+        }
+    }
+
+    // MARK: - Other
+    
+    private func showMessage(text: String, time: TimeInterval) {
+        
+        self.messageText = text
+        
+        Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { _ in
+            self.messageText = ""
+        })
     }
 }

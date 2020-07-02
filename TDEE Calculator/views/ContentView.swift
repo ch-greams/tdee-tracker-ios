@@ -8,52 +8,140 @@
 
 import SwiftUI
 
+enum TabBarTag: Int {
+    case entryPage, trendsPage, progressPage, setupPage
+}
+
+struct TabBarItem {
+    
+    let label: String
+    let icon: String
+    let tag: TabBarTag
+}
+
 struct ContentView: View {
 
     @EnvironmentObject var appState: AppState
     
-    @State var selectedTab = Tab.entryPage
+    @State var selectedTab = TabBarTag.entryPage
     
-    enum Tab: Int {
-        case entryPage, trendsPage, progressPage, setupPage
-    }
+    let tabBarItems: [ TabBarItem ] = [
+        TabBarItem(label: "Entry", icon: "create-sharp", tag: TabBarTag.entryPage),
+        TabBarItem(label: "Trends", icon: "calendar-sharp", tag: TabBarTag.trendsPage),
+        TabBarItem(label: "Progress", icon: "stats-chart-sharp", tag: TabBarTag.progressPage),
+        TabBarItem(label: "Setup", icon: "options-sharp", tag: TabBarTag.setupPage)
+    ]
     
-    func tabbarItem(text: String, image: String) -> some View {
-        VStack {
-            Image(systemName: image)
-            Text(text)
+    func tabbarItem(item: TabBarItem) -> some View {
+
+        let isSelected = ( item.tag == self.selectedTab )
+        
+        return Button(action: { self.selectedTab = item.tag }) {
+
+            VStack(alignment: .center, spacing: 2) {
+                
+                CustomImage(
+                    name: item.icon,
+                    colorName: ( isSelected ? Color.appPrimaryLightName : "white" )
+                )
+                    .frame(width: 26, height: 26)
+                    .padding(.top, self.appState.uiSizes.navbarPadding)
+
+                Text(item.label)
+                    .font(.appNavbarElement)
+                    .foregroundColor(isSelected ? .appPrimaryLight : .white)
+            }
         }
     }
+    
+    var warningMessageBlock: some View {
+        
+        HStack {
 
+            Text(self.appState.messageText.uppercased())
+                .multilineTextAlignment(.center)
+                .frame(height: 60)
+                .foregroundColor(.white)
+                .font(.appWarningText)
+
+        }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 40)
+            .background(Color.appSecondary)
+            .padding(.vertical, 1)
+            .padding(.horizontal, 8)
+            .clipped()
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+    }
+
+    
     var mainAppView: some View {
         
-        TabView(selection: $selectedTab) {
-            
-            EntryPage()
-                .tabItem { self.tabbarItem(text: "Entry", image: "calendar.badge.plus") }
-                .tag(Tab.entryPage)
+        switch self.selectedTab {
 
-            TrendsPage()
-                .tabItem { self.tabbarItem(text: "Trends", image: "calendar") }
-                .tag(Tab.trendsPage)
-
-            ProgressPage()
-                .tabItem { self.tabbarItem(text: "Progress", image: "chart.bar.fill") }
-                .tag(Tab.progressPage)
-
-            SetupPage()
-                .tabItem { self.tabbarItem(text: "Setup", image: "slider.horizontal.3") }
-                .tag(Tab.setupPage)
+            case TabBarTag.entryPage:
+                return AnyView( EntryPage() )
+            case TabBarTag.trendsPage:
+                return AnyView( TrendsPage() )
+            case TabBarTag.progressPage:
+                return AnyView( ProgressPage() )
+            case TabBarTag.setupPage:
+                return AnyView( SetupPage() )
         }
-            .accentColor(Color.appPrimaryDark)
-        
     }
     
-    var body: some View {
+    var navbarView: some View {
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.appPrimaryLight)
+                .opacity(0.5)
+            
+            HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
+                
+                ForEach(self.tabBarItems, id: \.label) { item in
+                    self.tabbarItem(item: item)
+                }
+            }
+                .frame(maxWidth: .infinity)
+                .frame(height: self.appState.uiSizes.navbarHeight, alignment: .top)
+                .background(Color.appPrimaryDark)
+                
+        }
+    }
 
-        self.appState.isFirstSetupDone
-            ? AnyView( self.mainAppView )
-            : AnyView( WelcomePage() )
+    var body: some View {
+        
+        ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+                
+            if self.appState.isFirstSetupDone {
+
+                self.mainAppView
+                    .padding(.top, self.appState.uiSizes.mainViewPadding)
+                
+                self.navbarView
+                    .padding(.top, self.appState.uiSizes.mainViewNavbarPadding)
+            }
+            else {
+
+                WelcomePage()
+            }
+
+            if !self.appState.messageText.isEmpty {
+
+                self.warningMessageBlock
+                    .padding(.top, (
+                        self.appState.isFirstSetupDone
+                            ? self.appState.uiSizes.mainViewPadding
+                            : 0
+                    ))
+            }
+        }
+            .edgesIgnoringSafeArea(.bottom)
     }
 }
 

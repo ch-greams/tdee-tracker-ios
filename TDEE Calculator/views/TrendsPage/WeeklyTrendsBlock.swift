@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+struct LineData {
+
+    let label: String
+    let value: String
+    let unit: String
+    let changeType: WeekSummaryChange
+}
+
 struct WeeklyTrendsBlock: View {
     
     let weightUnitLabel: String
@@ -17,12 +25,12 @@ struct WeeklyTrendsBlock: View {
     
     let summary: WeekSummary
     
-    let trendsChange: (
-        avgFood: WeekSummaryChange,
-        avgWeight: WeekSummaryChange,
-        deltaWeight: WeekSummaryChange,
-        tdee: WeekSummaryChange
-    )
+    let trendsChange: WeekSummaryTrends
+    
+    let trendsElementPadding: CGFloat
+    let trendsItemLabelFontSize: CGFloat
+    let trendsItemValueFontSize: CGFloat
+    let trendsItemUnitFontSize: CGFloat
     
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
@@ -36,35 +44,33 @@ struct WeeklyTrendsBlock: View {
         }
     }
 
-    func getLine(label: String, value: String, unit: String, changeIcon: String) -> some View {
+    func getLine(data: LineData) -> some View {
         
         return HStack(alignment: .center, spacing: 0) {
         
-            Text(label)
-                .font(.appTrendsItemLabel)
+            Text(data.label)
+                .font(.appTrendsItemLabel(self.trendsItemLabelFontSize))
                 .foregroundColor(.appPrimary)
-                .frame(width: 120, alignment: .leading)
-                .padding(.leading, 30)
-                .padding(.trailing, 10)
+                .frame(width: 132, alignment: .leading)
+                .padding(.horizontal)
             
-            Text(value)
-                .font(.appTrendsItemValue)
+            Text(data.value)
+                .font(.appTrendsItemValue(self.trendsItemValueFontSize))
                 .foregroundColor(.appPrimary)
-                .frame(width: 92, alignment: .trailing)
-                .padding(.trailing, 10)
+                .frame(minWidth: 80, alignment: .trailing)
 
-            Text(unit)
-                .font(.appTrendsItemUnit)
+            Text(data.unit.uppercased())
+                .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
                 .foregroundColor(.appPrimary)
                 .frame(width: 30, alignment: .leading)
-                .padding(.trailing, 10)
+                .padding(.horizontal)
 
-            Image(systemName: changeIcon)
+            Image(systemName: self.getChangeIcon(change: data.changeType))
                 .foregroundColor(.appPrimary)
                 .frame(width: 16)
-                .padding(.trailing, 30)
+                .padding(.trailing)
         }
-        .frame(height: 64)
+            .padding(.vertical, self.trendsElementPadding)
     }
     
     var separator: some View {
@@ -75,49 +81,51 @@ struct WeeklyTrendsBlock: View {
     }
     
     var body: some View {
-        
-        VStack(alignment: .center, spacing: 0) {
 
-            // TODO: Use ForEach?
-            
-            self.getLine(
+        let lines = [
+            LineData(
                 label: "FOOD",
-                value: String(self.summary.avgFood ?? 0),
-                unit: self.energyUnitLabel.uppercased(),
-                changeIcon: self.getChangeIcon(change: self.trendsChange.avgFood)
-            )
-            
-            self.separator
-            
-            self.getLine(
+                value: self.summary.avgFood.map { $0 < 0 ? "0" : String($0) } ?? "0",
+                unit: self.energyUnitLabel,
+                changeType: self.trendsChange.avgFood
+            ),
+            LineData(
                 label: "WEIGHT",
-                value: String(format: "%.2f", self.summary.avgWeight),
-                unit: self.weightUnitLabel.uppercased(),
-                changeIcon: self.getChangeIcon(change: self.trendsChange.avgWeight)
-            )
-            
-            self.separator
-            
-            self.getLine(
+                value: String(format: "%.2f", self.summary.avgWeight < 0 ? 0 : self.summary.avgWeight),
+                unit: self.weightUnitLabel,
+                changeType: self.trendsChange.avgWeight
+            ),
+            LineData(
                 label: "TDEE",
-                value: String(self.summary.tdee ?? 0),
-                unit: self.energyUnitLabel.uppercased(),
-                changeIcon: self.getChangeIcon(change: self.trendsChange.tdee)
-            )
-            
-            self.separator
-            
-            self.getLine(
+                value: self.summary.tdee.map { $0 < 0 ? "0" : String($0) } ?? "0",
+                unit: self.energyUnitLabel,
+                changeType: self.trendsChange.tdee
+            ),
+            LineData(
                 label: "WEIGHT CHANGE",
                 value: String(format: "%.2f", self.summary.deltaWeight ?? 0),
-                unit: self.weightUnitLabel.uppercased(),
-                changeIcon: self.getChangeIcon(change: self.trendsChange.deltaWeight)
+                unit: self.weightUnitLabel,
+                changeType: self.trendsChange.deltaWeight
             )
+        ]
+        
+        return VStack(alignment: .center, spacing: 0) {
             
+            ForEach(lines, id: \.label) { lineData in
+                
+                VStack(alignment: .center, spacing: 0) {
+
+                    if lineData.label != lines[0].label {
+                        self.separator
+                    }
+
+                    self.getLine(data: lineData)
+                }
+            }
         }
-            .frame(width: 358, height: 280)
+            .padding(.vertical, self.trendsElementPadding)
             .background(Color(.white))
-            .padding(8)
+            .padding(.horizontal, 8)
             .clipped()
             .shadow(color: .gray, radius: 1, x: 1, y: 1)
     }
@@ -133,13 +141,19 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             energyUnitLabel: "kcal",
             selectedDay: Date(),
             summary: summary,
-            trendsChange: (
+            trendsChange: WeekSummaryTrends(
                 avgFood: WeekSummaryChange.Up,
                 avgWeight: WeekSummaryChange.Down,
                 deltaWeight: WeekSummaryChange.Down,
                 tdee: WeekSummaryChange.Up
-            )
+            ),
+            trendsElementPadding: 10,
+            trendsItemLabelFontSize: 18,
+            trendsItemValueFontSize: 32,
+            trendsItemUnitFontSize: 14
         )
+            .padding(.vertical, 8)
             .background(Color.appPrimary)
+            
     }
 }

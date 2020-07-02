@@ -11,10 +11,12 @@ import SwiftUI
 struct SetupGoalBlock: View {
     
     @EnvironmentObject var appState: AppState
+
+    @State var isGoalWeightOpen: Bool = false
+    @State var isDeltaWeightOpen: Bool = false
+
     
-    @Binding var isGoalOpen: Bool
-
-
+    
     var body: some View {
         
         let weightUnitLabel = self.appState.weightUnit.rawValue
@@ -28,20 +30,37 @@ struct SetupGoalBlock: View {
                 title: "Goal Weight",
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
-                updateInput: self.appState.saveGoalWeightFromInput,
-                openInput: { self.isGoalOpen = true }
+                onCommit: {
+                    self.appState.saveGoalWeightFromInput()
+                    
+                    UIApplication.shared.endEditing()
+                    self.isGoalWeightOpen = false
+                },
+                openInput: { self.isGoalWeightOpen = true },
+                isOpen: self.isGoalWeightOpen,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
-            
+
             InputBlock.Number(
                 title: "Weekly Change",
                 unit: weightUnitLabel,
-                input: self.$appState.goalWeeklyDeltaInput,
-                updateInput: self.appState.saveGoalWeeklyDeltaFromInput,
-                openInput: { self.isGoalOpen = true }
+                input: self.$appState.goalWeeklyWeightDeltaInput,
+                onCommit: {
+                    self.appState.saveGoalWeeklyDeltaFromInput()
+                    
+                    UIApplication.shared.endEditing()
+                    self.isDeltaWeightOpen = false
+                },
+                openInput: { self.isDeltaWeightOpen = true },
+                isOpen: self.isDeltaWeightOpen,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
             
-            TargetSurplus(value: self.appState.goalTargetFoodSurplus, unit: energyUnitLabel)
-            
+            TargetDelta(
+                value: self.appState.goalTargetFoodDelta,
+                unit: energyUnitLabel
+            )
+                .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
         }
     }
 }
@@ -51,7 +70,7 @@ struct SetupGoalBlock_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        SetupGoalBlock(isGoalOpen: .constant(true))
+        SetupGoalBlock()
             .padding(.vertical, 8)
             .background(Color.appPrimary)
             .environmentObject(appState)

@@ -8,36 +8,45 @@
 
 import SwiftUI
 
+
+
 struct SetupRemindersBlock: View {
     
-    @State private var value: Date = Date()
-
+    @EnvironmentObject var appState: AppState
     
-    func getInputBlock(title: String) -> some View {
+    @State private var selectedInput = ReminderType.Weight
+    
+    @Binding var isOpen: Bool
+    
+
+    func getInputBlock(title: String, value: Date, inputType: ReminderType) -> some View {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a" // or H:mm for 24h
-        let stringDate = formatter.string(from: self.value)
-
+        let stringDate = formatter.string(from: value)
+        
+        let onInputSelect = {
+            self.selectedInput = inputType
+            self.isOpen = true
+        }
         
         let inputBlock = HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(.appTrendsItemLabel)
-                .frame(width: 128, alignment: .leading)
-                .padding(.horizontal, 16)
+                .font(.appInputLabel)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading)
                 .foregroundColor(.appPrimary)
             
-            Text(stringDate)
-                .font(.appTrendsItemValue)
-                .frame(width: 180, height: 44)
-                .border(Color.appPrimary)
-                .foregroundColor(.appPrimary)
-                .padding(.trailing, 8)
+            Spacer()
+            
+            Button(stringDate, action: onInputSelect)
+                .buttonStyle(ReminderTimeButtonStyle())
+                .padding(.horizontal)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: 74)
+            .frame(height: self.appState.uiSizes.setupInputHeight)
             .background(Color.white)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
@@ -50,29 +59,62 @@ struct SetupRemindersBlock: View {
     
     var body: some View {
         
-        VStack(alignment: .center, spacing: 0) {
+        let doneAction = {
+            self.isOpen = false
+            self.appState.updateReminders(self.selectedInput)
+        }
+        
+        return VStack(alignment: .center, spacing: 0) {
 
             SetupBlockTitle(title: "Reminders")
             
-            self.getInputBlock(title: "Food")
-            
-            self.getInputBlock(title: "Weight")
+            if !self.isOpen || self.selectedInput == ReminderType.Weight {
+                
+                self.getInputBlock(
+                    title: "Weight",
+                    value: self.appState.reminderWeightDate,
+                    inputType: ReminderType.Weight
+                )
+            }
+
+            if !self.isOpen || self.selectedInput == ReminderType.Food {
+
+                self.getInputBlock(
+                    title: "Food",
+                    value: self.appState.reminderFoodDate,
+                    inputType: ReminderType.Food
+                )
+            }
+
+            if self.isOpen {
+                DatePicker(
+                    "",
+                    selection: (
+                        self.selectedInput == ReminderType.Weight
+                            ? self.$appState.reminderWeightDate
+                            : self.$appState.reminderFoodDate
+                    ),
+                    displayedComponents: .hourAndMinute
+                )
+                    .labelsHidden()
+                    .font(.appInputValue)
+                    .foregroundColor(.white)
+                
+                Button("CONFIRM", action: doneAction)
+                    .buttonStyle(AppDefaultButtonStyle())
+            }
         }
-        
-        
-        /*
-        DatePicker("", selection: self.$value, displayedComponents: .hourAndMinute)
-            .labelsHidden()
-            .font(.appTrendsItemValue)
-            .foregroundColor(.white)
-        */
     }
 }
 
 struct SetupRemindersBlock_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
     static var previews: some View {
-        SetupRemindersBlock()
+        SetupRemindersBlock(isOpen: .constant(true))
             .padding(.vertical, 8)
             .background(Color.appPrimary)
+            .environmentObject(appState)
     }
 }

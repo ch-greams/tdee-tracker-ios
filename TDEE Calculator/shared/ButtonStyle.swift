@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ToggleButtonStyle: ButtonStyle {
     
-    var isSelected: Bool
+    let isSelected: Bool
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -19,24 +19,29 @@ struct ToggleButtonStyle: ButtonStyle {
             .font(.appSetupToggleValue)
             .foregroundColor(!self.isSelected ? Color.appPrimary : Color.white)
             .background(self.isSelected ? Color.appPrimary : Color.white)
-            .border(Color.appPrimary)
     }
 }
 
 
 struct DayButtonStyle: ButtonStyle {
     
-    var color: Color
-    var isSelected: Bool
+    let buttonSize: CGFloat
+    let fontSize: CGFloat
+    
+    let color: Color
+    let isSelected: Bool
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 40, height: 40)
-            .font(isSelected ? .appCalendarDaySelected : .appCalendarDay)
-            .foregroundColor(color)
+            .font(
+                self.isSelected
+                    ? .appCalendarDaySelected(self.fontSize)
+                    : .appCalendarDay(self.fontSize)
+            )
+            .frame(width: self.buttonSize, height: self.buttonSize, alignment: .center)
+            .foregroundColor(self.color)
             .background(self.isSelected ? Color.appPrimary : nil)
-            .cornerRadius(20)
-            
+            .cornerRadius(buttonSize / 2)
     }
 }
 
@@ -52,19 +57,30 @@ struct ChangeMonthButtonStyle: ButtonStyle {
             .padding(.horizontal, 8)
             .clipped()
             .shadow(color: .gray, radius: 1, x: 1, y: 1)
-            
     }
 }
 
 
-struct WelcomeActionButtonStyle: ButtonStyle {
+struct AppDefaultButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(width: 176, height: 44)
+            .font(.appDefaultButtonLabel)
             .foregroundColor(.appPrimary)
             .background(Color.white)
-            
     }
 }
 
+
+struct ReminderTimeButtonStyle: ButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: 180, height: 44)
+            .border(Color.appPrimary)
+            .background(Color.white)
+            .font(.appInputValue)
+            .foregroundColor(.appPrimary)
+    }
+}

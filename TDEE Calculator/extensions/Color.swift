@@ -13,20 +13,26 @@ extension Color {
     
     // Colors without assets are unused
     
+    public static var appFadeName = "black-50"
+    public static var appPrimaryName = "teal"
+    public static var appPrimaryLightName = "tealLight"
+    public static var appPrimaryDarkName = "tealDark"
+    public static var appSecondaryName = "deepOrange"
+    
     public static var appFade: Color {
-        Color("black-50", bundle: nil)
+        Color(Self.appFadeName, bundle: nil)
     }
     
     public static var appPrimary: Color {
-        Color("teal", bundle: nil)
+        Color(Self.appPrimaryName, bundle: nil)
     }
 
     public static var appPrimaryLight: Color {
-        Color("tealLight", bundle: nil)
+        Color(Self.appPrimaryLightName, bundle: nil)
     }
 
     public static var appPrimaryDark: Color {
-        Color("tealDark", bundle: nil)
+        Color(Self.appPrimaryDarkName, bundle: nil)
     }
 
     public static var appPrimaryText: Color {
@@ -42,7 +48,7 @@ extension Color {
     }
     
     public static var appSecondary: Color {
-        Color("deepOrange", bundle: nil)
+        Color(Self.appSecondaryName, bundle: nil)
     }
 
     public static var appSecondaryLight: Color {

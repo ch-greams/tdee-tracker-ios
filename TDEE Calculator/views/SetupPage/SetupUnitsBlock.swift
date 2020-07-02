@@ -24,17 +24,19 @@ struct SetupUnitsBlock: View {
             InputBlock.Toggle(
                 title: "Weight",
                 setValue: self.appState.updateWeightUnit as (WeightUnit) -> Void,
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue.uppercased()),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue.uppercased()),
-                selected: self.appState.weightUnit as WeightUnit?
+                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
+                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
+                selected: self.appState.weightUnit as WeightUnit?,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
             
             InputBlock.Toggle(
                 title: "Energy",
                 setValue: self.appState.updateEnergyUnit as (EnergyUnit) -> Void,
-                first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue.uppercased()),
-                second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue.uppercased()),
-                selected: self.appState.energyUnit as EnergyUnit?
+                first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
+                second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                selected: self.appState.energyUnit as EnergyUnit?,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
         }
     }

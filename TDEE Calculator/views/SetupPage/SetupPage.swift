@@ -15,45 +15,28 @@ struct SetupPage: View {
 
     @EnvironmentObject var appState: AppState
 
-    @State private var isGoalOpen: Bool = false
-    
+    @State private var isReminderOpen: Bool = false
+
     
     var body: some View {
-        
-        let doneAction = {
-            UIApplication.shared.endEditing()
-            self.isGoalOpen = false
             
-            //self.appState.updateTargetSurplus()
-            //self.appState.saveGoalWeight()
-            //self.appState.saveGoalWeeklyDelta()
-        }
-        
-        return ZStack(alignment: .top) {
+        VStack(alignment: .center, spacing: 0) {
 
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
-            
-            VStack(alignment: .center, spacing: 0) {
-
-                if !isGoalOpen {
-                    
-                    SetupUnitsBlock()
-                    
-                    SetupRemindersBlock()
-                }
-
-                SetupGoalBlock(isGoalOpen: self.$isGoalOpen)
-                    .padding(.top, isGoalOpen ? 60 : 0)
+            if !self.isReminderOpen {
                 
-                if isGoalOpen {
-                
-                    Button("Done", action: doneAction)
-                        .buttonStyle(ToggleButtonStyle(isSelected: true))
-                        .frame(width: 160)
-                        .border(Color.white)
-                }
+                SetupUnitsBlock()
 
+                SetupGoalBlock()
+
+                Rectangle()
+                    .frame(height: 1)
+                    .padding(.horizontal, 32)
+                    .foregroundColor(.white)
+                    .opacity(0.8)
             }
+
+            SetupRemindersBlock(isOpen: self.$isReminderOpen)
+                .padding(.top, self.isReminderOpen ? 60 : 0)
         }
     }
 }
@@ -63,6 +46,12 @@ struct SetupPage_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        SetupPage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            SetupPage().environmentObject(appState)
+        }
     }
 }

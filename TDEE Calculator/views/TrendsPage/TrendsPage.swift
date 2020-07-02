@@ -15,23 +15,25 @@ struct TrendsPage: View {
     
     var body: some View {
 
-        ZStack(alignment: .top) {
+        VStack(alignment: .center, spacing: 0) {
 
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            CalendarBlock(
+                selectedDay: self.appState.selectedDay,
+                isTrendsPage: true
+            )
+                .padding(.bottom, 8)
             
-            VStack(alignment: .center, spacing: 0) {
-
-                // TODO: Drop selectedDay param altogether?
-                CalendarBlock(selectedDay: self.appState.selectedDay, isTrendsPage: true)
-                
-                WeeklyTrendsBlock(
-                    weightUnitLabel: self.appState.weightUnit.rawValue,
-                    energyUnitLabel: self.appState.energyUnit.rawValue,
-                    selectedDay: self.appState.selectedDay,
-                    summary: self.appState.selectedWeekSummary,
-                    trendsChange: self.appState.trendsChange
-                )
-            }
+            WeeklyTrendsBlock(
+                weightUnitLabel: self.appState.weightUnit.rawValue,
+                energyUnitLabel: self.appState.energyUnit.rawValue,
+                selectedDay: self.appState.selectedDay,
+                summary: self.appState.selectedWeekSummary,
+                trendsChange: self.appState.trendsChange,
+                trendsElementPadding: self.appState.uiSizes.trendsElementPadding,
+                trendsItemLabelFontSize: self.appState.uiSizes.trendsItemLabelFontSize,
+                trendsItemValueFontSize: self.appState.uiSizes.trendsItemValueFontSize,
+                trendsItemUnitFontSize: self.appState.uiSizes.trendsItemUnitFontSize
+            )
         }
     }
 }
@@ -41,6 +43,12 @@ struct TrendsPage_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        TrendsPage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+        
+            TrendsPage().environmentObject(appState)
+        }
     }
 }
