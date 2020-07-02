@@ -18,7 +18,8 @@ class InputBlock {
         setValue: @escaping (T) -> Void,
         first: (value: T, label: String),
         second: (value: T, label: String),
-        selected: Optional<T>
+        selected: Optional<T>,
+        maxHeight: CGFloat
     ) -> some View {
 
         let firstButton = Button(
@@ -37,7 +38,7 @@ class InputBlock {
         return HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(.appTrendsItemLabel)
+                .font(.appInputLabel)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.appPrimary)
                 .padding(.leading)
@@ -55,7 +56,7 @@ class InputBlock {
                 .padding(.horizontal)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(height: 74)
+            .frame(height: maxHeight)
             .background(Color.white)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
@@ -70,14 +71,15 @@ class InputBlock {
         input: Binding<String>,
         onCommit: @escaping () -> Void,
         openInput: @escaping () -> Void,
-        isOpen: Bool
+        isOpen: Bool,
+        maxHeight: CGFloat
     ) -> some View {
         
         HStack(alignment: .center, spacing: 0) {
 
             if !isOpen {
                 Text(title.uppercased())
-                    .font(.appTrendsItemLabel)
+                    .font(.appInputLabel)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.appPrimary)
                     .padding(.leading)
@@ -87,7 +89,7 @@ class InputBlock {
 
             HStack(alignment: .center, spacing: 0) {
                 TextField("", text: input, onCommit: onCommit)
-                    .font(.appTrendsItemValue)
+                    .font(.appInputValue)
                     .padding(.trailing, 8)
                     .frame(width: 120, height: 44)
                     .border(Color.appPrimary)
@@ -98,7 +100,7 @@ class InputBlock {
                     .onTapGesture(perform: openInput)
                 
                 Text(unit.uppercased())
-                    .font(.appTrendsItemLabel)
+                    .font(.appInputLabel)
                     .frame(width: 42, alignment: .leading)
                     .foregroundColor(.appPrimary)
             }
@@ -125,7 +127,7 @@ class InputBlock {
         }
             .animation(.default)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(maxHeight: 74)
+            .frame(height: maxHeight)
             .background(Color.white)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
@@ -140,20 +142,18 @@ class InputBlock {
         unit: String,
         value: Binding<String>,
         onCommit: @escaping () -> Void,
-        openInput: @escaping () -> Void
+        openInput: @escaping () -> Void,
+        padding: CGFloat
     ) -> some View {
 
-        let baseColor = (
-            NumberFormatter().number(from: value.wrappedValue) == nil
-                ? Color.appSecondary
-                : Color.appPrimary
-        )
+        let isEmptyInput = NumberFormatter().number(from: value.wrappedValue) == nil
+        let baseColor = ( isEmptyInput ? Color.appSecondary : Color.appPrimary )
         
         let result = HStack(alignment: .center, spacing: 0) {
 
             CustomImage(
                 name: icon,
-                colorName: Color.appPrimaryName
+                colorName: isEmptyInput ? Color.appSecondaryName : Color.appPrimaryName
             )
                 .frame(width: 30, height: 30)
                 .padding(.horizontal)
@@ -165,21 +165,18 @@ class InputBlock {
                 .multilineTextAlignment(.trailing)
                 .border(baseColor)
                 .foregroundColor(baseColor)
-                .padding(.horizontal, 16)
+                .padding(.horizontal)
                 .keyboardType(.decimalPad)
                 .onTapGesture(perform: openInput)
             
             Text(unit.uppercased())
                 .font(.appEntryUnit)
-                .padding(.trailing, 16)
+                .padding(.trailing)
                 .frame(width: 60, alignment: .leading)
                 .foregroundColor(baseColor)
-
-
         }
             .frame(minWidth: 0, maxWidth: .infinity)
-            .frame(height: 70)
-            .padding()
+            .padding(.vertical, padding)
             .background(Color.white)
             .padding(1)
             .clipped()
@@ -206,7 +203,8 @@ struct InputBlock_Previews: PreviewProvider {
                     setValue: { print($0) },
                     first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
-                    selected: EnergyUnit.kcal
+                    selected: EnergyUnit.kcal,
+                    maxHeight: 74
                 )
                 
                 InputBlock.Number(
@@ -215,7 +213,8 @@ struct InputBlock_Previews: PreviewProvider {
                     input: .constant("17.4"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: false
+                    isOpen: false,
+                    maxHeight: 74
                 )
                 
                 InputBlock.Number(
@@ -224,7 +223,8 @@ struct InputBlock_Previews: PreviewProvider {
                     input: .constant("17.4"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: true
+                    isOpen: true,
+                    maxHeight: 74
                 )
 
                 InputBlock.EntryNumber(
@@ -232,7 +232,8 @@ struct InputBlock_Previews: PreviewProvider {
                     unit: "kg",
                     value: .constant("71.4"),
                     onCommit: { print("onCommit") },
-                    openInput: { print("openInput") }
+                    openInput: { print("openInput") },
+                    padding: 16
                 )
                 
                 InputBlock.EntryNumber(
@@ -240,7 +241,8 @@ struct InputBlock_Previews: PreviewProvider {
                     unit: "kcal",
                     value: .constant("2934"),
                     onCommit: { print("onCommit") },
-                    openInput: { print("openInput") }
+                    openInput: { print("openInput") },
+                    padding: 16
                 )
             }
         }

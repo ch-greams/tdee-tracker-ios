@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ToggleButtonStyle: ButtonStyle {
     
-    var isSelected: Bool
+    let isSelected: Bool
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -25,16 +25,23 @@ struct ToggleButtonStyle: ButtonStyle {
 
 struct DayButtonStyle: ButtonStyle {
     
-    var color: Color
-    var isSelected: Bool
+    let buttonSize: CGFloat
+    let fontSize: CGFloat
+    
+    let color: Color
+    let isSelected: Bool
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 40, height: 40, alignment: .center)
-            .font(isSelected ? .appCalendarDaySelected : .appCalendarDay)
-            .foregroundColor(color)
+            .font(
+                self.isSelected
+                    ? .appCalendarDaySelected(self.fontSize)
+                    : .appCalendarDay(self.fontSize)
+            )
+            .frame(width: self.buttonSize, height: self.buttonSize, alignment: .center)
+            .foregroundColor(self.color)
             .background(self.isSelected ? Color.appPrimary : nil)
-            .cornerRadius(20)
+            .cornerRadius(buttonSize / 2)
     }
 }
 
@@ -73,7 +80,7 @@ struct ReminderTimeButtonStyle: ButtonStyle {
             .frame(width: 180, height: 44)
             .border(Color.appPrimary)
             .background(Color.white)
-            .font(.appTrendsItemValue)
+            .font(.appInputValue)
             .foregroundColor(.appPrimary)
     }
 }

@@ -30,7 +30,9 @@ struct CalendarBlockDays: View {
             selectDayFunc: self.appState.changeDay,
             isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
             isSelectedMonth: isSelectedMonth,
-            hasData: self.appState.isDayHasData(date: day)
+            hasData: self.appState.isDayHasData(date: day),
+            fontSize: self.appState.uiSizes.calendarFont,
+            buttonSize: self.appState.uiSizes.calendarDayButton
         )
     }
     
@@ -56,13 +58,13 @@ struct CalendarBlockDays: View {
                 }
             }
 
-            HStack {
+            HStack(alignment: .center, spacing: self.appState.uiSizes.calendarDaySpacing) {
                 ForEach(0 ..< week.count) { iDay in
                     
                     self.getDay(day: week[iDay], isSelectedWeek: isSelectedWeek)
                 }
             }
-            .padding(.vertical, 1.0)
+                .padding(.vertical, 1)
 
         }
     }

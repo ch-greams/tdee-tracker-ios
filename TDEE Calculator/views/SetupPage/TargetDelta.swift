@@ -25,18 +25,18 @@ struct TargetDelta: View {
             Text("Target \(changeType)".uppercased())
                 .frame(width: 114, alignment: .leading)
                 .foregroundColor(.white)
-                .font(.appTrendsItemLabel)
+                .font(.appInputLabel)
 
             Spacer()
             
             Text(String(abs(self.value)))
                 .foregroundColor(.white)
-                .font(.appTrendsItemValue)
+                .font(.appInputValue)
                 .padding(.trailing)
 
             Text("\(self.unit)/day".uppercased())
                 .foregroundColor(.white)
-                .font(.appTrendsItemLabel)
+                .font(.appInputLabel)
                 
             Spacer()
         }

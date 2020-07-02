@@ -27,6 +27,11 @@ struct WeeklyTrendsBlock: View {
     
     let trendsChange: WeekSummaryTrends
     
+    let trendsElementPadding: CGFloat
+    let trendsItemLabelFontSize: CGFloat
+    let trendsItemValueFontSize: CGFloat
+    let trendsItemUnitFontSize: CGFloat
+    
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
         switch change {
@@ -44,30 +49,28 @@ struct WeeklyTrendsBlock: View {
         return HStack(alignment: .center, spacing: 0) {
         
             Text(data.label)
-                .font(.appTrendsItemLabel)
+                .font(.appTrendsItemLabel(self.trendsItemLabelFontSize))
                 .foregroundColor(.appPrimary)
-                .frame(width: 120, alignment: .leading)
-                .padding(.leading, 30)
-                .padding(.trailing, 10)
+                .frame(width: 132, alignment: .leading)
+                .padding(.horizontal)
             
             Text(data.value)
-                .font(.appTrendsItemValue)
+                .font(.appTrendsItemValue(self.trendsItemValueFontSize))
                 .foregroundColor(.appPrimary)
-                .frame(width: 92, alignment: .trailing)
-                .padding(.trailing, 10)
+                .frame(minWidth: 80, alignment: .trailing)
 
             Text(data.unit.uppercased())
-                .font(.appTrendsItemUnit)
+                .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
                 .foregroundColor(.appPrimary)
                 .frame(width: 30, alignment: .leading)
-                .padding(.trailing, 10)
+                .padding(.horizontal)
 
             Image(systemName: self.getChangeIcon(change: data.changeType))
                 .foregroundColor(.appPrimary)
                 .frame(width: 16)
-                .padding(.trailing, 30)
+                .padding(.trailing)
         }
-        .frame(height: 64)
+            .padding(.vertical, self.trendsElementPadding)
     }
     
     var separator: some View {
@@ -120,9 +123,9 @@ struct WeeklyTrendsBlock: View {
                 }
             }
         }
-            .frame(width: 358, height: 280)
+            .padding(.vertical, self.trendsElementPadding)
             .background(Color(.white))
-            .padding(8)
+            .padding(.horizontal, 8)
             .clipped()
             .shadow(color: .gray, radius: 1, x: 1, y: 1)
     }
@@ -143,8 +146,14 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
                 avgWeight: WeekSummaryChange.Down,
                 deltaWeight: WeekSummaryChange.Down,
                 tdee: WeekSummaryChange.Up
-            )
+            ),
+            trendsElementPadding: 10,
+            trendsItemLabelFontSize: 18,
+            trendsItemValueFontSize: 32,
+            trendsItemUnitFontSize: 14
         )
+            .padding(.vertical, 8)
             .background(Color.appPrimary)
+            
     }
 }

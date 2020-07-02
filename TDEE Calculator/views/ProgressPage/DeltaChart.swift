@@ -28,9 +28,10 @@ struct Line: Shape {
 
 struct DeltaChart: View {
 
+    let totalStepsHeight: CGFloat
+    
     let STEP_LINE_DASH: [ CGFloat ] = [ 4 ]
     let STEP_ZERO_HEIGHT: CGFloat = 20
-    let TOTAL_STEPS_HEIGHT: CGFloat = 180
     
     let MIN_MAX_DELTA_VALUE: Double = 0.2
     
@@ -42,7 +43,7 @@ struct DeltaChart: View {
     
     func getStepHeight(stepCount: Int) -> CGFloat {
         
-        return self.TOTAL_STEPS_HEIGHT / CGFloat(stepCount)
+        return self.totalStepsHeight / CGFloat(stepCount)
     }
 
     func getStepValue(value: Double) -> Double {
@@ -134,7 +135,7 @@ struct DeltaChart: View {
         let stepHeight = self.getStepHeight(stepCount: stepCount)
         
         // NOTE: Have to calculate height otherwise GeometryReader will take everything it can
-        let totalChartHeight = self.TOTAL_STEPS_HEIGHT + self.STEP_ZERO_HEIGHT
+        let totalChartHeight = self.totalStepsHeight + self.STEP_ZERO_HEIGHT
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
@@ -161,8 +162,8 @@ struct DeltaChart: View {
                                 
                                 VStack(alignment: .center, spacing: 0) {
                                     Rectangle()
-                                        .padding(.top, self.TOTAL_STEPS_HEIGHT - weeklyDeltaHeights[iWeek])
-                                        .frame(width: 28, height: self.TOTAL_STEPS_HEIGHT)
+                                        .padding(.top, self.totalStepsHeight - weeklyDeltaHeights[iWeek])
+                                        .frame(width: 28, height: self.totalStepsHeight)
                                         .padding(.top, 15)
                                         .padding(.horizontal, 1)
                                         .foregroundColor(Color.white)
@@ -199,11 +200,19 @@ struct DeltaChart_Previews: PreviewProvider {
         VStack {
 
             // NOTE: With data
-            DeltaChart(weeklyDeltas: Self.weeklyDeltas, weightUnit: "KG")
+            DeltaChart(
+                totalStepsHeight: 180,
+                weeklyDeltas: Self.weeklyDeltas,
+                weightUnit: "KG"
+            )
                 .background(Color.appPrimary)
             
             // NOTE: Empty
-            DeltaChart(weeklyDeltas: [], weightUnit: "KG")
+            DeltaChart(
+                totalStepsHeight: 180,
+                weeklyDeltas: [],
+                weightUnit: "KG"
+            )
                 .background(Color.appPrimary)
         }
     }

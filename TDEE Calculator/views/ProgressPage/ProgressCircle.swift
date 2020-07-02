@@ -12,6 +12,9 @@ import SwiftUI
 
 struct ProgressCircle: View {
     
+    let circleDiameter: CGFloat
+    let circleWidth: CGFloat
+    
     let currentWeightValue: Double
     let goalWeightValue: Double
     let unit: String
@@ -19,9 +22,6 @@ struct ProgressCircle: View {
     let estimatedTimeLeft: Int
 
     var body: some View {
-        
-        let width: CGFloat = 40
-        let diameter: CGFloat = 340
         
         let absCurrentWeightValue = self.currentWeightValue
         let absGoalWeightValue = self.goalWeightValue
@@ -32,15 +32,15 @@ struct ProgressCircle: View {
         return ZStack {
             
             Circle()
-                .stroke(Color.white, lineWidth: width)
+                .stroke(Color.white, lineWidth: self.circleWidth)
                 .opacity(0.2)
-                .frame(height: diameter - width)
+                .frame(height: self.circleDiameter - self.circleWidth)
             
             Circle()
                 .trim(from: 0, to: CGFloat(progress))
-                .stroke(Color.white, lineWidth: width)
+                .stroke(Color.white, lineWidth: self.circleWidth)
                 .rotationEffect(.degrees(-90))
-                .frame(height: diameter - width)
+                .frame(height: self.circleDiameter - self.circleWidth)
                 
             
             VStack {
@@ -66,7 +66,8 @@ struct ProgressCircle: View {
                 }
             }
             
-        }.frame(height: diameter)
+        }
+            .frame(height: self.circleDiameter)
 
     }
 }
@@ -74,7 +75,14 @@ struct ProgressCircle: View {
 struct ProgressCircle_Previews: PreviewProvider {
     static var previews: some View {
         
-        ProgressCircle(currentWeightValue: 3.3, goalWeightValue: 5.1, unit: "kg", estimatedTimeLeft: 7)
+        ProgressCircle(
+            circleDiameter: 340,
+            circleWidth: 40,
+            currentWeightValue: 3.3,
+            goalWeightValue: 5.1,
+            unit: "kg",
+            estimatedTimeLeft: 7
+        )
             .padding(.vertical, 20)
             .background(Color.appPrimary)
     }

@@ -82,7 +82,8 @@ struct WelcomePage: View {
                 },
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
-                selected: self.weightUnit as WeightUnit?
+                selected: self.weightUnit as WeightUnit?,
+                maxHeight: self.appState.uiSizes.setupInputHeight
             )
                 .padding(.bottom)
 
@@ -106,7 +107,8 @@ struct WelcomePage: View {
                     },
                     first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
-                    selected: self.energyUnit as EnergyUnit?
+                    selected: self.energyUnit as EnergyUnit?,
+                    maxHeight: self.appState.uiSizes.setupInputHeight
                 )
                     .padding(.bottom)
 
@@ -142,7 +144,7 @@ struct WelcomePage: View {
                 
                 Button("NEXT", action: self.completeFirstStep)
                     .buttonStyle(AppDefaultButtonStyle())
-                    .padding()
+                    .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
             }
         }
     }
@@ -162,7 +164,8 @@ struct WelcomePage: View {
                 self.isCurrentWeightOpen = false
             },
             openInput: { self.isCurrentWeightOpen = true },
-            isOpen: self.isCurrentWeightOpen
+            isOpen: self.isCurrentWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
             .padding(.bottom)
     }
@@ -190,7 +193,8 @@ struct WelcomePage: View {
                 self.isGoalWeightOpen = false
             },
             openInput: { self.isGoalWeightOpen = true },
-            isOpen: self.isGoalWeightOpen
+            isOpen: self.isGoalWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
             .padding(.bottom)
     }
@@ -217,7 +221,8 @@ struct WelcomePage: View {
                 self.isDeltaWeightOpen = false
             },
             openInput: { self.isDeltaWeightOpen = true },
-            isOpen: self.isDeltaWeightOpen
+            isOpen: self.isDeltaWeightOpen,
+            maxHeight: self.appState.uiSizes.setupInputHeight
         )
             .padding(.bottom)
     }
@@ -261,7 +266,7 @@ struct WelcomePage: View {
                             value: self.appState.goalTargetFoodDelta,
                             unit: self.appState.energyUnit.rawValue
                         )
-                            .padding(.bottom)
+                            .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
                     }
                     
                     self.deltaWeightInputHintBlock
@@ -286,7 +291,7 @@ struct WelcomePage: View {
 
                     Button("DONE", action: self.appState.completeFirstSetup)
                         .buttonStyle(AppDefaultButtonStyle())
-                        .padding()
+                        .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
                 }
             }
         }
@@ -294,19 +299,9 @@ struct WelcomePage: View {
     
     var body: some View {
         
-        ZStack(alignment: .top) {
-
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
-            
-            if !self.isSecondStep {
-                
-                self.firstStepBlock
-            }
-            else {
-
-                self.secondStepBlock
-            }
-        }
+        !self.isSecondStep
+            ? AnyView( self.firstStepBlock )
+            : AnyView( self.secondStepBlock )
     }
 }
 
@@ -315,6 +310,12 @@ struct WelcomePage_Previews: PreviewProvider {
     static let appState = AppState()
 
     static var previews: some View {
-        WelcomePage().environmentObject(appState)
+        
+        ZStack(alignment: .top) {
+
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            
+            WelcomePage().environmentObject(appState)
+        }
     }
 }

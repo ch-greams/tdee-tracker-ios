@@ -34,21 +34,22 @@ struct ContentView: View {
     
     func tabbarItem(item: TabBarItem) -> some View {
 
-        let currentColor: Color = ( item.tag == self.selectedTab ) ? .appPrimaryLight : .white
+        let isSelected = ( item.tag == self.selectedTab )
         
         return Button(action: { self.selectedTab = item.tag }) {
 
             VStack(alignment: .center, spacing: 2) {
-                Image(item.icon)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 26)
-                    .foregroundColor(currentColor)
-                    .padding(.top, 12)
+                
+                CustomImage(
+                    name: item.icon,
+                    colorName: ( isSelected ? Color.appPrimaryLightName : "white" )
+                )
+                    .frame(width: 26, height: 26)
+                    .padding(.top, self.appState.uiSizes.navbarPadding)
 
                 Text(item.label)
                     .font(.appNavbarElement)
-                    .foregroundColor(currentColor)
+                    .foregroundColor(isSelected ? .appPrimaryLight : .white)
             }
         }
     }
@@ -98,36 +99,32 @@ struct ContentView: View {
                 .foregroundColor(.appPrimaryLight)
                 .opacity(0.5)
             
-            HStack(alignment: .center, spacing: 54) {
+            HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
                 
                 ForEach(self.tabBarItems, id: \.label) { item in
                     self.tabbarItem(item: item)
                 }
             }
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .frame(height: 84, alignment: .top)
+                .frame(maxWidth: .infinity)
+                .frame(height: self.appState.uiSizes.navbarHeight, alignment: .top)
                 .background(Color.appPrimaryDark)
+                
         }
     }
-    
-    var mainView: some View {
-        
-        ZStack(alignment: .bottom) {
-            
-            self.mainAppView
 
-            self.navbarView
-        }
-            .edgesIgnoringSafeArea(.bottom)
-    }
-    
     var body: some View {
         
         ZStack(alignment: .top) {
+            
+            Color.appPrimary.edgesIgnoringSafeArea(.all)
                 
             if self.appState.isFirstSetupDone {
 
-                self.mainView
+                self.mainAppView
+                    .padding(.top, self.appState.uiSizes.mainViewPadding)
+                
+                self.navbarView
+                    .padding(.top, self.appState.uiSizes.mainViewNavbarPadding)
             }
             else {
 
@@ -137,8 +134,14 @@ struct ContentView: View {
             if !self.appState.messageText.isEmpty {
 
                 self.warningMessageBlock
+                    .padding(.top, (
+                        self.appState.isFirstSetupDone
+                            ? self.appState.uiSizes.mainViewPadding
+                            : 0
+                    ))
             }
         }
+            .edgesIgnoringSafeArea(.bottom)
     }
 }
 

@@ -33,18 +33,20 @@ struct SetupRemindersBlock: View {
         let inputBlock = HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(.appTrendsItemLabel)
-                .frame(width: 128, alignment: .leading)
-                .padding(.horizontal, 16)
+                .font(.appInputLabel)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading)
                 .foregroundColor(.appPrimary)
+            
+            Spacer()
             
             Button(stringDate, action: onInputSelect)
                 .buttonStyle(ReminderTimeButtonStyle())
-                .padding(.trailing, 8)
+                .padding(.horizontal)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: 74)
+            .frame(height: self.appState.uiSizes.setupInputHeight)
             .background(Color.white)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
@@ -95,7 +97,7 @@ struct SetupRemindersBlock: View {
                     displayedComponents: .hourAndMinute
                 )
                     .labelsHidden()
-                    .font(.appTrendsItemValue)
+                    .font(.appInputValue)
                     .foregroundColor(.white)
                 
                 Button("CONFIRM", action: doneAction)
