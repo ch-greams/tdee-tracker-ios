@@ -93,6 +93,15 @@ class Utils {
     
     // MARK: - Data Transformation
     
+    public static func getShortWeekdayNames() -> [ String ] {
+        
+        let weekdays = DateFormatter().shortWeekdaySymbols.compactMap { $0 }
+        
+        let firstWeekday = Self.calendar.firstWeekday - 1
+        
+        return Array( weekdays[ firstWeekday ..< weekdays.count ] + weekdays[ 0 ..< firstWeekday ] )
+    }
+    
     public static func getWeeks(days: [ Date: DayEntry ]) -> [ Date: [ DayEntry ] ] {
         
         var dayEntriesByWeek: [ Date: [ DayEntry ] ] = [:]

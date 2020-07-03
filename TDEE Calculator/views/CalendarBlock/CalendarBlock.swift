@@ -20,16 +20,11 @@ struct CalendarBlock: View {
 
     var weekdayTitles: some View {
         
-        let dateFormatter = DateFormatter()
-        
-        let weekdays = dateFormatter.shortWeekdaySymbols.compactMap { $0.uppercased() }
-        
-        // TODO: Try this fix if weekdays order won't change with locale change
-        // let weekdaysSorted = Array(weekdays[ firstWeekday - 1 ..< weekdays.count ]) + weekdays[ 0 ..< firstWeekday - 1]
+        let weekdayNames = Utils.getShortWeekdayNames()
         
         return HStack(alignment: .center, spacing: self.appState.uiSizes.calendarDaySpacing) {
-            ForEach(weekdays, id: \.self) { day in
-                Text(day)
+            ForEach(weekdayNames, id: \.self) { day in
+                Text(day.uppercased())
                     .font(.appCalendarWeekday)
                     .frame(
                         width: self.appState.uiSizes.calendarDayButton,

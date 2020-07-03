@@ -81,13 +81,11 @@ struct CalendarBlockDays: View {
         
         let dayOfWeek = calendar.component(.weekday, from: firstDayOfTheMonth)
         
-        
         for weekIndex in 0 ..< 6 {
             
-            if let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDayOfTheMonth),
-               let weekdays = calendar.range(of: .weekday, in: .weekOfYear, for: dayInTheWeek) {
+            if let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDayOfTheMonth) {
 
-                let days = (weekdays.lowerBound ..< weekdays.upperBound)
+                let days = ( calendar.firstWeekday ..< ( 7 + calendar.firstWeekday ) )
                     .compactMap {
                         calendar.date(byAdding: .day, value: $0 - dayOfWeek, to: dayInTheWeek)
                     }
@@ -95,9 +93,8 @@ struct CalendarBlockDays: View {
                 weeks.append(days)
             }
         }
-        
+
         return weeks
-        
     }
     
     var body: some View {
