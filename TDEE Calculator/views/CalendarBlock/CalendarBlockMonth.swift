@@ -32,11 +32,15 @@ struct CalendarBlockMonth: View {
     
     func changeMonth(delta: Int) -> Void {
         
-        let nextMonth = calendar.date(byAdding: .month, value: delta, to: selectedDay)!
-        
-        let nextMonthScope = calendar.dateComponents([.year, .month], from: nextMonth)
-        
-        appState.changeDay(to: calendar.date(from: nextMonthScope)!)
+        if let nextMonth = calendar.date(byAdding: .month, value: delta, to: selectedDay) {
+            
+            let nextMonthScope = calendar.dateComponents([.year, .month], from: nextMonth)
+            
+            if let nextDay = calendar.date(from: nextMonthScope) {
+                
+                appState.changeDay(to: nextDay)
+            }
+        }
     }
     
     func getMonthChangeButton(icon: String, delta: Int) -> some View {

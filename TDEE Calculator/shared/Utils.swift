@@ -305,7 +305,7 @@ class Utils {
     public static var todayDate: Date {
 
         let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
-        return Utils.calendar.date(from: dayScope)!
+        return Utils.calendar.date(from: dayScope) ?? Date()
     }
     
     public static func getDateFromTimeComponents(hour: Int, minute: Int) -> Date? {

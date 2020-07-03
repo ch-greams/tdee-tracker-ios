@@ -651,7 +651,7 @@ class AppState: ObservableObject {
     private func getNextDateTimeComponents(hasEntry: Bool, time: Date) -> DateComponents {
     
         let nextNotificationDay = (
-            hasEntry ? calendar.date(byAdding: .day, value: 1, to: Utils.todayDate)! : Date()
+            hasEntry ? calendar.date(byAdding: .day, value: 1, to: Utils.todayDate) ?? Date() : Date()
         )
     
         let nextDateComponents = self.calendar.dateComponents([ .year, .month, .day ], from: nextNotificationDay)
