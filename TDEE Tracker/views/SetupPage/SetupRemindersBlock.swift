@@ -53,7 +53,7 @@ struct SetupRemindersBlock: View {
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
         
         return inputBlock
         
@@ -106,7 +106,7 @@ struct SetupRemindersBlock: View {
                     .frame(maxWidth: .infinity)
                     .background(self.appState.uiTheme.inputBackgroundColor)
                     .clipped()
-                    .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+                    .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                     .padding(8)
                 
                 Button("CONFIRM", action: doneAction)

@@ -130,7 +130,7 @@ struct WeeklyTrendsBlock: View {
             .background(self.backgroundColor)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }
 }
 
