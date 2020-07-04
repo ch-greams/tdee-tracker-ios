@@ -48,12 +48,11 @@ struct CalendarBlock: View {
                 CalendarBlockDays(selectedDay: self.selectedDay, isTrendsPage: self.isTrendsPage)
             }
                 .padding(.vertical)
-                .background(Color.appWhite)
+                .background(self.appState.uiTheme.inputBackgroundColor)
                 .padding(.horizontal, 8)
                 .clipped()
-                .shadow(color: .gray, radius: 1, x: 1, y: 1)
+                .shadow(color: .appFade, radius: 1, x: 1, y: 1)
         }
-
     }
 }
 
@@ -65,7 +64,7 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: false)
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
 
     }
@@ -79,7 +78,7 @@ struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
         
         CalendarBlock(selectedDay: Date(), isTrendsPage: true)
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
 
     }

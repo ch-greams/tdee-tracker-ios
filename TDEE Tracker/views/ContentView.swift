@@ -42,14 +42,22 @@ struct ContentView: View {
                 
                 CustomImage(
                     name: item.icon,
-                    colorName: ( isSelected ? Color.appPrimaryLightName : "white" )
+                    colorName: (
+                        isSelected
+                            ? self.appState.uiTheme.mainTextColorName
+                            : Color.appPrimaryLightName
+                    )
                 )
                     .frame(width: 26, height: 26)
                     .padding(.top, self.appState.uiSizes.navbarPadding)
 
                 Text(item.label)
                     .font(.appNavbarElement)
-                    .foregroundColor(isSelected ? .appPrimaryLight : .appWhite)
+                    .foregroundColor(
+                        isSelected
+                            ? self.appState.uiTheme.mainTextColor
+                            : .appPrimaryLight
+                )
             }
         }
     }
@@ -116,7 +124,7 @@ struct ContentView: View {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
                 
             if self.appState.isFirstSetupDone {
 

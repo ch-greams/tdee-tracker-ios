@@ -32,7 +32,10 @@ struct CalendarBlockDays: View {
             isSelectedMonth: isSelectedMonth,
             hasData: self.appState.isDayHasData(date: day),
             fontSize: self.appState.uiSizes.calendarFont,
-            buttonSize: self.appState.uiSizes.calendarDayButton
+            buttonSize: self.appState.uiSizes.calendarDayButton,
+            selectedColor: self.appState.uiTheme.mainTextColor,
+            defaultColor: self.appState.uiTheme.calendarTextDefaultColor,
+            alternativeColor: self.appState.uiTheme.calendarTextAltColor
         )
     }
     
@@ -54,7 +57,9 @@ struct CalendarBlockDays: View {
                     Color.appPrimary.frame(height: 10)
                 }
                 else {
-                    Color.appPrimaryWeekBackground.frame(height: 30)
+                    
+                    self.appState.uiTheme.calendarWeekHighlight
+                        .frame(height: 30)
                 }
             }
 
@@ -117,6 +122,7 @@ struct CalendarBlockDays_EntryPage_Previews: PreviewProvider {
     static var previews: some View {
             
         CalendarBlockDays(selectedDay: Date(), isTrendsPage: false)
+            .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }
 }
@@ -128,6 +134,7 @@ struct CalendarBlockDays_TrendsPage_Previews: PreviewProvider {
     static var previews: some View {
             
         CalendarBlockDays(selectedDay: Date(), isTrendsPage: true)
+            .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }
 }

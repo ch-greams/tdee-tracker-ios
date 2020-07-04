@@ -19,20 +19,27 @@ class InputBlock {
         first: (value: T, label: String),
         second: (value: T, label: String),
         selected: Optional<T>,
-        maxHeight: CGFloat
+        maxHeight: CGFloat,
+        backgroundColor: Color
     ) -> some View {
 
         let firstButton = Button(
             first.label.uppercased(),
             action: { setValue(first.value) }
         )
-            .buttonStyle(ToggleButtonStyle(isSelected: selected == first.value))
+            .buttonStyle(ToggleButtonStyle(
+                isSelected: selected == first.value,
+                backgroundColor: backgroundColor
+            ))
         
         let secondButton = Button(
             second.label.uppercased(),
             action: { setValue(second.value) }
         )
-            .buttonStyle(ToggleButtonStyle(isSelected: selected == second.value))
+            .buttonStyle(ToggleButtonStyle(
+                isSelected: selected == second.value,
+                backgroundColor: backgroundColor
+            ))
 
         
         return HStack(alignment: .center, spacing: 0) {
@@ -57,7 +64,7 @@ class InputBlock {
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .frame(height: maxHeight)
-            .background(Color.appWhite)
+            .background(backgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
@@ -72,7 +79,9 @@ class InputBlock {
         onCommit: @escaping () -> Void,
         openInput: @escaping () -> Void,
         isOpen: Bool,
-        maxHeight: CGFloat
+        maxHeight: CGFloat,
+        backgroundColor: Color,
+        backgroundColorName: String
     ) -> some View {
         
         HStack(alignment: .center, spacing: 0) {
@@ -114,7 +123,10 @@ class InputBlock {
             Button(
                 action: onCommit,
                 label: {
-                    CustomImage(name: "checkmark-sharp")
+                    CustomImage(
+                        name: "checkmark-sharp",
+                        colorName: backgroundColorName
+                    )
                         .frame(minWidth: 0, maxWidth: 40)
                         .frame(minHeight: 0, maxHeight: 40)
                         .clipped()
@@ -128,7 +140,7 @@ class InputBlock {
             .animation(.default)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .frame(height: maxHeight)
-            .background(Color.appWhite)
+            .background(backgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
@@ -143,7 +155,8 @@ class InputBlock {
         value: Binding<String>,
         onCommit: @escaping () -> Void,
         openInput: @escaping () -> Void,
-        padding: CGFloat
+        padding: CGFloat,
+        backgroundColor: Color
     ) -> some View {
 
         let isEmptyInput = NumberFormatter().number(from: value.wrappedValue) == nil
@@ -177,7 +190,7 @@ class InputBlock {
         }
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding(.vertical, padding)
-            .background(Color.appWhite)
+            .background(backgroundColor)
             .padding(1)
             .clipped()
             .shadow(color: .appFade, radius: 1, x: 1, y: 1)
@@ -194,7 +207,7 @@ struct InputBlock_Previews: PreviewProvider {
         
         ZStack {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            UIConstants.THEME_DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center, spacing: 8) {
              
@@ -204,7 +217,8 @@ struct InputBlock_Previews: PreviewProvider {
                     first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: EnergyUnit.kcal,
-                    maxHeight: 74
+                    maxHeight: 74,
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
                 )
                 
                 InputBlock.Number(
@@ -214,7 +228,9 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: false,
-                    maxHeight: 74
+                    maxHeight: 74,
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName
                 )
                 
                 InputBlock.Number(
@@ -224,7 +240,9 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: true,
-                    maxHeight: 74
+                    maxHeight: 74,
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName
                 )
 
                 InputBlock.EntryNumber(
@@ -233,7 +251,8 @@ struct InputBlock_Previews: PreviewProvider {
                     value: .constant("71.4"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    padding: 16
+                    padding: 16,
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
                 )
                 
                 InputBlock.EntryNumber(
@@ -242,7 +261,8 @@ struct InputBlock_Previews: PreviewProvider {
                     value: .constant("2934"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    padding: 16
+                    padding: 16,
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
                 )
             }
         }

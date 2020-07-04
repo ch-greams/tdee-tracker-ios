@@ -32,7 +32,8 @@ struct TrendsPage: View {
                 trendsElementPadding: self.appState.uiSizes.trendsElementPadding,
                 trendsItemLabelFontSize: self.appState.uiSizes.trendsItemLabelFontSize,
                 trendsItemValueFontSize: self.appState.uiSizes.trendsItemValueFontSize,
-                trendsItemUnitFontSize: self.appState.uiSizes.trendsItemUnitFontSize
+                trendsItemUnitFontSize: self.appState.uiSizes.trendsItemUnitFontSize,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor
             )
         }
     }
@@ -46,7 +47,7 @@ struct TrendsPage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
         
             TrendsPage().environmentObject(appState)
         }

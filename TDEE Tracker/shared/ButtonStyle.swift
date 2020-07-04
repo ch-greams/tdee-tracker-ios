@@ -12,13 +12,14 @@ import SwiftUI
 struct ToggleButtonStyle: ButtonStyle {
     
     let isSelected: Bool
+    let backgroundColor: Color
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(width: 90, height: 40)
             .font(.appSetupToggleValue)
-            .foregroundColor(!self.isSelected ? Color.appPrimary : Color.appWhite)
-            .background(self.isSelected ? Color.appPrimary : Color.appWhite)
+            .foregroundColor(!self.isSelected ? Color.appPrimary : self.backgroundColor)
+            .background(self.isSelected ? Color.appPrimary : self.backgroundColor)
     }
 }
 
@@ -47,39 +48,43 @@ struct DayButtonStyle: ButtonStyle {
 
 
 struct ChangeMonthButtonStyle: ButtonStyle {
+    
+    let backgroundColor: Color
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 44, height: 10)
-            .padding()
-            .foregroundColor(.appPrimary)
-            .background(Color(hue: 0, saturation: 0, brightness: 0.96))
+            .frame(width: 80, height: 44)
+            .background(backgroundColor)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
     }
 }
 
 
 struct AppDefaultButtonStyle: ButtonStyle {
  
+    let backgroundColor: Color
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(width: 176, height: 44)
             .font(.appDefaultButtonLabel)
             .foregroundColor(.appPrimary)
-            .background(Color.appWhite)
+            .background(self.backgroundColor)
     }
 }
 
 
 struct ReminderTimeButtonStyle: ButtonStyle {
  
+    let backgroundColor: Color
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(width: 180, height: 44)
             .border(Color.appPrimary)
-            .background(Color.appWhite)
+            .background(backgroundColor)
             .font(.appInputValue)
             .foregroundColor(.appPrimary)
     }

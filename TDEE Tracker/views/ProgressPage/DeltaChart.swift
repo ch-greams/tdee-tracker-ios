@@ -39,6 +39,8 @@ struct DeltaChart: View {
     
     let weightUnit: String
     
+    let mainColor: Color
+    
     // MARK: - Size Calculation
     
     func getStepHeight(stepCount: Int) -> CGFloat {
@@ -94,12 +96,12 @@ struct DeltaChart: View {
                 .frame(width: 40, alignment: .trailing)
                 .font(.appProgressChartSegment)
                 .padding(.leading, 8)
-                .foregroundColor(Color.appWhite)
+                .foregroundColor(self.mainColor)
             
             Line(length: length)
                 .stroke(style: StrokeStyle(lineWidth: 1, dash: ( withDash ? self.STEP_LINE_DASH : [] )))
                 .frame(height: 1)
-                .foregroundColor(Color.appWhite)
+                .foregroundColor(self.mainColor)
         }
             .frame(height: height, alignment: .top)
     }
@@ -166,13 +168,13 @@ struct DeltaChart: View {
                                         .frame(width: 28, height: self.totalStepsHeight)
                                         .padding(.top, 15)
                                         .padding(.horizontal, 1)
-                                        .foregroundColor(Color.appWhite)
+                                        .foregroundColor(self.mainColor)
                                         .opacity(0.85)
 
                                     Text(String(iWeek + 1))
                                         .font(.appProgressChartSegment)
                                         .padding(.top, 1)
-                                        .foregroundColor(Color.appWhite)
+                                        .foregroundColor(self.mainColor)
                                 }
                             }
                         }
@@ -203,7 +205,8 @@ struct DeltaChart_Previews: PreviewProvider {
             DeltaChart(
                 totalStepsHeight: 180,
                 weeklyDeltas: Self.weeklyDeltas,
-                weightUnit: "KG"
+                weightUnit: "KG",
+                mainColor: UIConstants.THEME_DEFAULT.mainTextColor
             )
                 .background(Color.appPrimary)
             
@@ -211,7 +214,8 @@ struct DeltaChart_Previews: PreviewProvider {
             DeltaChart(
                 totalStepsHeight: 180,
                 weeklyDeltas: [],
-                weightUnit: "KG"
+                weightUnit: "KG",
+                mainColor: UIConstants.THEME_DEFAULT.mainTextColor
             )
                 .background(Color.appPrimary)
         }

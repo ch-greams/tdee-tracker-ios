@@ -24,6 +24,11 @@ struct DayButton: View {
     let fontSize: CGFloat
     let buttonSize: CGFloat
     
+    let selectedColor: Color
+    let defaultColor: Color
+    let alternativeColor: Color
+    
+
     var button: some View {
         
         let dateFormatter = DateFormatter()
@@ -32,8 +37,8 @@ struct DayButton: View {
         let stringDate = dateFormatter.string(from: self.day)
         
         let color = self.isSelectedDay
-            ? Color.appWhite
-            : ( self.isSelectedMonth ? Color.appPrimaryText : Color.appPrimaryTextLight )
+            ? self.selectedColor
+            : ( self.isSelectedMonth ? self.defaultColor : self.alternativeColor )
         
         let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
             .buttonStyle(DayButtonStyle(
@@ -74,6 +79,10 @@ struct DayButton_Previews: PreviewProvider {
     
     static let day = Date()
     
+    static let selectedColor: Color = UIConstants.THEME_DEFAULT.mainTextColor
+    static let defaultColor: Color = UIConstants.THEME_DEFAULT.calendarTextDefaultColor
+    static let alternativeColor: Color = UIConstants.THEME_DEFAULT.calendarTextAltColor
+    
     static var previews: some View {
         
         VStack {
@@ -81,37 +90,136 @@ struct DayButton_Previews: PreviewProvider {
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: true,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Full,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Full,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Full, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: false,
+                    hasData: DayEntryData.Full,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
             }
             
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: true,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Partial,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Partial,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Partial, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: false,
+                    hasData: DayEntryData.Partial,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
             }
             
             HStack {
                 
                 // Selected Day
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: true, isSelectedMonth: true, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: true,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Empty,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, current month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: true, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Empty,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
                 
                 // Not selected Day, other month
-                DayButton(day: Self.day, selectDayFunc: { print($0) }, isSelectedDay: false, isSelectedMonth: false, hasData: DayEntryData.Empty, fontSize: 22, buttonSize: 40)
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isSelectedDay: false,
+                    isSelectedMonth: false,
+                    hasData: DayEntryData.Empty,
+                    fontSize: 22,
+                    buttonSize: 40,
+                    selectedColor: Self.selectedColor,
+                    defaultColor: Self.defaultColor,
+                    alternativeColor: Self.alternativeColor
+                )
             }
         }
     }

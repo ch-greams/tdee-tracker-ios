@@ -32,6 +32,9 @@ struct WeeklyTrendsBlock: View {
     let trendsItemValueFontSize: CGFloat
     let trendsItemUnitFontSize: CGFloat
     
+    let backgroundColor: Color
+
+
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
         switch change {
@@ -124,10 +127,10 @@ struct WeeklyTrendsBlock: View {
             }
         }
             .padding(.vertical, self.trendsElementPadding)
-            .background(Color.appWhite)
+            .background(self.backgroundColor)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
     }
 }
 
@@ -150,7 +153,8 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsElementPadding: 10,
             trendsItemLabelFontSize: 18,
             trendsItemValueFontSize: 32,
-            trendsItemUnitFontSize: 14
+            trendsItemUnitFontSize: 14,
+            backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
         )
             .padding(.vertical, 8)
             .background(Color.appPrimary)

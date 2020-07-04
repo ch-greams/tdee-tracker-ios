@@ -55,6 +55,7 @@ struct EntryPage: View {
             EntryHintBlock(
                 value: self.appState.recommendedFoodAmount,
                 unit: self.appState.energyUnit.rawValue,
+                textColor: self.appState.uiTheme.mainTextColor,
                 isEnoughData: self.appState.isEnoughDataForRecommendation
             )
                 .padding(.top, self.appState.uiSizes.entryHintBlockPadding)
@@ -70,7 +71,8 @@ struct EntryPage: View {
                        value: self.$appState.weightInput,
                        onCommit: self.onSubmit,
                        openInput: { self.isWeightInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding
+                       padding: self.appState.uiSizes.entryInputPadding,
+                       backgroundColor: self.appState.uiTheme.inputBackgroundColor
                     )
 
                     InputBlock.EntryNumber(
@@ -79,13 +81,16 @@ struct EntryPage: View {
                        value: self.$appState.foodInput,
                        onCommit: self.onSubmit,
                        openInput: { self.isFoodInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding
+                       padding: self.appState.uiSizes.entryInputPadding,
+                       backgroundColor: self.appState.uiTheme.inputBackgroundColor
                     )
 
                     if self.isWeightInputOpen || self.isFoodInputOpen {
 
                        Button("CONFIRM", action: self.onSubmit)
-                            .buttonStyle(AppDefaultButtonStyle())
+                            .buttonStyle(AppDefaultButtonStyle(
+                                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                            ))
                             .padding(.vertical)
                     }
                 }
@@ -96,14 +101,16 @@ struct EntryPage: View {
                 if isFutureDate {
 
                     HStack{
-                        Image(systemName: "clock.fill")
+                        CustomImage(
+                            name: "time-sharp",
+                            colorName: self.appState.uiTheme.mainTextColorName
+                        )
                             .frame(width: lockIconSize, height: lockIconSize)
                             .font(.system(size: lockIconSize))
-                            .foregroundColor(.appPrimaryDark)
                     }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .frame(height: self.appState.uiSizes.entryBlockerHeight)
-                        .background(Color.appPrimary)
+                        .background(self.appState.uiTheme.backgroundColor)
                         .opacity(0.5)
                 }
             }
@@ -119,7 +126,7 @@ struct EntryPage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             EntryPage().environmentObject(appState)
         }

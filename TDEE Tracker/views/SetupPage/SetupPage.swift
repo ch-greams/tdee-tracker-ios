@@ -31,7 +31,7 @@ struct SetupPage: View {
                 Rectangle()
                     .frame(height: 1)
                     .padding(.horizontal, 32)
-                    .foregroundColor(.appWhite)
+                    .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .opacity(0.8)
             }
 
@@ -49,7 +49,7 @@ struct SetupPage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             SetupPage().environmentObject(appState)
         }

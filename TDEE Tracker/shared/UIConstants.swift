@@ -58,8 +58,33 @@ struct UISizes {
     
 }
 
+struct UITheme {
+    
+    let backgroundColor: Color
+    
+    let inputBackgroundColor: Color
+    let inputBackgroundColorName: String
+    
+    let mainTextColor: Color
+    let mainTextColorName: String
+    
+    // MARK: - Specialized Colors
+    // TODO: Try to merge them with main colors
+    
+    let calendarWeekHighlight: Color
+    let calendarTextDefaultColor: Color
+    let calendarTextAltColor: Color
+}
+
+enum Theme {
+    case Default
+    case Dark
+}
+
 class UIConstants {
 
+    // MARK: - UISizes
+    
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 30,
@@ -192,6 +217,38 @@ class UIConstants {
         setupTargetDeltaPadding: 8
     )
     
+    // MARK: - UITheme
+    
+    public static let THEME_DEFAULT: UITheme = UITheme(
+
+        backgroundColor: Color.appPrimary,
+        
+        inputBackgroundColor: Color.appWhite,
+        inputBackgroundColorName: Color.appWhiteName,
+        
+        mainTextColor: Color.appWhite,
+        mainTextColorName: Color.appWhiteName,
+        
+        calendarWeekHighlight: Color.appGreyLight,
+        calendarTextDefaultColor: Color.appPrimaryText,
+        calendarTextAltColor: Color.appPrimaryTextLight
+    )
+    
+    public static let THEME_DARK: UITheme = UITheme(
+
+        backgroundColor: Color.appPrimaryDark,
+        
+        inputBackgroundColor: Color.appGreyDark,
+        inputBackgroundColorName: Color.appGreyDarkName,
+
+        mainTextColor: Color.appGreyDarker,
+        mainTextColorName: Color.appGreyDarkerName,
+        
+        calendarWeekHighlight: Color.appGreyDarkAlt,
+        calendarTextDefaultColor: Color.appPrimaryTextLight,
+        calendarTextAltColor: Color.appPrimaryText
+    )
+    
     
     public static func getUISizes(device: String) -> UISizes {
         
@@ -215,6 +272,16 @@ class UIConstants {
 
             default:
                 return Self.IPHONE_11_PRO
+        }
+    }
+
+    public static func getUITheme(theme: Theme = Theme.Default) -> UITheme {
+        
+        switch theme {
+            case Theme.Dark:
+                return Self.THEME_DARK
+            default:
+                return Self.THEME_DEFAULT
         }
     }
 }

@@ -15,8 +15,8 @@ struct CalendarBlockMonth: View {
     @EnvironmentObject var appState: AppState
     
     let calendar = Calendar.current
-    let selectedDay: Date
 
+    let selectedDay: Date
     
     var monthTitle: Text {
         
@@ -27,7 +27,7 @@ struct CalendarBlockMonth: View {
         
         return Text(monthString.uppercased())
             .font(.appCalendarMonth)
-            .foregroundColor(.appWhite)
+            .foregroundColor(self.appState.uiTheme.mainTextColor)
     }
     
     func changeMonth(delta: Int) -> Void {
@@ -46,17 +46,21 @@ struct CalendarBlockMonth: View {
     func getMonthChangeButton(icon: String, delta: Int) -> some View {
 
         Button(action: { self.changeMonth(delta: delta) }) {
-            Image(systemName: icon)
-                .font(.headline)
+
+            CustomImage(name: icon, colorName: Color.appPrimaryName)
+                .frame(width: 44, height: 28)
         }
-            .buttonStyle(ChangeMonthButtonStyle())
+            .buttonStyle(ChangeMonthButtonStyle(
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+            ))
+        
     }
     
     var body: some View {
 
         HStack(alignment: .center) {
 
-            self.getMonthChangeButton(icon: "arrow.left", delta: -1)
+            self.getMonthChangeButton(icon: "arrow-back-sharp", delta: -1)
             
             Spacer()
             
@@ -64,16 +68,19 @@ struct CalendarBlockMonth: View {
             
             Spacer()
             
-            self.getMonthChangeButton(icon: "arrow.right", delta: 1)
+            self.getMonthChangeButton(icon: "arrow-forward-sharp", delta: 1)
         }
     }
 }
 
 struct CalendarBlockMonth_Previews: PreviewProvider {
     
+    static let appState = AppState()
+    
     static var previews: some View {
         CalendarBlockMonth(selectedDay: Date())
             .padding(.vertical, 8)
             .background(Color.appPrimary)
+            .environmentObject(Self.appState)
     }
 }

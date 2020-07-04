@@ -41,13 +41,15 @@ struct SetupRemindersBlock: View {
             Spacer()
             
             Button(stringDate, action: onInputSelect)
-                .buttonStyle(ReminderTimeButtonStyle())
+                .buttonStyle(ReminderTimeButtonStyle(
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                ))
                 .padding(.horizontal)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .frame(height: self.appState.uiSizes.setupInputHeight)
-            .background(Color.appWhite)
+            .background(self.appState.uiTheme.inputBackgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
@@ -66,7 +68,10 @@ struct SetupRemindersBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
 
-            SetupBlockTitle(title: "Reminders")
+            SetupBlockTitle(
+                title: "Reminders",
+                textColor: self.appState.uiTheme.mainTextColor
+            )
             
             if !self.isOpen || self.selectedInput == ReminderType.Weight {
                 
@@ -98,10 +103,16 @@ struct SetupRemindersBlock: View {
                 )
                     .labelsHidden()
                     .font(.appInputValue)
-                    .foregroundColor(.appWhite)
+                    .frame(maxWidth: .infinity)
+                    .background(self.appState.uiTheme.inputBackgroundColor)
+                    .clipped()
+                    .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+                    .padding(8)
                 
                 Button("CONFIRM", action: doneAction)
-                    .buttonStyle(AppDefaultButtonStyle())
+                    .buttonStyle(AppDefaultButtonStyle(
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                    ))
             }
         }
     }

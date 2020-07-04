@@ -42,10 +42,7 @@ extension Color {
     public static var appPrimaryTextLight: Color {
         Color("greyLight")
     }
-    
-    public static var appPrimaryWeekBackground: Color {
-        Color("greyLight-1")
-    }
+
     
     public static var appSecondary: Color {
         Color(Self.appSecondaryName, bundle: nil)
@@ -63,9 +60,30 @@ extension Color {
         Color(red: 0.00, green: 0.00, blue: 0.00)
     }
 
+    // MARK: New Colors
+    
+    public static var appWhiteName = "white"
+    public static var appGreyDarkName = "greyDark-1"
+    public static var appGreyDarkerName = "greyDark-2"
     
     public static var appWhite: Color {
-        Color("white", bundle: nil)
+        Color(Self.appWhiteName, bundle: nil)
+    }
+    
+    public static var appGreyDark: Color {
+        Color(Self.appGreyDarkName, bundle: nil)
+    }
+    
+    public static var appGreyDarker: Color {
+        Color(Self.appGreyDarkerName, bundle: nil)
+    }
+    
+    public static var appGreyDarkAlt: Color {
+        Color("greyDark-0", bundle: nil)
+    }
+    
+    public static var appGreyLight: Color {
+        Color("greyLight-1")
     }
 }
 

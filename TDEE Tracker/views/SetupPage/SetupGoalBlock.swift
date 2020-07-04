@@ -24,7 +24,10 @@ struct SetupGoalBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
             
-            SetupBlockTitle(title: "Goal")
+            SetupBlockTitle(
+                title: "Goal",
+                textColor: self.appState.uiTheme.mainTextColor
+            )
             
             InputBlock.Number(
                 title: "Goal Weight",
@@ -38,7 +41,9 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isGoalWeightOpen = true },
                 isOpen: self.isGoalWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
             )
 
             InputBlock.Number(
@@ -53,12 +58,15 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isDeltaWeightOpen = true },
                 isOpen: self.isDeltaWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
             )
             
             TargetDelta(
                 value: self.appState.goalTargetFoodDelta,
-                unit: energyUnitLabel
+                unit: energyUnitLabel,
+                textColor: self.appState.uiTheme.mainTextColor
             )
                 .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
         }

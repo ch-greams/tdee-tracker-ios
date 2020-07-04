@@ -14,10 +14,19 @@ struct EntryHintBlock: View {
 
     let value: Int
     let unit: String
+    
+    let textColor: Color
 
-    init(value: Int, unit: String, isEnoughData: Bool = true, isFutureDate: Bool = false) {
+    init(
+        value: Int,
+        unit: String,
+        textColor: Color,
+        isEnoughData: Bool = true
+    ) {
         self.value = value
         self.unit = unit
+        
+        self.textColor = textColor
 
         self.isEnoughData = isEnoughData
     }
@@ -29,7 +38,7 @@ struct EntryHintBlock: View {
             Text(hint.uppercased())
                 .multilineTextAlignment(.center)
                 .frame(minHeight: 46, maxHeight: 60)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedLabel)
 
         }
@@ -43,17 +52,17 @@ struct EntryHintBlock: View {
             Text("Recommended daily amount".uppercased())
                 .multilineTextAlignment(.center)
                 .frame(width: 84)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedLabel)
             
             Text("~\(self.value)")
                 .frame(width: 154, alignment: .trailing)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedAmount)
                 .padding(.trailing, 10)
             
             Text(self.unit.uppercased())
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.textColor)
                 .font(.appEntryUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -82,8 +91,20 @@ struct EntryHintBlock_Previews: PreviewProvider {
     static var previews: some View {
         
         VStack {
-            EntryHintBlock(value: 2843, unit: "kcal", isEnoughData: false).background(Color.appPrimary)
-            EntryHintBlock(value: 2843, unit: "kcal").background(Color.appPrimary)
+            EntryHintBlock(
+                value: 2843,
+                unit: "kcal",
+                textColor: UIConstants.THEME_DEFAULT.mainTextColor,
+                isEnoughData: false
+            )
+                .background(Color.appPrimary)
+            
+            EntryHintBlock(
+                value: 2843,
+                unit: "kcal",
+                textColor: UIConstants.THEME_DEFAULT.mainTextColor
+            )
+                .background(Color.appPrimary)
         }
     }
 }
