@@ -1,6 +1,6 @@
 //
 //  CustomImage.swift
-//  TDEE Calculator
+//  TDEE Tracker
 //
 //  Created by Andrei Khvalko on 7/1/20.
 //  Copyright © 2020 Greams. All rights reserved.

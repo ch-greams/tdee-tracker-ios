@@ -1,6 +1,6 @@
 //
 //  Font.swift
-//  TDEE Calculator
+//  TDEE Tracker
 //
 //  Created by Andrei Khvalko on 6/3/20.
 //  Copyright © 2020 Greams. All rights reserved.
