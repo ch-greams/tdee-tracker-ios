@@ -60,30 +60,26 @@ extension Color {
         Color(red: 0.00, green: 0.00, blue: 0.00)
     }
 
-    // MARK: New Colors
+    // MARK: New Color Setup
     
-    public static var appWhiteName = "white"
-    public static var appGreyDarkName = "greyDark-1"
-    public static var appGreyDarkerName = "greyDark-2"
     
-    public static var appWhite: Color {
-        Color(Self.appWhiteName, bundle: nil)
-    }
+    public static let BACKGROUND_NAME = "background"
     
-    public static var appGreyDark: Color {
-        Color(Self.appGreyDarkName, bundle: nil)
-    }
+    public static let INPUT_BACKGROUND_NAME = "inputBackground"
+    public static let MAIN_TEXT_NAME = "mainText"
     
-    public static var appGreyDarker: Color {
-        Color(Self.appGreyDarkerName, bundle: nil)
-    }
+    public static let CALENDAR_TEXT_ALTERNATIVE_NAME = "calendarTextAlternative"
+    public static let CALENDAR_TEXT_DEFAULT_NAME = "calendarTextDefault"
+    public static let CALENDAR_WEEK_HIGHLIGHT_NAME = "calendarWeekHighlight"
     
-    public static var appGreyDarkAlt: Color {
-        Color("greyDark-0", bundle: nil)
-    }
     
-    public static var appGreyLight: Color {
-        Color("greyLight-1")
-    }
+    public static let BACKGROUND_COLOR: Color = Color(Self.BACKGROUND_NAME)
+    
+    public static let INPUT_BACKGROUND_COLOR = Color(Self.INPUT_BACKGROUND_NAME)
+    public static let MAIN_TEXT_COLOR = Color(Self.MAIN_TEXT_NAME)
+    
+    public static let CALENDAR_TEXT_ALTERNATIVE_COLOR = Color(Self.CALENDAR_TEXT_ALTERNATIVE_NAME)
+    public static let CALENDAR_TEXT_DEFAULT_COLOR = Color(Self.CALENDAR_TEXT_DEFAULT_NAME)
+    public static let CALENDAR_WEEK_HIGHLIGHT_COLOR = Color(Self.CALENDAR_WEEK_HIGHLIGHT_NAME)
 }
 

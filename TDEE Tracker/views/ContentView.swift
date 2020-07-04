@@ -69,7 +69,7 @@ struct ContentView: View {
             Text(self.appState.messageText.uppercased())
                 .multilineTextAlignment(.center)
                 .frame(height: 60)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.appState.uiTheme.mainTextColor)
                 .font(.appWarningText)
 
         }

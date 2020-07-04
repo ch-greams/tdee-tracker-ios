@@ -221,32 +221,32 @@ class UIConstants {
     
     public static let THEME_DEFAULT: UITheme = UITheme(
 
-        backgroundColor: Color.appPrimary,
+        backgroundColor: Color.BACKGROUND_COLOR,
+
+        inputBackgroundColor: Color.INPUT_BACKGROUND_COLOR,
+        inputBackgroundColorName: Color.INPUT_BACKGROUND_NAME,
         
-        inputBackgroundColor: Color.appWhite,
-        inputBackgroundColorName: Color.appWhiteName,
+        mainTextColor: Color.MAIN_TEXT_COLOR,
+        mainTextColorName: Color.MAIN_TEXT_NAME,
         
-        mainTextColor: Color.appWhite,
-        mainTextColorName: Color.appWhiteName,
-        
-        calendarWeekHighlight: Color.appGreyLight,
-        calendarTextDefaultColor: Color.appPrimaryText,
-        calendarTextAltColor: Color.appPrimaryTextLight
+        calendarWeekHighlight: Color.CALENDAR_WEEK_HIGHLIGHT_COLOR,
+        calendarTextDefaultColor: Color.CALENDAR_TEXT_DEFAULT_COLOR,
+        calendarTextAltColor: Color.CALENDAR_TEXT_ALTERNATIVE_COLOR
     )
     
     public static let THEME_DARK: UITheme = UITheme(
 
-        backgroundColor: Color.appPrimaryDark,
-        
-        inputBackgroundColor: Color.appGreyDark,
-        inputBackgroundColorName: Color.appGreyDarkName,
+        backgroundColor: Color.BACKGROUND_COLOR,
 
-        mainTextColor: Color.appGreyDarker,
-        mainTextColorName: Color.appGreyDarkerName,
+        inputBackgroundColor: Color.INPUT_BACKGROUND_COLOR,
+        inputBackgroundColorName: Color.INPUT_BACKGROUND_NAME,
         
-        calendarWeekHighlight: Color.appGreyDarkAlt,
-        calendarTextDefaultColor: Color.appPrimaryTextLight,
-        calendarTextAltColor: Color.appPrimaryText
+        mainTextColor: Color.MAIN_TEXT_COLOR,
+        mainTextColorName: Color.MAIN_TEXT_NAME,
+        
+        calendarWeekHighlight: Color.CALENDAR_WEEK_HIGHLIGHT_COLOR,
+        calendarTextDefaultColor: Color.CALENDAR_TEXT_DEFAULT_COLOR,
+        calendarTextAltColor: Color.CALENDAR_TEXT_ALTERNATIVE_COLOR
     )
     
     
