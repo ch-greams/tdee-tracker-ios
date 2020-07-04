@@ -87,6 +87,6 @@ struct ProgressCircle_Previews: PreviewProvider {
             mainColor: UIConstants.THEME_DEFAULT.mainTextColor
         )
             .padding(.vertical, 20)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
     }
 }

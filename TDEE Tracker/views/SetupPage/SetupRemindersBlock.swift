@@ -36,13 +36,14 @@ struct SetupRemindersBlock: View {
                 .font(.appInputLabel)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
-                .foregroundColor(.appPrimary)
+                .foregroundColor(self.appState.uiTheme.inputAccentColor)
             
             Spacer()
             
             Button(stringDate, action: onInputSelect)
                 .buttonStyle(ReminderTimeButtonStyle(
-                    backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
                 ))
                 .padding(.horizontal)
 
@@ -111,7 +112,8 @@ struct SetupRemindersBlock: View {
                 
                 Button("CONFIRM", action: doneAction)
                     .buttonStyle(AppDefaultButtonStyle(
-                        backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        textColor: self.appState.uiTheme.secondaryTextColor
                     ))
             }
         }
@@ -125,7 +127,7 @@ struct SetupRemindersBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupRemindersBlock(isOpen: .constant(true))
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

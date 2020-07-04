@@ -47,7 +47,7 @@ struct CalendarBlockMonth: View {
 
         Button(action: { self.changeMonth(delta: delta) }) {
 
-            CustomImage(name: icon, colorName: Color.appPrimaryName)
+            CustomImage(name: icon, colorName: self.appState.uiTheme.calendarAccentColorName)
                 .frame(width: 44, height: 28)
         }
             .buttonStyle(ChangeMonthButtonStyle(
@@ -80,7 +80,7 @@ struct CalendarBlockMonth_Previews: PreviewProvider {
     static var previews: some View {
         CalendarBlockMonth(selectedDay: Date())
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
             .environmentObject(Self.appState)
     }
 }

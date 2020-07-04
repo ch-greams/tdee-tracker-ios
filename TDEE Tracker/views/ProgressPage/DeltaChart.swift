@@ -208,7 +208,7 @@ struct DeltaChart_Previews: PreviewProvider {
                 weightUnit: "KG",
                 mainColor: UIConstants.THEME_DEFAULT.mainTextColor
             )
-                .background(Color.appPrimary)
+                .background(UIConstants.THEME_DEFAULT.backgroundColor)
             
             // NOTE: Empty
             DeltaChart(
@@ -217,7 +217,7 @@ struct DeltaChart_Previews: PreviewProvider {
                 weightUnit: "KG",
                 mainColor: UIConstants.THEME_DEFAULT.mainTextColor
             )
-                .background(Color.appPrimary)
+                .background(UIConstants.THEME_DEFAULT.backgroundColor)
         }
     }
 }

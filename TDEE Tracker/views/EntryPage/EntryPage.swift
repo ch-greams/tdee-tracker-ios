@@ -66,30 +66,39 @@ struct EntryPage: View {
                 VStack(alignment: .center, spacing: 0) {
 
                     InputBlock.EntryNumber(
-                       icon: "body-sharp",
-                       unit: self.appState.weightUnit.rawValue,
-                       value: self.$appState.weightInput,
-                       onCommit: self.onSubmit,
-                       openInput: { self.isWeightInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding,
-                       backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                        icon: "body-sharp",
+                        unit: self.appState.weightUnit.rawValue,
+                        value: self.$appState.weightInput,
+                        onCommit: self.onSubmit,
+                        openInput: { self.isWeightInputOpen = true },
+                        padding: self.appState.uiSizes.entryInputPadding,
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
+                        accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
                     InputBlock.EntryNumber(
-                       icon: "fast-food-sharp",
-                       unit: self.appState.energyUnit.rawValue,
-                       value: self.$appState.foodInput,
-                       onCommit: self.onSubmit,
-                       openInput: { self.isFoodInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding,
-                       backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                        icon: "fast-food-sharp",
+                        unit: self.appState.energyUnit.rawValue,
+                        value: self.$appState.foodInput,
+                        onCommit: self.onSubmit,
+                        openInput: { self.isFoodInputOpen = true },
+                        padding: self.appState.uiSizes.entryInputPadding,
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
+                        accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
                     if self.isWeightInputOpen || self.isFoodInputOpen {
 
                        Button("CONFIRM", action: self.onSubmit)
                             .buttonStyle(AppDefaultButtonStyle(
-                                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                                textColor: self.appState.uiTheme.secondaryTextColor
                             ))
                             .padding(.vertical)
                     }

@@ -20,7 +20,8 @@ class InputBlock {
         second: (value: T, label: String),
         selected: Optional<T>,
         maxHeight: CGFloat,
-        backgroundColor: Color
+        backgroundColor: Color,
+        accentColor: Color
     ) -> some View {
 
         let firstButton = Button(
@@ -29,7 +30,8 @@ class InputBlock {
         )
             .buttonStyle(ToggleButtonStyle(
                 isSelected: selected == first.value,
-                backgroundColor: backgroundColor
+                backgroundColor: backgroundColor,
+                accentColor: accentColor
             ))
         
         let secondButton = Button(
@@ -38,7 +40,8 @@ class InputBlock {
         )
             .buttonStyle(ToggleButtonStyle(
                 isSelected: selected == second.value,
-                backgroundColor: backgroundColor
+                backgroundColor: backgroundColor,
+                accentColor: accentColor
             ))
 
         
@@ -47,7 +50,7 @@ class InputBlock {
             Text(title.uppercased())
                 .font(.appInputLabel)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(.appPrimary)
+                .foregroundColor(accentColor)
                 .padding(.leading)
             
             Spacer()
@@ -59,7 +62,7 @@ class InputBlock {
                 secondButton
             }
                 .padding(1)
-                .background(Color.appPrimary)
+                .background(accentColor)
                 .padding(.horizontal)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
@@ -81,7 +84,9 @@ class InputBlock {
         isOpen: Bool,
         maxHeight: CGFloat,
         backgroundColor: Color,
-        backgroundColorName: String
+        backgroundColorName: String,
+        confirmButtonColor: Color,
+        accentColor: Color
     ) -> some View {
         
         HStack(alignment: .center, spacing: 0) {
@@ -90,7 +95,7 @@ class InputBlock {
                 Text(title.uppercased())
                     .font(.appInputLabel)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.appPrimary)
+                    .foregroundColor(accentColor)
                     .padding(.leading)
             }
             
@@ -101,8 +106,8 @@ class InputBlock {
                     .font(.appInputValue)
                     .padding(.trailing, 8)
                     .frame(width: 120, height: 44)
-                    .border(Color.appPrimary)
-                    .foregroundColor(.appPrimary)
+                    .border(accentColor)
+                    .foregroundColor(accentColor)
                     .padding(.horizontal)
                     .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
@@ -111,7 +116,7 @@ class InputBlock {
                 Text(unit.uppercased())
                     .font(.appInputLabel)
                     .frame(width: 42, alignment: .leading)
-                    .foregroundColor(.appPrimary)
+                    .foregroundColor(accentColor)
             }
                 .padding(.horizontal)
             
@@ -132,7 +137,7 @@ class InputBlock {
                         .clipped()
                         .frame(maxHeight: .infinity)
                         .frame(maxWidth: isOpen ? 120 : 0)
-                        .background(Color.appPrimaryDark)
+                        .background(confirmButtonColor)
                 }
             )
     
@@ -156,17 +161,21 @@ class InputBlock {
         onCommit: @escaping () -> Void,
         openInput: @escaping () -> Void,
         padding: CGFloat,
-        backgroundColor: Color
+        backgroundColor: Color,
+        accentColor: Color,
+        accentColorName: String,
+        accentAlternativeColor: Color,
+        accentAlternativeColorName: String
     ) -> some View {
 
         let isEmptyInput = NumberFormatter().number(from: value.wrappedValue) == nil
-        let baseColor = ( isEmptyInput ? Color.appSecondary : Color.appPrimary )
+        let baseColor = ( isEmptyInput ? accentAlternativeColor : accentColor )
         
         let result = HStack(alignment: .center, spacing: 0) {
 
             CustomImage(
                 name: icon,
-                colorName: isEmptyInput ? Color.appSecondaryName : Color.appPrimaryName
+                colorName: isEmptyInput ? accentAlternativeColorName : accentColorName
             )
                 .frame(width: 30, height: 30)
                 .padding(.horizontal)
@@ -218,7 +227,8 @@ struct InputBlock_Previews: PreviewProvider {
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: EnergyUnit.kcal,
                     maxHeight: 74,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
                 )
                 
                 InputBlock.Number(
@@ -230,7 +240,9 @@ struct InputBlock_Previews: PreviewProvider {
                     isOpen: false,
                     maxHeight: 74,
                     backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName
+                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName,
+                    confirmButtonColor: UIConstants.THEME_DEFAULT.inputConfirmButtonColor,
+                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
                 )
                 
                 InputBlock.Number(
@@ -242,7 +254,9 @@ struct InputBlock_Previews: PreviewProvider {
                     isOpen: true,
                     maxHeight: 74,
                     backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName
+                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName,
+                    confirmButtonColor: UIConstants.THEME_DEFAULT.inputConfirmButtonColor,
+                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
                 )
 
                 InputBlock.EntryNumber(
@@ -252,7 +266,11 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     padding: 16,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor,
+                    accentColorName: UIConstants.THEME_DEFAULT.inputAccentColorName,
+                    accentAlternativeColor: UIConstants.THEME_DEFAULT.inputAccentAlternativeColor,
+                    accentAlternativeColorName: UIConstants.THEME_DEFAULT.inputAccentAlternativeColorName
                 )
                 
                 InputBlock.EntryNumber(
@@ -262,7 +280,11 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     padding: 16,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
+                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor,
+                    accentColorName: UIConstants.THEME_DEFAULT.inputAccentColorName,
+                    accentAlternativeColor: UIConstants.THEME_DEFAULT.inputAccentAlternativeColor,
+                    accentAlternativeColorName: UIConstants.THEME_DEFAULT.inputAccentAlternativeColorName
                 )
             }
         }

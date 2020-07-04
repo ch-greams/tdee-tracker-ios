@@ -83,7 +83,8 @@ struct WelcomePage: View {
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.weightUnit as WeightUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
-                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
                 .padding(.bottom)
 
@@ -109,7 +110,8 @@ struct WelcomePage: View {
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: self.energyUnit as EnergyUnit?,
                     maxHeight: self.appState.uiSizes.setupInputHeight,
-                    backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
                 )
                     .padding(.bottom)
 
@@ -145,7 +147,8 @@ struct WelcomePage: View {
                 
                 Button("NEXT", action: self.completeFirstStep)
                     .buttonStyle(AppDefaultButtonStyle(
-                        backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        textColor: self.appState.uiTheme.secondaryTextColor
                     ))
                     .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
             }
@@ -170,7 +173,9 @@ struct WelcomePage: View {
             isOpen: self.isCurrentWeightOpen,
             maxHeight: self.appState.uiSizes.setupInputHeight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -201,7 +206,9 @@ struct WelcomePage: View {
             isOpen: self.isGoalWeightOpen,
             maxHeight: self.appState.uiSizes.setupInputHeight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -231,7 +238,9 @@ struct WelcomePage: View {
             isOpen: self.isDeltaWeightOpen,
             maxHeight: self.appState.uiSizes.setupInputHeight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -301,7 +310,8 @@ struct WelcomePage: View {
 
                     Button("DONE", action: self.appState.completeFirstSetup)
                         .buttonStyle(AppDefaultButtonStyle(
-                            backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                            backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                            textColor: self.appState.uiTheme.secondaryTextColor
                         ))
                         .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
                 }

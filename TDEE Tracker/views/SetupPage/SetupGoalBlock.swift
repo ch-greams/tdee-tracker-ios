@@ -43,7 +43,9 @@ struct SetupGoalBlock: View {
                 isOpen: self.isGoalWeightOpen,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
 
             InputBlock.Number(
@@ -60,7 +62,9 @@ struct SetupGoalBlock: View {
                 isOpen: self.isDeltaWeightOpen,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
             
             TargetDelta(
@@ -80,7 +84,7 @@ struct SetupGoalBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupGoalBlock()
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

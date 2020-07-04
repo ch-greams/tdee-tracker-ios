@@ -45,7 +45,7 @@ struct ContentView: View {
                     colorName: (
                         isSelected
                             ? self.appState.uiTheme.mainTextColorName
-                            : Color.appPrimaryLightName
+                            : self.appState.uiTheme.navbarAccentColorName
                     )
                 )
                     .frame(width: 26, height: 26)
@@ -56,7 +56,7 @@ struct ContentView: View {
                     .foregroundColor(
                         isSelected
                             ? self.appState.uiTheme.mainTextColor
-                            : .appPrimaryLight
+                            : self.appState.uiTheme.navbarAccentColor
                 )
             }
         }
@@ -75,7 +75,7 @@ struct ContentView: View {
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .padding(.horizontal, 40)
-            .background(Color.appSecondary)
+            .background(self.appState.uiTheme.warningBackgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
@@ -104,7 +104,7 @@ struct ContentView: View {
             
             Rectangle()
                 .frame(height: 1)
-                .foregroundColor(.appPrimaryLight)
+                .foregroundColor(self.appState.uiTheme.navbarAccentColor)
                 .opacity(0.5)
             
             HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
@@ -115,7 +115,7 @@ struct ContentView: View {
             }
                 .frame(maxWidth: .infinity)
                 .frame(height: self.appState.uiSizes.navbarHeight, alignment: .top)
-                .background(Color.appPrimaryDark)
+                .background(self.appState.uiTheme.navbarBackgroundColor)
                 
         }
     }

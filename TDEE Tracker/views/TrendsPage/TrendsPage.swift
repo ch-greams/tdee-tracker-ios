@@ -33,7 +33,9 @@ struct TrendsPage: View {
                 trendsItemLabelFontSize: self.appState.uiSizes.trendsItemLabelFontSize,
                 trendsItemValueFontSize: self.appState.uiSizes.trendsItemValueFontSize,
                 trendsItemUnitFontSize: self.appState.uiSizes.trendsItemUnitFontSize,
-                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.trendsSeparatorColor,
+                textColor: self.appState.uiTheme.secondaryTextColor
             )
         }
     }

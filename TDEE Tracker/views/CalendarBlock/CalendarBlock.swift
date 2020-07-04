@@ -30,7 +30,7 @@ struct CalendarBlock: View {
                         width: self.appState.uiSizes.calendarDayButton,
                         height: self.appState.uiSizes.calendarDayButton
                     )
-                    .foregroundColor(Color.appPrimaryText)
+                    .foregroundColor(self.appState.uiTheme.calendarTextDefaultColor)
             }
         }
     }

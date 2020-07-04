@@ -33,7 +33,8 @@ struct WeeklyTrendsBlock: View {
     let trendsItemUnitFontSize: CGFloat
     
     let backgroundColor: Color
-
+    let accentColor: Color
+    let textColor: Color
 
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
@@ -53,32 +54,29 @@ struct WeeklyTrendsBlock: View {
         
             Text(data.label)
                 .font(.appTrendsItemLabel(self.trendsItemLabelFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(width: 132, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
                 .font(.appTrendsItemValue(self.trendsItemValueFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(minWidth: 80, alignment: .trailing)
 
             Text(data.unit.uppercased())
                 .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(width: 30, alignment: .leading)
                 .padding(.horizontal)
 
             Image(systemName: self.getChangeIcon(change: data.changeType))
-                .foregroundColor(.appPrimary)
                 .frame(width: 16)
                 .padding(.trailing)
         }
+            .foregroundColor(self.textColor)
             .padding(.vertical, self.trendsElementPadding)
     }
     
     var separator: some View {
         return Rectangle()
-            .foregroundColor(.appPrimaryTextLight)
+            .foregroundColor(self.accentColor)
             .frame(height: 1)
             .padding(.horizontal, 16)
     }
@@ -154,10 +152,12 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsItemLabelFontSize: 18,
             trendsItemValueFontSize: 32,
             trendsItemUnitFontSize: 14,
-            backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor
+            backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
+            accentColor: UIConstants.THEME_DEFAULT.trendsSeparatorColor,
+            textColor: UIConstants.THEME_DEFAULT.secondaryTextColor
         )
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
             
     }
 }

@@ -97,14 +97,14 @@ struct EntryHintBlock_Previews: PreviewProvider {
                 textColor: UIConstants.THEME_DEFAULT.mainTextColor,
                 isEnoughData: false
             )
-                .background(Color.appPrimary)
+                .background(UIConstants.THEME_DEFAULT.backgroundColor)
             
             EntryHintBlock(
                 value: 2843,
                 unit: "kcal",
                 textColor: UIConstants.THEME_DEFAULT.mainTextColor
             )
-                .background(Color.appPrimary)
+                .background(UIConstants.THEME_DEFAULT.backgroundColor)
         }
     }
 }

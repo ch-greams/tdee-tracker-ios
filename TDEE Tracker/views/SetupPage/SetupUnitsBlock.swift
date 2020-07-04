@@ -32,7 +32,8 @@ struct SetupUnitsBlock: View {
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.appState.weightUnit as WeightUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
-                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
             
             InputBlock.Toggle(
@@ -42,7 +43,8 @@ struct SetupUnitsBlock: View {
                 second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                 selected: self.appState.energyUnit as EnergyUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
-                backgroundColor: self.appState.uiTheme.inputBackgroundColor
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
         }
     }
@@ -55,7 +57,7 @@ struct SetupUnitsBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupUnitsBlock()
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIConstants.THEME_DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }
