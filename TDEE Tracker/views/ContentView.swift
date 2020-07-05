@@ -42,14 +42,22 @@ struct ContentView: View {
                 
                 CustomImage(
                     name: item.icon,
-                    colorName: ( isSelected ? Color.appPrimaryLightName : "white" )
+                    colorName: (
+                        isSelected
+                            ? self.appState.uiTheme.mainTextColorName
+                            : self.appState.uiTheme.navbarAccentColorName
+                    )
                 )
                     .frame(width: 26, height: 26)
                     .padding(.top, self.appState.uiSizes.navbarPadding)
 
                 Text(item.label)
                     .font(.appNavbarElement)
-                    .foregroundColor(isSelected ? .appPrimaryLight : .appWhite)
+                    .foregroundColor(
+                        isSelected
+                            ? self.appState.uiTheme.mainTextColor
+                            : self.appState.uiTheme.navbarAccentColor
+                )
             }
         }
     }
@@ -61,17 +69,17 @@ struct ContentView: View {
             Text(self.appState.messageText.uppercased())
                 .multilineTextAlignment(.center)
                 .frame(height: 60)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.appState.uiTheme.mainTextColor)
                 .font(.appWarningText)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .padding(.horizontal, 40)
-            .background(Color.appSecondary)
+            .background(self.appState.uiTheme.warningBackgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }
 
     
@@ -96,7 +104,7 @@ struct ContentView: View {
             
             Rectangle()
                 .frame(height: 1)
-                .foregroundColor(.appPrimaryLight)
+                .foregroundColor(self.appState.uiTheme.navbarAccentColor)
                 .opacity(0.5)
             
             HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
@@ -107,7 +115,7 @@ struct ContentView: View {
             }
                 .frame(maxWidth: .infinity)
                 .frame(height: self.appState.uiSizes.navbarHeight, alignment: .top)
-                .background(Color.appPrimaryDark)
+                .background(self.appState.uiTheme.navbarBackgroundColor)
                 
         }
     }
@@ -116,7 +124,7 @@ struct ContentView: View {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
                 
             if self.appState.isFirstSetupDone {
 

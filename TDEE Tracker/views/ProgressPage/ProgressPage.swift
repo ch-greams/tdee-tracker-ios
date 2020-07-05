@@ -27,13 +27,14 @@ struct ProgressPage: View {
             
             Text(title)
                 .font(.appCalendarMonth)
-                .foregroundColor(.appWhite)
+                .foregroundColor(self.appState.uiTheme.mainTextColor)
                 .padding(.top, 4)
             
             DeltaChart(
                 totalStepsHeight: self.appState.uiSizes.progressChartHeight,
                 weeklyDeltas: self.appState.weeklyWeightDeltas,
-                weightUnit: self.appState.weightUnit.rawValue
+                weightUnit: self.appState.weightUnit.rawValue,
+                mainColor: self.appState.uiTheme.mainTextColor
             )
                 .padding(.vertical, self.appState.uiSizes.progressPageSpacing)
 
@@ -43,7 +44,8 @@ struct ProgressPage: View {
                 currentWeightValue: progressData.progressWeight,
                 goalWeightValue: progressData.goalWeight,
                 unit: self.appState.weightUnit.rawValue,
-                estimatedTimeLeft: progressData.estimatedTimeLeft
+                estimatedTimeLeft: progressData.estimatedTimeLeft,
+                mainColor: self.appState.uiTheme.mainTextColor
             )
         }
     }
@@ -57,7 +59,7 @@ struct ProgressPage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             ProgressPage().environmentObject(appState)
         }

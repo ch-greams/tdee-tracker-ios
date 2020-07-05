@@ -18,6 +18,7 @@
 		F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B9249B2C290053B7AC /* DeltaChart.swift */; };
 		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
 		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
+		F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */; };
 		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
 		F652133924A495B9003C2214 /* InputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133824A495B9003C2214 /* InputBlock.swift */; };
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
@@ -80,6 +81,7 @@
 		F631E9B9249B2C290053B7AC /* DeltaChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaChart.swift; sourceTree = "<group>"; };
 		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
 		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
+		F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIThemeManager.swift; sourceTree = "<group>"; };
 		F652133624A48C23003C2214 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		F652133824A495B9003C2214 /* InputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBlock.swift; sourceTree = "<group>"; };
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				F652133824A495B9003C2214 /* InputBlock.swift */,
 				F69BC23C24AC51730064FE1A /* CustomImage.swift */,
 				F669128024ACE67F0069E52E /* UIConstants.swift */,
+				F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F669128124ACE67F0069E52E /* UIConstants.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
+				F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */,
 				F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */,
 				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
 				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
@@ -588,7 +592,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.greams.tdee-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -608,7 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.greams.tdee-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

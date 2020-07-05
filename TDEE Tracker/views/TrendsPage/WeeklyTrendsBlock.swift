@@ -32,6 +32,10 @@ struct WeeklyTrendsBlock: View {
     let trendsItemValueFontSize: CGFloat
     let trendsItemUnitFontSize: CGFloat
     
+    let backgroundColor: Color
+    let accentColor: Color
+    let textColor: Color
+
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
         switch change {
@@ -50,32 +54,29 @@ struct WeeklyTrendsBlock: View {
         
             Text(data.label)
                 .font(.appTrendsItemLabel(self.trendsItemLabelFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(width: 132, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
                 .font(.appTrendsItemValue(self.trendsItemValueFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(minWidth: 80, alignment: .trailing)
 
             Text(data.unit.uppercased())
                 .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
-                .foregroundColor(.appPrimary)
                 .frame(width: 30, alignment: .leading)
                 .padding(.horizontal)
 
             Image(systemName: self.getChangeIcon(change: data.changeType))
-                .foregroundColor(.appPrimary)
                 .frame(width: 16)
                 .padding(.trailing)
         }
+            .foregroundColor(self.textColor)
             .padding(.vertical, self.trendsElementPadding)
     }
     
     var separator: some View {
         return Rectangle()
-            .foregroundColor(.appPrimaryTextLight)
+            .foregroundColor(self.accentColor)
             .frame(height: 1)
             .padding(.horizontal, 16)
     }
@@ -124,10 +125,10 @@ struct WeeklyTrendsBlock: View {
             }
         }
             .padding(.vertical, self.trendsElementPadding)
-            .background(Color.appWhite)
+            .background(self.backgroundColor)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }
 }
 
@@ -150,10 +151,13 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsElementPadding: 10,
             trendsItemLabelFontSize: 18,
             trendsItemValueFontSize: 32,
-            trendsItemUnitFontSize: 14
+            trendsItemUnitFontSize: 14,
+            backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+            accentColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
+            textColor: UIThemeManager.DEFAULT.secondaryTextColor
         )
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             
     }
 }

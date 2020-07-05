@@ -20,6 +20,8 @@ struct ProgressCircle: View {
     let unit: String
     
     let estimatedTimeLeft: Int
+    
+    let mainColor: Color
 
     var body: some View {
         
@@ -32,13 +34,13 @@ struct ProgressCircle: View {
         return ZStack {
             
             Circle()
-                .stroke(Color.appWhite, lineWidth: self.circleWidth)
+                .stroke(self.mainColor, lineWidth: self.circleWidth)
                 .opacity(0.2)
                 .frame(height: self.circleDiameter - self.circleWidth)
             
             Circle()
                 .trim(from: 0, to: CGFloat(progress))
-                .stroke(Color.appWhite, lineWidth: self.circleWidth)
+                .stroke(self.mainColor, lineWidth: self.circleWidth)
                 .rotationEffect(.degrees(-90))
                 .frame(height: self.circleDiameter - self.circleWidth)
                 
@@ -49,20 +51,20 @@ struct ProgressCircle: View {
                     
                     Text("DONE!")
                         .font(.appProgressCirclePercent)
-                        .foregroundColor(.appWhite)
+                        .foregroundColor(self.mainColor)
                 }
                 else {
                     Text(String(format: "%.1f%%", progress * 100))
                         .font(.appProgressCirclePercent)
-                        .foregroundColor(.appWhite)
+                        .foregroundColor(self.mainColor)
 
                     Text(String(format: "%.1f / %.1f \(unit)", absCurrentWeightValue, absGoalWeightValue))
                         .font(.appProgressCircleValues)
-                        .foregroundColor(.appWhite)
+                        .foregroundColor(self.mainColor)
 
                     Text("~ \(absEstimatedTimeLeft) weeks")
                         .font(.appProgressCircleEstimate)
-                        .foregroundColor(.appWhite)
+                        .foregroundColor(self.mainColor)
                 }
             }
             
@@ -81,9 +83,10 @@ struct ProgressCircle_Previews: PreviewProvider {
             currentWeightValue: 3.3,
             goalWeightValue: 5.1,
             unit: "kg",
-            estimatedTimeLeft: 7
+            estimatedTimeLeft: 7,
+            mainColor: UIThemeManager.DEFAULT.mainTextColor
         )
             .padding(.vertical, 20)
-            .background(Color.appPrimary)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
     }
 }

@@ -55,6 +55,7 @@ struct EntryPage: View {
             EntryHintBlock(
                 value: self.appState.recommendedFoodAmount,
                 unit: self.appState.energyUnit.rawValue,
+                textColor: self.appState.uiTheme.mainTextColor,
                 isEnoughData: self.appState.isEnoughDataForRecommendation
             )
                 .padding(.top, self.appState.uiSizes.entryHintBlockPadding)
@@ -65,27 +66,40 @@ struct EntryPage: View {
                 VStack(alignment: .center, spacing: 0) {
 
                     InputBlock.EntryNumber(
-                       icon: "body-sharp",
-                       unit: self.appState.weightUnit.rawValue,
-                       value: self.$appState.weightInput,
-                       onCommit: self.onSubmit,
-                       openInput: { self.isWeightInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding
+                        icon: "body-sharp",
+                        unit: self.appState.weightUnit.rawValue,
+                        value: self.$appState.weightInput,
+                        onCommit: self.onSubmit,
+                        openInput: { self.isWeightInputOpen = true },
+                        padding: self.appState.uiSizes.entryInputPadding,
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
+                        accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
                     InputBlock.EntryNumber(
-                       icon: "fast-food-sharp",
-                       unit: self.appState.energyUnit.rawValue,
-                       value: self.$appState.foodInput,
-                       onCommit: self.onSubmit,
-                       openInput: { self.isFoodInputOpen = true },
-                       padding: self.appState.uiSizes.entryInputPadding
+                        icon: "fast-food-sharp",
+                        unit: self.appState.energyUnit.rawValue,
+                        value: self.$appState.foodInput,
+                        onCommit: self.onSubmit,
+                        openInput: { self.isFoodInputOpen = true },
+                        padding: self.appState.uiSizes.entryInputPadding,
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
+                        accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
                     if self.isWeightInputOpen || self.isFoodInputOpen {
 
                        Button("CONFIRM", action: self.onSubmit)
-                            .buttonStyle(AppDefaultButtonStyle())
+                            .buttonStyle(AppDefaultButtonStyle(
+                                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                                textColor: self.appState.uiTheme.secondaryTextColor
+                            ))
                             .padding(.vertical)
                     }
                 }
@@ -96,14 +110,16 @@ struct EntryPage: View {
                 if isFutureDate {
 
                     HStack{
-                        Image(systemName: "clock.fill")
+                        CustomImage(
+                            name: "time-sharp",
+                            colorName: self.appState.uiTheme.mainTextColorName
+                        )
                             .frame(width: lockIconSize, height: lockIconSize)
                             .font(.system(size: lockIconSize))
-                            .foregroundColor(.appPrimaryDark)
                     }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .frame(height: self.appState.uiSizes.entryBlockerHeight)
-                        .background(Color.appPrimary)
+                        .background(self.appState.uiTheme.backgroundColor)
                         .opacity(0.5)
                 }
             }
@@ -119,7 +135,7 @@ struct EntryPage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
             
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             EntryPage().environmentObject(appState)
         }

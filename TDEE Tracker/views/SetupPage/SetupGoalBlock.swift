@@ -24,7 +24,10 @@ struct SetupGoalBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
             
-            SetupBlockTitle(title: "Goal")
+            SetupBlockTitle(
+                title: "Goal",
+                textColor: self.appState.uiTheme.mainTextColor
+            )
             
             InputBlock.Number(
                 title: "Goal Weight",
@@ -38,7 +41,11 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isGoalWeightOpen = true },
                 isOpen: self.isGoalWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
 
             InputBlock.Number(
@@ -53,12 +60,17 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isDeltaWeightOpen = true },
                 isOpen: self.isDeltaWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
             
             TargetDelta(
                 value: self.appState.goalTargetFoodDelta,
-                unit: energyUnitLabel
+                unit: energyUnitLabel,
+                textColor: self.appState.uiTheme.mainTextColor
             )
                 .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
         }
@@ -72,7 +84,7 @@ struct SetupGoalBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupGoalBlock()
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

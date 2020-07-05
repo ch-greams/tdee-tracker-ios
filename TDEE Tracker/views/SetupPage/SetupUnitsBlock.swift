@@ -19,7 +19,11 @@ struct SetupUnitsBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
         
-            SetupBlockTitle(title: "Units", paddingTop: 6)
+            SetupBlockTitle(
+                title: "Units",
+                textColor: self.appState.uiTheme.mainTextColor,
+                paddingTop: 6
+            )
             
             InputBlock.Toggle(
                 title: "Weight",
@@ -27,7 +31,9 @@ struct SetupUnitsBlock: View {
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.appState.weightUnit as WeightUnit?,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
             
             InputBlock.Toggle(
@@ -36,7 +42,9 @@ struct SetupUnitsBlock: View {
                 first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                 second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                 selected: self.appState.energyUnit as EnergyUnit?,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
         }
     }
@@ -49,7 +57,7 @@ struct SetupUnitsBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupUnitsBlock()
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

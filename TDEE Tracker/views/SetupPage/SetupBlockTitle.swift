@@ -11,13 +11,15 @@ import SwiftUI
 struct SetupBlockTitle: View {
 
     let title: String
+    let textColor: Color
+    
     var paddingTop: CGFloat = 16
     
     var body: some View {
 
         Text(self.title.uppercased())
             .font(.appCalendarMonth)
-            .foregroundColor(.appWhite)
+            .foregroundColor(textColor)
             .frame(height: 20)
             .padding(.top, self.paddingTop)
             .padding(.bottom, 18)
@@ -26,6 +28,15 @@ struct SetupBlockTitle: View {
 
 struct SetupBlockTitle_Previews: PreviewProvider {
     static var previews: some View {
-        SetupBlockTitle(title: "Reminders")
+        
+        ZStack {
+            
+            UIThemeManager.DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
+            
+            SetupBlockTitle(
+                title: "Reminders",
+                textColor: UIThemeManager.DEFAULT.mainTextColor
+            )
+        }
     }
 }

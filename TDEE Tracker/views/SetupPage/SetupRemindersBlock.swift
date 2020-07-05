@@ -36,22 +36,25 @@ struct SetupRemindersBlock: View {
                 .font(.appInputLabel)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
-                .foregroundColor(.appPrimary)
+                .foregroundColor(self.appState.uiTheme.inputAccentColor)
             
             Spacer()
             
             Button(stringDate, action: onInputSelect)
-                .buttonStyle(ReminderTimeButtonStyle())
+                .buttonStyle(ReminderTimeButtonStyle(
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
+                ))
                 .padding(.horizontal)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .frame(height: self.appState.uiSizes.setupInputHeight)
-            .background(Color.appWhite)
+            .background(self.appState.uiTheme.inputBackgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
-            .shadow(color: .appFade, radius: 1, x: 1, y: 1)
+            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
         
         return inputBlock
         
@@ -66,7 +69,10 @@ struct SetupRemindersBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
 
-            SetupBlockTitle(title: "Reminders")
+            SetupBlockTitle(
+                title: "Reminders",
+                textColor: self.appState.uiTheme.mainTextColor
+            )
             
             if !self.isOpen || self.selectedInput == ReminderType.Weight {
                 
@@ -98,10 +104,17 @@ struct SetupRemindersBlock: View {
                 )
                     .labelsHidden()
                     .font(.appInputValue)
-                    .foregroundColor(.appWhite)
+                    .frame(maxWidth: .infinity)
+                    .background(self.appState.uiTheme.inputBackgroundColor)
+                    .clipped()
+                    .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
+                    .padding(8)
                 
                 Button("CONFIRM", action: doneAction)
-                    .buttonStyle(AppDefaultButtonStyle())
+                    .buttonStyle(AppDefaultButtonStyle(
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        textColor: self.appState.uiTheme.secondaryTextColor
+                    ))
             }
         }
     }
@@ -114,7 +127,7 @@ struct SetupRemindersBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupRemindersBlock(isOpen: .constant(true))
             .padding(.vertical, 8)
-            .background(Color.appPrimary)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

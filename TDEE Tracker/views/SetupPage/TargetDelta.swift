@@ -12,7 +12,7 @@ struct TargetDelta: View {
     
     let value: Int
     let unit: String
-    
+    let textColor: Color
 
     var body: some View {
         
@@ -24,18 +24,18 @@ struct TargetDelta: View {
             
             Text("Target \(changeType)".uppercased())
                 .frame(width: 114, alignment: .leading)
-                .foregroundColor(.appWhite)
+                .foregroundColor(textColor)
                 .font(.appInputLabel)
 
             Spacer()
             
             Text(String(abs(self.value)))
-                .foregroundColor(.appWhite)
+                .foregroundColor(textColor)
                 .font(.appInputValue)
                 .padding(.trailing)
 
             Text("\(self.unit)/day".uppercased())
-                .foregroundColor(.appWhite)
+                .foregroundColor(textColor)
                 .font(.appInputLabel)
                 
             Spacer()
@@ -45,9 +45,15 @@ struct TargetDelta: View {
 }
 
 struct TargetDelta_Previews: PreviewProvider {
+
     static var previews: some View {
-        TargetDelta(value: 257, unit: "kcal")
-            .background(Color.appPrimary)
+
+        TargetDelta(
+            value: 257,
+            unit: "kcal",
+            textColor: UIThemeManager.DEFAULT.mainTextColor
+        )
+            .background(UIThemeManager.DEFAULT.backgroundColor)
     }
 }
 

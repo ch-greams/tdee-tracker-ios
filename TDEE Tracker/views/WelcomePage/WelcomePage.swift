@@ -58,14 +58,13 @@ struct WelcomePage: View {
 
             Text(title)
                 .font(.appWelcomeTitle)
-                .foregroundColor(.appWhite)
                 .padding(.bottom, 20)
             
             Text(subtitle)
                 .font(.appWelcomeSubtitle)
-                .foregroundColor(.appWhite)
                 .padding(.bottom, 40)
         }
+            .foregroundColor(self.appState.uiTheme.mainTextColor)
     }
     
     // MARK: - Step #1
@@ -83,7 +82,9 @@ struct WelcomePage: View {
                 first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
                 second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
                 selected: self.weightUnit as WeightUnit?,
-                maxHeight: self.appState.uiSizes.setupInputHeight
+                maxHeight: self.appState.uiSizes.setupInputHeight,
+                backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                accentColor: self.appState.uiTheme.inputAccentColor
             )
                 .padding(.bottom)
 
@@ -91,7 +92,7 @@ struct WelcomePage: View {
                
                 Text(self.WEIGHT_UNIT_HINT)
                     .font(.appWelcomeHint)
-                    .foregroundColor(.appWhite)
+                    .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                     .padding(.bottom)
@@ -108,13 +109,15 @@ struct WelcomePage: View {
                     first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: self.energyUnit as EnergyUnit?,
-                    maxHeight: self.appState.uiSizes.setupInputHeight
+                    maxHeight: self.appState.uiSizes.setupInputHeight,
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
                 )
                     .padding(.bottom)
 
                 Text(!self.isEnergyUnitSelected ? self.ENERGY_UNIT_HINT : self.SETTINGS_HINT)
                     .font(.appWelcomeHint)
-                    .foregroundColor(.appWhite)
+                    .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                     .padding(.bottom)
@@ -143,7 +146,10 @@ struct WelcomePage: View {
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
                 Button("NEXT", action: self.completeFirstStep)
-                    .buttonStyle(AppDefaultButtonStyle())
+                    .buttonStyle(AppDefaultButtonStyle(
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        textColor: self.appState.uiTheme.secondaryTextColor
+                    ))
                     .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
             }
         }
@@ -165,7 +171,11 @@ struct WelcomePage: View {
             },
             openInput: { self.isCurrentWeightOpen = true },
             isOpen: self.isCurrentWeightOpen,
-            maxHeight: self.appState.uiSizes.setupInputHeight
+            maxHeight: self.appState.uiSizes.setupInputHeight,
+            backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -174,7 +184,7 @@ struct WelcomePage: View {
         
         Text(self.CURRENT_WEIGHT_HINT)
             .font(.appWelcomeHint)
-            .foregroundColor(.appWhite)
+            .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
             .padding(.bottom)
@@ -194,7 +204,11 @@ struct WelcomePage: View {
             },
             openInput: { self.isGoalWeightOpen = true },
             isOpen: self.isGoalWeightOpen,
-            maxHeight: self.appState.uiSizes.setupInputHeight
+            maxHeight: self.appState.uiSizes.setupInputHeight,
+            backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -202,7 +216,7 @@ struct WelcomePage: View {
     var goalWeightInputHintBlock: some View {
         Text(self.GOAL_WEIGHT_HINT)
             .font(.appWelcomeHint)
-            .foregroundColor(.appWhite)
+            .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
             .padding(.bottom)
@@ -222,7 +236,11 @@ struct WelcomePage: View {
             },
             openInput: { self.isDeltaWeightOpen = true },
             isOpen: self.isDeltaWeightOpen,
-            maxHeight: self.appState.uiSizes.setupInputHeight
+            maxHeight: self.appState.uiSizes.setupInputHeight,
+            backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
+            accentColor: self.appState.uiTheme.inputAccentColor
         )
             .padding(.bottom)
     }
@@ -231,7 +249,7 @@ struct WelcomePage: View {
 
         Text(self.deltaWeightHint)
             .font(.appWelcomeHint)
-            .foregroundColor(.appWhite)
+            .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 28)
             .padding(.bottom)
@@ -264,7 +282,8 @@ struct WelcomePage: View {
                     if self.isDeltaWeightEntered {
                         TargetDelta(
                             value: self.appState.goalTargetFoodDelta,
-                            unit: self.appState.energyUnit.rawValue
+                            unit: self.appState.energyUnit.rawValue,
+                            textColor: self.appState.uiTheme.mainTextColor
                         )
                             .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
                     }
@@ -290,7 +309,10 @@ struct WelcomePage: View {
                 if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
 
                     Button("DONE", action: self.appState.completeFirstSetup)
-                        .buttonStyle(AppDefaultButtonStyle())
+                        .buttonStyle(AppDefaultButtonStyle(
+                            backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                            textColor: self.appState.uiTheme.secondaryTextColor
+                        ))
                         .padding(.bottom, self.appState.uiSizes.welcomeConfirmButtonPadding)
                 }
             }
@@ -313,7 +335,7 @@ struct WelcomePage_Previews: PreviewProvider {
         
         ZStack(alignment: .top) {
 
-            Color.appPrimary.edgesIgnoringSafeArea(.all)
+            Self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             WelcomePage().environmentObject(appState)
         }

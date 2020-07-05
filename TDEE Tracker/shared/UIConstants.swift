@@ -58,8 +58,12 @@ struct UISizes {
     
 }
 
-class UIConstants {
 
+
+class UIConstants {
+    
+    // MARK: - UISizes
+    
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 30,
@@ -191,7 +195,7 @@ class UIConstants {
         setupInputHeight: 58,
         setupTargetDeltaPadding: 8
     )
-    
+
     
     public static func getUISizes(device: String) -> UISizes {
         
