@@ -216,7 +216,7 @@ struct InputBlock_Previews: PreviewProvider {
         
         ZStack {
             
-            UIConstants.THEME_DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
+            UIThemeManager.DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center, spacing: 8) {
              
@@ -227,8 +227,8 @@ struct InputBlock_Previews: PreviewProvider {
                     second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
                     selected: EnergyUnit.kcal,
                     maxHeight: 74,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
                 
                 InputBlock.Number(
@@ -239,10 +239,10 @@ struct InputBlock_Previews: PreviewProvider {
                     openInput: { print("openInput") },
                     isOpen: false,
                     maxHeight: 74,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName,
-                    confirmButtonColor: UIConstants.THEME_DEFAULT.inputConfirmButtonColor,
-                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
+                    confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
                 
                 InputBlock.Number(
@@ -253,10 +253,10 @@ struct InputBlock_Previews: PreviewProvider {
                     openInput: { print("openInput") },
                     isOpen: true,
                     maxHeight: 74,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIConstants.THEME_DEFAULT.inputBackgroundColorName,
-                    confirmButtonColor: UIConstants.THEME_DEFAULT.inputConfirmButtonColor,
-                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
+                    confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
 
                 InputBlock.EntryNumber(
@@ -266,11 +266,11 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     padding: 16,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor,
-                    accentColorName: UIConstants.THEME_DEFAULT.inputAccentColorName,
-                    accentAlternativeColor: UIConstants.THEME_DEFAULT.inputAccentAlternativeColor,
-                    accentAlternativeColorName: UIConstants.THEME_DEFAULT.inputAccentAlternativeColorName
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor,
+                    accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
+                    accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,
+                    accentAlternativeColorName: UIThemeManager.DEFAULT.inputAccentAlternativeColorName
                 )
                 
                 InputBlock.EntryNumber(
@@ -280,11 +280,11 @@ struct InputBlock_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     padding: 16,
-                    backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-                    accentColor: UIConstants.THEME_DEFAULT.inputAccentColor,
-                    accentColorName: UIConstants.THEME_DEFAULT.inputAccentColorName,
-                    accentAlternativeColor: UIConstants.THEME_DEFAULT.inputAccentAlternativeColor,
-                    accentAlternativeColorName: UIConstants.THEME_DEFAULT.inputAccentAlternativeColorName
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor,
+                    accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
+                    accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,
+                    accentAlternativeColorName: UIThemeManager.DEFAULT.inputAccentAlternativeColorName
                 )
             }
         }

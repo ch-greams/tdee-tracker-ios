@@ -80,7 +80,7 @@ struct CalendarBlockMonth_Previews: PreviewProvider {
     static var previews: some View {
         CalendarBlockMonth(selectedDay: Date())
             .padding(.vertical, 8)
-            .background(UIConstants.THEME_DEFAULT.backgroundColor)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(Self.appState)
     }
 }

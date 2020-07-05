@@ -152,12 +152,12 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsItemLabelFontSize: 18,
             trendsItemValueFontSize: 32,
             trendsItemUnitFontSize: 14,
-            backgroundColor: UIConstants.THEME_DEFAULT.inputBackgroundColor,
-            accentColor: UIConstants.THEME_DEFAULT.trendsSeparatorColor,
-            textColor: UIConstants.THEME_DEFAULT.secondaryTextColor
+            backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+            accentColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
+            textColor: UIThemeManager.DEFAULT.secondaryTextColor
         )
             .padding(.vertical, 8)
-            .background(UIConstants.THEME_DEFAULT.backgroundColor)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             
     }
 }

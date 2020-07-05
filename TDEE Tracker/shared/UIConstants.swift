@@ -58,46 +58,10 @@ struct UISizes {
     
 }
 
-struct UITheme {
-    
-    let backgroundColor: Color
-    
-    let inputBackgroundColor: Color
-    let inputBackgroundColorName: String
-    let inputAccentColor: Color
-    let inputAccentColorName: String
-    let inputAccentAlternativeColor: Color
-    let inputAccentAlternativeColorName: String
-    let inputConfirmButtonColor: Color
-    
-    let mainTextColor: Color
-    let mainTextColorName: String
-    let secondaryTextColor: Color
-    
-    let calendarWeekHighlight: Color
-    let calendarTextDefaultColor: Color
-    let calendarTextAltColor: Color
-    let calendarAccentColor: Color
-    let calendarAccentColorName: String
-    let calendarAccentAlternativeColor: Color
-    let calendarAccentAlternativeColorName: String
-    
-    let trendsSeparatorColor: Color
-    
-    let navbarAccentColor: Color
-    let navbarAccentColorName: String
-    let navbarBackgroundColor: Color
-    
-    let warningBackgroundColor: Color
-}
 
-enum Theme {
-    case Default
-    case Alternative
-}
 
 class UIConstants {
-
+    
     // MARK: - UISizes
     
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
@@ -231,41 +195,7 @@ class UIConstants {
         setupInputHeight: 58,
         setupTargetDeltaPadding: 8
     )
-    
-    // MARK: - UITheme
-    
-    public static let THEME_DEFAULT: UITheme = UITheme(
 
-        backgroundColor: Color.BACKGROUND_COLOR,
-
-        inputBackgroundColor: Color.INPUT_BACKGROUND_COLOR,
-        inputBackgroundColorName: Color.INPUT_BACKGROUND_NAME,
-        inputAccentColor: Color.INPUT_ACCENT_COLOR,
-        inputAccentColorName: Color.INPUT_ACCENT_NAME,
-        inputAccentAlternativeColor: Color.INPUT_ACCENT_ALTERNATIVE_COLOR,
-        inputAccentAlternativeColorName: Color.INPUT_ACCENT_ALTERNATIVE_NAME,
-        inputConfirmButtonColor: Color.INPUT_CONFIRM_BUTTON_COLOR,
-        
-        mainTextColor: Color.MAIN_TEXT_COLOR,
-        mainTextColorName: Color.MAIN_TEXT_NAME,
-        secondaryTextColor: Color.SECONDARY_TEXT_COLOR,
-        
-        calendarWeekHighlight: Color.CALENDAR_WEEK_HIGHLIGHT_COLOR,
-        calendarTextDefaultColor: Color.CALENDAR_TEXT_DEFAULT_COLOR,
-        calendarTextAltColor: Color.CALENDAR_TEXT_ALTERNATIVE_COLOR,
-        calendarAccentColor: Color.CALENDAR_ACCENT_COLOR,
-        calendarAccentColorName: Color.CALENDAR_ACCENT_NAME,
-        calendarAccentAlternativeColor: Color.CALENDAR_ACCENT_ALTERNATIVE_COLOR,
-        calendarAccentAlternativeColorName: Color.CALENDAR_ACCENT_ALTERNATIVE_NAME,
-        
-        trendsSeparatorColor: Color.TRENDS_SEPARATOR_COLOR,
-        
-        navbarAccentColor: Color.NAVBAR_ACCENT_COLOR,
-        navbarAccentColorName: Color.NAVBAR_ACCENT_NAME,
-        navbarBackgroundColor: Color.NAVBAR_BACKGROUND_COLOR,
-        
-        warningBackgroundColor: Color.WARNING_BACKGROUND_COLOR
-    )
     
     public static func getUISizes(device: String) -> UISizes {
         
@@ -289,16 +219,6 @@ class UIConstants {
 
             default:
                 return Self.IPHONE_11_PRO
-        }
-    }
-
-    public static func getUITheme(theme: Theme = Theme.Default) -> UITheme {
-        
-        switch theme {
-            case Theme.Alternative:
-                return Self.THEME_DEFAULT
-            default:
-                return Self.THEME_DEFAULT
         }
     }
 }

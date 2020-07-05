@@ -206,18 +206,18 @@ struct DeltaChart_Previews: PreviewProvider {
                 totalStepsHeight: 180,
                 weeklyDeltas: Self.weeklyDeltas,
                 weightUnit: "KG",
-                mainColor: UIConstants.THEME_DEFAULT.mainTextColor
+                mainColor: UIThemeManager.DEFAULT.mainTextColor
             )
-                .background(UIConstants.THEME_DEFAULT.backgroundColor)
+                .background(UIThemeManager.DEFAULT.backgroundColor)
             
             // NOTE: Empty
             DeltaChart(
                 totalStepsHeight: 180,
                 weeklyDeltas: [],
                 weightUnit: "KG",
-                mainColor: UIConstants.THEME_DEFAULT.mainTextColor
+                mainColor: UIThemeManager.DEFAULT.mainTextColor
             )
-                .background(UIConstants.THEME_DEFAULT.backgroundColor)
+                .background(UIThemeManager.DEFAULT.backgroundColor)
         }
     }
 }

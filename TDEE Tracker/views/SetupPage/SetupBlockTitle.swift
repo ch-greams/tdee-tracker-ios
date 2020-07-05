@@ -31,11 +31,11 @@ struct SetupBlockTitle_Previews: PreviewProvider {
         
         ZStack {
             
-            UIConstants.THEME_DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
+            UIThemeManager.DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
             
             SetupBlockTitle(
                 title: "Reminders",
-                textColor: UIConstants.THEME_DEFAULT.mainTextColor
+                textColor: UIThemeManager.DEFAULT.mainTextColor
             )
         }
     }

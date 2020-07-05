@@ -57,7 +57,7 @@ struct SetupUnitsBlock_Previews: PreviewProvider {
     static var previews: some View {
         SetupUnitsBlock()
             .padding(.vertical, 8)
-            .background(UIConstants.THEME_DEFAULT.backgroundColor)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(appState)
     }
 }

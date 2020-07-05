@@ -51,9 +51,9 @@ struct TargetDelta_Previews: PreviewProvider {
         TargetDelta(
             value: 257,
             unit: "kcal",
-            textColor: UIConstants.THEME_DEFAULT.mainTextColor
+            textColor: UIThemeManager.DEFAULT.mainTextColor
         )
-            .background(UIConstants.THEME_DEFAULT.backgroundColor)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
     }
 }
 

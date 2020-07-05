@@ -83,12 +83,12 @@ struct DayButton_Previews: PreviewProvider {
     
     static let day = Date()
     
-    static let selectedColor: Color = UIConstants.THEME_DEFAULT.mainTextColor
-    static let defaultColor: Color = UIConstants.THEME_DEFAULT.calendarTextDefaultColor
-    static let alternativeColor: Color = UIConstants.THEME_DEFAULT.calendarTextAltColor
+    static let selectedColor: Color = UIThemeManager.DEFAULT.mainTextColor
+    static let defaultColor: Color = UIThemeManager.DEFAULT.calendarTextDefaultColor
+    static let alternativeColor: Color = UIThemeManager.DEFAULT.calendarTextAltColor
     
-    static let accentColor: Color = UIConstants.THEME_DEFAULT.calendarAccentColor
-    static let accentAlternativeColor: Color = UIConstants.THEME_DEFAULT.calendarAccentAlternativeColor
+    static let accentColor: Color = UIThemeManager.DEFAULT.calendarAccentColor
+    static let accentAlternativeColor: Color = UIThemeManager.DEFAULT.calendarAccentAlternativeColor
     
     static var previews: some View {
         

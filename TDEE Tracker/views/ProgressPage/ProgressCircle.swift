@@ -84,9 +84,9 @@ struct ProgressCircle_Previews: PreviewProvider {
             goalWeightValue: 5.1,
             unit: "kg",
             estimatedTimeLeft: 7,
-            mainColor: UIConstants.THEME_DEFAULT.mainTextColor
+            mainColor: UIThemeManager.DEFAULT.mainTextColor
         )
             .padding(.vertical, 20)
-            .background(UIConstants.THEME_DEFAULT.backgroundColor)
+            .background(UIThemeManager.DEFAULT.backgroundColor)
     }
 }
