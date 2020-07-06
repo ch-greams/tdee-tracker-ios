@@ -93,7 +93,7 @@ struct WeeklyTrendsBlock: View {
             ),
             LineData(
                 label: Label.weight.uppercased(),
-                value: String(format: "%.2f", self.summary.avgWeight < 0 ? 0 : self.summary.avgWeight),
+                value: ( (self.summary.avgWeight < 0) ? 0 : self.summary.avgWeight ).toString(),
                 unit: self.weightUnitLabel,
                 changeType: self.trendsChange.avgWeight
             ),
@@ -105,7 +105,7 @@ struct WeeklyTrendsBlock: View {
             ),
             LineData(
                 label: Label.weightChange.uppercased(),
-                value: String(format: "%.2f", self.summary.deltaWeight ?? 0),
+                value: (self.summary.deltaWeight ?? 0).toString(),
                 unit: self.weightUnitLabel,
                 changeType: self.trendsChange.deltaWeight
             )

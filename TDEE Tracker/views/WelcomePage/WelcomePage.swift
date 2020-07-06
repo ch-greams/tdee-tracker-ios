@@ -37,11 +37,9 @@ struct WelcomePage: View {
     var deltaWeightHint: String {
         
         let onePercent = self.appState.weight / 100
-        let onePercentLabel = String(format: "%.2f", onePercent)
-        
         let weightUnitLabel = self.appState.weightUnit.localized
 
-        return "\(Label.deltaWeightHint) \(onePercentLabel) \(weightUnitLabel)"
+        return "\(Label.deltaWeightHint) \( onePercent.toString() ) \(weightUnitLabel)"
     }
     
     func getTitle(title: String, subtitle: String) -> some View {

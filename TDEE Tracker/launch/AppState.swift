@@ -329,7 +329,7 @@ class AppState: ObservableObject {
             if let existingWeight = existingEntry.weight {
                 
                 self.weight = existingWeight
-                self.weightInput = String(existingWeight)
+                self.weightInput = existingWeight.toString()
             }
             else {
 
@@ -403,12 +403,12 @@ class AppState: ObservableObject {
         
         if let goalWeight: Double = self.load(key: AppStateKey.GoalWeight) {
             self.goalWeight = goalWeight
-            self.goalWeightInput = String(self.goalWeight)
+            self.goalWeightInput = self.goalWeight.toString()
         }
         
         if let goalWeeklyDelta: Double = self.load(key: AppStateKey.GoalWeeklyWeightDelta) {
             self.goalWeeklyWeightDelta = goalWeeklyDelta
-            self.goalWeeklyWeightDeltaInput = String(self.goalWeeklyWeightDelta)
+            self.goalWeeklyWeightDeltaInput = self.goalWeeklyWeightDelta.toString()
         }
     }
     
@@ -512,7 +512,7 @@ class AppState: ObservableObject {
             }
         }
 
-        self.weightInput = self.weight > 0 ? String(self.weight) : ""
+        self.weightInput = self.weight > 0 ? self.weight.toString() : ""
     }
 
     public func updateEnergyFromInput() {
@@ -572,7 +572,7 @@ class AppState: ObservableObject {
             }
         }
 
-        self.goalWeightInput = self.goalWeight > 0 ? String(self.goalWeight) : ""
+        self.goalWeightInput = self.goalWeight > 0 ? self.goalWeight.toString() : ""
     }
 
     public func saveGoalWeeklyDeltaFromInput() {
@@ -596,7 +596,9 @@ class AppState: ObservableObject {
             }
         }
 
-        self.goalWeeklyWeightDeltaInput = self.goalWeeklyWeightDelta >= 0 ? String(self.goalWeeklyWeightDelta) : ""
+        self.goalWeeklyWeightDeltaInput = (
+            self.goalWeeklyWeightDelta >= 0 ? self.goalWeeklyWeightDelta.toString() : ""
+        )
     }
     
     public func updateWeightUnit(_ newValue: WeightUnit) {

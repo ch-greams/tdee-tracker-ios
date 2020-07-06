@@ -21,6 +21,8 @@
 "Goal Weight" = "Идеальный Вес";
 "Weekly Change" = "Изменение в Неделю";
 
+"Value outside of valid range" = "Значение вне допустимого диапозона";
+
 // MARK: - Buttons
 
 "DONE" = "ГОТОВО";

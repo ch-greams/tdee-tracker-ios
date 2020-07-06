@@ -54,11 +54,12 @@ struct ProgressCircle: View {
                         .foregroundColor(self.mainColor)
                 }
                 else {
-                    Text(String(format: "%.1f%%", progress * 100))
+
+                    Text("\( (progress * 100).toString(to: 1) )%")
                         .font(.appProgressCirclePercent)
                         .foregroundColor(self.mainColor)
 
-                    Text(String(format: "%.1f / %.1f \(unit)", absCurrentWeightValue, absGoalWeightValue))
+                    Text("\(absCurrentWeightValue.toString(to: 1)) / \(absGoalWeightValue.toString(to: 1)) \(unit)")
                         .font(.appProgressCircleValues)
                         .foregroundColor(self.mainColor)
 

@@ -19,6 +19,8 @@ struct Label {
     public static let goalWeight = "Goal Weight".localize
     public static let weeklyChange = "Weekly Change".localize
 
+    public static let inputError = "Value outside of valid range".localize
+    
     // MARK: - Buttons
     
     public static let done = "DONE".localize
