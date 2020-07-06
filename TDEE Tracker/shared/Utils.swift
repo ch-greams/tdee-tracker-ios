@@ -58,7 +58,19 @@ struct WeekSummaryTrends {
 }
 
 enum WeekSummaryChange {
+
     case Up, None, Down
+    
+    var icon: String {
+        switch self {
+            case WeekSummaryChange.Up:
+                return "chevron-up-sharp"
+            case WeekSummaryChange.Down:
+                return "chevron-down-sharp"
+            default:
+                return "remove-sharp"
+        }
+    }
 }
 
 class Utils {

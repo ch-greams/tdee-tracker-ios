@@ -35,19 +35,8 @@ struct WeeklyTrendsBlock: View {
     let backgroundColor: Color
     let accentColor: Color
     let textColor: Color
+    let iconColor: String
 
-    // TODO: Check alternative for icons
-    func getChangeIcon(change: WeekSummaryChange) -> String {
-        
-        switch change {
-            case WeekSummaryChange.Up:
-                return "chevron.up"
-            case WeekSummaryChange.Down:
-                return "chevron.down"
-            default:
-                return "ellipsis"
-        }
-    }
 
     func getLine(data: LineData) -> some View {
         
@@ -67,8 +56,8 @@ struct WeeklyTrendsBlock: View {
                 .frame(width: 30, alignment: .leading)
                 .padding(.horizontal)
 
-            Image(systemName: self.getChangeIcon(change: data.changeType))
-                .frame(width: 16)
+            CustomImage(name: data.changeType.icon, colorName: self.iconColor)
+                .frame(width: 16, height: 22)
                 .padding(.trailing)
         }
             .foregroundColor(self.textColor)
@@ -146,7 +135,7 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsChange: WeekSummaryTrends(
                 avgFood: WeekSummaryChange.Up,
                 avgWeight: WeekSummaryChange.Down,
-                deltaWeight: WeekSummaryChange.Down,
+                deltaWeight: WeekSummaryChange.None,
                 tdee: WeekSummaryChange.Up
             ),
             trendsElementPadding: 10,
@@ -155,7 +144,8 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
             trendsItemUnitFontSize: 14,
             backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
             accentColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
-            textColor: UIThemeManager.DEFAULT.secondaryTextColor
+            textColor: UIThemeManager.DEFAULT.secondaryTextColor,
+            iconColor: UIThemeManager.DEFAULT.secondaryTextColorName
         )
             .padding(.vertical, 8)
             .background(UIThemeManager.DEFAULT.backgroundColor)

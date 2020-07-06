@@ -31,6 +31,7 @@ struct UITheme {
     let mainTextColor: Color
     let mainTextColorName: String
     let secondaryTextColor: Color
+    let secondaryTextColorName: String
     
     let calendarWeekHighlight: Color
     let calendarTextDefaultColor: Color
@@ -126,6 +127,7 @@ struct UIThemeManager {
             mainTextColor: Color(mainTextColorName),
             mainTextColorName: mainTextColorName,
             secondaryTextColor: Color(secondaryTextColorName),
+            secondaryTextColorName: secondaryTextColorName,
 
             calendarWeekHighlight: Color(calendarWeekHighlightName),
             calendarTextDefaultColor: Color(calendarTextDefaultColorName),
