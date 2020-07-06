@@ -6,33 +6,12 @@
   Copyright © 2020 Greams. All rights reserved.
 */
 
+// MARK: - Units
+
 "KG" = "КГ";
 "LB" = "Ф";
 "KCAL" = "ККАЛ";
 "KJ" = "КДЖ";
-
-// MARK: - Welcome Page
-
-"Welcome" = "Здравствуйте";
-"Let’s get started" = "Давайте начнем";
-"Almost Ready" = "Почти Готово";
-"Define your goals" = "Установите свою цель";
-
-// MARK: - Hints
-
-"Please select measurement unit that would be used for bodyweight values" = "Пожалуйста выберите юнит измерения который будет использоваться для веса";
-"And this measurement unit will be used for food and energy values" = "А теперь выберите юнит измерения который будет использоваться для еды и энергии";
-"For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
-"Goal weight is what you strife for" = "Идеальный вес это то чего вы пытаетесь достичь";
-"Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
-"Based on your current weight weekly change must not be bigger than" = "Базируясь на вашем текущем весе, недельное изменение веса не должно быть больше чем";
-
-// MARK: - Navbar
-
-"Entry" = "Запись";
-"Trends" = "Тренды";
-"Progress" = "Прогресс";
-"Settings" = "Настройки";
 
 // MARK: - Inputs
 
@@ -42,29 +21,65 @@
 "Goal Weight" = "Идеальный Вес";
 "Weekly Change" = "Изменение в Неделю";
 
+// MARK: - Buttons
+
 "DONE" = "ГОТОВО";
 "NEXT" = "ДАЛЕЕ";
 "CONFIRM" = "ГОТОВО";
+
+// MARK: Target Surplus/Deficit
 
 "Target Surplus" = "Целевой Излишек";
 "Target Deficit" = "Целевой Дефицит";
 "day" = "день";
 
+// MARK: - Navbar
+
+"Entry" = "Запись";
+"Trends" = "Тренды";
+"Progress" = "Прогресс";
+"Settings" = "Настройки";
+
+// MARK: - Date/Time Format
+
+"h:mm a" = "H:mm";
+"MMMM d" = "d MMMM";
+
+// MARK: - Welcome Page
+
+"Welcome" = "Здравствуйте";
+"Let’s get started" = "Давайте начнем";
+
+"Almost Ready" = "Почти Готово";
+"Define your goals" = "Установите свою цель";
+
+"Please select measurement unit that would be used for bodyweight values" = "Пожалуйста выберите юнит измерения который будет использоваться для веса";
+"And this measurement unit will be used for food and energy values" = "А теперь выберите юнит измерения который будет использоваться для еды и энергии";
+
+"For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
+"Goal weight is what you strife for" = "Идеальный вес это то чего вы пытаетесь достичь";
+"Based on your current weight weekly change must not be bigger than" = "Базируясь на вашем текущем весе, недельное изменение веса не должно быть больше чем";
+
+"Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
+
+// MARK: - Entry Page
 
 "After enough entries were added you will see here recommended daily amount" = "После достаточного кол-ва записей, вы сможете увитеть тут рекоммендованное дневное кол-во";
 "Recommended daily amount" = "Рекоммендованное дневное кол-во";
+
+// MARK: - Trends Page
 
 "FOOD" = "ЕДА";
 "TDEE" = "TDEE";
 "WEIGHT CHANGE" = "ИЗМЕНЕНИЕ ВЕСА";
 
+// MARK: - Progress Page
+
+"Starting from" = "Начиная с";
 "weeks" = "недель";
+
+// MARK: - Settings Page
 
 "UNITS" = "ЮНИТЫ";
 "GOAL" = "ЦЕЛЬ";
 "REMINDERS" = "НАПОМИНАНИЯ";
-
-"Starting from" = "Начиная с";
-
-"h:mm a" = "H:mm";
-"MMMM d" = "d MMMM";

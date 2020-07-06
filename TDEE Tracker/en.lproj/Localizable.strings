@@ -5,31 +5,3 @@
   Created by Andrei Khvalko on 7/5/20.
   Copyright © 2020 Greams. All rights reserved.
 */
-
-"KG" = "KG";
-"LB" = "LB";
-"KCAL" = "KCAL";
-"KJ" = "KJ";
-
-//"kg" = "kg";
-//"lb" = "lb";
-//"kcal" = "kcal";
-//"kj" = "kj";
-
-"Please select measurement unit that would be used for bodyweight values" = "Please select measurement unit that would be used for bodyweight values";
-
-"And this measurement unit will be used for food and energy values" = "And this measurement unit will be used for food and energy values";
-"For the best result always measure it at the same time in the morning" = "For the best result always measure it at the same time in the morning";
-"Goal weight is what you strife for" = "Goal weight is what you strife for";
-"Parameters can be changed at any time in the application settings" = "Parameters can be changed at any time in the application settings";
-"Based on your current weight weekly change must not be bigger than" = "Based on your current weight weekly change must not be bigger than";
-
-
-
-"Entry" = "Entry";
-"Trends" = "Trends";
-"Progress" = "Progress";
-"Settings" = "Setup";
-
-
-"Today's Weight" = "Today's Weight";

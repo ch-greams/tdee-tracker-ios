@@ -36,6 +36,7 @@ struct WeeklyTrendsBlock: View {
     let accentColor: Color
     let textColor: Color
 
+    // TODO: Check alternative for icons
     func getChangeIcon(change: WeekSummaryChange) -> String {
         
         switch change {
