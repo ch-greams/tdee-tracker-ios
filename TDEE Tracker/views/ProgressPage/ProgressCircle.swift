@@ -62,7 +62,7 @@ struct ProgressCircle: View {
                         .font(.appProgressCircleValues)
                         .foregroundColor(self.mainColor)
 
-                    Text("~ \(absEstimatedTimeLeft) weeks")
+                    Text("~ \(absEstimatedTimeLeft) \(Label.weeks)")
                         .font(.appProgressCircleEstimate)
                         .foregroundColor(self.mainColor)
                 }

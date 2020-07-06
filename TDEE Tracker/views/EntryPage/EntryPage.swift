@@ -54,7 +54,7 @@ struct EntryPage: View {
             
             EntryHintBlock(
                 value: self.appState.recommendedFoodAmount,
-                unit: self.appState.energyUnit.rawValue,
+                unit: self.appState.energyUnit.localized,
                 textColor: self.appState.uiTheme.mainTextColor,
                 isEnoughData: self.appState.isEnoughDataForRecommendation
             )
@@ -67,7 +67,7 @@ struct EntryPage: View {
 
                     InputBlock.EntryNumber(
                         icon: "body-sharp",
-                        unit: self.appState.weightUnit.rawValue,
+                        unit: self.appState.weightUnit.localized,
                         value: self.$appState.weightInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isWeightInputOpen = true },
@@ -81,7 +81,7 @@ struct EntryPage: View {
 
                     InputBlock.EntryNumber(
                         icon: "fast-food-sharp",
-                        unit: self.appState.energyUnit.rawValue,
+                        unit: self.appState.energyUnit.localized,
                         value: self.$appState.foodInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isFoodInputOpen = true },
@@ -95,7 +95,7 @@ struct EntryPage: View {
 
                     if self.isWeightInputOpen || self.isFoodInputOpen {
 
-                       Button("CONFIRM", action: self.onSubmit)
+                        Button(Label.confirm, action: self.onSubmit)
                             .buttonStyle(AppDefaultButtonStyle(
                                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                                 textColor: self.appState.uiTheme.secondaryTextColor

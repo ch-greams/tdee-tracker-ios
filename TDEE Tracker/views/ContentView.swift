@@ -26,10 +26,10 @@ struct ContentView: View {
     @State var selectedTab = TabBarTag.entryPage
     
     let tabBarItems: [ TabBarItem ] = [
-        TabBarItem(label: "Entry", icon: "create-sharp", tag: TabBarTag.entryPage),
-        TabBarItem(label: "Trends", icon: "calendar-sharp", tag: TabBarTag.trendsPage),
-        TabBarItem(label: "Progress", icon: "stats-chart-sharp", tag: TabBarTag.progressPage),
-        TabBarItem(label: "Setup", icon: "options-sharp", tag: TabBarTag.setupPage)
+        TabBarItem(label: Label.entry, icon: "create-sharp", tag: TabBarTag.entryPage),
+        TabBarItem(label: Label.trends, icon: "calendar-sharp", tag: TabBarTag.trendsPage),
+        TabBarItem(label: Label.progress, icon: "stats-chart-sharp", tag: TabBarTag.progressPage),
+        TabBarItem(label: Label.settings, icon: "options-sharp", tag: TabBarTag.setupPage)
     ]
     
     func tabbarItem(item: TabBarItem) -> some View {
@@ -109,7 +109,7 @@ struct ContentView: View {
             
             HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
                 
-                ForEach(self.tabBarItems, id: \.label) { item in
+                ForEach(self.tabBarItems, id: \.tag) { item in
                     self.tabbarItem(item: item)
                 }
             }

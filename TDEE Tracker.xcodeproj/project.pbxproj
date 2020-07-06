@@ -19,6 +19,8 @@
 		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
 		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
 		F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */; };
+		F650089224B1F018007B7D59 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F650089424B1F018007B7D59 /* Localizable.strings */; };
+		F650089724B1FC25007B7D59 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650089624B1FC25007B7D59 /* Label.swift */; };
 		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
 		F652133924A495B9003C2214 /* InputBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133824A495B9003C2214 /* InputBlock.swift */; };
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
@@ -32,6 +34,7 @@
 		F69BC23D24AC51730064FE1A /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69BC23C24AC51730064FE1A /* CustomImage.swift */; };
 		F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */; };
 		F6E765CD24A77140009A0B90 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E765CC24A77140009A0B90 /* NotificationManager.swift */; };
+		F6EED3E324B2636A003E85EE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EED3E224B2636A003E85EE /* String.swift */; };
 		F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE332485A06500D1FF40 /* EntryPage.swift */; };
 		F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE382485B9EF00D1FF40 /* Color.swift */; };
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
@@ -82,6 +85,9 @@
 		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
 		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
 		F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIThemeManager.swift; sourceTree = "<group>"; };
+		F650089324B1F018007B7D59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F650089524B1F025007B7D59 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F650089624B1FC25007B7D59 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		F652133624A48C23003C2214 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		F652133824A495B9003C2214 /* InputBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBlock.swift; sourceTree = "<group>"; };
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -95,6 +101,7 @@
 		F69BC23C24AC51730064FE1A /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 		F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircle.swift; sourceTree = "<group>"; };
 		F6E765CC24A77140009A0B90 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		F6EED3E224B2636A003E85EE /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F6F4DE332485A06500D1FF40 /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		F6F4DE382485B9EF00D1FF40 /* Color.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = Color.swift; path = "TDEE Tracker/Extensions/Color.swift"; sourceTree = SOURCE_ROOT; };
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
@@ -166,6 +173,7 @@
 				F6F4DE3B2485BA3200D1FF40 /* extensions */,
 				F6F4DE402486FB4400D1FF40 /* fonts */,
 				F61BCCFD2485737400A01500 /* Assets.xcassets */,
+				F650089424B1F018007B7D59 /* Localizable.strings */,
 				F61BCD022485737400A01500 /* LaunchScreen.storyboard */,
 				F61BCD052485737400A01500 /* Info.plist */,
 				F61BCCFF2485737400A01500 /* Preview Content */,
@@ -226,6 +234,7 @@
 				F69BC23C24AC51730064FE1A /* CustomImage.swift */,
 				F669128024ACE67F0069E52E /* UIConstants.swift */,
 				F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */,
+				F650089624B1FC25007B7D59 /* Label.swift */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -257,6 +266,7 @@
 				F6F72031248E7C92003873A1 /* Date.swift */,
 				F6F72033248EE6AE003873A1 /* Collection.swift */,
 				F66932FE24A0A71B00076C8C /* Double.swift */,
+				F6EED3E224B2636A003E85EE /* String.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -361,6 +371,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = F61BCCEB2485737200A01500;
 			productRefGroup = F61BCCF52485737200A01500 /* Products */;
@@ -390,6 +401,7 @@
 				F6F4DE9C24871EE000D1FF40 /* Roboto-BlackItalic.ttf in Resources */,
 				F6F4DE9624871EE000D1FF40 /* Roboto-Italic.ttf in Resources */,
 				F6F4DE8324871ED200D1FF40 /* Oswald-Medium.ttf in Resources */,
+				F650089224B1F018007B7D59 /* Localizable.strings in Resources */,
 				F6F4DE9524871EE000D1FF40 /* Roboto-Regular.ttf in Resources */,
 				F6F4DE8224871ED200D1FF40 /* Oswald-Bold.ttf in Resources */,
 				F6F4DE9824871EE000D1FF40 /* Roboto-Light.ttf in Resources */,
@@ -435,7 +447,9 @@
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
 				F669330224A484CC00076C8C /* WelcomePage.swift in Sources */,
 				F61BCCFC2485737200A01500 /* ContentView.swift in Sources */,
+				F6EED3E324B2636A003E85EE /* String.swift in Sources */,
 				F652133924A495B9003C2214 /* InputBlock.swift in Sources */,
+				F650089724B1FC25007B7D59 /* Label.swift in Sources */,
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
 				F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
@@ -459,6 +473,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		F650089424B1F018007B7D59 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F650089324B1F018007B7D59 /* en */,
+				F650089524B1F025007B7D59 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -466,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -526,6 +550,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

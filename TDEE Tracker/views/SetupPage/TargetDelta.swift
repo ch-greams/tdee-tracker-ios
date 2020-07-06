@@ -16,13 +16,13 @@ struct TargetDelta: View {
 
     var body: some View {
         
-        let changeType = ( self.value > 0 ) ? "surplus" : "deficit"
+        let changeType = ( self.value > 0 ) ? Label.targetSurplus : Label.targetDeficit
         
         return HStack(alignment: .center, spacing: 0) {
 
             Spacer()
             
-            Text("Target \(changeType)".uppercased())
+            Text(changeType.uppercased())
                 .frame(width: 114, alignment: .leading)
                 .foregroundColor(textColor)
                 .font(.appInputLabel)
@@ -34,7 +34,7 @@ struct TargetDelta: View {
                 .font(.appInputValue)
                 .padding(.trailing)
 
-            Text("\(self.unit)/day".uppercased())
+            Text("\(self.unit)/\(Label.day)".uppercased())
                 .foregroundColor(textColor)
                 .font(.appInputLabel)
                 
@@ -50,7 +50,7 @@ struct TargetDelta_Previews: PreviewProvider {
 
         TargetDelta(
             value: 257,
-            unit: "kcal",
+            unit: EnergyUnit.kcal.localized,
             textColor: UIThemeManager.DEFAULT.mainTextColor
         )
             .background(UIThemeManager.DEFAULT.backgroundColor)

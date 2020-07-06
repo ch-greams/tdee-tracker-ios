@@ -33,23 +33,15 @@ struct WelcomePage: View {
     var isDeltaWeightEntered: Bool { self.appState.goalWeeklyWeightDelta > 0 }
     
     // MARK: - Constants
-    
-    let WEIGHT_UNIT_HINT = "Please select measurement unit that would be used for bodyweight values"
-    let ENERGY_UNIT_HINT = "And this measurement unit will be used for food and energy values"
-    
-    let CURRENT_WEIGHT_HINT = "For the best result always measure it at the same time in the morning"
-    let GOAL_WEIGHT_HINT = "Goal weight is what you strife for"
-    
-    let SETTINGS_HINT = "Parameters can be changed at any time in the application settings"
-    
+
     var deltaWeightHint: String {
         
         let onePercent = self.appState.weight / 100
         let onePercentLabel = String(format: "%.2f", onePercent)
         
-        let weightUnitLabel = self.appState.weightUnit.rawValue
-        
-        return "Based on your current weight weekly change must not be bigger than \(onePercentLabel) \(weightUnitLabel)"
+        let weightUnitLabel = self.appState.weightUnit.localized
+
+        return "\(Label.deltaWeightHint) \(onePercentLabel) \(weightUnitLabel)"
     }
     
     func getTitle(title: String, subtitle: String) -> some View {
@@ -74,13 +66,13 @@ struct WelcomePage: View {
         VStack(alignment: .center, spacing: 0) {
             
             InputBlock.Toggle(
-                title: "Weight",
+                title: Label.weight,
                 setValue: {
                     self.weightUnit = $0
                     self.isWeightUnitSelected = true
                 },
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
+                first: WeightUnit.kg,
+                second: WeightUnit.lb,
                 selected: self.weightUnit as WeightUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
@@ -90,7 +82,7 @@ struct WelcomePage: View {
 
             if !self.isWeightUnitSelected {
                
-                Text(self.WEIGHT_UNIT_HINT)
+                Text(Label.weightUnitHint)
                     .font(.appWelcomeHint)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
@@ -101,13 +93,13 @@ struct WelcomePage: View {
             else {
 
                 InputBlock.Toggle(
-                    title: "Energy",
+                    title: Label.energy,
                     setValue: {
                         self.energyUnit = $0
                         self.isEnergyUnitSelected = true
                     },
-                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
-                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                    first: EnergyUnit.kcal,
+                    second: EnergyUnit.kj,
                     selected: self.energyUnit as EnergyUnit?,
                     maxHeight: self.appState.uiSizes.setupInputHeight,
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
@@ -115,7 +107,7 @@ struct WelcomePage: View {
                 )
                     .padding(.bottom)
 
-                Text(!self.isEnergyUnitSelected ? self.ENERGY_UNIT_HINT : self.SETTINGS_HINT)
+                Text(!self.isEnergyUnitSelected ? Label.energyUnitHint : Label.settingsHint)
                     .font(.appWelcomeHint)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
@@ -137,7 +129,7 @@ struct WelcomePage: View {
         
         VStack(alignment: .center, spacing: 0) {
             
-            self.getTitle(title: "Welcome", subtitle: "Let’s get started")
+            self.getTitle(title: Label.welcome, subtitle: Label.getStarted)
             
             self.unitsBlock
             
@@ -145,7 +137,7 @@ struct WelcomePage: View {
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button("NEXT", action: self.completeFirstStep)
+                Button(Label.next, action: self.completeFirstStep)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         textColor: self.appState.uiTheme.secondaryTextColor
@@ -160,8 +152,8 @@ struct WelcomePage: View {
     var currentWeightInputBlock: some View {
         
         InputBlock.Number(
-            title: "Today’s weight",
-            unit: self.appState.weightUnit.rawValue,
+            title: Label.todaysWeight,
+            unit: self.appState.weightUnit.localized,
             input: self.$appState.weightInput,
             onCommit: {
                 self.appState.updateWeightFromInput()
@@ -182,7 +174,7 @@ struct WelcomePage: View {
     
     var currentWeightInputHintBlock: some View {
         
-        Text(self.CURRENT_WEIGHT_HINT)
+        Text(Label.currentWeightHint)
             .font(.appWelcomeHint)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
@@ -193,8 +185,8 @@ struct WelcomePage: View {
     var goalWeightInputBlock: some View {
         
         InputBlock.Number(
-            title: "Goal weight",
-            unit: self.appState.weightUnit.rawValue,
+            title: Label.goalWeight,
+            unit: self.appState.weightUnit.localized,
             input: self.$appState.goalWeightInput,
             onCommit: {
                 self.appState.saveGoalWeightFromInput()
@@ -214,7 +206,7 @@ struct WelcomePage: View {
     }
     
     var goalWeightInputHintBlock: some View {
-        Text(self.GOAL_WEIGHT_HINT)
+        Text(Label.goalWeightHint)
             .font(.appWelcomeHint)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
@@ -225,8 +217,8 @@ struct WelcomePage: View {
     var deltaWeightInputBlock: some View {
         
         InputBlock.Number(
-            title: "Weekly change",
-            unit: self.appState.weightUnit.rawValue,
+            title: Label.weeklyChange,
+            unit: self.appState.weightUnit.localized,
             input: self.$appState.goalWeeklyWeightDeltaInput,
             onCommit: {
                 self.appState.saveGoalWeeklyDeltaFromInput()
@@ -282,7 +274,7 @@ struct WelcomePage: View {
                     if self.isDeltaWeightEntered {
                         TargetDelta(
                             value: self.appState.goalTargetFoodDelta,
-                            unit: self.appState.energyUnit.rawValue,
+                            unit: self.appState.energyUnit.localized,
                             textColor: self.appState.uiTheme.mainTextColor
                         )
                             .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
@@ -300,7 +292,7 @@ struct WelcomePage: View {
             
             VStack(alignment: .center, spacing: 0) {
 
-                self.getTitle(title: "Almost Ready", subtitle: "Define your goals")
+                self.getTitle(title: Label.almostReady, subtitle: Label.defineGoals)
 
                 self.settingsBlock
 
@@ -308,7 +300,7 @@ struct WelcomePage: View {
                 
                 if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
 
-                    Button("DONE", action: self.appState.completeFirstSetup)
+                    Button(Label.done, action: self.appState.completeFirstSetup)
                         .buttonStyle(AppDefaultButtonStyle(
                             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                             textColor: self.appState.uiTheme.secondaryTextColor

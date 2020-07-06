@@ -24,8 +24,8 @@ struct TrendsPage: View {
                 .padding(.bottom, 8)
             
             WeeklyTrendsBlock(
-                weightUnitLabel: self.appState.weightUnit.rawValue,
-                energyUnitLabel: self.appState.energyUnit.rawValue,
+                weightUnitLabel: self.appState.weightUnit.localized,
+                energyUnitLabel: self.appState.energyUnit.localized,
                 selectedDay: self.appState.selectedDay,
                 summary: self.appState.selectedWeekSummary,
                 trendsChange: self.appState.trendsChange,

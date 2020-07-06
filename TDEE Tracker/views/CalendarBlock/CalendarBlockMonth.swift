@@ -21,7 +21,7 @@ struct CalendarBlockMonth: View {
     var monthTitle: Text {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM YYYY"
+        dateFormatter.dateFormat = "LLLL YYYY"
         
         let monthString = dateFormatter.string(from: selectedDay)
         

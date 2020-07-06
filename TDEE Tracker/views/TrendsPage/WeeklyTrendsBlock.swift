@@ -61,7 +61,7 @@ struct WeeklyTrendsBlock: View {
                 .font(.appTrendsItemValue(self.trendsItemValueFontSize))
                 .frame(minWidth: 80, alignment: .trailing)
 
-            Text(data.unit.uppercased())
+            Text(data.unit)
                 .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
                 .frame(width: 30, alignment: .leading)
                 .padding(.horizontal)
@@ -85,25 +85,25 @@ struct WeeklyTrendsBlock: View {
 
         let lines = [
             LineData(
-                label: "FOOD",
+                label: Label.food.uppercased(),
                 value: self.summary.avgFood.map { $0 < 0 ? "0" : String($0) } ?? "0",
                 unit: self.energyUnitLabel,
                 changeType: self.trendsChange.avgFood
             ),
             LineData(
-                label: "WEIGHT",
+                label: Label.weight.uppercased(),
                 value: String(format: "%.2f", self.summary.avgWeight < 0 ? 0 : self.summary.avgWeight),
                 unit: self.weightUnitLabel,
                 changeType: self.trendsChange.avgWeight
             ),
             LineData(
-                label: "TDEE",
+                label: Label.tdee.uppercased(),
                 value: self.summary.tdee.map { $0 < 0 ? "0" : String($0) } ?? "0",
                 unit: self.energyUnitLabel,
                 changeType: self.trendsChange.tdee
             ),
             LineData(
-                label: "WEIGHT CHANGE",
+                label: Label.weightChange.uppercased(),
                 value: String(format: "%.2f", self.summary.deltaWeight ?? 0),
                 unit: self.weightUnitLabel,
                 changeType: self.trendsChange.deltaWeight
@@ -112,15 +112,15 @@ struct WeeklyTrendsBlock: View {
         
         return VStack(alignment: .center, spacing: 0) {
             
-            ForEach(lines, id: \.label) { lineData in
+            ForEach(0 ..< lines.count) { i in
                 
                 VStack(alignment: .center, spacing: 0) {
 
-                    if lineData.label != lines[0].label {
+                    if i > 0 {
                         self.separator
                     }
 
-                    self.getLine(data: lineData)
+                    self.getLine(data: lines[i])
                 }
             }
         }
@@ -138,8 +138,8 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
     
     static var previews: some View {
         WeeklyTrendsBlock(
-            weightUnitLabel: "kg",
-            energyUnitLabel: "kcal",
+            weightUnitLabel: WeightUnit.kg.localized,
+            energyUnitLabel: EnergyUnit.kcal.localized,
             selectedDay: Date(),
             summary: summary,
             trendsChange: WeekSummaryTrends(

@@ -13,33 +13,33 @@ import SwiftUI
 class InputBlock {
     
     
-    public static func Toggle<T: Equatable>(
+    public static func Toggle<T>(
         title: String,
         setValue: @escaping (T) -> Void,
-        first: (value: T, label: String),
-        second: (value: T, label: String),
+        first: T,
+        second: T,
         selected: Optional<T>,
         maxHeight: CGFloat,
         backgroundColor: Color,
         accentColor: Color
-    ) -> some View {
+    ) -> some View where T:Equatable, T:Localizable {
 
         let firstButton = Button(
-            first.label.uppercased(),
-            action: { setValue(first.value) }
+            first.localized,
+            action: { setValue(first) }
         )
             .buttonStyle(ToggleButtonStyle(
-                isSelected: selected == first.value,
+                isSelected: selected == first,
                 backgroundColor: backgroundColor,
                 accentColor: accentColor
             ))
         
         let secondButton = Button(
-            second.label.uppercased(),
-            action: { setValue(second.value) }
+            second.localized,
+            action: { setValue(second) }
         )
             .buttonStyle(ToggleButtonStyle(
-                isSelected: selected == second.value,
+                isSelected: selected == second,
                 backgroundColor: backgroundColor,
                 accentColor: accentColor
             ))
@@ -113,7 +113,7 @@ class InputBlock {
                     .keyboardType(.decimalPad)
                     .onTapGesture(perform: openInput)
                 
-                Text(unit.uppercased())
+                Text(unit)
                     .font(.appInputLabel)
                     .frame(width: 42, alignment: .leading)
                     .foregroundColor(accentColor)
@@ -191,10 +191,10 @@ class InputBlock {
                 .keyboardType(.decimalPad)
                 .onTapGesture(perform: openInput)
             
-            Text(unit.uppercased())
+            Text(unit)
                 .font(.appEntryUnit)
                 .padding(.trailing)
-                .frame(width: 60, alignment: .leading)
+                .frame(width: 65, alignment: .leading)
                 .foregroundColor(baseColor)
         }
             .frame(minWidth: 0, maxWidth: .infinity)
@@ -221,10 +221,10 @@ struct InputBlock_Previews: PreviewProvider {
             VStack(alignment: .center, spacing: 8) {
              
                 InputBlock.Toggle(
-                    title: "Title",
+                    title: Label.energy,
                     setValue: { print($0) },
-                    first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
-                    second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                    first: EnergyUnit.kcal,
+                    second: EnergyUnit.kj,
                     selected: EnergyUnit.kcal,
                     maxHeight: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
@@ -232,8 +232,8 @@ struct InputBlock_Previews: PreviewProvider {
                 )
                 
                 InputBlock.Number(
-                    title: "Today's Weight",
-                    unit: "kg",
+                    title: Label.todaysWeight,
+                    unit: WeightUnit.kg.localized,
                     input: .constant("17.4"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
@@ -247,7 +247,7 @@ struct InputBlock_Previews: PreviewProvider {
                 
                 InputBlock.Number(
                     title: "Title",
-                    unit: "kg",
+                    unit: WeightUnit.kg.localized,
                     input: .constant("17.4"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
@@ -261,8 +261,8 @@ struct InputBlock_Previews: PreviewProvider {
 
                 InputBlock.EntryNumber(
                     icon: "body-sharp",
-                    unit: "kg",
-                    value: .constant("71.4"),
+                    unit: WeightUnit.kg.localized,
+                    value: .constant("71.5"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     padding: 16,
@@ -275,7 +275,7 @@ struct InputBlock_Previews: PreviewProvider {
                 
                 InputBlock.EntryNumber(
                     icon: "fast-food-sharp",
-                    unit: "kcal",
+                    unit: EnergyUnit.kcal.localized,
                     value: .constant("2934"),
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },

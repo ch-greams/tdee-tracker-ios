@@ -20,14 +20,26 @@ enum AppStateKey: String, CaseIterable {
     case ReminderWeightDate, ReminderFoodDate
 }
 
-enum WeightUnit: String, Equatable {
-    case kg = "KG"
-    case lb = "LB"
+protocol Localizable {
+    var localized: String { get }
 }
 
-enum EnergyUnit: String, Equatable {
+enum WeightUnit: String, Equatable, Localizable {
+    case kg = "KG"
+    case lb = "LB"
+    
+    var localized: String {
+        self.rawValue.localize
+    }
+}
+
+enum EnergyUnit: String, Equatable, Localizable {
     case kcal = "KCAL"
     case kj = "KJ"
+    
+    var localized: String {
+        self.rawValue.localize
+    }
 }
 
 
