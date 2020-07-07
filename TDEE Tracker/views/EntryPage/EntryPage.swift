@@ -44,13 +44,11 @@ struct EntryPage: View {
         
         return VStack(alignment: .center, spacing: 0) {
 
-            if !self.isWeightInputOpen && !self.isFoodInputOpen {
-                
-                CalendarBlock(
-                    selectedDay: self.appState.selectedDay,
-                    isTrendsPage: false
-                )
-            }
+            CalendarBlock(
+                selectedDay: self.appState.selectedDay,
+                isCollapsed: self.isWeightInputOpen || self.isFoodInputOpen,
+                isTrendsPage: false
+            )
             
             EntryHintBlock(
                 value: self.appState.recommendedFoodAmount,

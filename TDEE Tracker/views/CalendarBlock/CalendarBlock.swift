@@ -15,6 +15,7 @@ struct CalendarBlock: View {
     @EnvironmentObject var appState: AppState
     
     let selectedDay: Date
+    let isCollapsed: Bool
     let isTrendsPage: Bool
 
 
@@ -39,15 +40,19 @@ struct CalendarBlock: View {
     
         VStack(alignment: .center, spacing: 8) {
             
-            CalendarBlockMonth(selectedDay: self.selectedDay)
+            CalendarBlockMonth(selectedDay: self.selectedDay, isCollapsed: self.isCollapsed)
             
             VStack(alignment: .center, spacing: 0) {
 
                 self.weekdayTitles
                 
-                CalendarBlockDays(selectedDay: self.selectedDay, isTrendsPage: self.isTrendsPage)
+                CalendarBlockDays(
+                    selectedDay: self.selectedDay,
+                    isCollapsed: self.isCollapsed,
+                    isTrendsPage: self.isTrendsPage
+                )
             }
-                .padding(.vertical)
+                .padding(.vertical, self.isCollapsed ? 6 : 16)
                 .background(self.appState.uiTheme.inputBackgroundColor)
                 .padding(.horizontal, 8)
                 .clipped()
@@ -62,7 +67,7 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
 
     static var previews: some View {
         
-        CalendarBlock(selectedDay: Date(), isTrendsPage: false)
+        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: false)
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
@@ -70,13 +75,28 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
     }
 }
 
+struct CalendarBlock_EntryPage_Collapsed_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+
+    static var previews: some View {
+        
+        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: true, isTrendsPage: false)
+            .padding(.vertical, 8)
+            .background(Self.appState.uiTheme.backgroundColor)
+            .environmentObject(appState)
+
+    }
+}
+
+
 struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
     
     static let appState = AppState()
     
     static var previews: some View {
         
-        CalendarBlock(selectedDay: Date(), isTrendsPage: true)
+        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: true)
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
