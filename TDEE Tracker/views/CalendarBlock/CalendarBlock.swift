@@ -71,7 +71,6 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
-
     }
 }
 
@@ -85,7 +84,6 @@ struct CalendarBlock_EntryPage_Collapsed_Previews: PreviewProvider {
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
-
     }
 }
 
@@ -100,7 +98,6 @@ struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
-
     }
 }
 
