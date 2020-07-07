@@ -57,6 +57,7 @@ struct CalendarBlock: View {
                 .padding(.horizontal, 8)
                 .clipped()
                 .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
+                .disabled(self.isCollapsed)
         }
     }
 }
