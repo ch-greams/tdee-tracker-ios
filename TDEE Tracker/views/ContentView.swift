@@ -74,7 +74,7 @@ struct ContentView: View {
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 32)
             .background(self.appState.uiTheme.warningBackgroundColor)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)

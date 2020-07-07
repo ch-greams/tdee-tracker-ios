@@ -43,7 +43,7 @@ struct EntryHintBlock: View {
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 36.0)
+            .padding(.horizontal, 32)
     }
     
     var defaultBlock: some View {
@@ -51,12 +51,12 @@ struct EntryHintBlock: View {
 
             Text(Label.recommendedAmount.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(width: 84)
+                .frame(width: 124)
                 .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedLabel)
             
-            Text("~\(self.value)")
-                .frame(width: 154, alignment: .trailing)
+            Text("\(self.value)")
+                .frame(width: 124, alignment: .trailing)
                 .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedAmount)
                 .padding(.trailing, 10)
@@ -66,7 +66,7 @@ struct EntryHintBlock: View {
                 .font(.appEntryUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 36.0)
+            .padding(.horizontal, 32)
     }
     
     var body: some View {

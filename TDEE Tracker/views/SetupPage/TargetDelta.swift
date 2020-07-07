@@ -23,7 +23,7 @@ struct TargetDelta: View {
             Spacer()
             
             Text(changeType.uppercased())
-                .frame(width: 114, alignment: .leading)
+                .frame(width: 134, alignment: .leading)
                 .foregroundColor(textColor)
                 .font(.appInputLabel)
 

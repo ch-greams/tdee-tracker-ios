@@ -28,9 +28,9 @@ struct WeeklyTrendsBlock: View {
     let trendsChange: WeekSummaryTrends
     
     let trendsElementPadding: CGFloat
-    let trendsItemLabelFontSize: CGFloat
-    let trendsItemValueFontSize: CGFloat
-    let trendsItemUnitFontSize: CGFloat
+    let trendsItemLabelFont: Font
+    let trendsItemValueFont: Font
+    let trendsItemUnitFont: Font
     
     let backgroundColor: Color
     let accentColor: Color
@@ -43,16 +43,16 @@ struct WeeklyTrendsBlock: View {
         return HStack(alignment: .center, spacing: 0) {
         
             Text(data.label)
-                .font(.appTrendsItemLabel(self.trendsItemLabelFontSize))
+                .font(self.trendsItemLabelFont)
                 .frame(width: 132, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
-                .font(.appTrendsItemValue(self.trendsItemValueFontSize))
+                .font(self.trendsItemValueFont)
                 .frame(minWidth: 80, alignment: .trailing)
 
             Text(data.unit)
-                .font(.appTrendsItemUnit(self.trendsItemUnitFontSize))
+                .font(self.trendsItemUnitFont)
                 .frame(width: 30, alignment: .leading)
                 .padding(.horizontal)
 
@@ -139,9 +139,9 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
                 tdee: WeekSummaryChange.Up
             ),
             trendsElementPadding: 10,
-            trendsItemLabelFontSize: 18,
-            trendsItemValueFontSize: 32,
-            trendsItemUnitFontSize: 14,
+            trendsItemLabelFont: Font.appTrendsItemLabelMedium,
+            trendsItemValueFont: Font.appTrendsItemValueMedium,
+            trendsItemUnitFont: Font.appTrendsItemUnitMedium,
             backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
             accentColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
             textColor: UIThemeManager.DEFAULT.secondaryTextColor,

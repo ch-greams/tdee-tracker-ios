@@ -28,7 +28,9 @@ struct ToggleButtonStyle: ButtonStyle {
 struct DayButtonStyle: ButtonStyle {
     
     let buttonSize: CGFloat
-    let fontSize: CGFloat
+    
+    let defaultFont: Font
+    let selectedFont: Font
     
     let textColor: Color
     let backgroundColor: Color
@@ -37,11 +39,7 @@ struct DayButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .font(
-                self.isSelected
-                    ? .appCalendarDaySelected(self.fontSize)
-                    : .appCalendarDay(self.fontSize)
-            )
+            .font(self.isSelected ? self.selectedFont : self.defaultFont)
             .frame(width: self.buttonSize, height: self.buttonSize, alignment: .center)
             .foregroundColor(self.textColor)
             .background(self.isSelected ? self.backgroundColor : nil)
