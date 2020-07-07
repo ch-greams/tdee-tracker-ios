@@ -39,14 +39,22 @@ struct EntryPage: View {
     var body: some View {
         
         let isFutureDate = self.appState.isFutureDate
+        let isInputOpen = self.isWeightInputOpen || self.isFoodInputOpen
         
         let lockIconSize: CGFloat = 80
+        
+        let inputPadding = (
+            isInputOpen
+                ? self.appState.uiSizes.entryInputPadding + self.appState.uiSizes.entryOpenInputOffset
+                : self.appState.uiSizes.entryInputPadding
+        )
+            
         
         return VStack(alignment: .center, spacing: 0) {
 
             CalendarBlock(
                 selectedDay: self.appState.selectedDay,
-                isCollapsed: self.isWeightInputOpen || self.isFoodInputOpen,
+                isCollapsed: isInputOpen,
                 isTrendsPage: false
             )
             
@@ -69,7 +77,7 @@ struct EntryPage: View {
                         value: self.$appState.weightInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isWeightInputOpen = true },
-                        padding: self.appState.uiSizes.entryInputPadding,
+                        padding: inputPadding,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
@@ -83,7 +91,7 @@ struct EntryPage: View {
                         value: self.$appState.foodInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isFoodInputOpen = true },
-                        padding: self.appState.uiSizes.entryInputPadding,
+                        padding: inputPadding,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
@@ -91,14 +99,14 @@ struct EntryPage: View {
                         accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
-                    if self.isWeightInputOpen || self.isFoodInputOpen {
+                    if isInputOpen {
 
                         Button(Label.confirm, action: self.onSubmit)
                             .buttonStyle(AppDefaultButtonStyle(
                                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                                 textColor: self.appState.uiTheme.secondaryTextColor
                             ))
-                            .padding(.vertical)
+                            .padding(.vertical, 10)
                     }
                 }
                     .padding(.top, 10)

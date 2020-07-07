@@ -37,6 +37,7 @@ struct UISizes {
     let entryInputPadding: CGFloat
     let entryHintBlockPadding: CGFloat
     let entryBlockerHeight: CGFloat
+    let entryOpenInputOffset: CGFloat
     
     // MARK: - Trends Page
     
@@ -84,6 +85,7 @@ class UIConstants {
         entryInputPadding: 36,
         entryHintBlockPadding: 20,
         entryBlockerHeight: 252,
+        entryOpenInputOffset: -2,
         
         trendsElementPadding: 12,
         trendsItemLabelFont: Font.appTrendsItemLabelBig,
@@ -118,6 +120,7 @@ class UIConstants {
         entryInputPadding: 30,
         entryHintBlockPadding: 16,
         entryBlockerHeight: 230,
+        entryOpenInputOffset: -8,
         
         trendsElementPadding: 10,
         trendsItemLabelFont: Font.appTrendsItemLabelMedium,
@@ -152,6 +155,7 @@ class UIConstants {
         entryInputPadding: 18,
         entryHintBlockPadding: 10,
         entryBlockerHeight: 184,
+        entryOpenInputOffset: 8,
         
         trendsElementPadding: 4,
         trendsItemLabelFont: Font.appTrendsItemLabelMedium,
@@ -186,6 +190,7 @@ class UIConstants {
         entryInputPadding: 16,
         entryHintBlockPadding: 6,
         entryBlockerHeight: 174,
+        entryOpenInputOffset: 0,
         
         trendsElementPadding: 3,
         trendsItemLabelFont: Font.appTrendsItemLabelMedium,
