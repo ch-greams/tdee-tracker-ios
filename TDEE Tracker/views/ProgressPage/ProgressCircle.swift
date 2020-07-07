@@ -37,19 +37,15 @@ struct ProgressCircle: View {
 
     var body: some View {
         
-        let absCurrentWeightValue = self.currentWeightValue
-        let absGoalWeightValue = self.goalWeightValue
-        let absEstimatedTimeLeft = self.estimatedTimeLeft
-        
-        let progress = absCurrentWeightValue / absGoalWeightValue
+        let progress = self.currentWeightValue / self.goalWeightValue
         let progressPercentText = "\( ( progress * 100 ).toString(to: 1) )%"
         
-        let currentWeightText = absCurrentWeightValue.toString(to: 1)
-        let goalWeightText = absGoalWeightValue.toString(to: 1)
+        let currentWeightText = self.currentWeightValue.toString(to: 1)
+        let goalWeightText = self.goalWeightValue.toString(to: 1)
         let progressValueText = "\(currentWeightText) / \(goalWeightText) \(unit)"
         
-        let weekLabel = self.getWeekLabel(amount: absEstimatedTimeLeft)
-        let estimatedTimeLeftText = "~ \(absEstimatedTimeLeft) \(weekLabel)"
+        let weekLabel = self.getWeekLabel(amount: self.estimatedTimeLeft)
+        let estimatedTimeLeftText = "~ \(self.estimatedTimeLeft) \(weekLabel)"
         
         return ZStack {
             
