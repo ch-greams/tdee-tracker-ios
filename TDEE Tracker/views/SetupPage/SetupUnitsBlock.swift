@@ -20,16 +20,16 @@ struct SetupUnitsBlock: View {
         return VStack(alignment: .center, spacing: 0) {
         
             SetupBlockTitle(
-                title: "Units",
+                title: Label.units,
                 textColor: self.appState.uiTheme.mainTextColor,
                 paddingTop: 6
             )
             
             InputBlock.Toggle(
-                title: "Weight",
+                title: Label.weight,
                 setValue: self.appState.updateWeightUnit as (WeightUnit) -> Void,
-                first: (value: WeightUnit.kg, label: WeightUnit.kg.rawValue),
-                second: (value: WeightUnit.lb, label: WeightUnit.lb.rawValue),
+                first: WeightUnit.kg,
+                second: WeightUnit.lb,
                 selected: self.appState.weightUnit as WeightUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
@@ -37,10 +37,10 @@ struct SetupUnitsBlock: View {
             )
             
             InputBlock.Toggle(
-                title: "Energy",
+                title: Label.energy,
                 setValue: self.appState.updateEnergyUnit as (EnergyUnit) -> Void,
-                first: (value: EnergyUnit.kcal, label: EnergyUnit.kcal.rawValue),
-                second: (value: EnergyUnit.kj, label: EnergyUnit.kj.rawValue),
+                first: EnergyUnit.kcal,
+                second: EnergyUnit.kj,
                 selected: self.appState.energyUnit as EnergyUnit?,
                 maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,

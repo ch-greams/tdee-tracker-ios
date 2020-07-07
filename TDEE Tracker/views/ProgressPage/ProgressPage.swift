@@ -14,12 +14,12 @@ struct ProgressPage: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-        
+
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d"
+        formatter.dateFormat = Label.progressDateFormat
         let startDateStr = formatter.string(from: self.appState.firstEntryDate)
         
-        let title = "Starting from \(startDateStr)".uppercased()
+        let title = "\(Label.startingFrom) \(startDateStr)".uppercased()
         
         let progressData = self.appState.progressData
         
@@ -33,7 +33,7 @@ struct ProgressPage: View {
             DeltaChart(
                 totalStepsHeight: self.appState.uiSizes.progressChartHeight,
                 weeklyDeltas: self.appState.weeklyWeightDeltas,
-                weightUnit: self.appState.weightUnit.rawValue,
+                weightUnit: self.appState.weightUnit.localized,
                 mainColor: self.appState.uiTheme.mainTextColor
             )
                 .padding(.vertical, self.appState.uiSizes.progressPageSpacing)
@@ -43,7 +43,7 @@ struct ProgressPage: View {
                 circleWidth: self.appState.uiSizes.progressCircleWidth,
                 currentWeightValue: progressData.progressWeight,
                 goalWeightValue: progressData.goalWeight,
-                unit: self.appState.weightUnit.rawValue,
+                unit: self.appState.weightUnit.localized,
                 estimatedTimeLeft: progressData.estimatedTimeLeft,
                 mainColor: self.appState.uiTheme.mainTextColor
             )

@@ -115,7 +115,12 @@ struct DeltaChart: View {
                 self.getLineBlock(mark: step, length: width, height: stepHeight)
             }
             
-            self.getLineBlock(mark: "0 KG", length: width, height: self.STEP_ZERO_HEIGHT, withDash: false)
+            self.getLineBlock(
+                mark: "0 \(self.weightUnit)",
+                length: width,
+                height: self.STEP_ZERO_HEIGHT,
+                withDash: false
+            )
         }
     }
 
@@ -205,7 +210,7 @@ struct DeltaChart_Previews: PreviewProvider {
             DeltaChart(
                 totalStepsHeight: 180,
                 weeklyDeltas: Self.weeklyDeltas,
-                weightUnit: "KG",
+                weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
             )
                 .background(UIThemeManager.DEFAULT.backgroundColor)
@@ -214,7 +219,7 @@ struct DeltaChart_Previews: PreviewProvider {
             DeltaChart(
                 totalStepsHeight: 180,
                 weeklyDeltas: [],
-                weightUnit: "KG",
+                weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
             )
                 .background(UIThemeManager.DEFAULT.backgroundColor)

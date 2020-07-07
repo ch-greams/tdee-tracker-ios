@@ -12,140 +12,70 @@ import SwiftUI
 
 extension Font {
     
+    private static let OSWALD_EXTRA_LIGHT = "Oswald-ExtraLight"
+    private static let OSWALD_LIGHT = "Oswald-Light"
+    private static let OSWALD_MEDIUM = "Oswald-Medium"
+    private static let OSWALD_BOLD = "Oswald-Bold"
+
+    
     // MARK: - Calendar
     
-    public static var appCalendarMonth: Font {
-        Self.custom("Oswald-Medium", size: 24)
-    }
-
-    public static var appCalendarWeekday: Font {
-        Self.custom("Oswald-ExtraLight", size: 14)
-    }
+    public static let appCalendarMonth = Self.custom(Self.OSWALD_MEDIUM, size: 24)
+    public static let appCalendarWeekday = Self.custom(Self.OSWALD_EXTRA_LIGHT, size: 14)
     
-    public static func appCalendarDay(_ size: CGFloat) -> Font {
-        Self.custom("Oswald-ExtraLight", size: size)
-    }
+    public static let appCalendarDaySmall = Self.custom(Self.OSWALD_EXTRA_LIGHT, size: 18)
+    public static let appCalendarDayMedium = Self.custom(Self.OSWALD_EXTRA_LIGHT, size: 22)
+    public static let appCalendarDayBig = Self.custom(Self.OSWALD_EXTRA_LIGHT, size: 24)
     
-    public static func appCalendarDaySelected(_ size: CGFloat) -> Font {
-        Self.custom("Oswald-Medium", size: size)
-    }
+    public static let appCalendarDaySelectedSmall = Self.custom(Self.OSWALD_MEDIUM, size: 18)
+    public static let appCalendarDaySelectedMedium = Self.custom(Self.OSWALD_MEDIUM, size: 22)
+    public static let appCalendarDaySelectedBig = Self.custom(Self.OSWALD_MEDIUM, size: 24)
     
     // MARK: - Entry Page
     
-    public static var appEntryRecommendedLabel: Font {
-        Self.custom("Oswald-Light", size: 15)
-    }
+    public static let appEntryRecommendedLabel = Self.custom(Self.OSWALD_LIGHT, size: 15)
+    public static let appEntryRecommendedAmount = Self.custom(Self.OSWALD_BOLD, size: 32)
     
-    public static var appEntryRecommendedAmount: Font {
-        Self.custom("Oswald-Bold", size: 40)
-    }
-    
-    public static var appEntryValue: Font {
-        Self.custom("Oswald-Bold", size: 36)
-    }
-
-    public static var appEntryUnit: Font {
-        Self.custom("Oswald-Light", size: 24)
-    }
+    public static let appEntryValue = Self.custom(Self.OSWALD_BOLD, size: 36)
+    public static let appEntryUnit = Self.custom(Self.OSWALD_LIGHT, size: 24)
     
     // MARK: - Trends Page
 
-    public static func appTrendsItemLabel(_ size: CGFloat) -> Font {
-        Self.custom("Oswald-Light", size: size)
-    }
+    public static let appTrendsItemLabelMedium = Self.custom(Self.OSWALD_LIGHT, size: 18)
+    public static let appTrendsItemLabelBig = Self.custom(Self.OSWALD_LIGHT, size: 20)
     
-    public static func appTrendsItemValue(_ size: CGFloat) -> Font {
-        Self.custom("Oswald-Bold", size: size)
-    }
-
-    public static func appTrendsItemUnit(_ size: CGFloat) -> Font {
-        Self.custom("Oswald-Light", size: size)
-    }
+    public static let appTrendsItemValueMedium = Self.custom(Self.OSWALD_BOLD, size: 32)
+    public static let appTrendsItemValueBig = Self.custom(Self.OSWALD_BOLD, size: 34)
+    
+    public static let appTrendsItemUnitMedium = Self.custom(Self.OSWALD_LIGHT, size: 14)
+    public static let appTrendsItemUnitBig = Self.custom(Self.OSWALD_LIGHT, size: 16)
     
     // MARK: - Setup Page
 
-    public static var appSetupToggleValue: Font {
-        Self.custom("Oswald-Bold", size: 18)
-    }
+    public static let appSetupToggleValue = Self.custom(Self.OSWALD_BOLD, size: 18)
     
     // MARK: - Progress Page
     
-    public static var appProgressChartSegment: Font {
-        Self.custom("Oswald-Light", size: 10)
-    }
-    
-    public static var appProgressCirclePercent: Font {
-        Self.custom("Oswald-Light", size: 64)
-    }
-    
-    public static var appProgressCircleValues: Font {
-        Self.custom("Oswald-Medium", size: 32)
-    }
-    
-    public static var appProgressCircleEstimate: Font {
-        Self.custom("Oswald-Light", size: 28)
-    }
+    public static let appProgressChartSegment = Self.custom(Self.OSWALD_LIGHT, size: 10)
+    public static let appProgressCirclePercent = Self.custom(Self.OSWALD_LIGHT, size: 64)
+    public static let appProgressCircleValues = Self.custom(Self.OSWALD_MEDIUM, size: 32)
+    public static let appProgressCircleEstimate = Self.custom(Self.OSWALD_LIGHT, size: 28)
     
     // MARK: - Welcome Page
     
-    public static var appWelcomeTitle: Font {
-        Self.custom("Oswald-Medium", size: 48)
-    }
-    
-    public static var appWelcomeSubtitle: Font {
-        Self.custom("Oswald-Light", size: 28)
-    }
-    
-    public static var appWelcomeHint: Font {
-        Self.custom("Oswald-Light", size: 22)
-    }
+    public static let appWelcomeTitle = Self.custom(Self.OSWALD_MEDIUM, size: 48)
+    public static let appWelcomeSubtitle = Self.custom(Self.OSWALD_LIGHT, size: 28)
+    public static let appWelcomeHint = Self.custom(Self.OSWALD_LIGHT, size: 22)
     
     // MARK: - General
 
-    public static var appWarningText: Font {
-        Self.custom("Oswald-Light", size: 16)
-    }
-    
-    public static var appNavbarElement: Font {
-        Self.custom("Oswald-Light", size: 12)
-    }
-    
-    public static var appDefaultButtonLabel: Font {
-        Self.custom("Oswald-Medium", size: 18)
-    }
+    public static let appWarningText = Self.custom(Self.OSWALD_MEDIUM, size: 16)
+    public static let appNavbarElement = Self.custom(Self.OSWALD_LIGHT, size: 12)
+    public static let appDefaultButtonLabel = Self.custom(Self.OSWALD_MEDIUM, size: 18)
 
-    public static var appInputLabel: Font {
-        Self.custom("Oswald-Light", size: 18)
-    }
-    
-    public static var appInputValue: Font {
-        Self.custom("Oswald-Bold", size: 32)
-    }
+    public static let appInputLabel = Self.custom(Self.OSWALD_LIGHT, size: 18)
+    public static let appInputValue = Self.custom(Self.OSWALD_BOLD, size: 32)
+    public static let appInputUnit = Self.custom(Self.OSWALD_LIGHT, size: 14)
 
-    public static var appInputUnit: Font {
-        Self.custom("Oswald-Light", size: 14)
-    }
-    
-//    public static func FHACondFrenchNC(size: CGFloat) -> Font {
-//        return Font.custom("FHA Condensed French NC", size: size)
-//    }
 }
-
-//struct TitleFont: ViewModifier {
-//    let size: CGFloat
-//
-//    func body(content: Content) -> some View {
-//        return content.font(.FjallaOne(size: size))
-//    }
-//}
-//
-//extension View {
-//    func titleFont(size: CGFloat) -> some View {
-//        return ModifiedContent(content: self, modifier: TitleFont(size: size))
-//    }
-//
-//    func titleStyle() -> some View {
-//        return ModifiedContent(content: self, modifier: TitleFont(size: 16))
-//    }
-//}
 

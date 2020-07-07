@@ -58,7 +58,19 @@ struct WeekSummaryTrends {
 }
 
 enum WeekSummaryChange {
+
     case Up, None, Down
+    
+    var icon: String {
+        switch self {
+            case WeekSummaryChange.Up:
+                return "chevron-up-sharp"
+            case WeekSummaryChange.Down:
+                return "chevron-down-sharp"
+            default:
+                return "remove-sharp"
+        }
+    }
 }
 
 class Utils {
@@ -233,17 +245,21 @@ class Utils {
     
     // MARK: - Validation
     
+    private static func getErrorText(min: String, max: String) -> String {
+        "\(Label.inputError) \n (\(min) - \(max))"
+    }
+    
     public static func getWeightOutsideOfValidRangeText(unit: WeightUnit) -> String {
         
         switch unit {
             case WeightUnit.kg:
                 let minWeight = Self.MIN_WEIGHT_ENTRY_KG
                 let maxWeight = Self.MAX_WEIGHT_ENTRY_KG
-                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+                return Self.getErrorText(min: minWeight.toString(), max: maxWeight.toString())
             case WeightUnit.lb:
                 let minWeight = Self.MIN_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
                 let maxWeight = Self.MAX_WEIGHT_ENTRY_KG * Self.KG_TO_LB_MULTIPLIER
-                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+                return Self.getErrorText(min: minWeight.toString(), max: maxWeight.toString())
         }
     }
     
@@ -251,11 +267,11 @@ class Utils {
         
         switch unit {
             case EnergyUnit.kcal:
-                return "Value outside of valid range (\(Self.MIN_FOOD_ENTRY_KCAL), \(Self.MAX_FOOD_ENTRY_KCAL))"
+                return Self.getErrorText(min: String(Self.MIN_FOOD_ENTRY_KCAL), max: String(Self.MAX_FOOD_ENTRY_KCAL))
             case EnergyUnit.kj:
                 let minFood = Int( Double( Self.MIN_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
                 let maxFood = Int( Double( Self.MAX_FOOD_ENTRY_KCAL ) * Self.KCAL_TO_KJ_MULTIPLIER )
-                return "Value outside of valid range (\(minFood), \(maxFood))"
+                return Self.getErrorText(min: String(minFood), max: String(maxFood))
         }
     }
     
@@ -265,11 +281,11 @@ class Utils {
             case WeightUnit.kg:
                 let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG
                 let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG
-                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+                return Self.getErrorText(min: minWeight.toString(), max: maxWeight.toString())
             case WeightUnit.lb:
                 let minWeight = Self.MIN_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
                 let maxWeight = Self.MAX_WEEKLY_WEIGHT_DELTA_KG * Self.KG_TO_LB_MULTIPLIER
-                return String(format: "Value outside of valid range (%.2f, %.2f)", minWeight, maxWeight)
+                return Self.getErrorText(min: minWeight.toString(), max: maxWeight.toString())
         }
     }
     

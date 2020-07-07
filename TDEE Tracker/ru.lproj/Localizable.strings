@@ -1,0 +1,89 @@
+/* 
+  Localizable.strings
+  TDEE Tracker
+
+  Created by Andrei Khvalko on 7/5/20.
+  Copyright © 2020 Greams. All rights reserved.
+*/
+
+// MARK: - Units
+
+"KG" = "КГ";
+"LB" = "Ф";
+"KCAL" = "ККАЛ";
+"KJ" = "КДЖ";
+
+// MARK: - Inputs
+
+"Weight" = "Вес";
+"Energy" = "Энергия";
+"Today's Weight" = "Вес Сегодня";
+"Goal Weight" = "Идеальный Вес";
+"Weekly Change" = "Еженедельно";
+
+"Value outside of valid range" = "Значение вне допустимого диапозона";
+
+// MARK: - Buttons
+
+"DONE" = "ГОТОВО";
+"NEXT" = "ДАЛЕЕ";
+"CONFIRM" = "ПОДТВЕРДИТЬ";
+
+// MARK: Target Surplus/Deficit
+
+"Target Surplus" = "Целевой Излишек";
+"Target Deficit" = "Целевой Дефицит";
+"day" = "день";
+
+// MARK: - Navbar
+
+"Entry" = "Запись";
+"Trends" = "Тренды";
+"Progress" = "Прогресс";
+"Settings" = "Настройки";
+
+// MARK: - Date/Time Format
+
+"h:mm a" = "H:mm";
+"MMMM d" = "d MMMM";
+
+// MARK: - Welcome Page
+
+"Welcome" = "Здравствуйте";
+"Let’s get started" = "Давайте начнем";
+
+"Almost Ready" = "Почти Готово";
+"Define your goals" = "Установите свою цель";
+
+"Please select measurement unit that would be used for bodyweight values" = "Пожалуйста, выберите единицу измерения веса";
+"And this measurement unit will be used for food and energy values" = "Выберите единицу измерения измерения для пищевой и энергетической ценности";
+
+"For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
+"Goal weight is what you strife for" = "Идеальный вес - вес, к которому вы стремитесь";
+"Based on your current weight weekly change must not be bigger than" = "Исходя из параметров, еженедельное изменение не должно превышать";
+
+"Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
+
+// MARK: - Entry Page
+
+"After enough entries were added you will see here recommended daily amount" = "После добавления нужной информации вы увидите здесь рекомендованное дневное кол-во";
+"Recommended daily amount" = "Рекоммендованное количество";
+
+// MARK: - Trends Page
+
+"FOOD" = "ЕДА";
+"TDEE" = "TDEE";
+"WEIGHT CHANGE" = "ИЗМЕНЕНИЕ ВЕСА";
+
+// MARK: - Progress Page
+
+"Starting from" = "Начиная с";
+"week" = "неделя";
+"couple_weeks" = "недели";
+"many_weeks" = "недель";
+
+// MARK: - Settings Page
+
+"UNITS" = "ЕДИНИЦЫ ИЗМЕРЕНИЯ";
+"GOAL" = "ЦЕЛЬ";
+"REMINDERS" = "НАПОМИНАНИЯ";

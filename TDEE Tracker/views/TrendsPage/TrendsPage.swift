@@ -24,18 +24,19 @@ struct TrendsPage: View {
                 .padding(.bottom, 8)
             
             WeeklyTrendsBlock(
-                weightUnitLabel: self.appState.weightUnit.rawValue,
-                energyUnitLabel: self.appState.energyUnit.rawValue,
+                weightUnitLabel: self.appState.weightUnit.localized,
+                energyUnitLabel: self.appState.energyUnit.localized,
                 selectedDay: self.appState.selectedDay,
                 summary: self.appState.selectedWeekSummary,
                 trendsChange: self.appState.trendsChange,
                 trendsElementPadding: self.appState.uiSizes.trendsElementPadding,
-                trendsItemLabelFontSize: self.appState.uiSizes.trendsItemLabelFontSize,
-                trendsItemValueFontSize: self.appState.uiSizes.trendsItemValueFontSize,
-                trendsItemUnitFontSize: self.appState.uiSizes.trendsItemUnitFontSize,
+                trendsItemLabelFont: self.appState.uiSizes.trendsItemLabelFont,
+                trendsItemValueFont: self.appState.uiSizes.trendsItemValueFont,
+                trendsItemUnitFont: self.appState.uiSizes.trendsItemUnitFont,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 accentColor: self.appState.uiTheme.trendsSeparatorColor,
-                textColor: self.appState.uiTheme.secondaryTextColor
+                textColor: self.appState.uiTheme.secondaryTextColor,
+                iconColor: self.appState.uiTheme.secondaryTextColorName
             )
         }
     }

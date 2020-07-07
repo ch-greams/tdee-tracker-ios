@@ -22,7 +22,7 @@ struct SetupRemindersBlock: View {
     func getInputBlock(title: String, value: Date, inputType: ReminderType) -> some View {
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a" // or H:mm for 24h
+        formatter.dateFormat = Label.timeFormat
         let stringDate = formatter.string(from: value)
         
         let onInputSelect = {
@@ -70,14 +70,14 @@ struct SetupRemindersBlock: View {
         return VStack(alignment: .center, spacing: 0) {
 
             SetupBlockTitle(
-                title: "Reminders",
+                title: Label.reminders,
                 textColor: self.appState.uiTheme.mainTextColor
             )
             
             if !self.isOpen || self.selectedInput == ReminderType.Weight {
                 
                 self.getInputBlock(
-                    title: "Weight",
+                    title: Label.weight,
                     value: self.appState.reminderWeightDate,
                     inputType: ReminderType.Weight
                 )
@@ -86,7 +86,7 @@ struct SetupRemindersBlock: View {
             if !self.isOpen || self.selectedInput == ReminderType.Food {
 
                 self.getInputBlock(
-                    title: "Food",
+                    title: Label.food,
                     value: self.appState.reminderFoodDate,
                     inputType: ReminderType.Food
                 )
@@ -110,7 +110,7 @@ struct SetupRemindersBlock: View {
                     .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                     .padding(8)
                 
-                Button("CONFIRM", action: doneAction)
+                Button(Label.confirm, action: doneAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         textColor: self.appState.uiTheme.secondaryTextColor

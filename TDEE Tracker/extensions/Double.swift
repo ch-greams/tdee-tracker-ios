@@ -10,9 +10,13 @@ import Foundation
 
 extension Double {
 
-    func rounded(to places:Int) -> Double {
+    public func rounded(to places: Int) -> Double {
 
         let divisor = pow(10, Double(places))
         return (self * divisor).rounded() / divisor
+    }
+    
+    public func toString(to places: Int = 2) -> String {
+        String(format: "%.\(places)f", locale: Locale.current, self)
     }
 }

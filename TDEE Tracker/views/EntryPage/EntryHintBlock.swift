@@ -43,37 +43,35 @@ struct EntryHintBlock: View {
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 36.0)
+            .padding(.horizontal, 32)
     }
     
     var defaultBlock: some View {
         HStack(alignment: .center, spacing: 0) {
 
-            Text("Recommended daily amount".uppercased())
+            Text(Label.recommendedAmount.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(width: 84)
+                .frame(width: 124)
                 .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedLabel)
             
-            Text("~\(self.value)")
-                .frame(width: 154, alignment: .trailing)
+            Text("\(self.value)")
+                .frame(width: 124, alignment: .trailing)
                 .foregroundColor(self.textColor)
                 .font(.appEntryRecommendedAmount)
                 .padding(.trailing, 10)
             
-            Text(self.unit.uppercased())
+            Text(self.unit)
                 .foregroundColor(self.textColor)
                 .font(.appEntryUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 36.0)
+            .padding(.horizontal, 32)
     }
     
     var body: some View {
         
-        let dataHint = "After enough entries were added you will see here recommended daily amount"
-        
-        return ZStack {
+        ZStack {
 
             if self.isEnoughData && self.value > 0 {
 
@@ -81,7 +79,7 @@ struct EntryHintBlock: View {
             }
             else {
 
-                self.getTextBlock(hint: dataHint)
+                self.getTextBlock(hint: Label.notEnoughDataHint)
             }
         }
     }
@@ -93,7 +91,7 @@ struct EntryHintBlock_Previews: PreviewProvider {
         VStack {
             EntryHintBlock(
                 value: 2843,
-                unit: "kcal",
+                unit: EnergyUnit.kcal.localized,
                 textColor: UIThemeManager.DEFAULT.mainTextColor,
                 isEnoughData: false
             )
@@ -101,7 +99,7 @@ struct EntryHintBlock_Previews: PreviewProvider {
             
             EntryHintBlock(
                 value: 2843,
-                unit: "kcal",
+                unit: EnergyUnit.kcal.localized,
                 textColor: UIThemeManager.DEFAULT.mainTextColor
             )
                 .background(UIThemeManager.DEFAULT.backgroundColor)

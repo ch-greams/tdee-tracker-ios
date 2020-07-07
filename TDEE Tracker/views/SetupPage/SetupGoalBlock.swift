@@ -19,18 +19,18 @@ struct SetupGoalBlock: View {
     
     var body: some View {
         
-        let weightUnitLabel = self.appState.weightUnit.rawValue
-        let energyUnitLabel = self.appState.energyUnit.rawValue
+        let weightUnitLabel = self.appState.weightUnit.localized
+        let energyUnitLabel = self.appState.energyUnit.localized
         
         return VStack(alignment: .center, spacing: 0) {
             
             SetupBlockTitle(
-                title: "Goal",
+                title: Label.goal,
                 textColor: self.appState.uiTheme.mainTextColor
             )
             
             InputBlock.Number(
-                title: "Goal Weight",
+                title: Label.goalWeight,
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
                 onCommit: {
@@ -49,7 +49,7 @@ struct SetupGoalBlock: View {
             )
 
             InputBlock.Number(
-                title: "Weekly Change",
+                title: Label.weeklyChange,
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,
                 onCommit: {

@@ -26,8 +26,9 @@ struct UISizes {
     let navbarSpacing: CGFloat
     
     // MARK: - Calendar
-    
-    let calendarFont: CGFloat
+
+    let calendarDayFont: Font
+    let calendarDaySelectedFont: Font
     let calendarDayButton: CGFloat
     let calendarDaySpacing: CGFloat
     
@@ -40,9 +41,9 @@ struct UISizes {
     // MARK: - Trends Page
     
     let trendsElementPadding: CGFloat
-    let trendsItemLabelFontSize: CGFloat
-    let trendsItemValueFontSize: CGFloat
-    let trendsItemUnitFontSize: CGFloat
+    let trendsItemLabelFont: Font
+    let trendsItemValueFont: Font
+    let trendsItemUnitFont: Font
     
     // MARK: - Progress Page
     
@@ -75,7 +76,8 @@ class UIConstants {
         navbarPadding: 12,
         navbarSpacing: 62,
 
-        calendarFont: 24,
+        calendarDayFont: Font.appCalendarDayBig,
+        calendarDaySelectedFont: Font.appCalendarDaySelectedBig,
         calendarDayButton: 46,
         calendarDaySpacing: 8,
         
@@ -84,9 +86,9 @@ class UIConstants {
         entryBlockerHeight: 252,
         
         trendsElementPadding: 12,
-        trendsItemLabelFontSize: 20,
-        trendsItemValueFontSize: 34,
-        trendsItemUnitFontSize: 16,
+        trendsItemLabelFont: Font.appTrendsItemLabelBig,
+        trendsItemValueFont: Font.appTrendsItemValueBig,
+        trendsItemUnitFont: Font.appTrendsItemUnitBig,
         
         progressPageSpacing: 34,
         progressChartHeight: 210,
@@ -108,7 +110,8 @@ class UIConstants {
         navbarPadding: 12,
         navbarSpacing: 54,
         
-        calendarFont: 22,
+        calendarDayFont: Font.appCalendarDayMedium,
+        calendarDaySelectedFont: Font.appCalendarDaySelectedMedium,
         calendarDayButton: 40,
         calendarDaySpacing: 8,
         
@@ -117,9 +120,9 @@ class UIConstants {
         entryBlockerHeight: 230,
         
         trendsElementPadding: 10,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
+        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
+        trendsItemValueFont: Font.appTrendsItemValueMedium,
+        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
         
         progressPageSpacing: 32,
         progressChartHeight: 180,
@@ -141,7 +144,8 @@ class UIConstants {
         navbarPadding: 8,
         navbarSpacing: 62,
 
-        calendarFont: 24,
+        calendarDayFont: Font.appCalendarDayBig,
+        calendarDaySelectedFont: Font.appCalendarDaySelectedBig,
         calendarDayButton: 44,
         calendarDaySpacing: 8,
         
@@ -150,9 +154,9 @@ class UIConstants {
         entryBlockerHeight: 184,
         
         trendsElementPadding: 4,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
+        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
+        trendsItemValueFont: Font.appTrendsItemValueMedium,
+        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
         
         progressPageSpacing: 16,
         progressChartHeight: 180,
@@ -174,7 +178,8 @@ class UIConstants {
         navbarPadding: 8,
         navbarSpacing: 54,
 
-        calendarFont: 18,
+        calendarDayFont: Font.appCalendarDaySmall,
+        calendarDaySelectedFont: Font.appCalendarDaySelectedSmall,
         calendarDayButton: 36,
         calendarDaySpacing: 12,
         
@@ -183,9 +188,9 @@ class UIConstants {
         entryBlockerHeight: 174,
         
         trendsElementPadding: 3,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
+        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
+        trendsItemValueFont: Font.appTrendsItemValueMedium,
+        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
         
         progressPageSpacing: 8,
         progressChartHeight: 160,
