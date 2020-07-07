@@ -77,7 +77,9 @@ struct Label {
     // MARK: - Progress Page
 
     public static let startingFrom = "Starting from".localize
-    public static let weeks = "weeks".localize
+    public static let week = "week".localize
+    public static let coupleWeeks = "couple_weeks".localize
+    public static let manyWeeks = "many_weeks".localize
 
     // MARK: - Settings Page
     

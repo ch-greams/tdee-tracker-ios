@@ -55,18 +55,18 @@
 "Almost Ready" = "Почти Готово";
 "Define your goals" = "Установите свою цель";
 
-"Please select measurement unit that would be used for bodyweight values" = "Выберите юнит измерения веса";
-"And this measurement unit will be used for food and energy values" = "А теперь выберите юнит измерения для еды и энергии";
+"Please select measurement unit that would be used for bodyweight values" = "Пожалуйста, выберите единицу измерения веса";
+"And this measurement unit will be used for food and energy values" = "А теперь выберите единицу измерения измерения для еды и энергии";
 
 "For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
-"Goal weight is what you strife for" = "Идеальный вес это то чего вы пытаетесь достичь";
-"Based on your current weight weekly change must not be bigger than" = "Базируясь на вашем текущем весе, еженедельное изменение не должно превышать";
+"Goal weight is what you strife for" = "Идеальный вес - вес, к которому вы стремитесь";
+"Based on your current weight weekly change must not be bigger than" = "Базируясь на текущих параметрах, еженедельное изменение не должно превышать";
 
 "Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
 
 // MARK: - Entry Page
 
-"After enough entries were added you will see here recommended daily amount" = "После достаточного кол-ва записей, вы сможете увитеть тут рекоммендованное дневное кол-во";
+"After enough entries were added you will see here recommended daily amount" = "После добавления нужной информации вы увидите здесь рекомендованное дневное кол-во";
 "Recommended daily amount" = "Рекоммендованное количество";
 
 // MARK: - Trends Page
@@ -78,7 +78,9 @@
 // MARK: - Progress Page
 
 "Starting from" = "Начиная с";
-"weeks" = "недель";
+"week" = "неделя";
+"couple_weeks" = "недели";
+"many_weeks" = "недель";
 
 // MARK: - Settings Page
 

@@ -23,6 +23,18 @@ struct ProgressCircle: View {
     
     let mainColor: Color
 
+    func getWeekLabel(amount: Int) -> String {
+    
+        switch amount {
+            case _ where amount == 1:
+                return Label.week
+            case _ where amount >= 2 && amount <= 4:
+                return Label.coupleWeeks
+            default:
+                return Label.manyWeeks
+        }
+    }
+
     var body: some View {
         
         let absCurrentWeightValue = self.currentWeightValue
@@ -30,6 +42,14 @@ struct ProgressCircle: View {
         let absEstimatedTimeLeft = self.estimatedTimeLeft
         
         let progress = absCurrentWeightValue / absGoalWeightValue
+        let progressPercentText = "\( ( progress * 100 ).toString(to: 1) )%"
+        
+        let currentWeightText = absCurrentWeightValue.toString(to: 1)
+        let goalWeightText = absGoalWeightValue.toString(to: 1)
+        let progressValueText = "\(currentWeightText) / \(goalWeightText) \(unit)"
+        
+        let weekLabel = self.getWeekLabel(amount: absEstimatedTimeLeft)
+        let estimatedTimeLeftText = "~ \(absEstimatedTimeLeft) \(weekLabel)"
         
         return ZStack {
             
@@ -47,23 +67,23 @@ struct ProgressCircle: View {
             
             VStack {
                 
-                if progress > 1 {
+                if progress >= 1 {
                     
-                    Text("DONE!")
+                    Text("\(Label.done)!")
                         .font(.appProgressCirclePercent)
                         .foregroundColor(self.mainColor)
                 }
                 else {
 
-                    Text("\( (progress * 100).toString(to: 1) )%")
+                    Text(progressPercentText)
                         .font(.appProgressCirclePercent)
                         .foregroundColor(self.mainColor)
 
-                    Text("\(absCurrentWeightValue.toString(to: 1)) / \(absGoalWeightValue.toString(to: 1)) \(unit)")
+                    Text(progressValueText)
                         .font(.appProgressCircleValues)
                         .foregroundColor(self.mainColor)
 
-                    Text("~ \(absEstimatedTimeLeft) \(Label.weeks)")
+                    Text(estimatedTimeLeftText)
                         .font(.appProgressCircleEstimate)
                         .foregroundColor(self.mainColor)
                 }
@@ -83,7 +103,7 @@ struct ProgressCircle_Previews: PreviewProvider {
             circleWidth: 40,
             currentWeightValue: 3.3,
             goalWeightValue: 5.1,
-            unit: "kg",
+            unit: WeightUnit.kg.localized,
             estimatedTimeLeft: 7,
             mainColor: UIThemeManager.DEFAULT.mainTextColor
         )
