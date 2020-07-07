@@ -11,8 +11,15 @@ import Foundation
 
 extension Date {
     
+    private static let calendar = Calendar.current
+    
     var startOfWeek: Date? {
-        let calendar = Calendar.current
-        return calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))
+        
+        return Self.calendar.date(
+            from: Self.calendar.dateComponents(
+                [.yearForWeekOfYear, .weekOfYear],
+                from: self
+            )
+        )
     }
 }

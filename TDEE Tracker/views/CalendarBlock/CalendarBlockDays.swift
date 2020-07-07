@@ -82,20 +82,17 @@ struct CalendarBlockDays: View {
         
         let monthScope = self.calendar.dateComponents([.year, .month], from: selectedDay)
         
-        guard let firstDayOfTheMonth = calendar.date(from: monthScope) else {
+        guard let fd = calendar.date(from: monthScope), let firstDay = fd.startOfWeek else {
             return weeks
         }
         
-        let dayOfWeek = calendar.component(.weekday, from: firstDayOfTheMonth)
-        
         for weekIndex in 0 ..< 6 {
             
-            if let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDayOfTheMonth) {
+            if let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDay) {
 
-                let days = ( calendar.firstWeekday ..< ( 7 + calendar.firstWeekday ) )
-                    .compactMap {
-                        calendar.date(byAdding: .day, value: $0 - dayOfWeek, to: dayInTheWeek)
-                    }
+                let days = ( 0 ..< 7 ).compactMap {
+                    calendar.date(byAdding: .day, value: $0, to: dayInTheWeek)
+                }
                 
                 weeks.append(days)
             }
