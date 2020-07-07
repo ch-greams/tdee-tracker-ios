@@ -109,7 +109,7 @@ struct WelcomePage: View {
                     .font(.appWelcomeHint)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, 24)
                     .padding(.bottom)
                     
             }

@@ -19,7 +19,7 @@
 "Energy" = "Энергия";
 "Today's Weight" = "Вес Сегодня";
 "Goal Weight" = "Идеальный Вес";
-"Weekly Change" = "Еженедельно"; //"Изменение в Неделю";
+"Weekly Change" = "Еженедельно";
 
 "Value outside of valid range" = "Значение вне допустимого диапозона";
 
@@ -27,7 +27,7 @@
 
 "DONE" = "ГОТОВО";
 "NEXT" = "ДАЛЕЕ";
-"CONFIRM" = "ГОТОВО";
+"CONFIRM" = "ПОДТВЕРДИТЬ";
 
 // MARK: Target Surplus/Deficit
 
@@ -56,7 +56,7 @@
 "Define your goals" = "Установите свою цель";
 
 "Please select measurement unit that would be used for bodyweight values" = "Пожалуйста, выберите единицу измерения веса";
-"And this measurement unit will be used for food and energy values" = "А теперь выберите единицу измерения измерения для еды и энергии";
+"And this measurement unit will be used for food and energy values" = "Выберите единицу измерения измерения для пищевой и энергетической ценности";
 
 "For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
 "Goal weight is what you strife for" = "Идеальный вес - вес, к которому вы стремитесь";
