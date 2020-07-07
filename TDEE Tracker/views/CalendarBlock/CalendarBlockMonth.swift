@@ -17,6 +17,7 @@ struct CalendarBlockMonth: View {
     let calendar = Calendar.current
 
     let selectedDay: Date
+    let isCollapsed: Bool
     
     var monthTitle: Text {
         
@@ -53,6 +54,8 @@ struct CalendarBlockMonth: View {
             .buttonStyle(ChangeMonthButtonStyle(
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor
             ))
+            .opacity(self.isCollapsed ? 0.5 : 1)
+            .disabled(self.isCollapsed)
         
     }
     
@@ -78,7 +81,7 @@ struct CalendarBlockMonth_Previews: PreviewProvider {
     static let appState = AppState()
     
     static var previews: some View {
-        CalendarBlockMonth(selectedDay: Date())
+        CalendarBlockMonth(selectedDay: Date(), isCollapsed: false)
             .padding(.vertical, 8)
             .background(UIThemeManager.DEFAULT.backgroundColor)
             .environmentObject(Self.appState)

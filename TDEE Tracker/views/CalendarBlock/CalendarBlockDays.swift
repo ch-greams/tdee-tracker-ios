@@ -15,6 +15,7 @@ struct CalendarBlockDays: View {
     @EnvironmentObject var appState: AppState
     
     let selectedDay: Date
+    let isCollapsed: Bool
     let isTrendsPage: Bool
     
     func getDay(day: Date, isSelectedWeek: Bool) -> some View {
@@ -42,13 +43,11 @@ struct CalendarBlockDays: View {
         )
     }
     
-    func getWeekdays(weeks: Array<Array<Date>>, iWeek: Int) -> some View {
+    func getWeekdays(from week: [ Date ]) -> some View {
         
         let checkIfDayIsSelected = {
             self.calendar.isDate($0, equalTo: self.selectedDay, toGranularity: .day)
         }
-        
-        let week = weeks[iWeek]
         
         let isSelectedWeek = week.contains(where: checkIfDayIsSelected)
         
@@ -104,12 +103,16 @@ struct CalendarBlockDays: View {
     
     var body: some View {
         
-        let weeks = self.weeks
-        
+        let weeks = (
+            self.isCollapsed
+                ? self.weeks.filter { $0.contains(self.selectedDay) }
+                : self.weeks
+        )
+
         return VStack(alignment: .center, spacing: 0) {
-            ForEach(0 ..< weeks.count) { iWeek in
-                
-                self.getWeekdays(weeks: weeks, iWeek: iWeek)
+            ForEach(weeks, id: \.self) { week in
+
+                self.getWeekdays(from: week)
             }
         }
     }
@@ -121,7 +124,19 @@ struct CalendarBlockDays_EntryPage_Previews: PreviewProvider {
     
     static var previews: some View {
             
-        CalendarBlockDays(selectedDay: Date(), isTrendsPage: false)
+        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: false)
+            .background(self.appState.uiTheme.inputBackgroundColor)
+            .environmentObject(appState)
+    }
+}
+
+struct CalendarBlockDays_EntryPage_Collapsed_Previews: PreviewProvider {
+    
+    static let appState = AppState()
+    
+    static var previews: some View {
+            
+        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: true, isTrendsPage: false)
             .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }
@@ -133,7 +148,7 @@ struct CalendarBlockDays_TrendsPage_Previews: PreviewProvider {
 
     static var previews: some View {
             
-        CalendarBlockDays(selectedDay: Date(), isTrendsPage: true)
+        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: true)
             .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }

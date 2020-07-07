@@ -19,6 +19,7 @@ struct TrendsPage: View {
 
             CalendarBlock(
                 selectedDay: self.appState.selectedDay,
+                isCollapsed: false,
                 isTrendsPage: true
             )
                 .padding(.bottom, 8)
