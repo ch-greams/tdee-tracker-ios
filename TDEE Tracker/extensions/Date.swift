@@ -15,11 +15,15 @@ extension Date {
     
     var startOfWeek: Date? {
         
-        return Self.calendar.date(
+        Self.calendar.date(
             from: Self.calendar.dateComponents(
-                [.yearForWeekOfYear, .weekOfYear],
+                [ .yearForWeekOfYear, .weekOfYear ],
                 from: self
             )
         )
+    }
+    
+    var timeString: String {
+        DateFormatter.localizedString(from: self, dateStyle: .none, timeStyle: .short)
     }
 }

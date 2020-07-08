@@ -53,6 +53,7 @@ extension Font {
     // MARK: - Setup Page
 
     public static let appSetupToggleValue = Self.custom(Self.OSWALD_BOLD, size: 18)
+    public static let appSetupThemeButton = Self.custom(Self.OSWALD_BOLD, size: 24)
     
     // MARK: - Progress Page
     

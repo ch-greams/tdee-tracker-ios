@@ -18,6 +18,7 @@ enum AppStateKey: String, CaseIterable {
     case GoalWeight, GoalWeeklyWeightDelta
     case IsFirstSetupDone
     case ReminderWeightDate, ReminderFoodDate
+    case CurrentTheme
 }
 
 protocol Localizable {
@@ -50,34 +51,38 @@ class AppState: ObservableObject {
 
     private let store: UserDefaults
     
-    @Published var isFirstSetupDone: Bool = false
+    @Published public var isFirstSetupDone: Bool = false
     
-    @Published var messageText: String = ""
+    @Published public var messageText: String = ""
     
     // NOTE: Possible issues when user changes timezones
-    @Published var selectedDay: Date
+    @Published public var selectedDay: Date
 
-    @Published var weight: Double = 0.0
-    @Published var food: Int = 0
-    @Published var weightInput: String = ""
-    @Published var foodInput: String = ""
+    @Published public var weight: Double = 0.0
+    @Published public var food: Int = 0
+    @Published public var weightInput: String = ""
+    @Published public var foodInput: String = ""
     
     @Published private var entries: [ Date : DayEntry ] = [:]
     @Published private var summaries: [ Date: WeekSummary ] = [:]
     
-    @Published var weightUnit: WeightUnit = WeightUnit.kg
-    @Published var energyUnit: EnergyUnit = EnergyUnit.kcal
+    @Published public var weightUnit: WeightUnit = WeightUnit.kg
+    @Published public var energyUnit: EnergyUnit = EnergyUnit.kcal
     
-    @Published var goalWeight: Double = 0.0
-    @Published var goalWeeklyWeightDelta: Double = 0.0
-    @Published var goalWeightInput: String = ""
-    @Published var goalWeeklyWeightDeltaInput: String = ""
+    @Published public var goalWeight: Double = 0.0
+    @Published public var goalWeeklyWeightDelta: Double = 0.0
+    @Published public var goalWeightInput: String = ""
+    @Published public var goalWeeklyWeightDeltaInput: String = ""
 
-    @Published var reminderWeightDate: Date
-    @Published var reminderFoodDate: Date
+    @Published public var reminderWeightDate: Date
+    @Published public var reminderFoodDate: Date
+    
+    @Published public var currentTheme: UIThemeType = UIThemeType.Default
+
+    public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
 
     public let uiSizes: UISizes = UIConstants.getUISizes(device: UIDevice.current.name)
-    public let uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
+    
 
     public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {
         
@@ -127,7 +132,6 @@ class AppState: ObservableObject {
             )
         }
     }
-    
     
     public var goalTargetFoodDelta: Int {
         
@@ -298,6 +302,14 @@ class AppState: ObservableObject {
             
             if let reminderFoodDate: Date = self.load(key: AppStateKey.ReminderFoodDate) {
                 self.reminderFoodDate = reminderFoodDate
+            }
+            
+            // Load theme
+            
+            if let str: String = self.load(key: AppStateKey.CurrentTheme), let theme = UIThemeType(rawValue: str) {
+                    
+                self.currentTheme = theme
+                self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
             }
         }
     }
@@ -745,5 +757,13 @@ class AppState: ObservableObject {
         Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { _ in
             self.messageText = ""
         })
+    }
+    
+    public func saveTheme(_ theme: UIThemeType) {
+        
+        self.currentTheme = theme
+        self.save(key: AppStateKey.CurrentTheme, value: self.currentTheme.rawValue)
+        
+        self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
     }
 }

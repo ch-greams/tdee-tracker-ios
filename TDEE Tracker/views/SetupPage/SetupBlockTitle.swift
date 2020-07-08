@@ -13,7 +13,7 @@ struct SetupBlockTitle: View {
     let title: String
     let textColor: Color
     
-    var paddingTop: CGFloat = 16
+    var paddingTop: CGFloat = 22
     
     var body: some View {
 
@@ -22,7 +22,7 @@ struct SetupBlockTitle: View {
             .foregroundColor(textColor)
             .frame(height: 20)
             .padding(.top, self.paddingTop)
-            .padding(.bottom, 18)
+            .padding(.bottom, 24)
     }
 }
 
@@ -34,7 +34,7 @@ struct SetupBlockTitle_Previews: PreviewProvider {
             UIThemeManager.DEFAULT.backgroundColor.edgesIgnoringSafeArea(.all)
             
             SetupBlockTitle(
-                title: "Reminders",
+                title: Label.reminders,
                 textColor: UIThemeManager.DEFAULT.mainTextColor
             )
         }

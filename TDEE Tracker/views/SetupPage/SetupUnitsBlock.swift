@@ -25,7 +25,7 @@ struct SetupUnitsBlock: View {
                 paddingTop: 6
             )
             
-            InputBlock.Toggle(
+            InputToggle(
                 title: Label.weight,
                 setValue: self.appState.updateWeightUnit as (WeightUnit) -> Void,
                 first: WeightUnit.kg,
@@ -36,7 +36,7 @@ struct SetupUnitsBlock: View {
                 accentColor: self.appState.uiTheme.inputAccentColor
             )
             
-            InputBlock.Toggle(
+            InputToggle(
                 title: Label.energy,
                 setValue: self.appState.updateEnergyUnit as (EnergyUnit) -> Void,
                 first: EnergyUnit.kcal,

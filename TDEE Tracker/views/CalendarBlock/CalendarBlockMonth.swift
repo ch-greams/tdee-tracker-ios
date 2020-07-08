@@ -51,7 +51,7 @@ struct CalendarBlockMonth: View {
             CustomImage(name: icon, colorName: self.appState.uiTheme.calendarAccentColorName)
                 .frame(width: 44, height: 28)
         }
-            .buttonStyle(ChangeMonthButtonStyle(
+            .buttonStyle(CalendarChangeMonthButtonStyle(
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor
             ))
             .opacity(self.isCollapsed ? 0.5 : 1)

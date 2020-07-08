@@ -110,9 +110,8 @@ struct CalendarBlockDays: View {
         )
 
         return VStack(alignment: .center, spacing: 0) {
-            ForEach(weeks, id: \.self) { week in
-
-                self.getWeekdays(from: week)
+            ForEach(weeks, id: \.self) {
+                self.getWeekdays(from: $0)
             }
         }
     }

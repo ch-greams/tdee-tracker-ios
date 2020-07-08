@@ -63,7 +63,7 @@ struct WelcomePage: View {
         
         VStack(alignment: .center, spacing: 0) {
             
-            InputBlock.Toggle(
+            InputToggle(
                 title: Label.weight,
                 setValue: {
                     self.weightUnit = $0
@@ -90,7 +90,7 @@ struct WelcomePage: View {
             }
             else {
 
-                InputBlock.Toggle(
+                InputToggle(
                     title: Label.energy,
                     setValue: {
                         self.energyUnit = $0
@@ -149,7 +149,7 @@ struct WelcomePage: View {
     
     var currentWeightInputBlock: some View {
         
-        InputBlock.Number(
+        InputNumber(
             title: Label.todaysWeight,
             unit: self.appState.weightUnit.localized,
             input: self.$appState.weightInput,
@@ -182,7 +182,7 @@ struct WelcomePage: View {
     
     var goalWeightInputBlock: some View {
         
-        InputBlock.Number(
+        InputNumber(
             title: Label.goalWeight,
             unit: self.appState.weightUnit.localized,
             input: self.$appState.goalWeightInput,
@@ -214,7 +214,7 @@ struct WelcomePage: View {
     
     var deltaWeightInputBlock: some View {
         
-        InputBlock.Number(
+        InputNumber(
             title: Label.weeklyChange,
             unit: self.appState.weightUnit.localized,
             input: self.$appState.goalWeeklyWeightDeltaInput,

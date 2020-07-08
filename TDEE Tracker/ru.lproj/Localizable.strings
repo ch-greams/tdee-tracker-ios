@@ -44,7 +44,6 @@
 
 // MARK: - Date/Time Format
 
-"h:mm a" = "H:mm";
 "MMMM d" = "d MMMM";
 
 // MARK: - Welcome Page
@@ -87,3 +86,12 @@
 "UNITS" = "ЕДИНИЦЫ ИЗМЕРЕНИЯ";
 "GOAL" = "ЦЕЛЬ";
 "REMINDERS" = "НАПОМИНАНИЯ";
+"THEME" = "ТЕМА";
+
+// MARK: - Themes
+
+"APPLY" = "ПРИМЕНИТЬ";
+"ACTIVE" = "АКТИВНАЯ";
+
+"Default" = "Стандарт";
+"Blue" = "Синяя";

@@ -19,25 +19,36 @@ struct SetupPage: View {
 
     
     var body: some View {
+        
+        
+        
+        ScrollView(.vertical, showsIndicators: true) {
             
-        VStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .center, spacing: 0) {
 
-            if !self.isReminderOpen {
+                if !self.isReminderOpen {
+                    
+                    SetupUnitsBlock()
+
+                    SetupGoalBlock()
+
+                    Rectangle()
+                        .frame(height: 1)
+                        .padding(.horizontal, 32)
+                        .foregroundColor(self.appState.uiTheme.mainTextColor)
+                        .opacity(0.8)
+                }
+
+                SetupRemindersBlock(isOpen: self.$isReminderOpen)
+                    .padding(.top, self.isReminderOpen ? 60 : 0)
                 
-                SetupUnitsBlock()
-
-                SetupGoalBlock()
-
-                Rectangle()
-                    .frame(height: 1)
-                    .padding(.horizontal, 32)
-                    .foregroundColor(self.appState.uiTheme.mainTextColor)
-                    .opacity(0.8)
+                if !self.isReminderOpen {
+                 
+                    SetupThemeBlock()
+                }
             }
-
-            SetupRemindersBlock(isOpen: self.$isReminderOpen)
-                .padding(.top, self.isReminderOpen ? 60 : 0)
         }
+            .frame(height: self.appState.uiSizes.setupScrollHeight)
     }
 }
 

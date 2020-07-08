@@ -71,7 +71,7 @@ struct EntryPage: View {
 
                 VStack(alignment: .center, spacing: 0) {
 
-                    InputBlock.EntryNumber(
+                    InputEntryNumber(
                         icon: "body-sharp",
                         unit: self.appState.weightUnit.localized,
                         value: self.$appState.weightInput,
@@ -85,7 +85,7 @@ struct EntryPage: View {
                         accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
 
-                    InputBlock.EntryNumber(
+                    InputEntryNumber(
                         icon: "fast-food-sharp",
                         unit: self.appState.energyUnit.localized,
                         value: self.$appState.foodInput,

@@ -46,7 +46,7 @@ struct DayButton: View {
             : ( self.isSelectedMonth ? self.defaultTextColor : self.alternativeTextColor )
         
         let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
-            .buttonStyle(DayButtonStyle(
+            .buttonStyle(CalendarDayButtonStyle(
                 buttonSize: self.buttonSize,
                 defaultFont: self.defaultFont,
                 selectedFont: self.selectedFont,

@@ -10,9 +10,18 @@ import SwiftUI
 
 
 
-enum UIThemeType: String {
+enum UIThemeType: String, Localizable, CaseIterable {
     case Default = ""
-    case Alternative = "alt_"
+    case Blue = "alt_"
+    
+    var localized: String {
+        switch self {
+            case UIThemeType.Default:
+                return Label.themeDefault
+            case UIThemeType.Blue:
+                return Label.themeBlue
+        }
+    }
 }
 
 
@@ -56,6 +65,10 @@ struct UIThemeManager {
     
     public static let DEFAULT = UIThemeManager.getTheme()
     
+    public static let ALL_THEMES = UIThemeType.allCases.map {
+        ( key: $0, value: Self.getUITheme(theme: $0) )
+    }
+
     // MARK: - Constants
     
     private static let BACKGROUND = "background"

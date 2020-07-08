@@ -42,7 +42,6 @@ struct Label {
     
     // MARK: - Date/Time Format
     
-    public static let timeFormat = "h:mm a".localize
     public static let progressDateFormat = "MMMM d".localize
     
     // MARK: - Welcome Page
@@ -86,4 +85,13 @@ struct Label {
     public static let units = "UNITS".localize
     public static let goal = "GOAL".localize
     public static let reminders = "REMINDERS".localize
+    public static let theme = "THEME".localize
+    
+    // MARK: - Themes
+    
+    public static let apply = "APPLY".localize
+    public static let active = "ACTIVE".localize
+    
+    public static let themeDefault = "Default".localize
+    public static let themeBlue = "Blue".localize
 }

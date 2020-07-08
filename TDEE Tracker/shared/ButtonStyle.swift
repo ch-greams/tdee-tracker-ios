@@ -9,23 +9,26 @@
 import SwiftUI
 
 
-struct ToggleButtonStyle: ButtonStyle {
-    
-    let isSelected: Bool
+// MARK: - General
+
+struct AppDefaultButtonStyle: ButtonStyle {
+ 
     let backgroundColor: Color
-    let accentColor: Color
+    let textColor: Color
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 90, height: 40)
-            .font(.appSetupToggleValue)
-            .foregroundColor(!self.isSelected ? self.accentColor : self.backgroundColor)
-            .background(self.isSelected ? self.accentColor : self.backgroundColor)
+            .frame(width: 176, height: 44)
+            .font(.appDefaultButtonLabel)
+            .foregroundColor(self.textColor)
+            .background(self.backgroundColor)
     }
 }
 
 
-struct DayButtonStyle: ButtonStyle {
+// MARK: - Calendar
+
+struct CalendarDayButtonStyle: ButtonStyle {
     
     let buttonSize: CGFloat
     
@@ -47,8 +50,7 @@ struct DayButtonStyle: ButtonStyle {
     }
 }
 
-
-struct ChangeMonthButtonStyle: ButtonStyle {
+struct CalendarChangeMonthButtonStyle: ButtonStyle {
     
     let backgroundColor: Color
  
@@ -63,32 +65,36 @@ struct ChangeMonthButtonStyle: ButtonStyle {
 }
 
 
-struct AppDefaultButtonStyle: ButtonStyle {
- 
-    let backgroundColor: Color
-    let textColor: Color
+// MARK: - Input
+
+struct InputToggleButtonStyle: ButtonStyle {
     
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 176, height: 44)
-            .font(.appDefaultButtonLabel)
-            .foregroundColor(self.textColor)
-            .background(self.backgroundColor)
-    }
-}
-
-
-struct ReminderTimeButtonStyle: ButtonStyle {
- 
+    let isSelected: Bool
     let backgroundColor: Color
     let accentColor: Color
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .frame(width: 90, height: 40)
+            .font(.appSetupToggleValue)
+            .foregroundColor(!self.isSelected ? self.accentColor : self.backgroundColor)
+            .background(self.isSelected ? self.accentColor : self.backgroundColor)
+    }
+}
+
+struct InputSelectButtonStyle: ButtonStyle {
+ 
+    let backgroundColor: Color
+    let accentColor: Color
+    var font = Font.appInputValue
+    var isSelected: Bool = false
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
             .frame(width: 180, height: 44)
             .border(self.accentColor)
-            .background(self.backgroundColor)
-            .font(.appInputValue)
-            .foregroundColor(self.accentColor)
+            .background(isSelected ? self.accentColor : self.backgroundColor)
+            .font(self.font)
+            .foregroundColor(!isSelected ? self.accentColor : self.backgroundColor)
     }
 }

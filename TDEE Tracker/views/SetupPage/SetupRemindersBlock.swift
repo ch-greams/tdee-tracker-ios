@@ -19,46 +19,6 @@ struct SetupRemindersBlock: View {
     @Binding var isOpen: Bool
     
 
-    func getInputBlock(title: String, value: Date, inputType: ReminderType) -> some View {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = Label.timeFormat
-        let stringDate = formatter.string(from: value)
-        
-        let onInputSelect = {
-            self.selectedInput = inputType
-            self.isOpen = true
-        }
-        
-        let inputBlock = HStack(alignment: .center, spacing: 0) {
-
-            Text(title.uppercased())
-                .font(.appInputLabel)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading)
-                .foregroundColor(self.appState.uiTheme.inputAccentColor)
-            
-            Spacer()
-            
-            Button(stringDate, action: onInputSelect)
-                .buttonStyle(ReminderTimeButtonStyle(
-                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-                    accentColor: self.appState.uiTheme.inputAccentColor
-                ))
-                .padding(.horizontal)
-
-        }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: self.appState.uiSizes.setupInputHeight)
-            .background(self.appState.uiTheme.inputBackgroundColor)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
-            .clipped()
-            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
-        
-        return inputBlock
-        
-    }
     
     var body: some View {
         
@@ -76,19 +36,31 @@ struct SetupRemindersBlock: View {
             
             if !self.isOpen || self.selectedInput == ReminderType.Weight {
                 
-                self.getInputBlock(
-                    title: Label.weight,
-                    value: self.appState.reminderWeightDate,
-                    inputType: ReminderType.Weight
+                InputSelectButton(
+                    title: Label.weight.uppercased(),
+                    buttonLabel: self.appState.reminderWeightDate.timeString,
+                    onClick: {
+                        self.selectedInput = ReminderType.Weight
+                        self.isOpen = true
+                    },
+                    height: self.appState.uiSizes.setupInputHeight,
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
                 )
             }
 
             if !self.isOpen || self.selectedInput == ReminderType.Food {
-
-                self.getInputBlock(
-                    title: Label.food,
-                    value: self.appState.reminderFoodDate,
-                    inputType: ReminderType.Food
+                
+                InputSelectButton(
+                    title: Label.food.uppercased(),
+                    buttonLabel: self.appState.reminderFoodDate.timeString,
+                    onClick: {
+                        self.selectedInput = ReminderType.Food
+                        self.isOpen = true
+                    },
+                    height: self.appState.uiSizes.setupInputHeight,
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.inputAccentColor
                 )
             }
 

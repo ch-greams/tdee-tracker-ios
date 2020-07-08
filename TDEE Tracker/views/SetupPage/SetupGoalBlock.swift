@@ -29,7 +29,7 @@ struct SetupGoalBlock: View {
                 textColor: self.appState.uiTheme.mainTextColor
             )
             
-            InputBlock.Number(
+            InputNumber(
                 title: Label.goalWeight,
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeightInput,
@@ -48,7 +48,7 @@ struct SetupGoalBlock: View {
                 accentColor: self.appState.uiTheme.inputAccentColor
             )
 
-            InputBlock.Number(
+            InputNumber(
                 title: Label.weeklyChange,
                 unit: weightUnitLabel,
                 input: self.$appState.goalWeeklyWeightDeltaInput,

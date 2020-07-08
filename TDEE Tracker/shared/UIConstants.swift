@@ -57,7 +57,7 @@ struct UISizes {
     
     let setupInputHeight: CGFloat
     let setupTargetDeltaPadding: CGFloat
-    
+    let setupScrollHeight: CGFloat
 }
 
 
@@ -98,7 +98,8 @@ class UIConstants {
         progressCircleWidth: 56,
         
         setupInputHeight: 74,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        setupScrollHeight: 772
     )
     
     public static let IPHONE_11_PRO: UISizes = UISizes(
@@ -133,7 +134,8 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 74,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        setupScrollHeight: 690
     )
     
     public static let IPHONE_8_PLUS: UISizes = UISizes(
@@ -168,7 +170,8 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 68,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        setupScrollHeight: 655
     )
 
     public static let IPHONE_8: UISizes = UISizes(
@@ -203,7 +206,8 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 58,
-        setupTargetDeltaPadding: 8
+        setupTargetDeltaPadding: 8,
+        setupScrollHeight: 586
     )
 
     
