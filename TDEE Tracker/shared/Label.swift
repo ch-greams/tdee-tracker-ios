@@ -94,4 +94,6 @@ struct Label {
     
     public static let themeDefault = "Default".localize
     public static let themeBlue = "Blue".localize
+    public static let themePurple = "Purple".localize
+    public static let themeCyan = "Cyan".localize
 }

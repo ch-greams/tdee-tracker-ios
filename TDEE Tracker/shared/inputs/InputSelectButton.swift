@@ -53,8 +53,6 @@ struct InputSelectButton: View {
             if isThemeButton {
                 
                 self.pallete
-                
-                Spacer()
             }
             
             Button(buttonLabel, action: self.onClick)
