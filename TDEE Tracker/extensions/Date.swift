@@ -12,6 +12,7 @@ import Foundation
 extension Date {
     
     private static let calendar = Calendar.current
+    private static let formatter = DateFormatter()
     
     var startOfWeek: Date? {
         
@@ -25,5 +26,10 @@ extension Date {
     
     var timeString: String {
         DateFormatter.localizedString(from: self, dateStyle: .none, timeStyle: .short)
+    }
+    
+    var dayString: String {
+        Self.formatter.dateFormat = "d"
+        return Self.formatter.string(from: self)
     }
 }

@@ -20,6 +20,9 @@ struct CalendarBlockDays: View {
     
     func getDay(day: Date, isSelectedWeek: Bool) -> some View {
         
+        let isToday = calendar
+            .isDate(day, equalTo: Utils.todayDate, toGranularity: .day)
+        
         let isSelectedDay = calendar
             .isDate(day, equalTo: self.selectedDay, toGranularity: .day)
         
@@ -29,6 +32,7 @@ struct CalendarBlockDays: View {
         return DayButton(
             day: day,
             selectDayFunc: self.appState.changeDay,
+            isToday: isToday,
             isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
             isSelectedMonth: isSelectedMonth,
             hasData: self.appState.isDayHasData(date: day),

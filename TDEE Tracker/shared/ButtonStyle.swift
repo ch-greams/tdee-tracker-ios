@@ -31,21 +31,18 @@ struct AppDefaultButtonStyle: ButtonStyle {
 struct CalendarDayButtonStyle: ButtonStyle {
     
     let buttonSize: CGFloat
-    
-    let defaultFont: Font
-    let selectedFont: Font
+    let font: Font
     
     let textColor: Color
-    let backgroundColor: Color
-    
-    let isSelected: Bool
+    let backgroundColor: Color?
+
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .font(self.isSelected ? self.selectedFont : self.defaultFont)
+            .font(self.font)
             .frame(width: self.buttonSize, height: self.buttonSize, alignment: .center)
             .foregroundColor(self.textColor)
-            .background(self.isSelected ? self.backgroundColor : nil)
+            .background(self.backgroundColor)
             .cornerRadius(buttonSize / 2)
     }
 }

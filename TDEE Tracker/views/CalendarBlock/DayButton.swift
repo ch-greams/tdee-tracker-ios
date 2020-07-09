@@ -16,6 +16,7 @@ struct DayButton: View {
     
     let selectDayFunc: (Date) -> ()
     
+    let isToday: Bool
     let isSelectedDay: Bool
     let isSelectedMonth: Bool
     
@@ -34,28 +35,20 @@ struct DayButton: View {
     let accentAlternativeColor: Color
     
 
-    var button: some View {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d"
-        
-        let stringDate = dateFormatter.string(from: self.day)
-        
-        let color = self.isSelectedDay
-            ? self.selectedTextColor
-            : ( self.isSelectedMonth ? self.defaultTextColor : self.alternativeTextColor )
-        
-        let button = Button(stringDate, action: { self.selectDayFunc(self.day) })
-            .buttonStyle(CalendarDayButtonStyle(
-                buttonSize: self.buttonSize,
-                defaultFont: self.defaultFont,
-                selectedFont: self.selectedFont,
-                textColor: color,
-                backgroundColor: self.accentColor,
-                isSelected: isSelectedDay
-            ))
-        
-        return button
+    var color: Color {
+
+        if self.isSelectedDay {
+            
+            return self.selectedTextColor
+        }
+        else if self.isSelectedMonth {
+            
+            return self.defaultTextColor
+        }
+        else {
+            
+            return self.alternativeTextColor
+        }
     }
     
     var body: some View {
@@ -75,7 +68,13 @@ struct DayButton: View {
                     .foregroundColor(self.accentAlternativeColor)
             }
             
-            self.button
+            Button(self.day.dayString, action: { self.selectDayFunc(self.day) })
+                .buttonStyle(CalendarDayButtonStyle(
+                    buttonSize: self.buttonSize,
+                    font: ( self.isSelectedDay || self.isToday ) ? self.selectedFont : self.defaultFont,
+                    textColor: self.color,
+                    backgroundColor: self.isSelectedDay ? self.accentColor : nil
+                ))
         }
             .frame(width: self.buttonSize, height: self.buttonSize, alignment: .top)
         
@@ -106,6 +105,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Full,
@@ -123,6 +123,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Full,
@@ -140,6 +141,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Full,
@@ -160,6 +162,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Partial,
@@ -177,6 +180,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Partial,
@@ -194,6 +198,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Partial,
@@ -214,6 +219,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
@@ -231,6 +237,7 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
@@ -248,6 +255,64 @@ struct DayButton_Previews: PreviewProvider {
                 DayButton(
                     day: Self.day,
                     selectDayFunc: { print($0) },
+                    isToday: false,
+                    isSelectedDay: false,
+                    isSelectedMonth: false,
+                    hasData: DayEntryData.Empty,
+                    defaultFont: defaultFont,
+                    selectedFont: selectedFont,
+                    buttonSize: 40,
+                    selectedTextColor: Self.selectedColor,
+                    defaultTextColor: Self.defaultColor,
+                    alternativeTextColor: Self.alternativeColor,
+                    accentColor: Self.accentColor,
+                    accentAlternativeColor: Self.accentAlternativeColor
+                )
+            }
+            
+            HStack {
+                
+                // Selected Day
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isToday: true,
+                    isSelectedDay: true,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Empty,
+                    defaultFont: defaultFont,
+                    selectedFont: selectedFont,
+                    buttonSize: 40,
+                    selectedTextColor: Self.selectedColor,
+                    defaultTextColor: Self.defaultColor,
+                    alternativeTextColor: Self.alternativeColor,
+                    accentColor: Self.accentColor,
+                    accentAlternativeColor: Self.accentAlternativeColor
+                )
+                
+                // Not selected Day, current month
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isToday: true,
+                    isSelectedDay: false,
+                    isSelectedMonth: true,
+                    hasData: DayEntryData.Empty,
+                    defaultFont: defaultFont,
+                    selectedFont: selectedFont,
+                    buttonSize: 40,
+                    selectedTextColor: Self.selectedColor,
+                    defaultTextColor: Self.defaultColor,
+                    alternativeTextColor: Self.alternativeColor,
+                    accentColor: Self.accentColor,
+                    accentAlternativeColor: Self.accentAlternativeColor
+                )
+                
+                // Not selected Day, other month
+                DayButton(
+                    day: Self.day,
+                    selectDayFunc: { print($0) },
+                    isToday: true,
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Empty,
