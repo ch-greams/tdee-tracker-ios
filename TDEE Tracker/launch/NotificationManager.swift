@@ -33,14 +33,14 @@ class NotificationManager {
             case ReminderType.Weight:
                 return Notification(
                     id: notificationType.rawValue,
-                    title: "Update Entry",
-                    body: "It's time to add your weight"
+                    title: Label.addEntry,
+                    body: Label.addWeightNotification
                 )
             case ReminderType.Food:
                 return Notification(
                     id: notificationType.rawValue,
-                    title: "Update Entry",
-                    body: "It's time to add your food"
+                    title: Label.addEntry,
+                    body: Label.addFoodNotification
                 )
         }
     }

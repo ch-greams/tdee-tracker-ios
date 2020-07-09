@@ -96,4 +96,11 @@ struct Label {
     public static let themeBlue = "Blue".localize
     public static let themePurple = "Purple".localize
     public static let themeCyan = "Cyan".localize
+    
+    // MARK: - Notifications
+    
+    public static let addEntry = "Add Entry".localize
+
+    public static let addWeightNotification = "It's time to add today's weight".localize
+    public static let addFoodNotification = "It's time to add today's food".localize
 }

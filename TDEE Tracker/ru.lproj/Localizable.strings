@@ -97,3 +97,9 @@
 "Blue" = "Синяя";
 "Purple" = "Фиолетовый";
 "Cyan" = "Циан";
+
+// MARK: - Notifications
+
+"Add Entry" = "Добавьте Запись";
+"It's time to add your weight" = "Время добавить сегодняшний вес";
+"It's time to add your food" = "Время добавить сегодняшнюю еду";
