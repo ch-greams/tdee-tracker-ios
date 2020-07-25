@@ -28,6 +28,7 @@
 "DONE" = "ГОТОВО";
 "NEXT" = "ДАЛЕЕ";
 "CONFIRM" = "ПОДТВЕРДИТЬ";
+"UNLOCK" = "РАЗБЛОКИРОВАТЬ";
 
 // MARK: Target Surplus/Deficit
 

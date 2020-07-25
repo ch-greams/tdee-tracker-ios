@@ -26,6 +26,7 @@ struct Label {
     public static let done = "DONE".localize
     public static let next = "NEXT".localize
     public static let confirm = "CONFIRM".localize
+    public static let unlock = "UNLOCK".localize
     
     // MARK: Target Surplus/Deficit
     
@@ -95,7 +96,9 @@ struct Label {
     public static let themeDefault = "Default".localize
     public static let themeBlue = "Blue".localize
     public static let themePurple = "Purple".localize
+    public static let themePink = "Pink".localize
     public static let themeCyan = "Cyan".localize
+    public static let themeBronze = "Bronze".localize
     
     // MARK: - Notifications
     

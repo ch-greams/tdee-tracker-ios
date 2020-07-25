@@ -12,20 +12,26 @@ import SwiftUI
 
 enum UIThemeType: String, Localizable, CaseIterable {
     case Default = ""
+    case Cyan = "cyan_"
     case Blue = "blue_"
     case Purple = "purple_"
-    case Cyan = "cyan_"
+    case Pink = "pink_"
+    case Bronze = "bronze_"
     
     var localized: String {
         switch self {
             case UIThemeType.Default:
                 return Label.themeDefault
+            case UIThemeType.Cyan:
+                return Label.themeCyan
             case UIThemeType.Blue:
                 return Label.themeBlue
             case UIThemeType.Purple:
                 return Label.themePurple
-            case UIThemeType.Cyan:
-                return Label.themeCyan
+            case UIThemeType.Pink:
+                return Label.themePink
+            case UIThemeType.Bronze:
+                return Label.themeBronze
         }
     }
 }

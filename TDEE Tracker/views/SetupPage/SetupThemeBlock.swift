@@ -13,7 +13,32 @@ struct SetupThemeBlock: View {
     @EnvironmentObject var appState: AppState
     
     
+    func getButtonLabel(key: UIThemeType) -> String {
+        
+        if self.appState.currentTheme == key {
+            
+            return Label.active
+        }
+        else if self.appState.isPremiumVersion {
+            
+            return Label.apply
+        }
+        else {
+            
+            return Label.unlock
+        }
+    }
     
+    func getButtonAction(key: UIThemeType) -> () -> Void {
+        
+        return (
+            self.appState.isPremiumVersion
+                ? { self.appState.saveTheme(key) }
+                : { print(Label.unlock) }
+        )
+    }
+    
+
     func getPalleteView(theme: UITheme) -> some View {
         
         HStack(alignment: .center, spacing: 0) {
@@ -49,8 +74,8 @@ struct SetupThemeBlock: View {
                 
                 InputSelectButton(
                     title: key.localized,
-                    buttonLabel: ( self.appState.currentTheme == key ) ? Label.active : Label.apply,
-                    onClick: { self.appState.saveTheme(key) },
+                    buttonLabel: self.getButtonLabel(key: key),
+                    onClick: self.getButtonAction(key: key),
                     height: self.appState.uiSizes.setupInputHeight,
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                     accentColor: self.appState.uiTheme.inputAccentColor,

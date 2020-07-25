@@ -77,6 +77,7 @@ class AppState: ObservableObject {
     @Published public var reminderWeightDate: Date
     @Published public var reminderFoodDate: Date
     
+    @Published public var isPremiumVersion: Bool = true
     @Published public var currentTheme: UIThemeType = UIThemeType.Default
 
     public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
