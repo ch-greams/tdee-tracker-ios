@@ -22,6 +22,8 @@ struct ProgressCircle: View {
     let estimatedTimeLeft: Int
     
     let mainColor: Color
+    
+    @State var visibleProgress: CGFloat = 0
 
     func getWeekLabel(amount: Int) -> String {
     
@@ -55,10 +57,15 @@ struct ProgressCircle: View {
                 .frame(height: self.circleDiameter - self.circleWidth)
             
             Circle()
-                .trim(from: 0, to: CGFloat(progress))
+                .trim(from: 0, to: self.visibleProgress)
                 .stroke(self.mainColor, lineWidth: self.circleWidth)
                 .rotationEffect(.degrees(-90))
                 .frame(height: self.circleDiameter - self.circleWidth)
+                .onAppear {
+                    withAnimation( Animation.linear(duration: 0.5) ) {
+                        self.visibleProgress = CGFloat(progress)
+                    }
+                }
                 
             
             VStack {

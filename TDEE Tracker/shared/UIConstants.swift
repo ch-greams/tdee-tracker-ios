@@ -228,6 +228,7 @@ class UIConstants {
                 return Self.IPHONE_8_PLUS
 
             case "iPhone 8",
+                 "iPhone SE (1st generation)",
                  "iPhone SE (2nd generation)":
                 return Self.IPHONE_8
 

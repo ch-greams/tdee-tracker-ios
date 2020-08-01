@@ -418,4 +418,12 @@ class Utils {
             }
         }
     }
+    
+    // MARK: - General
+    
+    public static func log(source: String, message: String = "done") {
+        
+        print("[\(source)]: \(message)")
+    }
+    
 }

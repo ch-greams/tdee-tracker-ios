@@ -41,6 +41,8 @@ struct DeltaChart: View {
     
     let mainColor: Color
     
+    @State var visibleMultiplier: CGFloat = 0
+    
     // MARK: - Size Calculation
     
     func getStepHeight(stepCount: Int) -> CGFloat {
@@ -169,12 +171,20 @@ struct DeltaChart: View {
                                 
                                 VStack(alignment: .center, spacing: 0) {
                                     Rectangle()
-                                        .padding(.top, self.totalStepsHeight - weeklyDeltaHeights[iWeek])
+                                        .padding(
+                                            .top,
+                                            self.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
+                                        )
                                         .frame(width: 28, height: self.totalStepsHeight)
                                         .padding(.top, 15)
                                         .padding(.horizontal, 1)
                                         .foregroundColor(self.mainColor)
                                         .opacity(0.85)
+                                        .onAppear {
+                                            withAnimation( Animation.linear(duration: 0.4) ) {
+                                                 self.visibleMultiplier = 1
+                                            }
+                                        }
 
                                     Text(String(iWeek + 1))
                                         .font(.appProgressChartSegment)

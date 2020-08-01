@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -25,8 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
 
         UNUserNotificationCenter.current().delegate = self
+        
+        SKPaymentQueue.default().add(StoreObserver.shared)
 
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        
+        SKPaymentQueue.default().remove(StoreObserver.shared)
     }
 
     // MARK: UISceneSession Lifecycle

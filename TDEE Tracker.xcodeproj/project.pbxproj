@@ -13,12 +13,14 @@
 		F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCCFD2485737400A01500 /* Assets.xcassets */; };
 		F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD002485737400A01500 /* Preview Assets.xcassets */; };
 		F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61BCD022485737400A01500 /* LaunchScreen.storyboard */; };
+		F622D8FE24D238AF004656A7 /* ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622D8FD24D238AF004656A7 /* ConfirmationModal.swift */; };
 		F631E9B524913C590053B7AC /* SetupUnitsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */; };
 		F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B7249B2B350053B7AC /* ProgressPage.swift */; };
 		F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631E9B9249B2C290053B7AC /* DeltaChart.swift */; };
 		F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */; };
 		F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */; };
 		F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */; };
+		F64E659624D1D2AA001E4BDA /* LoaderSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */; };
 		F650089224B1F018007B7D59 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F650089424B1F018007B7D59 /* Localizable.strings */; };
 		F650089724B1FC25007B7D59 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650089624B1FC25007B7D59 /* Label.swift */; };
 		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
@@ -35,10 +37,14 @@
 		F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */; };
 		F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */; };
 		F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F696B66824B50B8A00663B40 /* InputNumber.swift */; };
+		F697187A24CD887D003B35BD /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187924CD887D003B35BD /* StoreManager.swift */; };
+		F697187F24CDFA8A003B35BD /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187E24CDFA8A003B35BD /* StoreObserver.swift */; };
+		F697188124CDFB5B003B35BD /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697188024CDFB5B003B35BD /* Messages.swift */; };
 		F69BC23D24AC51730064FE1A /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69BC23C24AC51730064FE1A /* CustomImage.swift */; };
 		F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */; };
 		F6E765CD24A77140009A0B90 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E765CC24A77140009A0B90 /* NotificationManager.swift */; };
 		F6EED3E324B2636A003E85EE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EED3E224B2636A003E85EE /* String.swift */; };
+		F6F077A824D17DD6002882D2 /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F077A724D17DD6002882D2 /* AlertMessage.swift */; };
 		F6F4DE342485A06500D1FF40 /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE332485A06500D1FF40 /* EntryPage.swift */; };
 		F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE382485B9EF00D1FF40 /* Color.swift */; };
 		F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */; };
@@ -83,12 +89,14 @@
 		F61BCD002485737400A01500 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F61BCD032485737400A01500 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61BCD052485737400A01500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F622D8FD24D238AF004656A7 /* ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationModal.swift; sourceTree = "<group>"; };
 		F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUnitsBlock.swift; sourceTree = "<group>"; };
 		F631E9B7249B2B350053B7AC /* ProgressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPage.swift; sourceTree = "<group>"; };
 		F631E9B9249B2C290053B7AC /* DeltaChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaChart.swift; sourceTree = "<group>"; };
 		F635169F24893A6A00A8A7E9 /* CalendarBlockDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockDays.swift; sourceTree = "<group>"; };
 		F63516A12489BB1A00A8A7E9 /* CalendarBlockMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlockMonth.swift; sourceTree = "<group>"; };
 		F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIThemeManager.swift; sourceTree = "<group>"; };
+		F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderSpinner.swift; sourceTree = "<group>"; };
 		F650089324B1F018007B7D59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F650089524B1F025007B7D59 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F650089624B1FC25007B7D59 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -106,10 +114,14 @@
 		F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupThemeBlock.swift; sourceTree = "<group>"; };
 		F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSelectButton.swift; sourceTree = "<group>"; };
 		F696B66824B50B8A00663B40 /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
+		F697187924CD887D003B35BD /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		F697187E24CDFA8A003B35BD /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
+		F697188024CDFB5B003B35BD /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		F69BC23C24AC51730064FE1A /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 		F6B30B48249EB3FB008A4500 /* ProgressCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircle.swift; sourceTree = "<group>"; };
 		F6E765CC24A77140009A0B90 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F6EED3E224B2636A003E85EE /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		F6F077A724D17DD6002882D2 /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		F6F4DE332485A06500D1FF40 /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		F6F4DE382485B9EF00D1FF40 /* Color.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = Color.swift; path = "TDEE Tracker/Extensions/Color.swift"; sourceTree = SOURCE_ROOT; };
 		F6F4DE3C2485D64C00D1FF40 /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
@@ -213,7 +225,6 @@
 				F61BCCF72485737200A01500 /* AppDelegate.swift */,
 				F61BCCF92485737200A01500 /* SceneDelegate.swift */,
 				F65F83CB248B980900F8407B /* AppState.swift */,
-				F6E765CC24A77140009A0B90 /* NotificationManager.swift */,
 			);
 			path = launch;
 			sourceTree = "<group>";
@@ -235,11 +246,11 @@
 		F652133524A48BD9003C2214 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				F696B66A24B50B9300663B40 /* inputs */,
+				F6F7154024D17D1200A40CB3 /* views */,
+				F697187B24CDDE77003B35BD /* store */,
 				F65F83CD248D5DA000F8407B /* DayEntry.swift */,
 				F6F7202F248DD1C6003873A1 /* Utils.swift */,
-				F652133624A48C23003C2214 /* ButtonStyle.swift */,
-				F69BC23C24AC51730064FE1A /* CustomImage.swift */,
+				F6E765CC24A77140009A0B90 /* NotificationManager.swift */,
 				F669128024ACE67F0069E52E /* UIConstants.swift */,
 				F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */,
 				F650089624B1FC25007B7D59 /* Label.swift */,
@@ -273,6 +284,16 @@
 				F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */,
 			);
 			path = inputs;
+			sourceTree = "<group>";
+		};
+		F697187B24CDDE77003B35BD /* store */ = {
+			isa = PBXGroup;
+			children = (
+				F697187924CD887D003B35BD /* StoreManager.swift */,
+				F697187E24CDFA8A003B35BD /* StoreObserver.swift */,
+				F697188024CDFB5B003B35BD /* Messages.swift */,
+			);
+			path = store;
 			sourceTree = "<group>";
 		};
 		F6F4DE3B2485BA3200D1FF40 /* extensions */ = {
@@ -333,6 +354,19 @@
 				F6F4DE3E2486E4BC00D1FF40 /* DayButton.swift */,
 			);
 			path = CalendarBlock;
+			sourceTree = "<group>";
+		};
+		F6F7154024D17D1200A40CB3 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F652133624A48C23003C2214 /* ButtonStyle.swift */,
+				F696B66A24B50B9300663B40 /* inputs */,
+				F69BC23C24AC51730064FE1A /* CustomImage.swift */,
+				F6F077A724D17DD6002882D2 /* AlertMessage.swift */,
+				F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */,
+				F622D8FD24D238AF004656A7 /* ConfirmationModal.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		F6F72037248F3DEA003873A1 /* SetupPage */ = {
@@ -444,6 +478,7 @@
 				F61BCCF82485737200A01500 /* AppDelegate.swift in Sources */,
 				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
 				F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */,
+				F64E659624D1D2AA001E4BDA /* LoaderSpinner.swift in Sources */,
 				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
 				F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
@@ -464,9 +499,12 @@
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
 				F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */,
 				F6F72039248FCE62003873A1 /* SetupPage.swift in Sources */,
+				F6F077A824D17DD6002882D2 /* AlertMessage.swift in Sources */,
 				F66BCC6724B5115500DAFCA7 /* InputToggle.swift in Sources */,
+				F697187A24CD887D003B35BD /* StoreManager.swift in Sources */,
 				F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */,
 				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
+				F697187F24CDFA8A003B35BD /* StoreObserver.swift in Sources */,
 				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
 				F69BC23D24AC51730064FE1A /* CustomImage.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
@@ -481,6 +519,8 @@
 				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */,
+				F622D8FE24D238AF004656A7 /* ConfirmationModal.swift in Sources */,
+				F697188124CDFB5B003B35BD /* Messages.swift in Sources */,
 				F6E765CD24A77140009A0B90 /* NotificationManager.swift in Sources */,
 				F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */,
 			);
@@ -544,6 +584,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BVY647RKW5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -605,6 +646,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = BVY647RKW5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

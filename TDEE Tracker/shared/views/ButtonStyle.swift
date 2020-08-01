@@ -16,10 +16,17 @@ struct AppDefaultButtonStyle: ButtonStyle {
     let backgroundColor: Color
     let textColor: Color
     
+    var withBorder: Bool = false
+    var font: Font = .appDefaultButtonLabel
+    
+    var width: CGFloat = 176
+    var height: CGFloat = 44
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 176, height: 44)
-            .font(.appDefaultButtonLabel)
+            .frame(width: self.width, height: self.height)
+            .border(self.withBorder ? self.textColor : self.backgroundColor)
+            .font(self.font)
             .foregroundColor(self.textColor)
             .background(self.backgroundColor)
     }

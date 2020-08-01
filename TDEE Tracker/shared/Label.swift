@@ -106,4 +106,14 @@ struct Label {
 
     public static let addWeightNotification = "It's time to add today's weight".localize
     public static let addFoodNotification = "It's time to add today's food".localize
+    
+    // MARK: - Premium Purchase
+    
+    public static let buyPremiumTitle = "TDEE Tracker PREMIUM".localize
+    public static let buyPremiumDescriptionPartOne = "Premium version of TDEE Tracker unlocks all existing themes.".localize
+    public static let buyPremiumDescriptionPartTwo = "It does not include any extra features, as everything else is available for free.".localize
+    
+    public static let buy = "BUY".localize
+    public static let cancel = "CANCEL".localize
+    
 }

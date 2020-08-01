@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import StoreKit
 
 
 
@@ -19,6 +20,8 @@ enum AppStateKey: String, CaseIterable {
     case IsFirstSetupDone
     case ReminderWeightDate, ReminderFoodDate
     case CurrentTheme
+
+    case IsPremiumVersion
 }
 
 protocol Localizable {
@@ -77,7 +80,10 @@ class AppState: ObservableObject {
     @Published public var reminderWeightDate: Date
     @Published public var reminderFoodDate: Date
     
-    @Published public var isPremiumVersion: Bool = true
+    @Published public var showLoader: Bool = false
+    @Published public var showBuyModal: Bool = false
+    
+    @Published public var isPremiumVersion: Bool = false
     @Published public var currentTheme: UIThemeType = UIThemeType.Default
 
     public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
@@ -305,6 +311,12 @@ class AppState: ObservableObject {
                 self.reminderFoodDate = reminderFoodDate
             }
             
+            // Load isPremium
+            
+            if let isPremiumVersion: Bool = self.load(key: AppStateKey.IsPremiumVersion) {
+                self.isPremiumVersion = isPremiumVersion
+            }
+            
             // Load theme
             
             if let str: String = self.load(key: AppStateKey.CurrentTheme), let theme = UIThemeType(rawValue: str) {
@@ -313,6 +325,10 @@ class AppState: ObservableObject {
                 self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
             }
         }
+        
+        // Load Store
+        
+        self.loadStore()
     }
 
     private func loadEntries() {
@@ -323,6 +339,24 @@ class AppState: ObservableObject {
 
                 self.entries = entries
             }
+        }
+    }
+    
+    private func loadStore() {
+
+        StoreManager.shared.delegate = self
+        StoreObserver.shared.delegate = self
+        
+        if StoreObserver.shared.isAuthorizedForPayments {
+            
+            StoreManager.shared.fetchProducts(identifiers: ProductIds.allCases.map { $0.rawValue })
+        }
+        
+        // Try to restore purchase of the premium on the first app opening
+
+        if !self.isPremiumVersion && !self.isFirstSetupDone {
+            
+            StoreObserver.shared.restore()
         }
     }
     
@@ -766,5 +800,115 @@ class AppState: ObservableObject {
         self.save(key: AppStateKey.CurrentTheme, value: self.currentTheme.rawValue)
         
         self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
+    }
+    
+    
+    public func buyPremiumModal(isOpen: Bool) {
+        
+        self.showBuyModal = isOpen
+    }
+    
+    public func buyPremium() {
+        
+        if let product = StoreManager.shared.products[ProductIds.TestItem.rawValue] {
+            
+            self.showLoader = true
+            
+            StoreObserver.shared.buy(product)
+        }
+    }
+    
+    private func confirmPurchaseOfPremium(productId: ProductIdentifier) {
+        
+        if productId == ProductIds.TestItem.rawValue {
+            
+            self.isPremiumVersion = true
+            self.save(key: AppStateKey.IsPremiumVersion, value: self.isPremiumVersion)
+            
+            self.showLoader = false
+        }
+    }
+}
+
+// MARK: - StoreManagerDelegate
+
+extension AppState: StoreManagerDelegate {
+    
+    public func storeManagerRequestResponse(_ response: [ ProductIdentifier : SKProduct ]) {
+
+        Utils.log(source: "storeManagerDidReceiveResponse")
+        
+        for product in response.values {
+            Utils.log(
+                source: "storeManagerDidReceiveResponse",
+                message: "Product: \(product.localizedTitle) \(product.price)"
+            )
+        }
+    }
+    
+    public func storeManagerRequestError(_ message: String) {
+        
+        let msg = "\(Messages.productRequestStatus): \(message)"
+        
+        Utils.log(source: "storeManagerDidReceiveMessage", message: msg)
+        
+        self.showMessage(text: msg, time: 3)
+    }
+}
+
+// MARK: - StoreObserverDelegate
+
+extension AppState: StoreObserverDelegate {
+    
+    // MARK: - Restore
+    
+    public func storeObserverCompletedRestoreOf(product: ProductIdentifier) {
+        
+        Utils.log(source: "storeObserverCompletedRestoreOf", message: product)
+        
+        self.confirmPurchaseOfPremium(productId: product)
+    }
+    
+    public func storeObserverCancelledRestore() {
+        
+        Utils.log(source: "storeObserverCancelledRestore")
+        
+        self.showLoader = false
+    }
+
+    public func storeObserverFailedRestore(_ message: String) {
+        
+        let msg = "Restore status: \(message)"
+        
+        Utils.log(source: "storeObserverFailedRestore", message: msg)
+        
+        self.showMessage(text: msg, time: 10)
+    }
+    
+    // MARK: - Purchase
+    
+    public func storeObserverCompletedPurchaseOf(product: ProductIdentifier) {
+        
+        Utils.log(source: "storeObserverCompletedPurchaseOf", message: product)
+        
+        self.confirmPurchaseOfPremium(productId: product)
+    }
+    
+    public func storeObserverCancelledPurchase() {
+        
+        Utils.log(source: "storeObserverCancelledPurchase")
+        
+        self.showLoader = false
+    }
+    
+    public func storeObserverFailedPurchase(_ message: String) {
+        
+        let msg = "\(Messages.purchaseStatus): \(message)"
+        
+        Utils.log(source: "storeObserverFailedPurchase", message: msg)
+        
+        self.showLoader = false
+
+        self.showMessage(text: msg, time: 10)
     }
 }

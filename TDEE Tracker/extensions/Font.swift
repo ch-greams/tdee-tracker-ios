@@ -14,6 +14,7 @@ extension Font {
     
     private static let OSWALD_EXTRA_LIGHT = "Oswald-ExtraLight"
     private static let OSWALD_LIGHT = "Oswald-Light"
+    private static let OSWALD_REGULAR = "Oswald-Regular"
     private static let OSWALD_MEDIUM = "Oswald-Medium"
     private static let OSWALD_BOLD = "Oswald-Bold"
 
@@ -54,6 +55,12 @@ extension Font {
 
     public static let appSetupToggleValue = Self.custom(Self.OSWALD_BOLD, size: 18)
     public static let appSetupThemeButton = Self.custom(Self.OSWALD_BOLD, size: 24)
+    
+    public static let appSetupPremiumTitle = Self.custom(Self.OSWALD_MEDIUM, size: 24)
+    public static let appSetupPremiumHint = Self.custom(Self.OSWALD_LIGHT, size: 18)
+    
+    public static let appSetupPremiumBuy = Self.custom(Self.OSWALD_BOLD, size: 20)
+    public static let appSetupPremiumCancel = Self.custom(Self.OSWALD_REGULAR, size: 16)
     
     // MARK: - Progress Page
     

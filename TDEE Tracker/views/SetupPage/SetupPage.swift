@@ -20,8 +20,6 @@ struct SetupPage: View {
     
     var body: some View {
         
-        
-        
         ScrollView(.vertical, showsIndicators: true) {
             
             VStack(alignment: .center, spacing: 0) {

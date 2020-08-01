@@ -62,26 +62,6 @@ struct ContentView: View {
         }
     }
     
-    var warningMessageBlock: some View {
-        
-        HStack {
-
-            Text(self.appState.messageText.uppercased())
-                .multilineTextAlignment(.center)
-                .frame(height: 60)
-                .foregroundColor(self.appState.uiTheme.mainTextColor)
-                .font(.appWarningText)
-
-        }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 32)
-            .background(self.appState.uiTheme.warningBackgroundColor)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
-            .clipped()
-            .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
-    }
-
     
     var mainAppView: some View {
         
@@ -138,10 +118,38 @@ struct ContentView: View {
 
                 WelcomePage()
             }
+            
+            if self.appState.showBuyModal {
+                
+                ConfirmationModal(
+                    fadeColor: self.appState.uiTheme.backgroundColor,
+                    backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    accentColor: self.appState.uiTheme.secondaryTextColor,
+                    textColor: self.appState.uiTheme.calendarTextDefaultColor,
+                    separatorColor: self.appState.uiTheme.trendsSeparatorColor,
+                    confirmAction: {
+                        self.appState.buyPremiumModal(isOpen: false)
+                        self.appState.buyPremium()
+                    },
+                    cancelAction: { self.appState.buyPremiumModal(isOpen: false) }
+                )
+            }
+            
+            if self.appState.showLoader {
+                
+                LoaderSpinner(
+                    mainColor: self.appState.uiTheme.backgroundColor,
+                    accentColor: self.appState.uiTheme.mainTextColor
+                )
+            }
 
             if !self.appState.messageText.isEmpty {
-
-                self.warningMessageBlock
+                
+                AlertMessage(
+                    text: self.appState.messageText.uppercased(),
+                    textColor: self.appState.uiTheme.mainTextColor,
+                    backgroundColor: self.appState.uiTheme.warningBackgroundColor
+                )
                     .padding(.top, (
                         self.appState.isFirstSetupDone
                             ? self.appState.uiSizes.mainViewPadding

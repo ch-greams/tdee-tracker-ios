@@ -34,7 +34,7 @@ struct SetupThemeBlock: View {
         return (
             self.appState.isPremiumVersion
                 ? { self.appState.saveTheme(key) }
-                : { print(Label.unlock) }
+                : { self.appState.buyPremiumModal(isOpen: true) }
         )
     }
     
