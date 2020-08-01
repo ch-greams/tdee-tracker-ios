@@ -785,13 +785,20 @@ class AppState: ObservableObject {
 
     // MARK: - Other
     
+    public func hideMessage() {
+        
+        self.messageText = ""
+    }
+    
     private func showMessage(text: String, time: TimeInterval) {
         
         self.messageText = text
         
-        Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { _ in
-            self.messageText = ""
-        })
+        Timer.scheduledTimer(
+            withTimeInterval: time,
+            repeats: false,
+            block: { _ in self.hideMessage() }
+        )
     }
     
     public func saveTheme(_ theme: UIThemeType) {
@@ -878,11 +885,9 @@ extension AppState: StoreObserverDelegate {
 
     public func storeObserverFailedRestore(_ message: String) {
         
-        let msg = "Restore status: \(message)"
+        Utils.log(source: "storeObserverFailedRestore", message: message)
         
-        Utils.log(source: "storeObserverFailedRestore", message: msg)
-        
-        self.showMessage(text: msg, time: 10)
+        self.showMessage(text: message, time: 10)
     }
     
     // MARK: - Purchase
@@ -903,12 +908,10 @@ extension AppState: StoreObserverDelegate {
     
     public func storeObserverFailedPurchase(_ message: String) {
         
-        let msg = "\(Messages.purchaseStatus): \(message)"
-        
-        Utils.log(source: "storeObserverFailedPurchase", message: msg)
+        Utils.log(source: "storeObserverFailedPurchase", message: message)
         
         self.showLoader = false
 
-        self.showMessage(text: msg, time: 10)
+        self.showMessage(text: message, time: 10)
     }
 }

@@ -15,22 +15,22 @@ struct AlertMessage: View {
     let textColor: Color
     let backgroundColor: Color
     
+    let closeAction: () -> Void
     
     var body: some View {
-        
         
         HStack {
 
             Text(self.text)
                 .multilineTextAlignment(.center)
-                .frame(height: 60)
                 .foregroundColor(self.textColor)
                 .font(.appWarningText)
-
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .padding(.vertical, 16)
             .padding(.horizontal, 32)
             .background(self.backgroundColor)
+            .onTapGesture(perform: self.closeAction)
             .padding(.vertical, 1)
             .padding(.horizontal, 8)
             .clipped()
@@ -44,11 +44,24 @@ struct AlertMessage_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        AlertMessage(
-            text: "Some Message".uppercased(),
-            textColor: UIThemeManager.DEFAULT.mainTextColor,
-            backgroundColor: UIThemeManager.DEFAULT.warningBackgroundColor
-        )
+        VStack(alignment: .center, spacing: 16) {
+            
+            AlertMessage(
+                text: "Some Message".uppercased(),
+                textColor: UIThemeManager.DEFAULT.mainTextColor,
+                backgroundColor: UIThemeManager.DEFAULT.warningBackgroundColor,
+                closeAction: { print("closeAction") }
+            )
+            
+            AlertMessage(
+                text: "Purchase of Test Item failed.\nError: Cannot connect to iTunes Store.".uppercased(),
+                textColor: UIThemeManager.DEFAULT.mainTextColor,
+                backgroundColor: UIThemeManager.DEFAULT.warningBackgroundColor,
+                closeAction: { print("closeAction") }
+            )
+                
+        }
             .environmentObject(appState)
     }
 }
+

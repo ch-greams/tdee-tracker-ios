@@ -148,7 +148,8 @@ struct ContentView: View {
                 AlertMessage(
                     text: self.appState.messageText.uppercased(),
                     textColor: self.appState.uiTheme.mainTextColor,
-                    backgroundColor: self.appState.uiTheme.warningBackgroundColor
+                    backgroundColor: self.appState.uiTheme.warningBackgroundColor,
+                    closeAction: self.appState.hideMessage
                 )
                     .padding(.top, (
                         self.appState.isFirstSetupDone

@@ -17,7 +17,7 @@ struct Messages {
     static let deferred = "Do not block the UI. Allow the user to continue using the app."
     static let deliverContent = "Deliver content for"
     static let emptyString = ""
-    static let error = "Error: "
+    static let error = "Error:"
     static let failed = "failed."
     static let installing = "In-App Purchases may be restricted on your device."
     static let invalidIndexPath = "Invalid selected index path"

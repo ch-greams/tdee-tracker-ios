@@ -79,13 +79,9 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
     
     private func handleRestored(_ transaction: SKPaymentTransaction) {
         
-        let title = StoreManager.shared.getProductTitleBy(
-            matchingIdentifier: transaction.payment.productIdentifier
-        )
-        
         Utils.log(
             source: "StoreObserver.handleRestored",
-            message: "\(Messages.restoreContent) \(title)."
+            message: "\(Messages.restoreContent) \(transaction.payment.productIdentifier)."
         )
         
         DispatchQueue.main.async {
@@ -104,12 +100,12 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
         var message = "\(Messages.purchaseOf) \(title) \(Messages.failed)"
         
         if let error = transaction.error {
-            message += " \(Messages.error) \(error.localizedDescription)"
+            message += "\n\(Messages.error) \(error.localizedDescription)"
         }
         
         Utils.log(
             source: "StoreObserver.handleFailed",
-            message: "\(message)"
+            message: message
         )
         
         if (transaction.error as? SKError)?.code != .paymentCancelled {
@@ -160,12 +156,17 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
         }
     }
     
-    /// Called when an error occur while restoring purchases. Notify the user about the error.
+    /// Called when an error occur while restoring purchases.
     public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         
         if let error = error as? SKError, error.code != .paymentCancelled {
             DispatchQueue.main.async {
                 self.delegate?.storeObserverFailedRestore(error.localizedDescription)
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.delegate?.storeObserverCancelledRestore()
             }
         }
     }
