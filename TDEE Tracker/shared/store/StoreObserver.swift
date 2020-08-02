@@ -100,9 +100,7 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
             message: transaction.payment.productIdentifier
         )
         
-        let title = StoreManager.shared.getProductTitleBy(
-            matchingIdentifier: transaction.payment.productIdentifier
-        )
+        let title = StoreManager.shared.getProductTitleById(transaction.payment.productIdentifier)
         
         var message = "\(Label.purchaseError) \(title)"
         

@@ -105,7 +105,23 @@
 "It's time to add your weight" = "Время добавить сегодняшний вес";
 "It's time to add your food" = "Время добавить сегодняшнюю еду";
 
+
+// MARK: - Premium Purchase
+
+"TDEE Tracker Premium" = "TDEE Tracker Premium";
+"Premium version of TDEE Tracker unlocks all existing themes." = "Premium версия TDEE Tracker открывает для использования все существующие темы.";
+"It does not include any extra features, as everything else is available for free." = "Но не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
+
+"BUY FOR" = "КУПИТЬ ЗА";
+"BUY" = "КУПИТЬ";
+"CANCEL" = "ОТМЕНА";
+
+"Checking Purchases" = "Проверяем существующие покупки";
+"Connecting to iTunes" = "Подключение к iTunes";
+"Making a Purchase" = "Произведение покупки";
+
 // MARK: - Store Messages
 
+"You are not authorized to make payments.\nIn-App Purchases may be restricted on your device." = "Вы не авторизированы для совершения платежей.\nВозможно встроенные покупки ограничены на вашем устройстве.";
 "iTunes Connection Error" = "Ошибка подключения к iTunes";
 "Error During Purchase of" = "Ошибка во время покупки";

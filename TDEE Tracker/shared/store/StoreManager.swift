@@ -63,11 +63,21 @@ class StoreManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
     
     // MARK: - Helper Methods
     
-    public func getProductTitleBy(matchingIdentifier identifier: ProductIdentifier) -> String {
+    public func getProductTitleById(_ identifier: ProductIdentifier) -> String {
 
         return self.products[identifier]?.localizedTitle ?? identifier
     }
 
+    public func getProductPriceById(_ identifier: ProductIdentifier) -> String? {
+
+        guard let product = self.products[identifier] else { return nil }
+         
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.locale = product.priceLocale
+        currencyFormatter.numberStyle = .currency
+
+        return currencyFormatter.string(from: product.price)
+    }
     
     // MARK: - SKProductsRequestDelegate
 

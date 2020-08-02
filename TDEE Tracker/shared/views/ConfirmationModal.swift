@@ -17,6 +17,8 @@ struct ConfirmationModal: View {
     let textColor: Color
     let separatorColor: Color
     
+    let confirmLabel: String
+    
     let confirmAction: () -> Void
     let cancelAction: () -> Void
     
@@ -69,7 +71,7 @@ struct ConfirmationModal: View {
                 self.separator
                     .padding(.bottom, 16)
                 
-                Button(Label.buy, action: self.confirmAction)
+                Button(self.confirmLabel, action: self.confirmAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.accentColor,
                         textColor: self.backgroundColor,
@@ -108,7 +110,8 @@ struct ConfirmationModal_Previews: PreviewProvider {
             accentColor: UIThemeManager.DEFAULT.secondaryTextColor,
             textColor: UIThemeManager.DEFAULT.calendarTextDefaultColor,
             separatorColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
-            confirmAction: { print(Label.buy) },
+            confirmLabel: "\(Label.buyFor) $3.49",
+            confirmAction: { print("\(Label.buyFor) $3.49") },
             cancelAction: { print(Label.cancel) }
         )
     }
