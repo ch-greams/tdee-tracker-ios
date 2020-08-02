@@ -13,6 +13,8 @@ import StoreKit
 
 protocol StoreObserverDelegate: AnyObject {
     
+    func storeObserverFinishedRestore()
+    
     func storeObserverCompletedRestoreOf(product: ProductIdentifier)
     
     func storeObserverCancelledRestore()
@@ -170,4 +172,12 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
             }
         }
     }
+    
+    public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        
+        DispatchQueue.main.async {
+            self.delegate?.storeObserverFinishedRestore()
+        }
+    }
 }
+

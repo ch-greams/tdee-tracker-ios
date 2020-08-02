@@ -81,6 +81,8 @@ class AppState: ObservableObject {
     @Published public var reminderFoodDate: Date
     
     @Published public var showLoader: Bool = false
+    @Published public var loaderText: String = ""
+    
     @Published public var showBuyModal: Bool = false
     
     @Published public var isPremiumVersion: Bool = false
@@ -275,6 +277,9 @@ class AppState: ObservableObject {
         
         // MARK: - Other setup
         
+        StoreManager.shared.delegate = self
+        StoreObserver.shared.delegate = self
+        
         self.loadExistingData()
     }
 
@@ -325,10 +330,6 @@ class AppState: ObservableObject {
                 self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
             }
         }
-        
-        // Load Store
-        
-        self.loadStore()
     }
 
     private func loadEntries() {
@@ -339,24 +340,6 @@ class AppState: ObservableObject {
 
                 self.entries = entries
             }
-        }
-    }
-    
-    private func loadStore() {
-
-        StoreManager.shared.delegate = self
-        StoreObserver.shared.delegate = self
-        
-        if StoreObserver.shared.isAuthorizedForPayments {
-            
-            StoreManager.shared.fetchProducts(identifiers: ProductIds.allCases.map { $0.rawValue })
-        }
-        
-        // Try to restore purchase of the premium on the first app opening
-
-        if !self.isPremiumVersion && !self.isFirstSetupDone {
-            
-            StoreObserver.shared.restore()
         }
     }
     
@@ -801,6 +784,20 @@ class AppState: ObservableObject {
         )
     }
     
+    
+    private func showLoader(text: String = "") {
+        
+        self.loaderText = text
+        self.showLoader = true
+    }
+    
+    private func hideLoader() {
+        
+        self.showLoader = false
+        self.loaderText = ""
+    }
+    
+    
     public func saveTheme(_ theme: UIThemeType) {
         
         self.currentTheme = theme
@@ -809,6 +806,21 @@ class AppState: ObservableObject {
         self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
     }
     
+    public func unlockTheme() {
+        
+        if StoreManager.shared.areProductsLoaded {
+            
+            self.showLoader(text: "Checking Purchases")
+            
+            StoreObserver.shared.restore()
+        }
+        else if StoreObserver.shared.isAuthorizedForPayments {
+            
+            self.showLoader(text: "Connecting to iTunes")
+            
+            StoreManager.shared.fetchProducts(identifiers: ProductIds.allCases.map { $0.rawValue })
+        }
+    }
     
     public func buyPremiumModal(isOpen: Bool) {
         
@@ -819,7 +831,7 @@ class AppState: ObservableObject {
         
         if let product = StoreManager.shared.products[ProductIds.TestItem.rawValue] {
             
-            self.showLoader = true
+            self.showLoader(text: "Making a Purchase")
             
             StoreObserver.shared.buy(product)
         }
@@ -832,7 +844,7 @@ class AppState: ObservableObject {
             self.isPremiumVersion = true
             self.save(key: AppStateKey.IsPremiumVersion, value: self.isPremiumVersion)
             
-            self.showLoader = false
+            self.hideLoader()
         }
     }
 }
@@ -846,11 +858,16 @@ extension AppState: StoreManagerDelegate {
         Utils.log(source: "storeManagerDidReceiveResponse")
         
         for product in response.values {
+
             Utils.log(
                 source: "storeManagerDidReceiveResponse",
                 message: "Product: \(product.localizedTitle) \(product.price)"
             )
         }
+        
+        self.showLoader(text: "Checking Purchases")
+        
+        StoreObserver.shared.restore()
     }
     
     public func storeManagerRequestError(_ message: String) {
@@ -860,6 +877,8 @@ extension AppState: StoreManagerDelegate {
         Utils.log(source: "storeManagerDidReceiveMessage", message: msg)
         
         self.showMessage(text: msg, time: 3)
+        
+        self.hideLoader()
     }
 }
 
@@ -868,6 +887,18 @@ extension AppState: StoreManagerDelegate {
 extension AppState: StoreObserverDelegate {
     
     // MARK: - Restore
+    
+    public func storeObserverFinishedRestore() {
+        
+        Utils.log(source: "storeObserverFinishedRestore")
+        
+        if !self.isPremiumVersion {
+
+            self.buyPremiumModal(isOpen: true)
+        }
+        
+        self.hideLoader()
+    }
     
     public func storeObserverCompletedRestoreOf(product: ProductIdentifier) {
         
@@ -880,7 +911,7 @@ extension AppState: StoreObserverDelegate {
         
         Utils.log(source: "storeObserverCancelledRestore")
         
-        self.showLoader = false
+        self.hideLoader()
     }
 
     public func storeObserverFailedRestore(_ message: String) {
@@ -888,6 +919,8 @@ extension AppState: StoreObserverDelegate {
         Utils.log(source: "storeObserverFailedRestore", message: message)
         
         self.showMessage(text: message, time: 10)
+        
+        self.hideLoader()
     }
     
     // MARK: - Purchase
@@ -903,15 +936,15 @@ extension AppState: StoreObserverDelegate {
         
         Utils.log(source: "storeObserverCancelledPurchase")
         
-        self.showLoader = false
+        self.hideLoader()
     }
     
     public func storeObserverFailedPurchase(_ message: String) {
         
         Utils.log(source: "storeObserverFailedPurchase", message: message)
-        
-        self.showLoader = false
 
         self.showMessage(text: message, time: 10)
+        
+        self.hideLoader()
     }
 }

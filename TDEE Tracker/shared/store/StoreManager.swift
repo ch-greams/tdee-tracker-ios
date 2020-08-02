@@ -37,6 +37,8 @@ class StoreManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
     
     public var products: [ ProductIdentifier : SKProduct ] = [:]
     
+    public var areProductsLoaded: Bool = false
+    
     private var productRequest: SKProductsRequest!
     
     public weak var delegate: StoreManagerDelegate?
@@ -69,6 +71,8 @@ class StoreManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
 
     /// Accepts the App Store response that contains the app-requested product information
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        
+        self.areProductsLoaded = true
         
         if !response.products.isEmpty || !response.invalidProductIdentifiers.isEmpty {
             

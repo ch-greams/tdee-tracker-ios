@@ -139,7 +139,8 @@ struct ContentView: View {
                 
                 LoaderSpinner(
                     mainColor: self.appState.uiTheme.backgroundColor,
-                    accentColor: self.appState.uiTheme.mainTextColor
+                    accentColor: self.appState.uiTheme.mainTextColor,
+                    text: self.appState.loaderText
                 )
             }
 
