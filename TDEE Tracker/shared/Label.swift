@@ -116,4 +116,14 @@ struct Label {
     public static let buy = "BUY".localize
     public static let cancel = "CANCEL".localize
     
+    public static let tryRestore = "Checking Purchases".localize
+    public static let fetchProducts = "Connecting to iTunes".localize
+    public static let tryPurchase = "Making a Purchase".localize
+    
+    // MARK: - Store Messages
+    
+    public static let notAuthorized = "You are not authorized to make payments.\nIn-App Purchases may be restricted on your device.".localize
+    public static let productRequestError = "iTunes Connection Error".localize
+    public static let purchaseError = "Error During Purchase of".localize
+    
 }

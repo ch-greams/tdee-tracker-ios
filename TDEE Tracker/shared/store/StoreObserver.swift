@@ -69,7 +69,7 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
         
         Utils.log(
             source: "StoreObserver.handlePurchased",
-            message: "\(Messages.deliverContent) \(transaction.payment.productIdentifier)."
+            message: transaction.payment.productIdentifier
         )
         
         DispatchQueue.main.async {
@@ -83,7 +83,7 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
         
         Utils.log(
             source: "StoreObserver.handleRestored",
-            message: "\(Messages.restoreContent) \(transaction.payment.productIdentifier)."
+            message: transaction.payment.productIdentifier
         )
         
         DispatchQueue.main.async {
@@ -95,20 +95,26 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
 
     private func handleFailed(_ transaction: SKPaymentTransaction) {
         
+        Utils.log(
+            source: "StoreObserver.handleFailed",
+            message: transaction.payment.productIdentifier
+        )
+        
         let title = StoreManager.shared.getProductTitleBy(
             matchingIdentifier: transaction.payment.productIdentifier
         )
         
-        var message = "\(Messages.purchaseOf) \(title) \(Messages.failed)"
+        var message = "\(Label.purchaseError) \(title)"
         
         if let error = transaction.error {
-            message += "\n\(Messages.error) \(error.localizedDescription)"
+            
+            message += ":\n\(error.localizedDescription)"
+            
+            Utils.log(
+                source: "StoreObserver.handleFailed",
+                message: error.localizedDescription
+            )
         }
-        
-        Utils.log(
-            source: "StoreObserver.handleFailed",
-            message: message
-        )
         
         if (transaction.error as? SKError)?.code != .paymentCancelled {
             DispatchQueue.main.async {
@@ -136,24 +142,26 @@ class StoreObserver: NSObject, SKPaymentTransactionObserver {
                 
                 case .purchasing: break
                 case .deferred:
-                    Utils.log(source: "StoreObserver.paymentQueue", message: Messages.deferred)
+                    Utils.log(
+                        source: "StoreObserver.paymentQueue",
+                        message: "Do not block the UI. Allow the user to continue using the app."
+                    )
 
                 case .purchased: handlePurchased(transaction)
                 case .restored: handleRestored(transaction)
                 case .failed: handleFailed(transaction)
                 
-                @unknown default: fatalError(Messages.unknownPaymentTransaction)
+                @unknown default: fatalError("Unknown payment transaction case.")
             }
         }
     }
     
-    /// Logs all transactions that have been removed from the payment queue.
     public func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [ SKPaymentTransaction ]) {
         
         for transaction in transactions {
             Utils.log(
                 source: "StoreObserver.paymentQueue",
-                message: "\(transaction.payment.productIdentifier) \(Messages.removed)"
+                message: "\(transaction.payment.productIdentifier) was removed from the payment queue."
             )
         }
     }

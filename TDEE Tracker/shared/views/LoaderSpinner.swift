@@ -61,7 +61,7 @@ struct LoaderSpinner: View {
                     
                     Text(self.text.uppercased())
                         .foregroundColor(self.accentColor)
-                        .font(Font.customFont(font: FontOswald.Regular, size: 22))
+                        .font(.appLoaderText)
                 }
             }
         }

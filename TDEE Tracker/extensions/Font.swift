@@ -87,8 +87,10 @@ extension Font {
     public static let appInputValue = Self.custom(FontOswald.Bold.rawValue, size: 32)
     public static let appInputUnit = Self.custom(FontOswald.Light.rawValue, size: 14)
 
+    public static let appLoaderText = Self.custom(FontOswald.Regular.rawValue, size: 22)
     
     
+    // NOTE: Not for use in production
     public static func customFont(font: FontOswald, size: CGFloat) -> Font {
         Self.custom(font.rawValue, size: size)
     }

@@ -35,6 +35,8 @@ class StoreManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
     
     // MARK: - Properties
     
+    public let PREMIUM_PRODUCT_ID: ProductIdentifier = ProductIds.TestItem.rawValue
+    
     public var products: [ ProductIdentifier : SKProduct ] = [:]
     
     public var areProductsLoaded: Bool = false

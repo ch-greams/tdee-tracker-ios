@@ -54,7 +54,7 @@ struct AlertMessage_Previews: PreviewProvider {
             )
             
             AlertMessage(
-                text: "Purchase of Test Item failed.\nError: Cannot connect to iTunes Store.".uppercased(),
+                text: Label.notAuthorized.uppercased(),
                 textColor: UIThemeManager.DEFAULT.mainTextColor,
                 backgroundColor: UIThemeManager.DEFAULT.warningBackgroundColor,
                 closeAction: { print("closeAction") }

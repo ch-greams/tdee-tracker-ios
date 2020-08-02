@@ -28,7 +28,7 @@
 "DONE" = "ГОТОВО";
 "NEXT" = "ДАЛЕЕ";
 "CONFIRM" = "ПОДТВЕРДИТЬ";
-"UNLOCK" = "РАЗБЛОКИРОВАТЬ";
+"UNLOCK" = "ОТКРЫТЬ";
 
 // MARK: Target Surplus/Deficit
 
@@ -104,3 +104,8 @@
 "Add Entry" = "Добавьте Запись";
 "It's time to add your weight" = "Время добавить сегодняшний вес";
 "It's time to add your food" = "Время добавить сегодняшнюю еду";
+
+// MARK: - Store Messages
+
+"iTunes Connection Error" = "Ошибка подключения к iTunes";
+"Error During Purchase of" = "Ошибка во время покупки";

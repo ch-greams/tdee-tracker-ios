@@ -810,15 +810,19 @@ class AppState: ObservableObject {
         
         if StoreManager.shared.areProductsLoaded {
             
-            self.showLoader(text: "Checking Purchases")
+            self.showLoader(text: Label.tryRestore)
             
             StoreObserver.shared.restore()
         }
         else if StoreObserver.shared.isAuthorizedForPayments {
             
-            self.showLoader(text: "Connecting to iTunes")
+            self.showLoader(text: Label.fetchProducts)
             
             StoreManager.shared.fetchProducts(identifiers: ProductIds.allCases.map { $0.rawValue })
+        }
+        else {
+
+            self.showMessage(text: Label.notAuthorized, time: 10)
         }
     }
     
@@ -829,9 +833,9 @@ class AppState: ObservableObject {
     
     public func buyPremium() {
         
-        if let product = StoreManager.shared.products[ProductIds.TestItem.rawValue] {
+        if let product = StoreManager.shared.products[StoreManager.shared.PREMIUM_PRODUCT_ID] {
             
-            self.showLoader(text: "Making a Purchase")
+            self.showLoader(text: Label.tryPurchase)
             
             StoreObserver.shared.buy(product)
         }
@@ -839,7 +843,7 @@ class AppState: ObservableObject {
     
     private func confirmPurchaseOfPremium(productId: ProductIdentifier) {
         
-        if productId == ProductIds.TestItem.rawValue {
+        if productId == StoreManager.shared.PREMIUM_PRODUCT_ID {
             
             self.isPremiumVersion = true
             self.save(key: AppStateKey.IsPremiumVersion, value: self.isPremiumVersion)
@@ -865,18 +869,19 @@ extension AppState: StoreManagerDelegate {
             )
         }
         
-        self.showLoader(text: "Checking Purchases")
+        self.showLoader(text: Label.tryRestore)
         
         StoreObserver.shared.restore()
     }
     
     public func storeManagerRequestError(_ message: String) {
         
-        let msg = "\(Messages.productRequestStatus): \(message)"
+        Utils.log(source: "storeManagerRequestError", message: message)
         
-        Utils.log(source: "storeManagerDidReceiveMessage", message: msg)
-        
-        self.showMessage(text: msg, time: 3)
+        self.showMessage(
+            text: "\(Label.productRequestError):\n\(message)",
+            time: 8
+        )
         
         self.hideLoader()
     }
