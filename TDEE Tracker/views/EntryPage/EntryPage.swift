@@ -111,11 +111,13 @@ struct EntryPage: View {
                 }
                     .padding(.top, 10)
                     .blur(radius: isFutureDate ? 4 : 0)
+                    .opacity(isFutureDate ? 0.75 : 1)
                     .animation(.easeOut(duration: 0.16))
+                    .disabled(isFutureDate)
 
                 if isFutureDate {
 
-                    HStack{
+                    HStack {
                         CustomImage(
                             name: "time-sharp",
                             colorName: self.appState.uiTheme.mainTextColorName
@@ -124,9 +126,7 @@ struct EntryPage: View {
                             .font(.system(size: lockIconSize))
                     }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        .frame(height: self.appState.uiSizes.entryBlockerHeight)
-                        .background(self.appState.uiTheme.backgroundColor)
-                        .opacity(0.5)
+                        .padding(.top, self.appState.uiSizes.entryBlockerIconPadding)
                 }
             }
         }

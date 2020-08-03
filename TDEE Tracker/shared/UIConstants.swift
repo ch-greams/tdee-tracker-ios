@@ -36,7 +36,7 @@ struct UISizes {
     
     let entryInputPadding: CGFloat
     let entryHintBlockPadding: CGFloat
-    let entryBlockerHeight: CGFloat
+    let entryBlockerIconPadding: CGFloat
     let entryOpenInputOffset: CGFloat
     
     // MARK: - Trends Page
@@ -84,7 +84,7 @@ class UIConstants {
         
         entryInputPadding: 36,
         entryHintBlockPadding: 20,
-        entryBlockerHeight: 252,
+        entryBlockerIconPadding: 86,
         entryOpenInputOffset: -2,
         
         trendsElementPadding: 12,
@@ -120,7 +120,7 @@ class UIConstants {
         
         entryInputPadding: 30,
         entryHintBlockPadding: 16,
-        entryBlockerHeight: 230,
+        entryBlockerIconPadding: 75,
         entryOpenInputOffset: -8,
         
         trendsElementPadding: 10,
@@ -156,7 +156,7 @@ class UIConstants {
         
         entryInputPadding: 18,
         entryHintBlockPadding: 10,
-        entryBlockerHeight: 184,
+        entryBlockerIconPadding: 52,
         entryOpenInputOffset: 8,
         
         trendsElementPadding: 4,
@@ -192,7 +192,7 @@ class UIConstants {
         
         entryInputPadding: 16,
         entryHintBlockPadding: 6,
-        entryBlockerHeight: 174,
+        entryBlockerIconPadding: 47,
         entryOpenInputOffset: 0,
         
         trendsElementPadding: 3,
@@ -210,29 +210,100 @@ class UIConstants {
         setupScrollHeight: 586
     )
 
-    
-    public static func getUISizes(device: String) -> UISizes {
+    public static let IPHONE_SE: UISizes = UISizes(
         
-        print(device)
+        welcomeConfirmButtonPadding: 24,
+
+        mainViewPadding: 0,
+        mainViewNavbarPadding: 491,
+        
+        navbarHeight: 56,
+        navbarPadding: 6,
+        navbarSpacing: 42,
+
+        calendarDayFont: Font.appCalendarDaySmall,
+        calendarDaySelectedFont: Font.appCalendarDaySelectedSmall,
+        calendarDayButton: 28,
+        calendarDaySpacing: 12,
+        
+        entryInputPadding: 10,
+        entryHintBlockPadding: 0,
+        entryBlockerIconPadding: 47,
+        entryOpenInputOffset: 0,
+        
+        trendsElementPadding: 2,
+        trendsItemLabelFont: Font.appTrendsItemLabelSmall,
+        trendsItemValueFont: Font.appTrendsItemValueSmall,
+        trendsItemUnitFont: Font.appTrendsItemUnitSmall,
+        
+        progressPageSpacing: 8,
+        progressChartHeight: 160,
+        progressCircleDiameter: 310,
+        progressCircleWidth: 40,
+        
+        setupInputHeight: 58,
+        setupTargetDeltaPadding: 8,
+        setupScrollHeight: 491
+    )
+
+    
+    
+    public static func getUISizes(device: UIDeviceModel) -> UISizes {
+        
+        print(device.rawValue)
         
         switch device {
             
-            case "iPhone 11",
-                 "iPhone 11 Pro Max":
+            case UIDeviceModel.iPhoneXR,
+                 UIDeviceModel.iPhoneXSMax,
+                 UIDeviceModel.iPhone11,
+                 UIDeviceModel.iPhone11ProMax:
+                
                 return Self.IPHONE_11_PRO_MAX
             
-            case "iPhone 11 Pro":
+            case UIDeviceModel.iPhoneX,
+                 UIDeviceModel.iPhoneXS,
+                 UIDeviceModel.iPhone11Pro:
+                
                 return Self.IPHONE_11_PRO
 
-            case "iPhone 8 Plus":
+            case UIDeviceModel.iPhone6sPlus,
+                 UIDeviceModel.iPhone7Plus,
+                 UIDeviceModel.iPhone8Plus:
+                
                 return Self.IPHONE_8_PLUS
 
-            case "iPhone 8",
-                 "iPhone SE (1st generation)",
-                 "iPhone SE (2nd generation)":
+            case UIDeviceModel.iPhone6s,
+                 UIDeviceModel.iPhone7,
+                 UIDeviceModel.iPhone8,
+                 UIDeviceModel.iPhoneSE_2ndGen,
+                 
+                 UIDeviceModel.iPad5thGen,
+                 UIDeviceModel.iPad6thGen,
+                 UIDeviceModel.iPad7thGen,
+                 UIDeviceModel.iPadAir2,
+                 UIDeviceModel.iPadAir_3rdGen,
+                 UIDeviceModel.iPadMini4,
+                 UIDeviceModel.iPadMini_5thGen,
+                 UIDeviceModel.iPadPro9i,
+                 UIDeviceModel.iPadPro10i,
+                 UIDeviceModel.iPadPro11i_1stGen,
+                 UIDeviceModel.iPadPro11i_2ndGen,
+                 UIDeviceModel.iPadPro12i_1stGen,
+                 UIDeviceModel.iPadPro12i_2ndGen,
+                 UIDeviceModel.iPadPro12i_3rdGen,
+                 UIDeviceModel.iPadPro12i_4thGen:
+                
                 return Self.IPHONE_8
-
-            default:
+            
+            case UIDeviceModel.iPodTouch_7thGen,
+                 UIDeviceModel.iPhoneSE_1stGen:
+            
+                return Self.IPHONE_SE
+            
+            case UIDeviceModel.UnidentifiedSimulator,
+                 UIDeviceModel.Undefined:
+                
                 return Self.IPHONE_11_PRO
         }
     }
