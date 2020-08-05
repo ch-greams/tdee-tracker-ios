@@ -9,8 +9,17 @@
 import SwiftUI
 
 
+struct SetupUnitsBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let setupBlockTitleTPadding: CGFloat = 6
+}
 
+    
 struct SetupUnitsBlock: View {
+    
+    private let style: SetupUnitsBlockStyle = SetupUnitsBlockStyle()
     
     @EnvironmentObject var appState: AppState
     
@@ -22,7 +31,7 @@ struct SetupUnitsBlock: View {
             SetupBlockTitle(
                 title: Label.units,
                 textColor: self.appState.uiTheme.mainTextColor,
-                paddingTop: 6
+                paddingTop: self.style.setupBlockTitleTPadding
             )
             
             InputToggle(
@@ -31,7 +40,6 @@ struct SetupUnitsBlock: View {
                 first: WeightUnit.kg,
                 second: WeightUnit.lb,
                 selected: self.appState.weightUnit as WeightUnit?,
-                maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
             )
@@ -42,7 +50,6 @@ struct SetupUnitsBlock: View {
                 first: EnergyUnit.kcal,
                 second: EnergyUnit.kj,
                 selected: self.appState.energyUnit as EnergyUnit?,
-                maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
             )

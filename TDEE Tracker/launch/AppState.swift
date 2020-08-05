@@ -89,8 +89,6 @@ class AppState: ObservableObject {
     @Published public var currentTheme: UIThemeType = UIThemeType.Default
 
     public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
-
-    public let uiSizes: UISizes = UIConstants.getUISizes(device: UIDevice.modelName)
     
 
     public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {

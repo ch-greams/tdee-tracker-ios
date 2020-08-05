@@ -15,7 +15,6 @@ enum DayEntryData {
 
 class DayEntry: NSObject, NSCoding {
 
-    //var date: Date
     var weight: Double?
     var food: Int?
     

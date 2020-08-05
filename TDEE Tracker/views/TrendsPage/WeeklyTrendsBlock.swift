@@ -16,7 +16,51 @@ struct LineData {
     let changeType: WeekSummaryChange
 }
 
+
+struct WeeklyTrendsBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let trendsItemLabelWidth: CGFloat = 132
+    public let trendsItemValueMinWidth: CGFloat = 80
+    public let trendsItemUnitWidth: CGFloat = 30
+    
+    public let trendsItemChangeIconWidth: CGFloat = 16
+    public let trendsItemChangeIconHeight: CGFloat = 22
+    
+    public let separatorHeight: CGFloat = 1
+    public let separatorHPadding: CGFloat = 16
+    
+    public let trendsItemsHPadding: CGFloat = 8
+    
+    public let trendsItemVPadding: CGFloat
+    
+    public let trendsItemsVPadding: CGFloat
+    
+    
+    // MARK: - Fonts
+    
+    public let trendsItemLabelFont: Font
+    public let trendsItemValueFont: Font
+    public let trendsItemUnitFont: Font
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.trendsItemVPadding = uiSizes.trendsElementPadding
+        self.trendsItemsVPadding = uiSizes.trendsElementPadding
+        
+        self.trendsItemLabelFont = .custom(FontOswald.Light, size: uiSizes.trendsItemLabelFontSize)
+        self.trendsItemValueFont = .custom(FontOswald.Bold, size: uiSizes.trendsItemValueFontSize)
+        self.trendsItemUnitFont = .custom(FontOswald.Light, size: uiSizes.trendsItemUnitFontSize)
+    }
+}
+
+
 struct WeeklyTrendsBlock: View {
+    
+    private let style: WeeklyTrendsBlockStyle = WeeklyTrendsBlockStyle(uiSizes: UISizes.current)
     
     let weightUnitLabel: String
     let energyUnitLabel: String
@@ -26,11 +70,6 @@ struct WeeklyTrendsBlock: View {
     let summary: WeekSummary
     
     let trendsChange: WeekSummaryTrends
-    
-    let trendsElementPadding: CGFloat
-    let trendsItemLabelFont: Font
-    let trendsItemValueFont: Font
-    let trendsItemUnitFont: Font
     
     let backgroundColor: Color
     let accentColor: Color
@@ -43,32 +82,35 @@ struct WeeklyTrendsBlock: View {
         return HStack(alignment: .center, spacing: 0) {
         
             Text(data.label)
-                .font(self.trendsItemLabelFont)
-                .frame(width: 132, alignment: .leading)
+                .font(self.style.trendsItemLabelFont)
+                .frame(width: self.style.trendsItemLabelWidth, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
-                .font(self.trendsItemValueFont)
-                .frame(minWidth: 80, alignment: .trailing)
+                .font(self.style.trendsItemValueFont)
+                .frame(minWidth: self.style.trendsItemValueMinWidth, alignment: .trailing)
 
             Text(data.unit)
-                .font(self.trendsItemUnitFont)
-                .frame(width: 30, alignment: .leading)
+                .font(self.style.trendsItemUnitFont)
+                .frame(width: self.style.trendsItemUnitWidth, alignment: .leading)
                 .padding(.horizontal)
 
             CustomImage(name: data.changeType.icon, colorName: self.iconColor)
-                .frame(width: 16, height: 22)
+                .frame(
+                    width: self.style.trendsItemChangeIconWidth,
+                    height: self.style.trendsItemChangeIconHeight
+                )
                 .padding(.trailing)
         }
             .foregroundColor(self.textColor)
-            .padding(.vertical, self.trendsElementPadding)
+            .padding(.vertical, self.style.trendsItemVPadding)
     }
     
     var separator: some View {
         return Rectangle()
             .foregroundColor(self.accentColor)
-            .frame(height: 1)
-            .padding(.horizontal, 16)
+            .frame(height: self.style.separatorHeight)
+            .padding(.horizontal, self.style.separatorHPadding)
     }
     
     var body: some View {
@@ -114,9 +156,9 @@ struct WeeklyTrendsBlock: View {
                 }
             }
         }
-            .padding(.vertical, self.trendsElementPadding)
+            .padding(.vertical, self.style.trendsItemsVPadding)
             .background(self.backgroundColor)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, self.style.trendsItemsHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }
@@ -138,10 +180,6 @@ struct WeeklyTrendsBlock_Previews: PreviewProvider {
                 deltaWeight: WeekSummaryChange.None,
                 tdee: WeekSummaryChange.Up
             ),
-            trendsElementPadding: 10,
-            trendsItemLabelFont: Font.appTrendsItemLabelMedium,
-            trendsItemValueFont: Font.appTrendsItemValueMedium,
-            trendsItemUnitFont: Font.appTrendsItemUnitMedium,
             backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
             accentColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
             textColor: UIThemeManager.DEFAULT.secondaryTextColor,

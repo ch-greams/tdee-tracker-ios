@@ -9,8 +9,26 @@
 import SwiftUI
 
 
+struct DayButtonStyle {
+    
+    // MARK: - Sizes
+    
+    public let markDotSize: CGFloat = 4
+
+    public let buttonSize: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.buttonSize = uiSizes.calendarDayButton
+    }
+}
+
 
 struct DayButton: View {
+    
+    private let style: DayButtonStyle = DayButtonStyle(uiSizes: UISizes.current)
     
     let day: Date
     
@@ -21,11 +39,6 @@ struct DayButton: View {
     let isSelectedMonth: Bool
     
     let hasData: DayEntryData
-    
-    let defaultFont: Font
-    let selectedFont: Font
-
-    let buttonSize: CGFloat
     
     let selectedTextColor: Color
     let defaultTextColor: Color
@@ -58,25 +71,25 @@ struct DayButton: View {
             if self.hasData == DayEntryData.Full {
 
                 Circle()
-                    .size(CGSize(width: 4, height: 4))
+                    .size(CGSize(width: self.style.markDotSize, height: self.style.markDotSize))
                     .foregroundColor(self.accentColor)
             }
             else if self.hasData == DayEntryData.Partial {
                 
                 Circle()
-                    .size(CGSize(width: 4, height: 4))
+                    .size(CGSize(width: self.style.markDotSize, height: self.style.markDotSize))
                     .foregroundColor(self.accentAlternativeColor)
             }
             
             Button(self.day.dayString, action: { self.selectDayFunc(self.day) })
                 .buttonStyle(CalendarDayButtonStyle(
-                    buttonSize: self.buttonSize,
-                    font: ( self.isSelectedDay || self.isToday ) ? self.selectedFont : self.defaultFont,
+                    buttonSize: self.style.buttonSize,
+                    isSelected: ( self.isSelectedDay || self.isToday ),
                     textColor: self.color,
                     backgroundColor: self.isSelectedDay ? self.accentColor : nil
                 ))
         }
-            .frame(width: self.buttonSize, height: self.buttonSize, alignment: .top)
+            .frame(width: self.style.buttonSize, height: self.style.buttonSize, alignment: .top)
         
     }
 }
@@ -84,9 +97,6 @@ struct DayButton: View {
 struct DayButton_Previews: PreviewProvider {
     
     static let day = Date()
-    
-    static let defaultFont: Font = Font.appCalendarDayMedium
-    static let selectedFont: Font = Font.appCalendarDaySelectedMedium
     
     static let selectedColor: Color = UIThemeManager.DEFAULT.mainTextColor
     static let defaultColor: Color = UIThemeManager.DEFAULT.calendarTextDefaultColor
@@ -109,9 +119,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Full,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -127,9 +134,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Full,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -145,9 +149,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Full,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -166,9 +167,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Partial,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -184,9 +182,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Partial,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -202,9 +197,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Partial,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -223,9 +215,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -241,9 +230,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -259,9 +245,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -280,9 +263,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: true,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -298,9 +278,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: true,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,
@@ -316,9 +293,6 @@ struct DayButton_Previews: PreviewProvider {
                     isSelectedDay: false,
                     isSelectedMonth: false,
                     hasData: DayEntryData.Empty,
-                    defaultFont: defaultFont,
-                    selectedFont: selectedFont,
-                    buttonSize: 40,
                     selectedTextColor: Self.selectedColor,
                     defaultTextColor: Self.defaultColor,
                     alternativeTextColor: Self.alternativeColor,

@@ -9,8 +9,21 @@
 import SwiftUI
 
 
+struct SetupRemindersBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let datePickerPadding: CGFloat = 8
+    
+    // MARK: - Fonts
+    
+    public let datePickerFont: Font = .custom(FontOswald.Bold, size: 32)
+}
+
 
 struct SetupRemindersBlock: View {
+    
+    private let style: SetupRemindersBlockStyle = SetupRemindersBlockStyle()
     
     @EnvironmentObject var appState: AppState
     
@@ -18,6 +31,15 @@ struct SetupRemindersBlock: View {
     
     @Binding var isOpen: Bool
     
+    func getDateInputValue(type: ReminderType) -> Binding<Date> {
+        
+        switch type {
+            case ReminderType.Weight:
+                return self.$appState.reminderWeightDate
+            case ReminderType.Food:
+                return self.$appState.reminderFoodDate
+        }
+    }
 
     
     var body: some View {
@@ -43,7 +65,6 @@ struct SetupRemindersBlock: View {
                         self.selectedInput = ReminderType.Weight
                         self.isOpen = true
                     },
-                    height: self.appState.uiSizes.setupInputHeight,
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                     accentColor: self.appState.uiTheme.inputAccentColor
                 )
@@ -58,7 +79,6 @@ struct SetupRemindersBlock: View {
                         self.selectedInput = ReminderType.Food
                         self.isOpen = true
                     },
-                    height: self.appState.uiSizes.setupInputHeight,
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                     accentColor: self.appState.uiTheme.inputAccentColor
                 )
@@ -67,20 +87,16 @@ struct SetupRemindersBlock: View {
             if self.isOpen {
                 DatePicker(
                     "",
-                    selection: (
-                        self.selectedInput == ReminderType.Weight
-                            ? self.$appState.reminderWeightDate
-                            : self.$appState.reminderFoodDate
-                    ),
+                    selection: self.getDateInputValue(type: self.selectedInput),
                     displayedComponents: .hourAndMinute
                 )
                     .labelsHidden()
-                    .font(.appInputValue)
+                    .font(self.style.datePickerFont)
                     .frame(maxWidth: .infinity)
                     .background(self.appState.uiTheme.inputBackgroundColor)
                     .clipped()
                     .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
-                    .padding(8)
+                    .padding(self.style.datePickerPadding)
                 
                 Button(Label.confirm, action: doneAction)
                     .buttonStyle(AppDefaultButtonStyle(

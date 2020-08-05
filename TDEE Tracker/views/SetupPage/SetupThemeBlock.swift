@@ -8,7 +8,21 @@
 
 import SwiftUI
 
+
+struct SetupThemeBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let paletteColorWidth: CGFloat = 10
+    public let paletteColorHeight: CGFloat = 40
+    
+    public let bodyBPadding: CGFloat = 24
+}
+
+
 struct SetupThemeBlock: View {
+    
+    private let style: SetupThemeBlockStyle = SetupThemeBlockStyle()
     
     @EnvironmentObject var appState: AppState
     
@@ -39,24 +53,36 @@ struct SetupThemeBlock: View {
     }
     
 
-    func getPalleteView(theme: UITheme) -> some View {
+    func getPaletteView(theme: UITheme) -> some View {
         
         HStack(alignment: .center, spacing: 0) {
 
             Rectangle()
-                .frame(width: 10, height: 40)
+                .frame(
+                    width: self.style.paletteColorWidth,
+                    height: self.style.paletteColorHeight
+                )
                 .foregroundColor(theme.navbarBackgroundColor)
             
             Rectangle()
-                .frame(width: 10, height: 40)
+                .frame(
+                    width: self.style.paletteColorWidth,
+                    height: self.style.paletteColorHeight
+                )
                 .foregroundColor(theme.inputAccentColor)
 
             Rectangle()
-                .frame(width: 10, height: 40)
+                .frame(
+                    width: self.style.paletteColorWidth,
+                    height: self.style.paletteColorHeight
+                )
                 .foregroundColor(theme.navbarAccentColor)
             
             Rectangle()
-                .frame(width: 10, height: 40)
+                .frame(
+                    width: self.style.paletteColorWidth,
+                    height: self.style.paletteColorHeight
+                )
                 .foregroundColor(theme.warningBackgroundColor)
         }
     }
@@ -76,16 +102,15 @@ struct SetupThemeBlock: View {
                     title: key.localized,
                     buttonLabel: self.getButtonLabel(key: key),
                     onClick: self.getButtonAction(key: key),
-                    height: self.appState.uiSizes.setupInputHeight,
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                     accentColor: self.appState.uiTheme.inputAccentColor,
                     isSelected: ( self.appState.currentTheme == key ),
-                    pallete: AnyView( self.getPalleteView(theme: value) )
+                    palette: AnyView( self.getPaletteView(theme: value) )
                 )
             }
         }
             .frame(maxWidth: .infinity)
-            .padding(.bottom, 24)
+            .padding(.bottom, self.style.bodyBPadding)
     }
 }
 

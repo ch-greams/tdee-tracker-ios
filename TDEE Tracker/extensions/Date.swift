@@ -16,12 +16,12 @@ extension Date {
     
     var startOfWeek: Date? {
         
-        Self.calendar.date(
-            from: Self.calendar.dateComponents(
-                [ .yearForWeekOfYear, .weekOfYear ],
-                from: self
-            )
+        let dateComponents = Self.calendar.dateComponents(
+            [ .yearForWeekOfYear, .weekOfYear ],
+            from: self
         )
+        
+        return Self.calendar.date(from: dateComponents)
     }
     
     var timeString: String {
@@ -30,6 +30,12 @@ extension Date {
     
     var dayString: String {
         Self.formatter.dateFormat = "d"
+        return Self.formatter.string(from: self)
+    }
+    
+    
+    func toString(_ format: String) -> String {
+        Self.formatter.dateFormat = format
         return Self.formatter.string(from: self)
     }
 }

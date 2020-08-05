@@ -8,37 +8,72 @@
 
 import SwiftUI
 
-enum TabBarTag: Int {
+enum NavbarTag: Int {
     case entryPage, trendsPage, progressPage, setupPage
 }
 
-struct TabBarItem {
+struct NavbarItem {
     
     let label: String
     let icon: String
-    let tag: TabBarTag
+    let tag: NavbarTag
 }
+
+struct ContentViewStyle {
+    
+    // MARK: - Sizes
+    
+    public let navbarItemSpacing: CGFloat = 2
+    public let navbarItemIconSize: CGFloat = 26
+    public let navbarViewBorderHeight: CGFloat = 1
+    
+    public let navbarItemIconTPadding: CGFloat
+    public let navbarViewSpacing: CGFloat
+    public let navbarViewHeight: CGFloat
+    
+    public let visibleScreenOffset: CGFloat
+    public let visibleScreenHeight: CGFloat
+    
+    // MARK: - Fonts
+    
+    public let navbarItemLabel: Font = .custom(FontOswald.Light, size: 12)
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.navbarItemIconTPadding = uiSizes.navbarPadding
+        self.navbarViewSpacing = uiSizes.navbarSpacing
+        self.navbarViewHeight = uiSizes.navbarHeight
+        
+        self.visibleScreenOffset = uiSizes.mvVisibleScreenOffset
+        self.visibleScreenHeight = uiSizes.mvVisibleScreenHeight
+    }
+}
+
 
 struct ContentView: View {
 
+    private let style: ContentViewStyle = ContentViewStyle(uiSizes: UISizes.current)
+    
     @EnvironmentObject var appState: AppState
     
-    @State var selectedTab = TabBarTag.entryPage
+    @State var selectedTab = NavbarTag.entryPage
     
-    let tabBarItems: [ TabBarItem ] = [
-        TabBarItem(label: Label.entry, icon: "create-sharp", tag: TabBarTag.entryPage),
-        TabBarItem(label: Label.trends, icon: "calendar-sharp", tag: TabBarTag.trendsPage),
-        TabBarItem(label: Label.progress, icon: "stats-chart-sharp", tag: TabBarTag.progressPage),
-        TabBarItem(label: Label.settings, icon: "options-sharp", tag: TabBarTag.setupPage)
+    let navbarItems: [ NavbarItem ] = [
+        NavbarItem(label: Label.entry, icon: "create-sharp", tag: NavbarTag.entryPage),
+        NavbarItem(label: Label.trends, icon: "calendar-sharp", tag: NavbarTag.trendsPage),
+        NavbarItem(label: Label.progress, icon: "stats-chart-sharp", tag: NavbarTag.progressPage),
+        NavbarItem(label: Label.settings, icon: "options-sharp", tag: NavbarTag.setupPage)
     ]
     
-    func tabbarItem(item: TabBarItem) -> some View {
+    func navbarItem(item: NavbarItem) -> some View {
 
         let isSelected = ( item.tag == self.selectedTab )
         
         return Button(action: { self.selectedTab = item.tag }) {
 
-            VStack(alignment: .center, spacing: 2) {
+            VStack(alignment: .center, spacing: self.style.navbarItemSpacing) {
                 
                 CustomImage(
                     name: item.icon,
@@ -48,11 +83,11 @@ struct ContentView: View {
                             : self.appState.uiTheme.navbarAccentColorName
                     )
                 )
-                    .frame(width: 26, height: 26)
-                    .padding(.top, self.appState.uiSizes.navbarPadding)
+                    .frame(width: self.style.navbarItemIconSize, height: self.style.navbarItemIconSize)
+                    .padding(.top, self.style.navbarItemIconTPadding)
 
                 Text(item.label)
-                    .font(.appNavbarElement)
+                    .font(self.style.navbarItemLabel)
                     .foregroundColor(
                         isSelected
                             ? self.appState.uiTheme.mainTextColor
@@ -67,13 +102,13 @@ struct ContentView: View {
         
         switch self.selectedTab {
 
-            case TabBarTag.entryPage:
+            case NavbarTag.entryPage:
                 return AnyView( EntryPage() )
-            case TabBarTag.trendsPage:
+            case NavbarTag.trendsPage:
                 return AnyView( TrendsPage() )
-            case TabBarTag.progressPage:
+            case NavbarTag.progressPage:
                 return AnyView( ProgressPage() )
-            case TabBarTag.setupPage:
+            case NavbarTag.setupPage:
                 return AnyView( SetupPage() )
         }
     }
@@ -83,18 +118,18 @@ struct ContentView: View {
         VStack(alignment: .center, spacing: 0) {
             
             Rectangle()
-                .frame(height: 1)
+                .frame(height: self.style.navbarViewBorderHeight)
                 .foregroundColor(self.appState.uiTheme.navbarAccentColor)
                 .opacity(0.5)
             
-            HStack(alignment: .center, spacing: self.appState.uiSizes.navbarSpacing) {
+            HStack(alignment: .center, spacing: self.style.navbarViewSpacing) {
                 
-                ForEach(self.tabBarItems, id: \.tag) { item in
-                    self.tabbarItem(item: item)
+                ForEach(self.navbarItems, id: \.tag) { item in
+                    self.navbarItem(item: item)
                 }
             }
                 .frame(maxWidth: .infinity)
-                .frame(height: self.appState.uiSizes.navbarHeight, alignment: .top)
+                .frame(height: self.style.navbarViewHeight, alignment: .top)
                 .background(self.appState.uiTheme.navbarBackgroundColor)
                 
         }
@@ -118,18 +153,22 @@ struct ContentView: View {
             
             self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
                 
+            // MARK: - Main View
+            
             if self.appState.isFirstSetupDone {
 
                 self.mainAppView
-                    .padding(.top, self.appState.uiSizes.mainViewPadding)
+                    .padding(.top, self.style.visibleScreenOffset)
                 
                 self.navbarView
-                    .padding(.top, self.appState.uiSizes.mainViewNavbarPadding)
+                    .padding(.top, self.style.visibleScreenHeight)
             }
             else {
 
                 WelcomePage()
             }
+            
+            // MARK: - Payment Modal/Loader
             
             if self.appState.showBuyModal {
                 
@@ -157,6 +196,8 @@ struct ContentView: View {
                 )
             }
 
+            // MARK: - Notification
+            
             if !self.appState.messageText.isEmpty {
                 
                 AlertMessage(
@@ -166,9 +207,7 @@ struct ContentView: View {
                     closeAction: self.appState.hideMessage
                 )
                     .padding(.top, (
-                        self.appState.isFirstSetupDone
-                            ? self.appState.uiSizes.mainViewPadding
-                            : 0
+                        self.appState.isFirstSetupDone ? self.style.visibleScreenOffset : 0
                     ))
             }
         }

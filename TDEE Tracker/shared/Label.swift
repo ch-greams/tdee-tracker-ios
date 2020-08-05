@@ -110,8 +110,7 @@ struct Label {
     // MARK: - Premium Purchase
     
     public static let buyPremiumTitle = "TDEE Tracker Premium".localize
-    public static let buyPremiumDescriptionPartOne = "Premium version of TDEE Tracker unlocks all existing themes.".localize
-    public static let buyPremiumDescriptionPartTwo = "It does not include any extra features, as everything else is available for free.".localize
+    public static let buyPremiumDescription = "Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free.".localize
     
     public static let buyFor = "BUY FOR".localize
     public static let buy = "BUY".localize

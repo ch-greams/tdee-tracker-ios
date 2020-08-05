@@ -8,9 +8,33 @@
 
 import SwiftUI
 
+
+struct CalendarBlockDaysStyle {
+    
+    // MARK: - Sizes
+    
+    public let selectedEntryWeekHighlightHeight: CGFloat = 30
+    public let selectedTrendWeekHighlightHeight: CGFloat = 10
+    
+    public let weekVPadding: CGFloat = 1
+    
+    public let calendarDayButtonHSpacing: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.calendarDayButtonHSpacing = uiSizes.calendarDaySpacing
+    }
+}
+
+
+
 struct CalendarBlockDays: View {
     
-    let calendar = Calendar.current
+    private let calendar = Calendar.current
+    
+    private let style: CalendarBlockDaysStyle = CalendarBlockDaysStyle(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -36,9 +60,7 @@ struct CalendarBlockDays: View {
             isSelectedDay: isSelectedDay || ( self.isTrendsPage && isSelectedWeek ),
             isSelectedMonth: isSelectedMonth,
             hasData: self.appState.isDayHasData(date: day),
-            defaultFont: self.appState.uiSizes.calendarDayFont,
-            selectedFont: self.appState.uiSizes.calendarDaySelectedFont,
-            buttonSize: self.appState.uiSizes.calendarDayButton,
+            
             selectedTextColor: self.appState.uiTheme.mainTextColor,
             defaultTextColor: self.appState.uiTheme.calendarTextDefaultColor,
             alternativeTextColor: self.appState.uiTheme.calendarTextAltColor,
@@ -61,21 +83,23 @@ struct CalendarBlockDays: View {
 
                 if self.isTrendsPage {
 
-                    self.appState.uiTheme.calendarAccentColor.frame(height: 10)
+                    self.appState.uiTheme.calendarAccentColor
+                        .frame(height: self.style.selectedTrendWeekHighlightHeight)
                 }
                 else {
                     
-                    self.appState.uiTheme.calendarWeekHighlight.frame(height: 30)
+                    self.appState.uiTheme.calendarWeekHighlight
+                        .frame(height: self.style.selectedEntryWeekHighlightHeight)
                 }
             }
 
-            HStack(alignment: .center, spacing: self.appState.uiSizes.calendarDaySpacing) {
+            HStack(alignment: .center, spacing: self.style.calendarDayButtonHSpacing) {
                 ForEach(0 ..< week.count) { iDay in
                     
                     self.getDay(day: week[iDay], isSelectedWeek: isSelectedWeek)
                 }
             }
-                .padding(.vertical, 1)
+                .padding(.vertical, self.style.weekVPadding)
 
         }
     }

@@ -17,33 +17,54 @@
 import SwiftUI
 
 
+struct InputSelectButtonSizes {
+    
+    // MARK: - Sizes
+    
+    public let bodyVPadding: CGFloat = 1
+    public let bodyHPadding: CGFloat = 8
+    
+    public let bodyHeight: CGFloat
+
+    // MARK: - Fonts
+
+    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.bodyHeight = uiSizes.setupInputHeight
+    }
+}
+
 
 struct InputSelectButton: View {
+    
+    private let style: InputSelectButtonSizes = InputSelectButtonSizes(uiSizes: UISizes.current)
     
     let title: String
     let buttonLabel: String
     
     let onClick: () -> Void
     
-    let height: CGFloat
-    
     let backgroundColor: Color
     let accentColor: Color
     
     var isSelected: Bool = false
     
-    var pallete: AnyView?
+    var palette: AnyView?
     
     
 
     var body: some View {
         
-        let isThemeButton = self.pallete != nil
+        let isThemeButton = self.palette != nil
         
         return HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(.appInputLabel)
+                .font(self.style.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .foregroundColor(self.accentColor)
@@ -52,24 +73,24 @@ struct InputSelectButton: View {
             
             if isThemeButton {
                 
-                self.pallete
+                self.palette
             }
             
             Button(buttonLabel, action: self.onClick)
                 .buttonStyle(InputSelectButtonStyle(
                     backgroundColor: self.backgroundColor,
                     accentColor: self.accentColor,
-                    font: isThemeButton ? Font.appSetupThemeButton : Font.appInputValue,
+                    isThemeButton: isThemeButton,
                     isSelected: self.isSelected
                 ))
                 .padding(.horizontal)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: self.height)
+            .frame(height: self.style.bodyHeight)
             .background(self.backgroundColor)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
+            .padding(.vertical, self.style.bodyVPadding)
+            .padding(.horizontal, self.style.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }
@@ -113,7 +134,6 @@ struct InputSelectButton_Previews: PreviewProvider {
                     title: Label.food,
                     buttonLabel: "10:33 AM",
                     onClick: { print("onClick") },
-                    height: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
@@ -122,22 +142,20 @@ struct InputSelectButton_Previews: PreviewProvider {
                     title: Label.theme,
                     buttonLabel: Label.apply,
                     onClick: { print("onClick") },
-                    height: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     isSelected: false,
-                    pallete: AnyView( Self.colors )
+                    palette: AnyView( Self.colors )
                 )
                 
                 InputSelectButton(
                     title: Label.theme,
                     buttonLabel: Label.active,
                     onClick: { print("onClick") },
-                    height: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     isSelected: true,
-                    pallete: AnyView( Self.colors )
+                    palette: AnyView( Self.colors )
                 )
             }
         }

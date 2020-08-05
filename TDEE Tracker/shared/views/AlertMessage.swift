@@ -8,7 +8,26 @@
 
 import SwiftUI
 
+
+struct AlertMessageStyle {
+    
+    // MARK: - Sizes
+    
+    public let bodyInsideVPadding: CGFloat = 16
+    public let bodyInsideHPadding: CGFloat = 32
+    
+    public let bodyOutsideVPadding: CGFloat = 1
+    public let bodyOutsideHPadding: CGFloat = 8
+    
+    // MARK: - Fonts
+
+    public let warningText: Font = .custom(FontOswald.Medium, size: 16)
+}
+
+
 struct AlertMessage: View {
+    
+    private let style: AlertMessageStyle = AlertMessageStyle()
     
     let text: String
     
@@ -24,15 +43,15 @@ struct AlertMessage: View {
             Text(self.text)
                 .multilineTextAlignment(.center)
                 .foregroundColor(self.textColor)
-                .font(.appWarningText)
+                .font(self.style.warningText)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 16)
-            .padding(.horizontal, 32)
+            .padding(.vertical, self.style.bodyInsideVPadding)
+            .padding(.horizontal, self.style.bodyInsideHPadding)
             .background(self.backgroundColor)
             .onTapGesture(perform: self.closeAction)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
+            .padding(.vertical, self.style.bodyOutsideVPadding)
+            .padding(.horizontal, self.style.bodyOutsideHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }

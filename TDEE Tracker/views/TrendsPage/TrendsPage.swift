@@ -8,7 +8,17 @@
 
 import SwiftUI
 
+
+struct TrendsPageStyle {
+    
+    public let calendarBlockBPadding: CGFloat = 8
+}
+
+
+
 struct TrendsPage: View {
+    
+    private let style: TrendsPageStyle = TrendsPageStyle()
 
     @EnvironmentObject var appState: AppState
 
@@ -22,7 +32,7 @@ struct TrendsPage: View {
                 isCollapsed: false,
                 isTrendsPage: true
             )
-                .padding(.bottom, 8)
+                .padding(.bottom, self.style.calendarBlockBPadding)
             
             WeeklyTrendsBlock(
                 weightUnitLabel: self.appState.weightUnit.localized,
@@ -30,10 +40,6 @@ struct TrendsPage: View {
                 selectedDay: self.appState.selectedDay,
                 summary: self.appState.selectedWeekSummary,
                 trendsChange: self.appState.trendsChange,
-                trendsElementPadding: self.appState.uiSizes.trendsElementPadding,
-                trendsItemLabelFont: self.appState.uiSizes.trendsItemLabelFont,
-                trendsItemValueFont: self.appState.uiSizes.trendsItemValueFont,
-                trendsItemUnitFont: self.appState.uiSizes.trendsItemUnitFont,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 accentColor: self.appState.uiTheme.trendsSeparatorColor,
                 textColor: self.appState.uiTheme.secondaryTextColor,

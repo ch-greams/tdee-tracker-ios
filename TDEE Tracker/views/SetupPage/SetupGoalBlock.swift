@@ -8,7 +8,26 @@
 
 import SwiftUI
 
+
+struct SetupGoalBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let targetDeltaVPadding: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.targetDeltaVPadding = uiSizes.setupTargetDeltaPadding
+    }
+}
+
+
+
 struct SetupGoalBlock: View {
+    
+    private let style: SetupGoalBlockStyle = SetupGoalBlockStyle(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
 
@@ -41,7 +60,6 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isGoalWeightOpen = true },
                 isOpen: self.isGoalWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
@@ -60,7 +78,6 @@ struct SetupGoalBlock: View {
                 },
                 openInput: { self.isDeltaWeightOpen = true },
                 isOpen: self.isDeltaWeightOpen,
-                maxHeight: self.appState.uiSizes.setupInputHeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
@@ -72,7 +89,7 @@ struct SetupGoalBlock: View {
                 unit: energyUnitLabel,
                 textColor: self.appState.uiTheme.mainTextColor
             )
-                .padding(.vertical, self.appState.uiSizes.setupTargetDeltaPadding)
+                .padding(.vertical, self.style.targetDeltaVPadding)
         }
     }
 }

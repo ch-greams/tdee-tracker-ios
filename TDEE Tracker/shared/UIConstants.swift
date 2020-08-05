@@ -10,14 +10,16 @@ import SwiftUI
 
 struct UISizes {
     
+    public static let current: UISizes = UIConstants.getUISizes(device: UIDevice.modelName)
+    
     // MARK: - Welcome Page
     
     let welcomeConfirmButtonPadding: CGFloat
     
     // MARK: - Main View
     
-    let mainViewPadding: CGFloat
-    let mainViewNavbarPadding: CGFloat
+    let mvVisibleScreenOffset: CGFloat
+    let mvVisibleScreenHeight: CGFloat
     
     // MARK: - Navbar
     
@@ -27,8 +29,8 @@ struct UISizes {
     
     // MARK: - Calendar
 
-    let calendarDayFont: Font
-    let calendarDaySelectedFont: Font
+    let calendarDayFontSize: CGFloat
+    let calendarDaySelectedFontSize: CGFloat
     let calendarDayButton: CGFloat
     let calendarDaySpacing: CGFloat
     
@@ -42,9 +44,9 @@ struct UISizes {
     // MARK: - Trends Page
     
     let trendsElementPadding: CGFloat
-    let trendsItemLabelFont: Font
-    let trendsItemValueFont: Font
-    let trendsItemUnitFont: Font
+    let trendsItemLabelFontSize: CGFloat
+    let trendsItemValueFontSize: CGFloat
+    let trendsItemUnitFontSize: CGFloat
     
     // MARK: - Progress Page
     
@@ -57,7 +59,6 @@ struct UISizes {
     
     let setupInputHeight: CGFloat
     let setupTargetDeltaPadding: CGFloat
-    let setupScrollHeight: CGFloat
 }
 
 
@@ -70,15 +71,15 @@ class UIConstants {
         
         welcomeConfirmButtonPadding: 30,
         
-        mainViewPadding: 30,
-        mainViewNavbarPadding: 802,
+        mvVisibleScreenOffset: 36,
+        mvVisibleScreenHeight: 796,
         
         navbarHeight: 84,
         navbarPadding: 12,
         navbarSpacing: 62,
 
-        calendarDayFont: Font.appCalendarDayBig,
-        calendarDaySelectedFont: Font.appCalendarDaySelectedBig,
+        calendarDayFontSize: 24,
+        calendarDaySelectedFontSize: 24,
         calendarDayButton: 46,
         calendarDaySpacing: 8,
         
@@ -88,9 +89,9 @@ class UIConstants {
         entryOpenInputOffset: -2,
         
         trendsElementPadding: 12,
-        trendsItemLabelFont: Font.appTrendsItemLabelBig,
-        trendsItemValueFont: Font.appTrendsItemValueBig,
-        trendsItemUnitFont: Font.appTrendsItemUnitBig,
+        trendsItemLabelFontSize: 20,
+        trendsItemValueFontSize: 34,
+        trendsItemUnitFontSize: 16,
         
         progressPageSpacing: 34,
         progressChartHeight: 210,
@@ -98,23 +99,22 @@ class UIConstants {
         progressCircleWidth: 56,
         
         setupInputHeight: 74,
-        setupTargetDeltaPadding: 12,
-        setupScrollHeight: 772
+        setupTargetDeltaPadding: 12
     )
     
     public static let IPHONE_11_PRO: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 30,
 
-        mainViewPadding: 30,
-        mainViewNavbarPadding: 720,
+        mvVisibleScreenOffset: 36,
+        mvVisibleScreenHeight: 714,
         
         navbarHeight: 84,
         navbarPadding: 12,
         navbarSpacing: 54,
         
-        calendarDayFont: Font.appCalendarDayMedium,
-        calendarDaySelectedFont: Font.appCalendarDaySelectedMedium,
+        calendarDayFontSize: 22,
+        calendarDaySelectedFontSize: 22,
         calendarDayButton: 40,
         calendarDaySpacing: 8,
         
@@ -124,9 +124,9 @@ class UIConstants {
         entryOpenInputOffset: -8,
         
         trendsElementPadding: 10,
-        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
-        trendsItemValueFont: Font.appTrendsItemValueMedium,
-        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
+        trendsItemLabelFontSize: 18,
+        trendsItemValueFontSize: 32,
+        trendsItemUnitFontSize: 14,
         
         progressPageSpacing: 32,
         progressChartHeight: 180,
@@ -134,23 +134,22 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 74,
-        setupTargetDeltaPadding: 12,
-        setupScrollHeight: 690
+        setupTargetDeltaPadding: 12
     )
     
     public static let IPHONE_8_PLUS: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 24,
 
-        mainViewPadding: 0,
-        mainViewNavbarPadding: 655,
+        mvVisibleScreenOffset: 0,
+        mvVisibleScreenHeight: 655,
         
         navbarHeight: 60,
         navbarPadding: 8,
         navbarSpacing: 62,
 
-        calendarDayFont: Font.appCalendarDayBig,
-        calendarDaySelectedFont: Font.appCalendarDaySelectedBig,
+        calendarDayFontSize: 24,
+        calendarDaySelectedFontSize: 24,
         calendarDayButton: 44,
         calendarDaySpacing: 8,
         
@@ -160,9 +159,9 @@ class UIConstants {
         entryOpenInputOffset: 8,
         
         trendsElementPadding: 4,
-        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
-        trendsItemValueFont: Font.appTrendsItemValueMedium,
-        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
+        trendsItemLabelFontSize: 18,
+        trendsItemValueFontSize: 32,
+        trendsItemUnitFontSize: 14,
         
         progressPageSpacing: 16,
         progressChartHeight: 180,
@@ -170,23 +169,22 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 68,
-        setupTargetDeltaPadding: 12,
-        setupScrollHeight: 655
+        setupTargetDeltaPadding: 12
     )
 
     public static let IPHONE_8: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 24,
 
-        mainViewPadding: 0,
-        mainViewNavbarPadding: 586,
+        mvVisibleScreenOffset: 0,
+        mvVisibleScreenHeight: 586,
         
         navbarHeight: 60,
         navbarPadding: 8,
         navbarSpacing: 54,
 
-        calendarDayFont: Font.appCalendarDaySmall,
-        calendarDaySelectedFont: Font.appCalendarDaySelectedSmall,
+        calendarDayFontSize: 18,
+        calendarDaySelectedFontSize: 18,
         calendarDayButton: 36,
         calendarDaySpacing: 12,
         
@@ -196,9 +194,9 @@ class UIConstants {
         entryOpenInputOffset: 0,
         
         trendsElementPadding: 3,
-        trendsItemLabelFont: Font.appTrendsItemLabelMedium,
-        trendsItemValueFont: Font.appTrendsItemValueMedium,
-        trendsItemUnitFont: Font.appTrendsItemUnitMedium,
+        trendsItemLabelFontSize: 18,
+        trendsItemValueFontSize: 32,
+        trendsItemUnitFontSize: 14,
         
         progressPageSpacing: 8,
         progressChartHeight: 160,
@@ -206,23 +204,22 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 58,
-        setupTargetDeltaPadding: 8,
-        setupScrollHeight: 586
+        setupTargetDeltaPadding: 8
     )
 
     public static let IPHONE_SE: UISizes = UISizes(
         
         welcomeConfirmButtonPadding: 24,
 
-        mainViewPadding: 0,
-        mainViewNavbarPadding: 491,
+        mvVisibleScreenOffset: 0,
+        mvVisibleScreenHeight: 491,
         
         navbarHeight: 56,
         navbarPadding: 6,
         navbarSpacing: 42,
 
-        calendarDayFont: Font.appCalendarDaySmall,
-        calendarDaySelectedFont: Font.appCalendarDaySelectedSmall,
+        calendarDayFontSize: 18,
+        calendarDaySelectedFontSize: 18,
         calendarDayButton: 28,
         calendarDaySpacing: 12,
         
@@ -232,9 +229,9 @@ class UIConstants {
         entryOpenInputOffset: 0,
         
         trendsElementPadding: 2,
-        trendsItemLabelFont: Font.appTrendsItemLabelSmall,
-        trendsItemValueFont: Font.appTrendsItemValueSmall,
-        trendsItemUnitFont: Font.appTrendsItemUnitSmall,
+        trendsItemLabelFontSize: 14,
+        trendsItemValueFontSize: 28,
+        trendsItemUnitFontSize: 12,
         
         progressPageSpacing: 8,
         progressChartHeight: 160,
@@ -242,8 +239,7 @@ class UIConstants {
         progressCircleWidth: 40,
         
         setupInputHeight: 58,
-        setupTargetDeltaPadding: 8,
-        setupScrollHeight: 491
+        setupTargetDeltaPadding: 8
     )
 
     
@@ -304,7 +300,7 @@ class UIConstants {
             case UIDeviceModel.UnidentifiedSimulator,
                  UIDeviceModel.Undefined:
                 
-                return Self.IPHONE_11_PRO
+                return Self.IPHONE_8
         }
     }
 }

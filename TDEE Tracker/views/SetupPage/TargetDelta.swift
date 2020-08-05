@@ -8,7 +8,24 @@
 
 import SwiftUI
 
+
+struct TargetDeltaStyle {
+    
+    // MARK: - Sizes
+    
+    public let labelWidth: CGFloat = 134
+    
+    // MARK: - Fonts
+
+    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
+    public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+}
+
+
 struct TargetDelta: View {
+    
+    private let style: TargetDeltaStyle = TargetDeltaStyle()
     
     let value: Int
     let unit: String
@@ -23,20 +40,20 @@ struct TargetDelta: View {
             Spacer()
             
             Text(changeType.uppercased())
-                .frame(width: 134, alignment: .leading)
+                .frame(width: self.style.labelWidth, alignment: .leading)
                 .foregroundColor(textColor)
-                .font(.appInputLabel)
+                .font(self.style.labelFont)
 
             Spacer()
             
             Text(String(abs(self.value)))
                 .foregroundColor(textColor)
-                .font(.appInputValue)
+                .font(self.style.valueFont)
                 .padding(.trailing)
 
             Text("\(self.unit)/\(Label.day)".uppercased())
                 .foregroundColor(textColor)
-                .font(.appInputLabel)
+                .font(self.style.unitFont)
                 
             Spacer()
         }

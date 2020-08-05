@@ -8,14 +8,32 @@
 
 import SwiftUI
 
+
+struct LoaderSpinnerStyle {
+    
+    // MARK: - Sizes
+    
+    public let circleSize: CGFloat = 50
+    
+    public let circleBackLineWidth: CGFloat = 10
+    public let circleFrontLineWidth: CGFloat = 8
+    
+    public let spinnerBPadding: CGFloat = 24
+    
+    // MARK: - Fonts
+
+    public let loaderText: Font = .custom(FontOswald.Regular, size: 22)
+}
+
+
 struct LoaderSpinner: View {
+    
+    private let style: LoaderSpinnerStyle = LoaderSpinnerStyle()
     
     let mainColor: Color
     let accentColor: Color
     
-    var text: String = "Loading store"
-    
-    var diameter: CGFloat = 50
+    let text: String
     
     @State var rotationAngle: Angle = .degrees(0)
     
@@ -24,15 +42,15 @@ struct LoaderSpinner: View {
         ZStack(alignment: .center) {
 
             Circle()
-                .stroke(self.accentColor, lineWidth: 10)
-                .frame(height: self.diameter)
+                .stroke(self.accentColor, lineWidth: self.style.circleBackLineWidth)
+                .frame(height: self.style.circleSize)
             
             Circle()
                 .trim(from: 0, to: 0.25)
-                .stroke(self.mainColor, lineWidth: 8)
+                .stroke(self.mainColor, lineWidth: self.style.circleFrontLineWidth)
                 .rotationEffect(self.rotationAngle)
-                .frame(height: self.diameter)
-                .onAppear() {
+                .frame(height: self.style.circleSize)
+                .onAppear {
                     withAnimation(
                         Animation
                             .linear(duration: 1.4)
@@ -41,7 +59,7 @@ struct LoaderSpinner: View {
                         self.rotationAngle = .degrees(360)
                     }
                 }
-                .onDisappear() { self.rotationAngle = .degrees(0) }
+                .onDisappear { self.rotationAngle = .degrees(0) }
         }
     }
     
@@ -53,16 +71,14 @@ struct LoaderSpinner: View {
                 .opacity(0.75)
                 .edgesIgnoringSafeArea(.all)
            
-            VStack(alignment: .center, spacing: 24) {
+            VStack(alignment: .center, spacing: 0) {
                 
                 self.spinner
+                    .padding(.bottom, self.style.spinnerBPadding)
                 
-                if !self.text.isEmpty {
-                    
-                    Text(self.text.uppercased())
-                        .foregroundColor(self.accentColor)
-                        .font(.appLoaderText)
-                }
+                Text(self.text.uppercased())
+                    .foregroundColor(self.accentColor)
+                    .font(self.style.loaderText)
             }
         }
     }
@@ -72,7 +88,8 @@ struct LoaderSpinner_Previews: PreviewProvider {
     static var previews: some View {
         LoaderSpinner(
             mainColor: UIThemeManager.DEFAULT.backgroundColor,
-            accentColor: UIThemeManager.DEFAULT.mainTextColor
+            accentColor: UIThemeManager.DEFAULT.mainTextColor,
+            text: Label.fetchProducts
         )
     }
 }

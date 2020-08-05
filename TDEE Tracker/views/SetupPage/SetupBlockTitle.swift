@@ -8,21 +8,38 @@
 
 import SwiftUI
 
+
+struct SetupBlockTitleStyle {
+    
+    // MARK: - Sizes
+    
+    public let labelHeight: CGFloat = 20
+    public let labelTPadding: CGFloat = 22
+    public let labelBPadding: CGFloat = 24
+    
+    // MARK: - Fonts
+    
+    public let labelFont: Font = .custom(FontOswald.Medium, size: 24)
+}
+
+
 struct SetupBlockTitle: View {
+    
+    private let style: SetupBlockTitleStyle = SetupBlockTitleStyle()
 
     let title: String
     let textColor: Color
     
-    var paddingTop: CGFloat = 22
+    var paddingTop: CGFloat?
     
     var body: some View {
 
         Text(self.title.uppercased())
-            .font(.appCalendarMonth)
+            .font(self.style.labelFont)
             .foregroundColor(textColor)
-            .frame(height: 20)
-            .padding(.top, self.paddingTop)
-            .padding(.bottom, 24)
+            .frame(height: self.style.labelHeight)
+            .padding(.top, self.paddingTop ?? self.style.labelTPadding)
+            .padding(.bottom, self.style.labelBPadding)
     }
 }
 

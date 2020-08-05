@@ -10,7 +10,36 @@ import SwiftUI
 
 
 
+struct CalendarBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let calendarBlockMonthBPadding: CGFloat = 4 // SE = 4
+    
+    public let calendarBlockDaysVPaddingCollapsed: CGFloat = 6
+    public let calendarBlockDaysVPadding: CGFloat = 14
+    public let calendarBlockDaysHPadding: CGFloat = 8
+    
+    public let calendarWeekdayHSpacing: CGFloat
+    public let calendarDayButtonSize: CGFloat
+    
+    // MARK: - Fonts
+
+    public let calendarWeekdayTitleFont: Font = .custom(FontOswald.ExtraLight, size: 14)
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.calendarWeekdayHSpacing = uiSizes.calendarDaySpacing
+        self.calendarDayButtonSize = uiSizes.calendarDayButton
+    }
+}
+
+
 struct CalendarBlock: View {
+    
+    private let style: CalendarBlockStyle = CalendarBlockStyle(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -21,15 +50,15 @@ struct CalendarBlock: View {
 
     var weekdayTitles: some View {
         
-        let weekdayNames = Utils.getShortWeekdayNames()
-        
-        return HStack(alignment: .center, spacing: self.appState.uiSizes.calendarDaySpacing) {
-            ForEach(weekdayNames, id: \.self) { day in
+        HStack(alignment: .center, spacing: self.style.calendarWeekdayHSpacing) {
+            
+            ForEach(Utils.getShortWeekdayNames(), id: \.self) { day in
+                
                 Text(day.uppercased())
-                    .font(.appCalendarWeekday)
+                    .font(self.style.calendarWeekdayTitleFont)
                     .frame(
-                        width: self.appState.uiSizes.calendarDayButton,
-                        height: self.appState.uiSizes.calendarDayButton
+                        width: self.style.calendarDayButtonSize,
+                        height: self.style.calendarDayButtonSize
                     )
                     .foregroundColor(self.appState.uiTheme.calendarTextDefaultColor)
             }
@@ -38,9 +67,10 @@ struct CalendarBlock: View {
     
     var body: some View {
     
-        VStack(alignment: .center, spacing: 8) {
+        VStack(alignment: .center, spacing: 0) {
             
             CalendarBlockMonth(selectedDay: self.selectedDay, isCollapsed: self.isCollapsed)
+                .padding(.bottom, self.style.calendarBlockMonthBPadding)
             
             VStack(alignment: .center, spacing: 0) {
 
@@ -52,9 +82,13 @@ struct CalendarBlock: View {
                     isTrendsPage: self.isTrendsPage
                 )
             }
-                .padding(.vertical, self.isCollapsed ? 6 : 16)
+                .padding(.vertical, (
+                    self.isCollapsed
+                        ? self.style.calendarBlockDaysVPaddingCollapsed
+                        : self.style.calendarBlockDaysVPadding
+                ))
                 .background(self.appState.uiTheme.inputBackgroundColor)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, self.style.calendarBlockDaysHPadding)
                 .clipped()
                 .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                 .disabled(self.isCollapsed)

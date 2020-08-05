@@ -9,38 +9,55 @@
 import SwiftUI
 
 
+struct ProgressPageStyle {
+    
+    // MARK: - Sizes
+    
+    public let pageTitleTPadding: CGFloat = 4
+    
+    public let deltaChartVPadding: CGFloat
+    
+    // MARK: - Fonts
+
+    public let pageTitleFont: Font = .custom(FontOswald.Medium, size: 24)
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.deltaChartVPadding = uiSizes.progressPageSpacing
+    }
+}
+
+
 struct ProgressPage: View {
+    
+    private let style: ProgressPageStyle = ProgressPageStyle(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = Label.progressDateFormat
-        let startDateStr = formatter.string(from: self.appState.firstEntryDate)
         
-        let title = "\(Label.startingFrom) \(startDateStr)".uppercased()
+        let startDate = self.appState.firstEntryDate.toString(Label.progressDateFormat)
+        let title = "\(Label.startingFrom) \(startDate)".uppercased()
         
         let progressData = self.appState.progressData
         
         return VStack(alignment: .center, spacing: 0) {
             
             Text(title)
-                .font(.appCalendarMonth)
+                .font(self.style.pageTitleFont)
                 .foregroundColor(self.appState.uiTheme.mainTextColor)
-                .padding(.top, 4)
+                .padding(.top, self.style.pageTitleTPadding)
             
             DeltaChart(
-                totalStepsHeight: self.appState.uiSizes.progressChartHeight,
                 weeklyDeltas: self.appState.weeklyWeightDeltas,
                 weightUnit: self.appState.weightUnit.localized,
                 mainColor: self.appState.uiTheme.mainTextColor
             )
-                .padding(.vertical, self.appState.uiSizes.progressPageSpacing)
+                .padding(.vertical, self.style.deltaChartVPadding)
 
             ProgressCircle(
-                circleDiameter: self.appState.uiSizes.progressCircleDiameter,
-                circleWidth: self.appState.uiSizes.progressCircleWidth,
                 currentWeightValue: progressData.progressWeight,
                 goalWeightValue: progressData.goalWeight,
                 unit: self.appState.weightUnit.localized,

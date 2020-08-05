@@ -8,7 +8,31 @@
 
 import SwiftUI
 
+
+struct EntryHintBlockStyle {
+    
+    // MARK: - Sizes
+    
+    public let hintMinHeight: CGFloat = 46
+    public let hintMaxHeight: CGFloat = 60
+    public let hintHPadding: CGFloat = 32
+    
+    public let recommendedAmountLabelWidth: CGFloat = 124
+    public let recommendedAmountValueWidth: CGFloat = 124
+    public let recommendedAmountValueTPadding: CGFloat = 10
+    public let recommendedAmountHPadding: CGFloat = 32
+    
+    // MARK: - Fonts
+    
+    public let recommendedLabel: Font = .custom(FontOswald.Light, size: 15)
+    public let recommendedValue: Font = .custom(FontOswald.Bold, size: 32)
+    public let recommendedUnit: Font = .custom(FontOswald.Light, size: 24)
+}
+
+
 struct EntryHintBlock: View {
+    
+    private let style: EntryHintBlockStyle = EntryHintBlockStyle()
     
     let isEnoughData: Bool
 
@@ -37,13 +61,13 @@ struct EntryHintBlock: View {
 
             Text(hint.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(minHeight: 46, maxHeight: 60)
+                .frame(minHeight: self.style.hintMinHeight, maxHeight: self.style.hintMaxHeight)
                 .foregroundColor(self.textColor)
-                .font(.appEntryRecommendedLabel)
+                .font(self.style.recommendedLabel)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, 32)
+            .padding(.horizontal, self.style.hintHPadding)
     }
     
     var defaultBlock: some View {
@@ -51,22 +75,22 @@ struct EntryHintBlock: View {
 
             Text(Label.recommendedAmount.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(width: 124)
+                .frame(width: self.style.recommendedAmountLabelWidth)
                 .foregroundColor(self.textColor)
-                .font(.appEntryRecommendedLabel)
+                .font(self.style.recommendedLabel)
             
             Text("\(self.value)")
-                .frame(width: 124, alignment: .trailing)
+                .frame(width: self.style.recommendedAmountValueWidth, alignment: .trailing)
                 .foregroundColor(self.textColor)
-                .font(.appEntryRecommendedAmount)
-                .padding(.trailing, 10)
+                .font(self.style.recommendedValue)
+                .padding(.trailing, self.style.recommendedAmountValueTPadding)
             
             Text(self.unit)
                 .foregroundColor(self.textColor)
-                .font(.appEntryUnit)
+                .font(self.style.recommendedUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 32)
+            .padding(.horizontal, self.style.recommendedAmountHPadding)
     }
     
     var body: some View {

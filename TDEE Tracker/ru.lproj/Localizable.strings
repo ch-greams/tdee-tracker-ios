@@ -102,15 +102,13 @@
 // MARK: - Notifications
 
 "Add Entry" = "Добавьте Запись";
-"It's time to add your weight" = "Время добавить сегодняшний вес";
-"It's time to add your food" = "Время добавить сегодняшнюю еду";
-
+"It's time to add today's weight" = "Время добавить сегодняшний вес";
+"It's time to add today's food" = "Время добавить сегодняшнюю еду";
 
 // MARK: - Premium Purchase
 
 "TDEE Tracker Premium" = "TDEE Tracker Premium";
-"Premium version of TDEE Tracker unlocks all existing themes." = "Premium версия TDEE Tracker открывает для использования все существующие темы.";
-"It does not include any extra features, as everything else is available for free." = "Но не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
+"Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free." = "Premium версия TDEE Tracker открывает для использования все существующие темы.\nНо не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
 
 "BUY FOR" = "КУПИТЬ ЗА";
 "BUY" = "КУПИТЬ";

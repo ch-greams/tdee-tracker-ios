@@ -9,7 +9,43 @@
 import SwiftUI
 
 
+struct InputNumberStyle {
+    
+    // MARK: - Sizes
+    
+    public let inputWidth: CGFloat = 124
+    public let inputHeight: CGFloat = 44
+    public let inputTPadding: CGFloat = 8
+    public let inputHPadding: CGFloat = 8
+    
+    public let unitWidth: CGFloat = 40
+    
+    public let iconCheckmarkSize: CGFloat = 40
+    public let buttonCheckmarkWidth: CGFloat = 120
+    
+    public let bodyVPadding: CGFloat = 1
+    public let bodyHPadding: CGFloat = 8
+    
+    public let bodyHeight: CGFloat
+    
+    // MARK: - Fonts
+
+    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
+    public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.bodyHeight = uiSizes.setupInputHeight
+    }
+}
+    
+    
 struct InputNumber: View {
+    
+    private let style: InputNumberStyle = InputNumberStyle(uiSizes: UISizes.current)
     
     let title: String
     let unit: String
@@ -17,7 +53,7 @@ struct InputNumber: View {
     let onCommit: () -> Void
     let openInput: () -> Void
     let isOpen: Bool
-    let maxHeight: CGFloat
+    
     let backgroundColor: Color
     let backgroundColorName: String
     let confirmButtonColor: Color
@@ -25,13 +61,14 @@ struct InputNumber: View {
     
     @State private var animation: Animation? = nil
     
+    
     var body: some View {
 
         HStack(alignment: .center, spacing: 0) {
 
             if !self.isOpen {
                 Text(self.title.uppercased())
-                    .font(.appInputLabel)
+                    .font(self.style.labelFont)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(self.accentColor)
                     .padding(.leading)
@@ -41,19 +78,19 @@ struct InputNumber: View {
 
             HStack(alignment: .center, spacing: 0) {
                 TextField("", text: self.input, onCommit: self.onCommit)
-                    .font(.appInputValue)
-                    .padding(.trailing, 8)
-                    .frame(width: 124, height: 44)
+                    .font(self.style.valueFont)
+                    .padding(.trailing, self.style.inputTPadding)
+                    .frame(width: self.style.inputWidth, height: self.style.inputHeight)
                     .border(self.accentColor)
                     .foregroundColor(self.accentColor)
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, self.style.inputHPadding)
                     .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                     .onTapGesture(perform: self.openInput)
                 
                 Text(self.unit)
-                    .font(.appInputLabel)
-                    .frame(width: 40, alignment: .leading)
+                    .font(self.style.unitFont)
+                    .frame(width: self.style.unitWidth, alignment: .leading)
                     .foregroundColor(self.accentColor)
             }
                 .padding(.horizontal)
@@ -70,11 +107,11 @@ struct InputNumber: View {
                         name: "checkmark-sharp",
                         colorName: self.backgroundColorName
                     )
-                        .frame(minWidth: 0, maxWidth: 40)
-                        .frame(minHeight: 0, maxHeight: 40)
+                        .frame(minWidth: 0, maxWidth: self.style.iconCheckmarkSize)
+                        .frame(minHeight: 0, maxHeight: self.style.iconCheckmarkSize)
                         .clipped()
                         .frame(maxHeight: .infinity)
-                        .frame(maxWidth: self.isOpen ? 120 : 0)
+                        .frame(maxWidth: self.isOpen ? self.style.buttonCheckmarkWidth : 0)
                         .background(self.confirmButtonColor)
                 }
             )
@@ -82,10 +119,10 @@ struct InputNumber: View {
         }
             .animation(self.animation)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(height: self.maxHeight)
+            .frame(height: self.style.bodyHeight)
             .background(self.backgroundColor)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
+            .padding(.vertical, self.style.bodyVPadding)
+            .padding(.horizontal, self.style.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
             .onAppear {
@@ -112,7 +149,6 @@ struct InputNumber_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: false,
-                    maxHeight: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
@@ -126,7 +162,6 @@ struct InputNumber_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: true,
-                    maxHeight: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,

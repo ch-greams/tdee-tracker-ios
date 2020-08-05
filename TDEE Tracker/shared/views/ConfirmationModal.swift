@@ -8,7 +8,42 @@
 
 import SwiftUI
 
+
+struct ConfirmationModalStyle {
+    
+    // MARK: - Sizes
+
+    public let separatorHeight: CGFloat = 1
+    public let separatorHPadding: CGFloat = 16
+    public let separatorBPadding: CGFloat = 16
+
+    public let titleVPadding: CGFloat = 16
+    
+    public let descriptionLineSpacing: CGFloat = 6
+    public let descriptionBPadding: CGFloat = 16
+    public let descriptionHPadding: CGFloat = 24
+    
+    public let buttonWidth: CGFloat = 216
+    public let buttonConfirmBPadding: CGFloat = 4
+    public let buttonCancelHeight: CGFloat = 36
+    public let buttonCancelBPadding: CGFloat = 16
+    
+    public let modalHPadding: CGFloat = 32
+    public let modalTPadding: CGFloat = -24
+    
+    // MARK: - Fonts
+
+    public let titleFont: Font = .custom(FontOswald.Medium, size: 24)
+    public let descriptionFont: Font = .custom(FontOswald.Light, size: 18)
+    
+    public let buttonConfirmFont: Font = .custom(FontOswald.Bold, size: 20)
+    public let buttonCancelFont: Font = .custom(FontOswald.Regular, size: 16)
+}
+
+
 struct ConfirmationModal: View {
+    
+    private let style: ConfirmationModalStyle = ConfirmationModalStyle()
     
     let fadeColor: Color
     
@@ -25,8 +60,9 @@ struct ConfirmationModal: View {
     var separator: some View {
         return Rectangle()
             .foregroundColor(self.separatorColor)
-            .frame(height: 1)
-            .padding(.horizontal, 16)
+            .frame(height: self.style.separatorHeight)
+            .padding(.horizontal, self.style.separatorHPadding)
+            .padding(.bottom, self.style.separatorBPadding)
     }
     
     var body: some View {
@@ -41,64 +77,52 @@ struct ConfirmationModal: View {
                 
                 Text(Label.buyPremiumTitle)
                     .foregroundColor(self.accentColor)
-                    .font(.appSetupPremiumTitle)
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.top, 16)
-                    .padding(.bottom, 16)
+                    .font(self.style.titleFont)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, self.style.titleVPadding)
                 
                 self.separator
-                    .padding(.bottom, 16)
                 
-                Text(Label.buyPremiumDescriptionPartOne)
+                Text(Label.buyPremiumDescription)
                     .foregroundColor(self.textColor)
-                    .font(.appSetupPremiumHint)
-                    
+                    .font(self.style.descriptionFont)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 12)
-                    .padding(.horizontal, 24)
-                    
-                Text(Label.buyPremiumDescriptionPartTwo)
-                    .foregroundColor(self.textColor)
-                    .font(.appSetupPremiumHint)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 16)
-                    .padding(.horizontal, 24)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .lineSpacing(self.style.descriptionLineSpacing)
+                    .padding(.bottom, self.style.descriptionBPadding)
+                    .padding(.horizontal, self.style.descriptionHPadding)
                 
                 self.separator
-                    .padding(.bottom, 16)
                 
                 Button(self.confirmLabel, action: self.confirmAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.accentColor,
                         textColor: self.backgroundColor,
-                        font: .appSetupPremiumBuy,
-                        width: 216
+                        font: self.style.buttonConfirmFont,
+                        width: self.style.buttonWidth
                     ))
-                    .padding(.bottom, 4)
+                    .padding(.bottom, self.style.buttonConfirmBPadding)
                 
                 Button(Label.cancel, action: self.cancelAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.backgroundColor,
                         textColor: self.accentColor,
                         withBorder: true,
-                        font: .appSetupPremiumCancel,
-                        width: 216,
-                        height: 36
+                        font: self.style.buttonCancelFont,
+                        width: self.style.buttonWidth,
+                        height: self.style.buttonCancelHeight
                     ))
-                    .padding(.bottom, 16)
+                    .padding(.bottom, self.style.buttonCancelBPadding)
             }
-                .frame(minWidth: 0, maxWidth: .infinity)
+                .frame(maxWidth: .infinity)
                 .background(self.backgroundColor)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, self.style.modalHPadding)
                 .clipped()
                 .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                 
         }
-            .padding(.top, -24)
+            .padding(.top, self.style.modalTPadding)
     }
 }
 

@@ -9,9 +9,31 @@
 import SwiftUI
 
 
+struct SetupPageStyle {
+    
+    // MARK: - Sizes
+    
+    public let separatorHeight: CGFloat = 1
+    public let separatorHPadding: CGFloat = 32
+    
+    public let reminderOpenTPadding: CGFloat = 60
+    
+    public let mvVisibleScreenHeight: CGFloat
+    public let mvVisibleScreenOffset: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.mvVisibleScreenHeight = uiSizes.mvVisibleScreenHeight
+        self.mvVisibleScreenOffset = uiSizes.mvVisibleScreenOffset
+    }
+}
 
 
 struct SetupPage: View {
+    
+    private let style: SetupPageStyle = SetupPageStyle(uiSizes: UISizes.current)
 
     @EnvironmentObject var appState: AppState
 
@@ -20,7 +42,7 @@ struct SetupPage: View {
     
     var body: some View {
         
-        ScrollView(.vertical, showsIndicators: true) {
+        ScrollView(.vertical, showsIndicators: false) {
             
             VStack(alignment: .center, spacing: 0) {
 
@@ -31,14 +53,14 @@ struct SetupPage: View {
                     SetupGoalBlock()
 
                     Rectangle()
-                        .frame(height: 1)
-                        .padding(.horizontal, 32)
+                        .frame(height: self.style.separatorHeight)
+                        .padding(.horizontal, self.style.separatorHPadding)
                         .foregroundColor(self.appState.uiTheme.mainTextColor)
                         .opacity(0.8)
                 }
 
                 SetupRemindersBlock(isOpen: self.$isReminderOpen)
-                    .padding(.top, self.isReminderOpen ? 60 : 0)
+                    .padding(.top, self.isReminderOpen ? self.style.reminderOpenTPadding : 0)
                 
                 if !self.isReminderOpen {
                  
@@ -46,7 +68,7 @@ struct SetupPage: View {
                 }
             }
         }
-            .frame(height: self.appState.uiSizes.setupScrollHeight)
+            .frame(height: self.style.mvVisibleScreenHeight - self.style.mvVisibleScreenOffset)
     }
 }
 

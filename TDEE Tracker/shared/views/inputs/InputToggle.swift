@@ -8,14 +8,41 @@
 
 import SwiftUI
 
+
+struct InputToggleStyle {
+    
+    // MARK: - Sizes
+    
+    public let buttonsHSpacing: CGFloat = 1
+    public let buttonsPadding: CGFloat = 1
+    
+    public let bodyVPadding: CGFloat = 1
+    public let bodyHPadding: CGFloat = 8
+    
+    public let bodyHeight: CGFloat
+    
+    // MARK: - Fonts
+
+    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.bodyHeight = uiSizes.setupInputHeight
+    }
+}
+
+
 struct InputToggle<T>: View where T:Equatable, T:Localizable {
+    
+    private let style: InputToggleStyle = InputToggleStyle(uiSizes: UISizes.current)
     
     let title: String
     let setValue: (T) -> Void
     let first: T
     let second: T
     let selected: Optional<T>
-    let maxHeight: CGFloat
     let backgroundColor: Color
     let accentColor: Color
     
@@ -48,29 +75,29 @@ struct InputToggle<T>: View where T:Equatable, T:Localizable {
         return HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(.appInputLabel)
+                .font(self.style.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(accentColor)
                 .padding(.leading)
             
             Spacer()
             
-            HStack(alignment: .center, spacing: 1) {
+            HStack(alignment: .center, spacing: self.style.buttonsHSpacing) {
 
                 firstButton
 
                 secondButton
             }
-                .padding(1)
+                .padding(self.style.buttonsPadding)
                 .background(accentColor)
                 .padding(.horizontal)
         }
             .animation(self.animation)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(height: maxHeight)
+            .frame(height: self.style.bodyHeight)
             .background(backgroundColor)
-            .padding(.vertical, 1)
-            .padding(.horizontal, 8)
+            .padding(.vertical, self.style.bodyVPadding)
+            .padding(.horizontal, self.style.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
             .onAppear {
@@ -96,7 +123,6 @@ struct InputToggle_Previews: PreviewProvider {
                     first: EnergyUnit.kcal,
                     second: EnergyUnit.kj,
                     selected: EnergyUnit.kcal,
-                    maxHeight: 74,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )

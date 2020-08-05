@@ -9,10 +9,44 @@
 import SwiftUI
 
 
+
+struct EntryPageStyle {
+    
+    // MARK: - Sizes
+    
+    public let confirmButtonVPadding: CGFloat = 10
+    public let entryInputsTPadding: CGFloat = 10
+    public let lockIconSize: CGFloat = 80
+
+    public let entryHintBlockTPadding: CGFloat
+    public let entryHintBlockBPadding: CGFloat
+    
+    public let entryBlockerIconTPadding: CGFloat
+    
+    // MARK: - Fonts
+    
+    public let lockIconFont: Font
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.entryHintBlockTPadding = uiSizes.entryHintBlockPadding
+        self.entryHintBlockBPadding = uiSizes.entryHintBlockPadding - 10
+        
+        self.entryBlockerIconTPadding = uiSizes.entryBlockerIconPadding
+        
+        self.lockIconFont = .system(size: self.lockIconSize)
+    }
+}
+
+
 struct EntryPage: View {
+    
+    private let style: EntryPageStyle = EntryPageStyle(uiSizes: UISizes.current)
 
     @EnvironmentObject var appState: AppState
-
+    
     @State private var isWeightInputOpen: Bool = false
     @State private var isFoodInputOpen: Bool = false
 
@@ -41,15 +75,6 @@ struct EntryPage: View {
         let isFutureDate = self.appState.isFutureDate
         let isInputOpen = self.isWeightInputOpen || self.isFoodInputOpen
         
-        let lockIconSize: CGFloat = 80
-        
-        let inputPadding = (
-            isInputOpen
-                ? self.appState.uiSizes.entryInputPadding + self.appState.uiSizes.entryOpenInputOffset
-                : self.appState.uiSizes.entryInputPadding
-        )
-            
-        
         return VStack(alignment: .center, spacing: 0) {
 
             CalendarBlock(
@@ -64,8 +89,8 @@ struct EntryPage: View {
                 textColor: self.appState.uiTheme.mainTextColor,
                 isEnoughData: self.appState.isEnoughDataForRecommendation
             )
-                .padding(.top, self.appState.uiSizes.entryHintBlockPadding)
-                .padding(.bottom, self.appState.uiSizes.entryHintBlockPadding - 10)
+                .padding(.top, self.style.entryHintBlockTPadding)
+                .padding(.bottom, self.style.entryHintBlockBPadding)
             
             ZStack(alignment: .top) {
 
@@ -77,7 +102,7 @@ struct EntryPage: View {
                         value: self.$appState.weightInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isWeightInputOpen = true },
-                        padding: inputPadding,
+                        isOpen: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
@@ -91,7 +116,7 @@ struct EntryPage: View {
                         value: self.$appState.foodInput,
                         onCommit: self.onSubmit,
                         openInput: { self.isFoodInputOpen = true },
-                        padding: inputPadding,
+                        isOpen: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
@@ -106,10 +131,10 @@ struct EntryPage: View {
                                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                                 textColor: self.appState.uiTheme.secondaryTextColor
                             ))
-                            .padding(.vertical, 10)
+                            .padding(.vertical, self.style.confirmButtonVPadding)
                     }
                 }
-                    .padding(.top, 10)
+                    .padding(.top, self.style.entryInputsTPadding)
                     .blur(radius: isFutureDate ? 4 : 0)
                     .opacity(isFutureDate ? 0.75 : 1)
                     .animation(.easeOut(duration: 0.16))
@@ -122,11 +147,11 @@ struct EntryPage: View {
                             name: "time-sharp",
                             colorName: self.appState.uiTheme.mainTextColorName
                         )
-                            .frame(width: lockIconSize, height: lockIconSize)
-                            .font(.system(size: lockIconSize))
+                            .frame(width: self.style.lockIconSize, height: self.style.lockIconSize)
+                            .font(self.style.lockIconFont)
                     }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        .padding(.top, self.appState.uiSizes.entryBlockerIconPadding)
+                        .padding(.top, self.style.entryBlockerIconTPadding)
                 }
             }
         }

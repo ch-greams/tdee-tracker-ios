@@ -25,10 +25,42 @@ struct Line: Shape {
 }
 
 
+struct DeltaChartStyle {
+    
+    // MARK: - Sizes
+    
+    public let markLabelWidth: CGFloat = 40
+    public let markLabelLPadding: CGFloat = 8
+    public let markLineWidth: CGFloat = 1
+    
+    public let weekColumnWidth: CGFloat = 28
+    public let weekColumnTPadding: CGFloat = 15
+    public let weekColumnHPadding: CGFloat = 1
+    
+    public let weekLabelTPadding: CGFloat = 1
+    
+    public let maskLPadding: CGFloat = 60
+    
+    public let bodyVPadding: CGFloat = 10
+    
+    public let totalStepsHeight: CGFloat
+    
+    // MARK: - Fonts
+
+    public let labelFont: Font = .custom(FontOswald.Light, size: 10)
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.totalStepsHeight = uiSizes.progressChartHeight
+    }
+}
+
 
 struct DeltaChart: View {
-
-    let totalStepsHeight: CGFloat
+    
+    private let style: DeltaChartStyle = DeltaChartStyle(uiSizes: UISizes.current)
     
     let STEP_LINE_DASH: [ CGFloat ] = [ 4 ]
     let STEP_ZERO_HEIGHT: CGFloat = 20
@@ -47,7 +79,7 @@ struct DeltaChart: View {
     
     func getStepHeight(stepCount: Int) -> CGFloat {
         
-        return self.totalStepsHeight / CGFloat(stepCount)
+        return self.style.totalStepsHeight / CGFloat(stepCount)
     }
 
     func getStepValue(value: Double) -> Double {
@@ -95,14 +127,17 @@ struct DeltaChart: View {
         VStack(alignment: .leading, spacing: 0) {
         
             Text(mark)
-                .frame(width: 40, alignment: .trailing)
-                .font(.appProgressChartSegment)
-                .padding(.leading, 8)
+                .frame(width: self.style.markLabelWidth, alignment: .trailing)
+                .font(self.style.labelFont)
+                .padding(.leading, self.style.markLabelLPadding)
                 .foregroundColor(self.mainColor)
             
             Line(length: length)
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: ( withDash ? self.STEP_LINE_DASH : [] )))
-                .frame(height: 1)
+                .stroke(style: StrokeStyle(
+                    lineWidth: self.style.markLineWidth,
+                    dash: ( withDash ? self.STEP_LINE_DASH : [] )
+                ))
+                .frame(height: self.style.markLineWidth)
                 .foregroundColor(self.mainColor)
         }
             .frame(height: height, alignment: .top)
@@ -126,6 +161,41 @@ struct DeltaChart: View {
         }
     }
 
+    // MARK: - Week Columns
+    
+    func getWeekColumns(weeklyDeltaHeights: [ CGFloat ]) -> some View {
+
+        HStack(alignment: .top, spacing: 0) {
+
+            ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
+        
+                VStack(alignment: .center, spacing: 0) {
+                    Rectangle()
+                        .padding(
+                            .top,
+                            self.style.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
+                        )
+                        .frame(width: self.style.weekColumnWidth, height: self.style.totalStepsHeight)
+                        .padding(.top, self.style.weekColumnTPadding)
+                        .padding(.horizontal, self.style.weekColumnHPadding)
+                        .foregroundColor(self.mainColor)
+                        .opacity(0.85)
+
+                    Text(String(iWeek + 1))
+                        .font(self.style.labelFont)
+                        .padding(.top, self.style.weekLabelTPadding)
+                        .foregroundColor(self.mainColor)
+                }
+            }
+        }
+            .onAppear {
+                withAnimation( Animation.linear(duration: 0.4) ) {
+                     self.visibleMultiplier = 1
+                }
+            }
+            .onDisappear { self.visibleMultiplier = 0 }
+    }
+    
     // MARK: - Body
     
     var body: some View {
@@ -144,7 +214,7 @@ struct DeltaChart: View {
         let stepHeight = self.getStepHeight(stepCount: stepCount)
         
         // NOTE: Have to calculate height otherwise GeometryReader will take everything it can
-        let totalChartHeight = self.totalStepsHeight + self.STEP_ZERO_HEIGHT
+        let totalChartHeight = self.style.totalStepsHeight + self.STEP_ZERO_HEIGHT
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
@@ -153,55 +223,30 @@ struct DeltaChart: View {
             weeklyDeltaHeights.append( CGFloat( weeklyDeltaValue / stepValue ) * stepHeight )
         }
         
-        
-        let block = ZStack(alignment: .topLeading) {
+        return ZStack(alignment: .topLeading) {
             
             GeometryReader { geometry in
             
-                self.getChartBackground(steps: steps, stepHeight: stepHeight, width: Int(geometry.size.width))
+                self.getChartBackground(
+                    steps: steps,
+                    stepHeight: stepHeight,
+                    width: Int(geometry.size.width)
+                )
                 
                 // NOTE: Top HStack is necessary for mask
                 HStack {
 
                     ScrollView(.horizontal, showsIndicators: false) {
                     
-                        HStack(alignment: .top, spacing: 0) {
-
-                            ForEach(0 ..< weeklyDeltaHeights.count) { iWeek in
-                                
-                                VStack(alignment: .center, spacing: 0) {
-                                    Rectangle()
-                                        .padding(
-                                            .top,
-                                            self.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
-                                        )
-                                        .frame(width: 28, height: self.totalStepsHeight)
-                                        .padding(.top, 15)
-                                        .padding(.horizontal, 1)
-                                        .foregroundColor(self.mainColor)
-                                        .opacity(0.85)
-                                        .onAppear {
-                                            withAnimation( Animation.linear(duration: 0.4) ) {
-                                                 self.visibleMultiplier = 1
-                                            }
-                                        }
-
-                                    Text(String(iWeek + 1))
-                                        .font(.appProgressChartSegment)
-                                        .padding(.top, 1)
-                                        .foregroundColor(self.mainColor)
-                                }
-                            }
-                        }
+                        self.getWeekColumns(weeklyDeltaHeights: weeklyDeltaHeights)
                     }
                 }
-                    .padding(.leading, 60)
+                    .padding(.leading, self.style.maskLPadding)
             }
                 .frame(maxHeight: totalChartHeight)
                 
         }
-        
-        return block.padding(.vertical, 10)
+            .padding(.vertical, self.style.bodyVPadding)
     }
 }
 
@@ -218,7 +263,6 @@ struct DeltaChart_Previews: PreviewProvider {
 
             // NOTE: With data
             DeltaChart(
-                totalStepsHeight: 180,
                 weeklyDeltas: Self.weeklyDeltas,
                 weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
@@ -227,7 +271,6 @@ struct DeltaChart_Previews: PreviewProvider {
             
             // NOTE: Empty
             DeltaChart(
-                totalStepsHeight: 180,
                 weeklyDeltas: [],
                 weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
