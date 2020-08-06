@@ -14,10 +14,10 @@ struct CalendarBlockStyle {
     
     // MARK: - Sizes
     
-    public let calendarBlockMonthBPadding: CGFloat = 4 // SE = 4
+    public let calendarBlockMonthBPadding: CGFloat = 5
     
     public let calendarBlockDaysVPaddingCollapsed: CGFloat = 6
-    public let calendarBlockDaysVPadding: CGFloat = 14
+    public let calendarBlockDaysVPadding: CGFloat = 8
     public let calendarBlockDaysHPadding: CGFloat = 8
     
     public let calendarWeekdayHSpacing: CGFloat

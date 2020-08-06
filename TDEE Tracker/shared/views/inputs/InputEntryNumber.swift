@@ -15,29 +15,34 @@ struct InputEntryNumberStyle {
     
     public let inputTPadding: CGFloat = 8
     public let inputWidth: CGFloat = 140
-    public let inputHeight: CGFloat = 44    // SE = 30 + 8
-    
-    public let iconSize: CGFloat = 30
     
     public let unitWidth: CGFloat = 65
     
     public let bodyPadding: CGFloat = 1
     public let bodyHPadding: CGFloat = 7
     
+    public let inputHeight: CGFloat
+    public let iconSize: CGFloat
+    
     public let bodyVPadding: CGFloat
     public let bodyVPaddingOpenOffset: CGFloat
     
     // MARK: - Fonts
 
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 36) // SE = size: 30
-    public let unitFont: Font = .custom(FontOswald.Light, size: 24) // SE = size: 30 - 12
+    public let valueFont: Font
+    public let unitFont: Font
 
     // MARK: - Init
 
     init(uiSizes: UISizes) {
         
         self.bodyVPadding = uiSizes.entryInputPadding
-        self.bodyVPaddingOpenOffset = uiSizes.entryOpenInputOffset
+        self.bodyVPaddingOpenOffset = uiSizes.entryInputPaddingOpenOffset
+        
+        self.inputHeight = uiSizes.entryInputBaseSize + 8
+        self.iconSize = uiSizes.entryInputBaseSize - 4
+        self.valueFont = .custom(FontOswald.Bold, size: uiSizes.entryInputBaseSize)
+        self.unitFont = .custom(FontOswald.Light, size: uiSizes.entryInputBaseSize - 12)
     }
 }
 
@@ -78,7 +83,8 @@ struct InputEntryNumber: View {
                 colorName: isEmptyInput ? accentAlternativeColorName : accentColorName
             )
                 .frame(width: self.style.iconSize, height: self.style.iconSize)
-                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+//                .padding(.horizontal)
 
             TextField("", text: value, onCommit: onCommit)
                 .font(self.style.valueFont)
@@ -93,8 +99,9 @@ struct InputEntryNumber: View {
             
             Text(unit)
                 .font(self.style.unitFont)
-                .padding(.trailing)
-                .frame(width: self.style.unitWidth, alignment: .leading)
+//                .padding(.trailing)
+//                .frame(width: self.style.unitWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(baseColor)
         }
             .frame(maxWidth: .infinity)

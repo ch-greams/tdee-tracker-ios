@@ -18,13 +18,20 @@ struct CalendarBlockMonthStyle {
     
     // MARK: - Fonts
 
-    public let monthLabel: Font = .custom(FontOswald.Medium, size: 24) // SE = 20
+    public let monthLabelFont: Font
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.monthLabelFont = .custom(FontOswald.Medium, size: uiSizes.calendarMonthFontSize)
+    }
 }
 
 
 struct CalendarBlockMonth: View {
     
-    private let style: CalendarBlockMonthStyle = CalendarBlockMonthStyle()
+    private let style: CalendarBlockMonthStyle = CalendarBlockMonthStyle(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -34,14 +41,9 @@ struct CalendarBlockMonth: View {
     let isCollapsed: Bool
     
     var monthTitle: Text {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "LLLL YYYY"
-        
-        let monthString = dateFormatter.string(from: selectedDay)
-        
-        return Text(monthString.uppercased())
-            .font(self.style.monthLabel)
+
+        Text(selectedDay.toString("LLLL YYYY").uppercased())
+            .font(self.style.monthLabelFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
     }
     
@@ -82,11 +84,7 @@ struct CalendarBlockMonth: View {
 
             self.getMonthChangeButton(icon: "arrow-back-sharp", delta: -1)
             
-            Spacer()
-            
-            self.monthTitle
-            
-            Spacer()
+            self.monthTitle.frame(maxWidth: .infinity)
             
             self.getMonthChangeButton(icon: "arrow-forward-sharp", delta: 1)
         }

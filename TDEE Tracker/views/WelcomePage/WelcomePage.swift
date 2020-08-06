@@ -12,8 +12,7 @@ struct WelcomePageStyle {
     
     // MARK: - Sizes
     
-    public let titleBPadding: CGFloat = 20
-    public let subTitleBPadding: CGFloat = 40
+    public let titleBlockBPadding: CGFloat = 16
     
     public let weightUnitHintHPadding: CGFloat = 28
     public let energyUnitHintHPadding: CGFloat = 24
@@ -22,21 +21,30 @@ struct WelcomePageStyle {
     public let goalWeightHintHPadding: CGFloat = 28
     public let deltaWeightHintHPadding: CGFloat = 24
     
+    public let subTitleVPadding: CGFloat
+    public let inputsVSpacing: CGFloat
+    
     public let confirmButtonBPadding: CGFloat
     public let targetDeltaVPadding: CGFloat
     
     // MARK: - Fonts
     
-    public let welcomeTitle: Font = .custom(FontOswald.Medium, size: 48)
-    public let welcomeSubtitle: Font = .custom(FontOswald.Light, size: 28)
-    public let welcomeHint: Font = .custom(FontOswald.Light, size: 22)
+    public let welcomeTitleFont: Font = .custom(FontOswald.Medium, size: 48)
+    public let welcomeSubtitleFont: Font = .custom(FontOswald.Light, size: 28)
+    
+    public let welcomeHintFont: Font
 
     // MARK: - Init
     
     init(uiSizes: UISizes) {
     
+        self.subTitleVPadding = uiSizes.welcomeSubTitleVPadding
+        self.inputsVSpacing = uiSizes.welcomeInputsVSpacing
+        
         self.confirmButtonBPadding = uiSizes.welcomeConfirmButtonPadding
         self.targetDeltaVPadding = uiSizes.setupTargetDeltaPadding
+        
+        self.welcomeHintFont = .custom(FontOswald.Light, size: uiSizes.welcomeHintFontSize)
     }
 }
 
@@ -82,21 +90,21 @@ struct WelcomePage: View {
         VStack(alignment: .center, spacing: 0) {
 
             Text(title)
-                .font(self.style.welcomeTitle)
-                .padding(.bottom, self.style.titleBPadding)
+                .font(self.style.welcomeTitleFont)
             
             Text(subtitle)
-                .font(self.style.welcomeSubtitle)
-                .padding(.bottom, self.style.subTitleBPadding)
+                .font(self.style.welcomeSubtitleFont)
+                .padding(.vertical, self.style.subTitleVPadding)
         }
             .foregroundColor(self.appState.uiTheme.mainTextColor)
+            .padding(.bottom, self.style.titleBlockBPadding)
     }
     
     // MARK: - Step #1
     
     var unitsBlock: some View {
         
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .center, spacing: self.style.inputsVSpacing) {
             
             InputToggle(
                 title: Label.weight,
@@ -110,16 +118,14 @@ struct WelcomePage: View {
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
             )
-                .padding(.bottom)
 
             if !self.isWeightUnitSelected {
                
                 Text(Label.weightUnitHint)
-                    .font(self.style.welcomeHint)
+                    .font(self.style.welcomeHintFont)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, self.style.weightUnitHintHPadding)
-                    .padding(.bottom)
                 
             }
             else {
@@ -136,15 +142,12 @@ struct WelcomePage: View {
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                     accentColor: self.appState.uiTheme.inputAccentColor
                 )
-                    .padding(.bottom)
 
                 Text(!self.isEnergyUnitSelected ? Label.energyUnitHint : Label.settingsHint)
-                    .font(self.style.welcomeHint)
+                    .font(self.style.welcomeHintFont)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, self.style.energyUnitHintHPadding)
-                    .padding(.bottom)
-                    
             }
         }
     }
@@ -199,17 +202,15 @@ struct WelcomePage: View {
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
-            .padding(.bottom)
     }
     
     var currentWeightInputHintBlock: some View {
         
         Text(Label.currentWeightHint)
-            .font(self.style.welcomeHint)
+            .font(self.style.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, self.style.currentWeightHintHPadding)
-            .padding(.bottom)
     }
     
     var goalWeightInputBlock: some View {
@@ -231,16 +232,14 @@ struct WelcomePage: View {
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
-            .padding(.bottom)
     }
     
     var goalWeightInputHintBlock: some View {
         Text(Label.goalWeightHint)
-            .font(self.style.welcomeHint)
+            .font(self.style.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, self.style.goalWeightHintHPadding)
-            .padding(.bottom)
     }
     
     var deltaWeightInputBlock: some View {
@@ -262,24 +261,22 @@ struct WelcomePage: View {
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
-            .padding(.bottom)
     }
     
     var deltaWeightInputHintBlock: some View {
 
         Text(self.deltaWeightHint)
-            .font(self.style.welcomeHint)
+            .font(self.style.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
             .padding(.horizontal, self.style.deltaWeightHintHPadding)
-            .padding(.bottom)
     }
     
     // MARK: - Step #2 General
     
     var settingsBlock: some View {
 
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .center, spacing: self.style.inputsVSpacing) {
             
             self.currentWeightInputBlock
 

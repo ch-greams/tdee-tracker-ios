@@ -79,6 +79,7 @@ struct LoaderSpinner: View {
                 Text(self.text.uppercased())
                     .foregroundColor(self.accentColor)
                     .font(self.style.loaderText)
+                    .multilineTextAlignment(.center)
             }
         }
     }

@@ -14,7 +14,10 @@ struct UISizes {
     
     // MARK: - Welcome Page
     
+    let welcomeSubTitleVPadding: CGFloat
+    let welcomeInputsVSpacing: CGFloat
     let welcomeConfirmButtonPadding: CGFloat
+    let welcomeHintFontSize: CGFloat
     
     // MARK: - Main View
     
@@ -29,6 +32,8 @@ struct UISizes {
     
     // MARK: - Calendar
 
+    let calendarMonthFontSize: CGFloat
+    let calendarMonthButtonHeight: CGFloat
     let calendarDayFontSize: CGFloat
     let calendarDaySelectedFontSize: CGFloat
     let calendarDayButton: CGFloat
@@ -36,10 +41,12 @@ struct UISizes {
     
     // MARK: - Entry Page
     
+    let entryInputBaseSize: CGFloat
     let entryInputPadding: CGFloat
+    let entryInputPaddingOpenOffset: CGFloat
+    let entryHintLabelFontSize: CGFloat
     let entryHintBlockPadding: CGFloat
     let entryBlockerIconPadding: CGFloat
-    let entryOpenInputOffset: CGFloat
     
     // MARK: - Trends Page
     
@@ -57,7 +64,9 @@ struct UISizes {
     
     // MARK: - Setup Page
     
+    let setupDefaultButtonHeight: CGFloat
     let setupInputHeight: CGFloat
+    let setupInputLabelFontSize: CGFloat
     let setupTargetDeltaPadding: CGFloat
 }
 
@@ -69,7 +78,10 @@ class UIConstants {
     
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
+        welcomeSubTitleVPadding: 20,
+        welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
+        welcomeHintFontSize: 24,
         
         mvVisibleScreenOffset: 36,
         mvVisibleScreenHeight: 796,
@@ -78,15 +90,19 @@ class UIConstants {
         navbarPadding: 12,
         navbarSpacing: 62,
 
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
         calendarDayFontSize: 24,
         calendarDaySelectedFontSize: 24,
         calendarDayButton: 46,
         calendarDaySpacing: 8,
         
-        entryInputPadding: 36,
+        entryInputBaseSize: 40,
+        entryInputPadding: 34,
+        entryInputPaddingOpenOffset: -2,
+        entryHintLabelFontSize: 16,
         entryHintBlockPadding: 20,
         entryBlockerIconPadding: 86,
-        entryOpenInputOffset: -2,
         
         trendsElementPadding: 12,
         trendsItemLabelFontSize: 20,
@@ -98,13 +114,18 @@ class UIConstants {
         progressCircleDiameter: 380,
         progressCircleWidth: 56,
         
+        setupDefaultButtonHeight: 44,
         setupInputHeight: 74,
+        setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12
     )
     
     public static let IPHONE_11_PRO: UISizes = UISizes(
         
+        welcomeSubTitleVPadding: 20,
+        welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
+        welcomeHintFontSize: 22,
 
         mvVisibleScreenOffset: 36,
         mvVisibleScreenHeight: 714,
@@ -113,15 +134,19 @@ class UIConstants {
         navbarPadding: 12,
         navbarSpacing: 54,
         
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
         calendarDayFontSize: 22,
         calendarDaySelectedFontSize: 22,
         calendarDayButton: 40,
         calendarDaySpacing: 8,
         
+        entryInputBaseSize: 36,
         entryInputPadding: 30,
+        entryInputPaddingOpenOffset: -8,
+        entryHintLabelFontSize: 16,
         entryHintBlockPadding: 16,
         entryBlockerIconPadding: 75,
-        entryOpenInputOffset: -8,
         
         trendsElementPadding: 10,
         trendsItemLabelFontSize: 18,
@@ -133,13 +158,18 @@ class UIConstants {
         progressCircleDiameter: 340,
         progressCircleWidth: 40,
         
+        setupDefaultButtonHeight: 44,
         setupInputHeight: 74,
+        setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12
     )
     
     public static let IPHONE_8_PLUS: UISizes = UISizes(
         
+        welcomeSubTitleVPadding: 20,
+        welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
+        welcomeHintFontSize: 22,
 
         mvVisibleScreenOffset: 0,
         mvVisibleScreenHeight: 655,
@@ -148,15 +178,19 @@ class UIConstants {
         navbarPadding: 8,
         navbarSpacing: 62,
 
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
         calendarDayFontSize: 24,
         calendarDaySelectedFontSize: 24,
         calendarDayButton: 44,
         calendarDaySpacing: 8,
         
+        entryInputBaseSize: 36,
         entryInputPadding: 18,
+        entryInputPaddingOpenOffset: 8,
+        entryHintLabelFontSize: 16,
         entryHintBlockPadding: 10,
         entryBlockerIconPadding: 52,
-        entryOpenInputOffset: 8,
         
         trendsElementPadding: 4,
         trendsItemLabelFontSize: 18,
@@ -168,13 +202,18 @@ class UIConstants {
         progressCircleDiameter: 340,
         progressCircleWidth: 40,
         
+        setupDefaultButtonHeight: 44,
         setupInputHeight: 68,
+        setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12
     )
 
     public static let IPHONE_8: UISizes = UISizes(
         
+        welcomeSubTitleVPadding: 20,
+        welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
+        welcomeHintFontSize: 22,
 
         mvVisibleScreenOffset: 0,
         mvVisibleScreenHeight: 586,
@@ -183,15 +222,19 @@ class UIConstants {
         navbarPadding: 8,
         navbarSpacing: 54,
 
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
         calendarDayFontSize: 18,
         calendarDaySelectedFontSize: 18,
         calendarDayButton: 36,
         calendarDaySpacing: 12,
         
-        entryInputPadding: 16,
+        entryInputBaseSize: 36,
+        entryInputPadding: 18,
+        entryInputPaddingOpenOffset: -1,
+        entryHintLabelFontSize: 15,
         entryHintBlockPadding: 6,
         entryBlockerIconPadding: 47,
-        entryOpenInputOffset: 0,
         
         trendsElementPadding: 3,
         trendsItemLabelFontSize: 18,
@@ -203,13 +246,18 @@ class UIConstants {
         progressCircleDiameter: 310,
         progressCircleWidth: 40,
         
+        setupDefaultButtonHeight: 44,
         setupInputHeight: 58,
+        setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 8
     )
 
     public static let IPHONE_SE: UISizes = UISizes(
         
+        welcomeSubTitleVPadding: 4,
+        welcomeInputsVSpacing: 4,
         welcomeConfirmButtonPadding: 24,
+        welcomeHintFontSize: 18,
 
         mvVisibleScreenOffset: 0,
         mvVisibleScreenHeight: 491,
@@ -218,27 +266,33 @@ class UIConstants {
         navbarPadding: 6,
         navbarSpacing: 42,
 
+        calendarMonthFontSize: 16,
+        calendarMonthButtonHeight: 36,
         calendarDayFontSize: 18,
         calendarDaySelectedFontSize: 18,
-        calendarDayButton: 28,
+        calendarDayButton: 30,
         calendarDaySpacing: 12,
         
-        entryInputPadding: 10,
+        entryInputBaseSize: 30,
+        entryInputPadding: 17,
+        entryInputPaddingOpenOffset: -11,
+        entryHintLabelFontSize: 12,
         entryHintBlockPadding: 0,
         entryBlockerIconPadding: 47,
-        entryOpenInputOffset: 0,
         
-        trendsElementPadding: 2,
+        trendsElementPadding: 3,
         trendsItemLabelFontSize: 14,
         trendsItemValueFontSize: 28,
         trendsItemUnitFontSize: 12,
         
-        progressPageSpacing: 8,
-        progressChartHeight: 160,
-        progressCircleDiameter: 310,
-        progressCircleWidth: 40,
+        progressPageSpacing: 2,
+        progressChartHeight: 120,
+        progressCircleDiameter: 272,
+        progressCircleWidth: 30,
         
+        setupDefaultButtonHeight: 40,
         setupInputHeight: 58,
+        setupInputLabelFontSize: 14,
         setupTargetDeltaPadding: 8
     )
 

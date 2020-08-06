@@ -11,21 +11,25 @@ import SwiftUI
 
 struct TargetDeltaStyle {
     
-    // MARK: - Sizes
-    
-    public let labelWidth: CGFloat = 134
-    
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
     public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
     public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+    
+    public let labelFont: Font
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
+    }
 }
 
 
 struct TargetDelta: View {
     
-    private let style: TargetDeltaStyle = TargetDeltaStyle()
+    private let style: TargetDeltaStyle = TargetDeltaStyle(uiSizes: UISizes.current)
     
     let value: Int
     let unit: String
@@ -36,15 +40,11 @@ struct TargetDelta: View {
         let changeType = ( self.value > 0 ) ? Label.targetSurplus : Label.targetDeficit
         
         return HStack(alignment: .center, spacing: 0) {
-
-            Spacer()
             
             Text(changeType.uppercased())
-                .frame(width: self.style.labelWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(textColor)
                 .font(self.style.labelFont)
-
-            Spacer()
             
             Text(String(abs(self.value)))
                 .foregroundColor(textColor)
@@ -54,10 +54,9 @@ struct TargetDelta: View {
             Text("\(self.unit)/\(Label.day)".uppercased())
                 .foregroundColor(textColor)
                 .font(self.style.unitFont)
-                
-            Spacer()
         }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal)
     }
 }
 

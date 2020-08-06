@@ -17,22 +17,28 @@ struct EntryHintBlockStyle {
     public let hintMaxHeight: CGFloat = 60
     public let hintHPadding: CGFloat = 32
     
-    public let recommendedAmountLabelWidth: CGFloat = 124
-    public let recommendedAmountValueWidth: CGFloat = 124
     public let recommendedAmountValueTPadding: CGFloat = 10
     public let recommendedAmountHPadding: CGFloat = 32
     
     // MARK: - Fonts
-    
-    public let recommendedLabel: Font = .custom(FontOswald.Light, size: 15)
+
     public let recommendedValue: Font = .custom(FontOswald.Bold, size: 32)
     public let recommendedUnit: Font = .custom(FontOswald.Light, size: 24)
+    
+    public let recommendedLabel: Font
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.recommendedLabel = .custom(FontOswald.Light, size: uiSizes.entryHintLabelFontSize)
+    }
 }
 
 
 struct EntryHintBlock: View {
     
-    private let style: EntryHintBlockStyle = EntryHintBlockStyle()
+    private let style: EntryHintBlockStyle = EntryHintBlockStyle(uiSizes: UISizes.current)
     
     let isEnoughData: Bool
 
@@ -75,12 +81,12 @@ struct EntryHintBlock: View {
 
             Text(Label.recommendedAmount.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(width: self.style.recommendedAmountLabelWidth)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(self.textColor)
                 .font(self.style.recommendedLabel)
             
-            Text("\(self.value)")
-                .frame(width: self.style.recommendedAmountValueWidth, alignment: .trailing)
+            Text(String(self.value))
+                .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundColor(self.textColor)
                 .font(self.style.recommendedValue)
                 .padding(.trailing, self.style.recommendedAmountValueTPadding)
@@ -90,6 +96,7 @@ struct EntryHintBlock: View {
                 .font(self.style.recommendedUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .frame(minHeight: self.style.hintMinHeight, maxHeight: self.style.hintMaxHeight)
             .padding(.horizontal, self.style.recommendedAmountHPadding)
     }
     

@@ -328,6 +328,7 @@
 			children = (
 				F652133624A48C23003C2214 /* ButtonStyle.swift */,
 				F696B66A24B50B9300663B40 /* inputs */,
+				F6F7203A24913322003873A1 /* TargetDelta.swift */,
 				F69BC23C24AC51730064FE1A /* CustomImage.swift */,
 				F6F077A724D17DD6002882D2 /* AlertMessage.swift */,
 				F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */,
@@ -340,7 +341,6 @@
 			isa = PBXGroup;
 			children = (
 				F6F72038248FCE62003873A1 /* SetupPage.swift */,
-				F6F7203A24913322003873A1 /* TargetDelta.swift */,
 				F631E9B424913C590053B7AC /* SetupUnitsBlock.swift */,
 				F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */,
 				F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */,

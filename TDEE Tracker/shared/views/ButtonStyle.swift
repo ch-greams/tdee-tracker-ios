@@ -16,16 +16,23 @@ struct AppDefaultButtonStyleSizes {
     // MARK: - Sizes
     
     public let width: CGFloat = 176
-    public let height: CGFloat = 44
+    public let height: CGFloat
     
     // MARK: - Fonts
 
     public let font: Font = .custom(FontOswald.Medium, size: 18)
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.height = uiSizes.setupDefaultButtonHeight
+    }
 }
 
 struct AppDefaultButtonStyle: ButtonStyle {
     
-    private let sizes = AppDefaultButtonStyleSizes()
+    private let sizes = AppDefaultButtonStyleSizes(uiSizes: UISizes.current)
  
     let backgroundColor: Color
     let textColor: Color
@@ -97,15 +104,23 @@ struct CalendarChangeMonthButtonStyleSizes {
     // MARK: - Sizes
     
     public let width: CGFloat = 80
-    public let height: CGFloat = 44     // SE = 36
     
     public let hPadding: CGFloat = 8
+    
+    public let height: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.height = uiSizes.calendarMonthButtonHeight
+    }
 }
 
 
 struct CalendarChangeMonthButtonStyle: ButtonStyle {
     
-    private let sizes = CalendarChangeMonthButtonStyleSizes()
+    private let sizes = CalendarChangeMonthButtonStyleSizes(uiSizes: UISizes.current)
     
     let backgroundColor: Color
  
@@ -157,6 +172,7 @@ struct InputSelectButtonStyleSizes {
     
     // MARK: - Sizes
     
+    public let widthCollapsed: CGFloat = 126
     public let width: CGFloat = 180
     public let height: CGFloat = 44
     
@@ -180,7 +196,10 @@ struct InputSelectButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: self.sizes.width, height: self.sizes.height)
+            .frame(
+                width: isThemeButton ? self.sizes.widthCollapsed : self.sizes.width,
+                height: self.sizes.height
+            )
             .background(isSelected ? self.accentColor : self.backgroundColor)
             .foregroundColor(!isSelected ? self.accentColor : self.backgroundColor)
             .font(isThemeButton ? self.sizes.buttonLabelFont : self.sizes.valueFont)

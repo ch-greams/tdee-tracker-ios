@@ -21,7 +21,6 @@ struct WeeklyTrendsBlockStyle {
     
     // MARK: - Sizes
     
-    public let trendsItemLabelWidth: CGFloat = 132
     public let trendsItemValueMinWidth: CGFloat = 80
     public let trendsItemUnitWidth: CGFloat = 30
     
@@ -33,6 +32,7 @@ struct WeeklyTrendsBlockStyle {
     
     public let trendsItemsHPadding: CGFloat = 8
     
+    public let trendsItemHPadding: CGFloat = 6
     public let trendsItemVPadding: CGFloat
     
     public let trendsItemsVPadding: CGFloat
@@ -83,7 +83,7 @@ struct WeeklyTrendsBlock: View {
         
             Text(data.label)
                 .font(self.style.trendsItemLabelFont)
-                .frame(width: self.style.trendsItemLabelWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
@@ -104,18 +104,11 @@ struct WeeklyTrendsBlock: View {
         }
             .foregroundColor(self.textColor)
             .padding(.vertical, self.style.trendsItemVPadding)
+            .padding(.horizontal, self.style.trendsItemHPadding)
     }
     
-    var separator: some View {
-        return Rectangle()
-            .foregroundColor(self.accentColor)
-            .frame(height: self.style.separatorHeight)
-            .padding(.horizontal, self.style.separatorHPadding)
-    }
-    
-    var body: some View {
-
-        let lines = [
+    var trendLines: [ LineData ] {
+        [
             LineData(
                 label: Label.food.uppercased(),
                 value: self.summary.avgFood.map { $0 < 0 ? "0" : String($0) } ?? "0",
@@ -141,10 +134,20 @@ struct WeeklyTrendsBlock: View {
                 changeType: self.trendsChange.deltaWeight
             )
         ]
+    }
+    
+    var separator: some View {
+        Rectangle()
+            .foregroundColor(self.accentColor)
+            .frame(height: self.style.separatorHeight)
+            .padding(.horizontal, self.style.separatorHPadding)
+    }
+    
+    var body: some View {
         
-        return VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             
-            ForEach(0 ..< lines.count) { i in
+            ForEach(0 ..< self.trendLines.count) { i in
                 
                 VStack(alignment: .center, spacing: 0) {
 
@@ -152,7 +155,7 @@ struct WeeklyTrendsBlock: View {
                         self.separator
                     }
 
-                    self.getLine(data: lines[i])
+                    self.getLine(data: self.trendLines[i])
                 }
             }
         }

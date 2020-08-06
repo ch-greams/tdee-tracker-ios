@@ -30,15 +30,18 @@ struct InputNumberStyle {
     
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
     public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
     public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+    
+    public let labelFont: Font
 
     // MARK: - Init
     
     init(uiSizes: UISizes) {
         
         self.bodyHeight = uiSizes.setupInputHeight
+        
+        self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
     }
 }
     
@@ -93,7 +96,6 @@ struct InputNumber: View {
                     .frame(width: self.style.unitWidth, alignment: .leading)
                     .foregroundColor(self.accentColor)
             }
-                .padding(.horizontal)
             
             if self.isOpen {
                 
