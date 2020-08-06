@@ -58,14 +58,14 @@
 "And this measurement unit will be used for food and energy values" = "Выберите единицу измерения измерения для пищевой и энергетической ценности";
 
 "For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
-"Goal weight is what you strife for" = "Идеальный вес - вес, к которому вы стремитесь";
+"Goal weight can be higher or lower than today's weight" = "Идеальный вес может быть больше или меньше чем текущий вес";
 "Based on your current weight weekly change must not be bigger than" = "Исходя из параметров, еженедельное изменение не должно превышать";
 
 "Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
 
 // MARK: - Entry Page
 
-"After enough entries were added you will see here recommended daily amount" = "После добавления нужной информации вы увидите здесь рекомендованное дневное кол-во";
+"After enough entries were added, recommended daily amount will be displayed here" = "После добавления нужной информации вы увидите здесь рекомендованное дневное кол-во";
 "Recommended daily amount" = "Рекоммендованное количество";
 
 // MARK: - Trends Page

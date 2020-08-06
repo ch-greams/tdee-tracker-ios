@@ -56,14 +56,14 @@ struct Label {
     public static let energyUnitHint = "And this measurement unit will be used for food and energy values".localize
     
     public static let currentWeightHint = "For the best result always measure it at the same time in the morning".localize
-    public static let goalWeightHint = "Goal weight is what you strife for".localize
+    public static let goalWeightHint = "Goal weight can be higher or lower than today's weight".localize
     public static let deltaWeightHint = "Based on your current weight weekly change must not be bigger than".localize
     
     public static let settingsHint = "Parameters can be changed at any time in the application settings".localize
     
     // MARK: - Entry Page
     
-    public static let notEnoughDataHint = "After enough entries were added you will see here recommended daily amount".localize
+    public static let notEnoughDataHint = "After enough entries were added, recommended daily amount will be displayed here".localize
     
     public static let recommendedAmount = "Recommended daily amount".localize
     
