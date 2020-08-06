@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct LoaderSpinnerStyle {
+struct LoaderSpinnerSizes {
     
     // MARK: - Sizes
     
@@ -28,7 +28,7 @@ struct LoaderSpinnerStyle {
 
 struct LoaderSpinner: View {
     
-    private let style: LoaderSpinnerStyle = LoaderSpinnerStyle()
+    private let sizes = LoaderSpinnerSizes()
     
     let mainColor: Color
     let accentColor: Color
@@ -42,14 +42,14 @@ struct LoaderSpinner: View {
         ZStack(alignment: .center) {
 
             Circle()
-                .stroke(self.accentColor, lineWidth: self.style.circleBackLineWidth)
-                .frame(height: self.style.circleSize)
+                .stroke(self.accentColor, lineWidth: self.sizes.circleBackLineWidth)
+                .frame(height: self.sizes.circleSize)
             
             Circle()
                 .trim(from: 0, to: 0.25)
-                .stroke(self.mainColor, lineWidth: self.style.circleFrontLineWidth)
+                .stroke(self.mainColor, lineWidth: self.sizes.circleFrontLineWidth)
                 .rotationEffect(self.rotationAngle)
-                .frame(height: self.style.circleSize)
+                .frame(height: self.sizes.circleSize)
                 .onAppear {
                     withAnimation(
                         Animation
@@ -74,11 +74,11 @@ struct LoaderSpinner: View {
             VStack(alignment: .center, spacing: 0) {
                 
                 self.spinner
-                    .padding(.bottom, self.style.spinnerBPadding)
+                    .padding(.bottom, self.sizes.spinnerBPadding)
                 
                 Text(self.text.uppercased())
                     .foregroundColor(self.accentColor)
-                    .font(self.style.loaderText)
+                    .font(self.sizes.loaderText)
                     .multilineTextAlignment(.center)
             }
         }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupRemindersBlockStyle {
+struct SetupRemindersBlockSizes {
     
     // MARK: - Sizes
     
@@ -23,7 +23,7 @@ struct SetupRemindersBlockStyle {
 
 struct SetupRemindersBlock: View {
     
-    private let style: SetupRemindersBlockStyle = SetupRemindersBlockStyle()
+    private let sizes = SetupRemindersBlockSizes()
     
     @EnvironmentObject var appState: AppState
     
@@ -91,12 +91,12 @@ struct SetupRemindersBlock: View {
                     displayedComponents: .hourAndMinute
                 )
                     .labelsHidden()
-                    .font(self.style.datePickerFont)
+                    .font(self.sizes.datePickerFont)
                     .frame(maxWidth: .infinity)
                     .background(self.appState.uiTheme.inputBackgroundColor)
                     .clipped()
                     .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
-                    .padding(self.style.datePickerPadding)
+                    .padding(self.sizes.datePickerPadding)
                 
                 Button(Label.confirm, action: doneAction)
                     .buttonStyle(AppDefaultButtonStyle(

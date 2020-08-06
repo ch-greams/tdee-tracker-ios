@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct ProgressCircleStyle {
+struct ProgressCircleSizes {
     
     // MARK: - Sizes
     
@@ -35,7 +35,7 @@ struct ProgressCircleStyle {
     
 struct ProgressCircle: View {
     
-    private let style: ProgressCircleStyle = ProgressCircleStyle(uiSizes: UISizes.current)
+    private let sizes = ProgressCircleSizes(uiSizes: UISizes.current)
     
     let currentWeightValue: Double
     let goalWeightValue: Double
@@ -74,15 +74,15 @@ struct ProgressCircle: View {
         return ZStack {
             
             Circle()
-                .stroke(self.mainColor, lineWidth: self.style.circleWidth)
+                .stroke(self.mainColor, lineWidth: self.sizes.circleWidth)
                 .opacity(0.2)
-                .frame(height: self.style.circleDiameter - self.style.circleWidth)
+                .frame(height: self.sizes.circleDiameter - self.sizes.circleWidth)
             
             Circle()
                 .trim(from: 0, to: self.visibleProgress)
-                .stroke(self.mainColor, lineWidth: self.style.circleWidth)
+                .stroke(self.mainColor, lineWidth: self.sizes.circleWidth)
                 .rotationEffect(.degrees(-90))
-                .frame(height: self.style.circleDiameter - self.style.circleWidth)
+                .frame(height: self.sizes.circleDiameter - self.sizes.circleWidth)
                 .onAppear {
                     withAnimation( Animation.linear(duration: 0.5) ) {
                         self.visibleProgress = CGFloat(progress)
@@ -94,27 +94,27 @@ struct ProgressCircle: View {
                 if progress >= 1 {
                     
                     Text("\(Label.done)!")
-                        .font(self.style.percentFont)
+                        .font(self.sizes.percentFont)
                         .foregroundColor(self.mainColor)
                 }
                 else {
 
                     Text(progressPercentText)
-                        .font(self.style.percentFont)
+                        .font(self.sizes.percentFont)
                         .foregroundColor(self.mainColor)
 
                     Text(progressValueText)
-                        .font(self.style.valuesFont)
+                        .font(self.sizes.valuesFont)
                         .foregroundColor(self.mainColor)
 
                     Text(estimatedTimeLeftText)
-                        .font(self.style.estimateFont)
+                        .font(self.sizes.estimateFont)
                         .foregroundColor(self.mainColor)
                 }
             }
             
         }
-            .frame(height: self.style.circleDiameter)
+            .frame(height: self.sizes.circleDiameter)
     }
 }
 

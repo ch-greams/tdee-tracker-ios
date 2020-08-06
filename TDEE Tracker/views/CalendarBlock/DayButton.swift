@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct DayButtonStyle {
+struct DayButtonSizes {
     
     // MARK: - Sizes
     
@@ -28,7 +28,7 @@ struct DayButtonStyle {
 
 struct DayButton: View {
     
-    private let style: DayButtonStyle = DayButtonStyle(uiSizes: UISizes.current)
+    private let sizes = DayButtonSizes(uiSizes: UISizes.current)
     
     let day: Date
     
@@ -71,25 +71,25 @@ struct DayButton: View {
             if self.hasData == DayEntryData.Full {
 
                 Circle()
-                    .size(CGSize(width: self.style.markDotSize, height: self.style.markDotSize))
+                    .size(CGSize(width: self.sizes.markDotSize, height: self.sizes.markDotSize))
                     .foregroundColor(self.accentColor)
             }
             else if self.hasData == DayEntryData.Partial {
                 
                 Circle()
-                    .size(CGSize(width: self.style.markDotSize, height: self.style.markDotSize))
+                    .size(CGSize(width: self.sizes.markDotSize, height: self.sizes.markDotSize))
                     .foregroundColor(self.accentAlternativeColor)
             }
             
             Button(self.day.dayString, action: { self.selectDayFunc(self.day) })
                 .buttonStyle(CalendarDayButtonStyle(
-                    buttonSize: self.style.buttonSize,
+                    buttonSize: self.sizes.buttonSize,
                     isSelected: ( self.isSelectedDay || self.isToday ),
                     textColor: self.color,
                     backgroundColor: self.isSelectedDay ? self.accentColor : nil
                 ))
         }
-            .frame(width: self.style.buttonSize, height: self.style.buttonSize, alignment: .top)
+            .frame(width: self.sizes.buttonSize, height: self.sizes.buttonSize, alignment: .top)
         
     }
 }

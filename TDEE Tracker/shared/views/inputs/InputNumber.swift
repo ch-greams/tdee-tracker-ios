@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct InputNumberStyle {
+struct InputNumberSizes {
     
     // MARK: - Sizes
     
@@ -48,7 +48,7 @@ struct InputNumberStyle {
     
 struct InputNumber: View {
     
-    private let style: InputNumberStyle = InputNumberStyle(uiSizes: UISizes.current)
+    private let sizes = InputNumberSizes(uiSizes: UISizes.current)
     
     let title: String
     let unit: String
@@ -71,7 +71,7 @@ struct InputNumber: View {
 
             if !self.isOpen {
                 Text(self.title.uppercased())
-                    .font(self.style.labelFont)
+                    .font(self.sizes.labelFont)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(self.accentColor)
                     .padding(.leading)
@@ -81,19 +81,19 @@ struct InputNumber: View {
 
             HStack(alignment: .center, spacing: 0) {
                 TextField("", text: self.input, onCommit: self.onCommit)
-                    .font(self.style.valueFont)
-                    .padding(.trailing, self.style.inputTPadding)
-                    .frame(width: self.style.inputWidth, height: self.style.inputHeight)
+                    .font(self.sizes.valueFont)
+                    .padding(.trailing, self.sizes.inputTPadding)
+                    .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight)
                     .border(self.accentColor)
                     .foregroundColor(self.accentColor)
-                    .padding(.horizontal, self.style.inputHPadding)
+                    .padding(.horizontal, self.sizes.inputHPadding)
                     .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                     .onTapGesture(perform: self.openInput)
                 
                 Text(self.unit)
-                    .font(self.style.unitFont)
-                    .frame(width: self.style.unitWidth, alignment: .leading)
+                    .font(self.sizes.unitFont)
+                    .frame(width: self.sizes.unitWidth, alignment: .leading)
                     .foregroundColor(self.accentColor)
             }
             
@@ -109,11 +109,11 @@ struct InputNumber: View {
                         name: "checkmark-sharp",
                         colorName: self.backgroundColorName
                     )
-                        .frame(minWidth: 0, maxWidth: self.style.iconCheckmarkSize)
-                        .frame(minHeight: 0, maxHeight: self.style.iconCheckmarkSize)
+                        .frame(minWidth: 0, maxWidth: self.sizes.iconCheckmarkSize)
+                        .frame(minHeight: 0, maxHeight: self.sizes.iconCheckmarkSize)
                         .clipped()
                         .frame(maxHeight: .infinity)
-                        .frame(maxWidth: self.isOpen ? self.style.buttonCheckmarkWidth : 0)
+                        .frame(maxWidth: self.isOpen ? self.sizes.buttonCheckmarkWidth : 0)
                         .background(self.confirmButtonColor)
                 }
             )
@@ -121,10 +121,10 @@ struct InputNumber: View {
         }
             .animation(self.animation)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(height: self.style.bodyHeight)
+            .frame(height: self.sizes.bodyHeight)
             .background(self.backgroundColor)
-            .padding(.vertical, self.style.bodyVPadding)
-            .padding(.horizontal, self.style.bodyHPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
+            .padding(.horizontal, self.sizes.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
             .onAppear {

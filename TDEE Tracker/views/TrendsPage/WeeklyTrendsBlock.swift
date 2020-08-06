@@ -17,7 +17,7 @@ struct LineData {
 }
 
 
-struct WeeklyTrendsBlockStyle {
+struct WeeklyTrendsBlockSizes {
     
     // MARK: - Sizes
     
@@ -60,7 +60,7 @@ struct WeeklyTrendsBlockStyle {
 
 struct WeeklyTrendsBlock: View {
     
-    private let style: WeeklyTrendsBlockStyle = WeeklyTrendsBlockStyle(uiSizes: UISizes.current)
+    private let sizes = WeeklyTrendsBlockSizes(uiSizes: UISizes.current)
     
     let weightUnitLabel: String
     let energyUnitLabel: String
@@ -82,29 +82,29 @@ struct WeeklyTrendsBlock: View {
         return HStack(alignment: .center, spacing: 0) {
         
             Text(data.label)
-                .font(self.style.trendsItemLabelFont)
+                .font(self.sizes.trendsItemLabelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             
             Text(data.value)
-                .font(self.style.trendsItemValueFont)
-                .frame(minWidth: self.style.trendsItemValueMinWidth, alignment: .trailing)
+                .font(self.sizes.trendsItemValueFont)
+                .frame(minWidth: self.sizes.trendsItemValueMinWidth, alignment: .trailing)
 
             Text(data.unit)
-                .font(self.style.trendsItemUnitFont)
-                .frame(width: self.style.trendsItemUnitWidth, alignment: .leading)
+                .font(self.sizes.trendsItemUnitFont)
+                .frame(width: self.sizes.trendsItemUnitWidth, alignment: .leading)
                 .padding(.horizontal)
 
             CustomImage(name: data.changeType.icon, colorName: self.iconColor)
                 .frame(
-                    width: self.style.trendsItemChangeIconWidth,
-                    height: self.style.trendsItemChangeIconHeight
+                    width: self.sizes.trendsItemChangeIconWidth,
+                    height: self.sizes.trendsItemChangeIconHeight
                 )
                 .padding(.trailing)
         }
             .foregroundColor(self.textColor)
-            .padding(.vertical, self.style.trendsItemVPadding)
-            .padding(.horizontal, self.style.trendsItemHPadding)
+            .padding(.vertical, self.sizes.trendsItemVPadding)
+            .padding(.horizontal, self.sizes.trendsItemHPadding)
     }
     
     var trendLines: [ LineData ] {
@@ -139,8 +139,8 @@ struct WeeklyTrendsBlock: View {
     var separator: some View {
         Rectangle()
             .foregroundColor(self.accentColor)
-            .frame(height: self.style.separatorHeight)
-            .padding(.horizontal, self.style.separatorHPadding)
+            .frame(height: self.sizes.separatorHeight)
+            .padding(.horizontal, self.sizes.separatorHPadding)
     }
     
     var body: some View {
@@ -159,9 +159,9 @@ struct WeeklyTrendsBlock: View {
                 }
             }
         }
-            .padding(.vertical, self.style.trendsItemsVPadding)
+            .padding(.vertical, self.sizes.trendsItemsVPadding)
             .background(self.backgroundColor)
-            .padding(.horizontal, self.style.trendsItemsHPadding)
+            .padding(.horizontal, self.sizes.trendsItemsHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }

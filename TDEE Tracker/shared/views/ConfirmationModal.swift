@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct ConfirmationModalStyle {
+struct ConfirmationModalSizes {
     
     // MARK: - Sizes
 
@@ -43,7 +43,7 @@ struct ConfirmationModalStyle {
 
 struct ConfirmationModal: View {
     
-    private let style: ConfirmationModalStyle = ConfirmationModalStyle()
+    private let sizes = ConfirmationModalSizes()
     
     let fadeColor: Color
     
@@ -60,9 +60,9 @@ struct ConfirmationModal: View {
     var separator: some View {
         return Rectangle()
             .foregroundColor(self.separatorColor)
-            .frame(height: self.style.separatorHeight)
-            .padding(.horizontal, self.style.separatorHPadding)
-            .padding(.bottom, self.style.separatorBPadding)
+            .frame(height: self.sizes.separatorHeight)
+            .padding(.horizontal, self.sizes.separatorHPadding)
+            .padding(.bottom, self.sizes.separatorBPadding)
     }
     
     var body: some View {
@@ -77,21 +77,21 @@ struct ConfirmationModal: View {
                 
                 Text(Label.buyPremiumTitle)
                     .foregroundColor(self.accentColor)
-                    .font(self.style.titleFont)
+                    .font(self.sizes.titleFont)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, self.style.titleVPadding)
+                    .padding(.vertical, self.sizes.titleVPadding)
                 
                 self.separator
                 
                 Text(Label.buyPremiumDescription)
                     .foregroundColor(self.textColor)
-                    .font(self.style.descriptionFont)
+                    .font(self.sizes.descriptionFont)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .lineSpacing(self.style.descriptionLineSpacing)
-                    .padding(.bottom, self.style.descriptionBPadding)
-                    .padding(.horizontal, self.style.descriptionHPadding)
+                    .lineSpacing(self.sizes.descriptionLineSpacing)
+                    .padding(.bottom, self.sizes.descriptionBPadding)
+                    .padding(.horizontal, self.sizes.descriptionHPadding)
                 
                 self.separator
                 
@@ -99,30 +99,30 @@ struct ConfirmationModal: View {
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.accentColor,
                         textColor: self.backgroundColor,
-                        font: self.style.buttonConfirmFont,
-                        width: self.style.buttonWidth
+                        font: self.sizes.buttonConfirmFont,
+                        width: self.sizes.buttonWidth
                     ))
-                    .padding(.bottom, self.style.buttonConfirmBPadding)
+                    .padding(.bottom, self.sizes.buttonConfirmBPadding)
                 
                 Button(Label.cancel, action: self.cancelAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.backgroundColor,
                         textColor: self.accentColor,
                         withBorder: true,
-                        font: self.style.buttonCancelFont,
-                        width: self.style.buttonWidth,
-                        height: self.style.buttonCancelHeight
+                        font: self.sizes.buttonCancelFont,
+                        width: self.sizes.buttonWidth,
+                        height: self.sizes.buttonCancelHeight
                     ))
-                    .padding(.bottom, self.style.buttonCancelBPadding)
+                    .padding(.bottom, self.sizes.buttonCancelBPadding)
             }
                 .frame(maxWidth: .infinity)
                 .background(self.backgroundColor)
-                .padding(.horizontal, self.style.modalHPadding)
+                .padding(.horizontal, self.sizes.modalHPadding)
                 .clipped()
                 .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                 
         }
-            .padding(.top, self.style.modalTPadding)
+            .padding(.top, self.sizes.modalTPadding)
     }
 }
 

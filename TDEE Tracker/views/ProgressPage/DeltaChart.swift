@@ -25,7 +25,7 @@ struct Line: Shape {
 }
 
 
-struct DeltaChartStyle {
+struct DeltaChartSizes {
     
     // MARK: - Sizes
     
@@ -60,7 +60,7 @@ struct DeltaChartStyle {
 
 struct DeltaChart: View {
     
-    private let style: DeltaChartStyle = DeltaChartStyle(uiSizes: UISizes.current)
+    private let sizes = DeltaChartSizes(uiSizes: UISizes.current)
     
     let STEP_LINE_DASH: [ CGFloat ] = [ 4 ]
     let STEP_ZERO_HEIGHT: CGFloat = 20
@@ -79,7 +79,7 @@ struct DeltaChart: View {
     
     func getStepHeight(stepCount: Int) -> CGFloat {
         
-        return self.style.totalStepsHeight / CGFloat(stepCount)
+        return self.sizes.totalStepsHeight / CGFloat(stepCount)
     }
 
     func getStepValue(value: Double) -> Double {
@@ -127,17 +127,17 @@ struct DeltaChart: View {
         VStack(alignment: .leading, spacing: 0) {
         
             Text(mark)
-                .frame(width: self.style.markLabelWidth, alignment: .trailing)
-                .font(self.style.labelFont)
-                .padding(.leading, self.style.markLabelLPadding)
+                .frame(width: self.sizes.markLabelWidth, alignment: .trailing)
+                .font(self.sizes.labelFont)
+                .padding(.leading, self.sizes.markLabelLPadding)
                 .foregroundColor(self.mainColor)
             
             Line(length: length)
                 .stroke(style: StrokeStyle(
-                    lineWidth: self.style.markLineWidth,
+                    lineWidth: self.sizes.markLineWidth,
                     dash: ( withDash ? self.STEP_LINE_DASH : [] )
                 ))
-                .frame(height: self.style.markLineWidth)
+                .frame(height: self.sizes.markLineWidth)
                 .foregroundColor(self.mainColor)
         }
             .frame(height: height, alignment: .top)
@@ -173,17 +173,17 @@ struct DeltaChart: View {
                     Rectangle()
                         .padding(
                             .top,
-                            self.style.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
+                            self.sizes.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
                         )
-                        .frame(width: self.style.weekColumnWidth, height: self.style.totalStepsHeight)
-                        .padding(.top, self.style.weekColumnTPadding)
-                        .padding(.horizontal, self.style.weekColumnHPadding)
+                        .frame(width: self.sizes.weekColumnWidth, height: self.sizes.totalStepsHeight)
+                        .padding(.top, self.sizes.weekColumnTPadding)
+                        .padding(.horizontal, self.sizes.weekColumnHPadding)
                         .foregroundColor(self.mainColor)
                         .opacity(0.85)
 
                     Text(String(iWeek + 1))
-                        .font(self.style.labelFont)
-                        .padding(.top, self.style.weekLabelTPadding)
+                        .font(self.sizes.labelFont)
+                        .padding(.top, self.sizes.weekLabelTPadding)
                         .foregroundColor(self.mainColor)
                 }
             }
@@ -214,7 +214,7 @@ struct DeltaChart: View {
         let stepHeight = self.getStepHeight(stepCount: stepCount)
         
         // NOTE: Have to calculate height otherwise GeometryReader will take everything it can
-        let totalChartHeight = self.style.totalStepsHeight + self.STEP_ZERO_HEIGHT
+        let totalChartHeight = self.sizes.totalStepsHeight + self.STEP_ZERO_HEIGHT
 
         var weeklyDeltaHeights: [ CGFloat ] = []
         
@@ -241,12 +241,12 @@ struct DeltaChart: View {
                         self.getWeekColumns(weeklyDeltaHeights: weeklyDeltaHeights)
                     }
                 }
-                    .padding(.leading, self.style.maskLPadding)
+                    .padding(.leading, self.sizes.maskLPadding)
             }
                 .frame(maxHeight: totalChartHeight)
                 
         }
-            .padding(.vertical, self.style.bodyVPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
     }
 }
 

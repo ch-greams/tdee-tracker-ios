@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct TargetDeltaStyle {
+struct TargetDeltaSizes {
     
     // MARK: - Fonts
 
@@ -29,7 +29,7 @@ struct TargetDeltaStyle {
 
 struct TargetDelta: View {
     
-    private let style: TargetDeltaStyle = TargetDeltaStyle(uiSizes: UISizes.current)
+    private let sizes = TargetDeltaSizes(uiSizes: UISizes.current)
     
     let value: Int
     let unit: String
@@ -44,16 +44,16 @@ struct TargetDelta: View {
             Text(changeType.uppercased())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(textColor)
-                .font(self.style.labelFont)
+                .font(self.sizes.labelFont)
             
             Text(String(abs(self.value)))
                 .foregroundColor(textColor)
-                .font(self.style.valueFont)
+                .font(self.sizes.valueFont)
                 .padding(.trailing)
 
             Text("\(self.unit)/\(Label.day)".uppercased())
                 .foregroundColor(textColor)
-                .font(self.style.unitFont)
+                .font(self.sizes.unitFont)
         }
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.horizontal)

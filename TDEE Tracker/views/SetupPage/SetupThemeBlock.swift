@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupThemeBlockStyle {
+struct SetupThemeBlockSizes {
     
     // MARK: - Sizes
     
@@ -22,7 +22,7 @@ struct SetupThemeBlockStyle {
 
 struct SetupThemeBlock: View {
     
-    private let style: SetupThemeBlockStyle = SetupThemeBlockStyle()
+    private let sizes = SetupThemeBlockSizes()
     
     @EnvironmentObject var appState: AppState
     
@@ -52,29 +52,29 @@ struct SetupThemeBlock: View {
 
             Rectangle()
                 .frame(
-                    width: self.style.paletteColorWidth,
-                    height: self.style.paletteColorHeight
+                    width: self.sizes.paletteColorWidth,
+                    height: self.sizes.paletteColorHeight
                 )
                 .foregroundColor(theme.navbarBackgroundColor)
             
             Rectangle()
                 .frame(
-                    width: self.style.paletteColorWidth,
-                    height: self.style.paletteColorHeight
+                    width: self.sizes.paletteColorWidth,
+                    height: self.sizes.paletteColorHeight
                 )
                 .foregroundColor(theme.inputAccentColor)
 
             Rectangle()
                 .frame(
-                    width: self.style.paletteColorWidth,
-                    height: self.style.paletteColorHeight
+                    width: self.sizes.paletteColorWidth,
+                    height: self.sizes.paletteColorHeight
                 )
                 .foregroundColor(theme.navbarAccentColor)
             
             Rectangle()
                 .frame(
-                    width: self.style.paletteColorWidth,
-                    height: self.style.paletteColorHeight
+                    width: self.sizes.paletteColorWidth,
+                    height: self.sizes.paletteColorHeight
                 )
                 .foregroundColor(theme.warningBackgroundColor)
         }
@@ -105,7 +105,7 @@ struct SetupThemeBlock: View {
             }
         }
             .frame(maxWidth: .infinity)
-            .padding(.bottom, self.style.bodyBPadding)
+            .padding(.bottom, self.sizes.bodyBPadding)
     }
 }
 

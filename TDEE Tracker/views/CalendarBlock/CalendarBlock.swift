@@ -10,7 +10,7 @@ import SwiftUI
 
 
 
-struct CalendarBlockStyle {
+struct CalendarBlockSizes {
     
     // MARK: - Sizes
     
@@ -39,7 +39,7 @@ struct CalendarBlockStyle {
 
 struct CalendarBlock: View {
     
-    private let style: CalendarBlockStyle = CalendarBlockStyle(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -50,15 +50,15 @@ struct CalendarBlock: View {
 
     var weekdayTitles: some View {
         
-        HStack(alignment: .center, spacing: self.style.calendarWeekdayHSpacing) {
+        HStack(alignment: .center, spacing: self.sizes.calendarWeekdayHSpacing) {
             
             ForEach(Utils.getShortWeekdayNames(), id: \.self) { day in
                 
                 Text(day.uppercased())
-                    .font(self.style.calendarWeekdayTitleFont)
+                    .font(self.sizes.calendarWeekdayTitleFont)
                     .frame(
-                        width: self.style.calendarDayButtonSize,
-                        height: self.style.calendarDayButtonSize
+                        width: self.sizes.calendarDayButtonSize,
+                        height: self.sizes.calendarDayButtonSize
                     )
                     .foregroundColor(self.appState.uiTheme.calendarTextDefaultColor)
             }
@@ -70,7 +70,7 @@ struct CalendarBlock: View {
         VStack(alignment: .center, spacing: 0) {
             
             CalendarBlockMonth(selectedDay: self.selectedDay, isCollapsed: self.isCollapsed)
-                .padding(.bottom, self.style.calendarBlockMonthBPadding)
+                .padding(.bottom, self.sizes.calendarBlockMonthBPadding)
             
             VStack(alignment: .center, spacing: 0) {
 
@@ -84,11 +84,11 @@ struct CalendarBlock: View {
             }
                 .padding(.vertical, (
                     self.isCollapsed
-                        ? self.style.calendarBlockDaysVPaddingCollapsed
-                        : self.style.calendarBlockDaysVPadding
+                        ? self.sizes.calendarBlockDaysVPaddingCollapsed
+                        : self.sizes.calendarBlockDaysVPadding
                 ))
                 .background(self.appState.uiTheme.inputBackgroundColor)
-                .padding(.horizontal, self.style.calendarBlockDaysHPadding)
+                .padding(.horizontal, self.sizes.calendarBlockDaysHPadding)
                 .clipped()
                 .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
                 .disabled(self.isCollapsed)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct CalendarBlockMonthStyle {
+struct CalendarBlockMonthSizes {
     
     // MARK: - Sizes
     
@@ -31,7 +31,7 @@ struct CalendarBlockMonthStyle {
 
 struct CalendarBlockMonth: View {
     
-    private let style: CalendarBlockMonthStyle = CalendarBlockMonthStyle(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockMonthSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -43,7 +43,7 @@ struct CalendarBlockMonth: View {
     var monthTitle: Text {
 
         Text(selectedDay.toString("LLLL YYYY").uppercased())
-            .font(self.style.monthLabelFont)
+            .font(self.sizes.monthLabelFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
     }
     
@@ -66,8 +66,8 @@ struct CalendarBlockMonth: View {
 
             CustomImage(name: icon, colorName: self.appState.uiTheme.calendarAccentColorName)
                 .frame(
-                    width: self.style.monthChangeButtonIconWidth,
-                    height: self.style.monthChangeButtonIconHeight
+                    width: self.sizes.monthChangeButtonIconWidth,
+                    height: self.sizes.monthChangeButtonIconHeight
                 )
         }
             .buttonStyle(CalendarChangeMonthButtonStyle(

@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupBlockTitleStyle {
+struct SetupBlockTitleSizes {
     
     // MARK: - Sizes
     
@@ -25,7 +25,7 @@ struct SetupBlockTitleStyle {
 
 struct SetupBlockTitle: View {
     
-    private let style: SetupBlockTitleStyle = SetupBlockTitleStyle()
+    private let sizes = SetupBlockTitleSizes()
 
     let title: String
     let textColor: Color
@@ -35,11 +35,11 @@ struct SetupBlockTitle: View {
     var body: some View {
 
         Text(self.title.uppercased())
-            .font(self.style.labelFont)
+            .font(self.sizes.labelFont)
             .foregroundColor(textColor)
-            .frame(height: self.style.labelHeight)
-            .padding(.top, self.paddingTop ?? self.style.labelTPadding)
-            .padding(.bottom, self.style.labelBPadding)
+            .frame(height: self.sizes.labelHeight)
+            .padding(.top, self.paddingTop ?? self.sizes.labelTPadding)
+            .padding(.bottom, self.sizes.labelBPadding)
     }
 }
 

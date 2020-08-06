@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct InputToggleStyle {
+struct InputToggleSizes {
     
     // MARK: - Sizes
     
@@ -36,7 +36,7 @@ struct InputToggleStyle {
 
 struct InputToggle<T>: View where T:Equatable, T:Localizable {
     
-    private let style: InputToggleStyle = InputToggleStyle(uiSizes: UISizes.current)
+    private let sizes = InputToggleSizes(uiSizes: UISizes.current)
     
     let title: String
     let setValue: (T) -> Void
@@ -75,29 +75,29 @@ struct InputToggle<T>: View where T:Equatable, T:Localizable {
         return HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(self.style.labelFont)
+                .font(self.sizes.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(accentColor)
                 .padding(.leading)
             
             Spacer()
             
-            HStack(alignment: .center, spacing: self.style.buttonsHSpacing) {
+            HStack(alignment: .center, spacing: self.sizes.buttonsHSpacing) {
 
                 firstButton
 
                 secondButton
             }
-                .padding(self.style.buttonsPadding)
+                .padding(self.sizes.buttonsPadding)
                 .background(accentColor)
                 .padding(.horizontal)
         }
             .animation(self.animation)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .frame(height: self.style.bodyHeight)
+            .frame(height: self.sizes.bodyHeight)
             .background(backgroundColor)
-            .padding(.vertical, self.style.bodyVPadding)
-            .padding(.horizontal, self.style.bodyHPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
+            .padding(.horizontal, self.sizes.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
             .onAppear {

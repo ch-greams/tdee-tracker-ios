@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct InputEntryNumberStyle {
+struct InputEntryNumberSizes {
     
     // MARK: - Sizes
     
@@ -49,7 +49,7 @@ struct InputEntryNumberStyle {
 
 struct InputEntryNumber: View {
     
-    private let style: InputEntryNumberStyle = InputEntryNumberStyle(uiSizes: UISizes.current)
+    private let sizes = InputEntryNumberSizes(uiSizes: UISizes.current)
     
     let icon: String
     let unit: String
@@ -68,8 +68,8 @@ struct InputEntryNumber: View {
         
         let bodyVPadding = (
             self.isOpen
-                ? self.style.bodyVPadding + self.style.bodyVPaddingOpenOffset
-                : self.style.bodyVPadding
+                ? self.sizes.bodyVPadding + self.sizes.bodyVPaddingOpenOffset
+                : self.sizes.bodyVPadding
         )
 
         let isEmptyInput = NumberFormatter().number(from: value.wrappedValue) == nil
@@ -82,14 +82,13 @@ struct InputEntryNumber: View {
                 name: icon,
                 colorName: isEmptyInput ? accentAlternativeColorName : accentColorName
             )
-                .frame(width: self.style.iconSize, height: self.style.iconSize)
+                .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
                 .frame(maxWidth: .infinity, alignment: .trailing)
-//                .padding(.horizontal)
 
             TextField("", text: value, onCommit: onCommit)
-                .font(self.style.valueFont)
-                .padding(.trailing, self.style.inputTPadding)
-                .frame(width: self.style.inputWidth, height: self.style.inputHeight)
+                .font(self.sizes.valueFont)
+                .padding(.trailing, self.sizes.inputTPadding)
+                .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight)
                 .multilineTextAlignment(.trailing)
                 .border(baseColor)
                 .foregroundColor(baseColor)
@@ -98,19 +97,17 @@ struct InputEntryNumber: View {
                 .onTapGesture(perform: openInput)
             
             Text(unit)
-                .font(self.style.unitFont)
-//                .padding(.trailing)
-//                .frame(width: self.style.unitWidth, alignment: .leading)
+                .font(self.sizes.unitFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(baseColor)
         }
             .frame(maxWidth: .infinity)
             .padding(.vertical, bodyVPadding)
             .background(self.backgroundColor)
-            .padding(self.style.bodyPadding)
+            .padding(self.sizes.bodyPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
-            .padding(.horizontal, self.style.bodyHPadding)
+            .padding(.horizontal, self.sizes.bodyHPadding)
     }
 }
 

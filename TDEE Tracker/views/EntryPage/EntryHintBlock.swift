@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct EntryHintBlockStyle {
+struct EntryHintBlockSizes {
     
     // MARK: - Sizes
     
@@ -38,7 +38,7 @@ struct EntryHintBlockStyle {
 
 struct EntryHintBlock: View {
     
-    private let style: EntryHintBlockStyle = EntryHintBlockStyle(uiSizes: UISizes.current)
+    private let sizes = EntryHintBlockSizes(uiSizes: UISizes.current)
     
     let isEnoughData: Bool
 
@@ -67,13 +67,13 @@ struct EntryHintBlock: View {
 
             Text(hint.uppercased())
                 .multilineTextAlignment(.center)
-                .frame(minHeight: self.style.hintMinHeight, maxHeight: self.style.hintMaxHeight)
+                .frame(minHeight: self.sizes.hintMinHeight, maxHeight: self.sizes.hintMaxHeight)
                 .foregroundColor(self.textColor)
-                .font(self.style.recommendedLabel)
+                .font(self.sizes.recommendedLabel)
 
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, self.style.hintHPadding)
+            .padding(.horizontal, self.sizes.hintHPadding)
     }
     
     var defaultBlock: some View {
@@ -83,21 +83,21 @@ struct EntryHintBlock: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(self.textColor)
-                .font(self.style.recommendedLabel)
+                .font(self.sizes.recommendedLabel)
             
             Text(String(self.value))
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundColor(self.textColor)
-                .font(self.style.recommendedValue)
-                .padding(.trailing, self.style.recommendedAmountValueTPadding)
+                .font(self.sizes.recommendedValue)
+                .padding(.trailing, self.sizes.recommendedAmountValueTPadding)
             
             Text(self.unit)
                 .foregroundColor(self.textColor)
-                .font(self.style.recommendedUnit)
+                .font(self.sizes.recommendedUnit)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(minHeight: self.style.hintMinHeight, maxHeight: self.style.hintMaxHeight)
-            .padding(.horizontal, self.style.recommendedAmountHPadding)
+            .frame(minHeight: self.sizes.hintMinHeight, maxHeight: self.sizes.hintMaxHeight)
+            .padding(.horizontal, self.sizes.recommendedAmountHPadding)
     }
     
     var body: some View {

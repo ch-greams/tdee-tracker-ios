@@ -41,7 +41,7 @@ struct InputSelectButtonSizes {
 
 struct InputSelectButton: View {
     
-    private let style: InputSelectButtonSizes = InputSelectButtonSizes(uiSizes: UISizes.current)
+    private let sizes = InputSelectButtonSizes(uiSizes: UISizes.current)
     
     let title: String
     let buttonLabel: String
@@ -57,7 +57,7 @@ struct InputSelectButton: View {
         HStack(alignment: .center, spacing: 0) {
 
             Text(title.uppercased())
-                .font(self.style.labelFont)
+                .font(self.sizes.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .foregroundColor(self.accentColor)
@@ -70,10 +70,10 @@ struct InputSelectButton: View {
                 .padding(.horizontal)
         }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: self.style.bodyHeight)
+            .frame(height: self.sizes.bodyHeight)
             .background(self.backgroundColor)
-            .padding(.vertical, self.style.bodyVPadding)
-            .padding(.horizontal, self.style.bodyHPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
+            .padding(.horizontal, self.sizes.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupPageStyle {
+struct SetupPageSizes {
     
     // MARK: - Sizes
     
@@ -33,7 +33,7 @@ struct SetupPageStyle {
 
 struct SetupPage: View {
     
-    private let style: SetupPageStyle = SetupPageStyle(uiSizes: UISizes.current)
+    private let sizes = SetupPageSizes(uiSizes: UISizes.current)
 
     @EnvironmentObject var appState: AppState
 
@@ -53,14 +53,14 @@ struct SetupPage: View {
                     SetupGoalBlock()
 
                     Rectangle()
-                        .frame(height: self.style.separatorHeight)
-                        .padding(.horizontal, self.style.separatorHPadding)
+                        .frame(height: self.sizes.separatorHeight)
+                        .padding(.horizontal, self.sizes.separatorHPadding)
                         .foregroundColor(self.appState.uiTheme.mainTextColor)
                         .opacity(0.8)
                 }
 
                 SetupRemindersBlock(isOpen: self.$isReminderOpen)
-                    .padding(.top, self.isReminderOpen ? self.style.reminderOpenTPadding : 0)
+                    .padding(.top, self.isReminderOpen ? self.sizes.reminderOpenTPadding : 0)
                 
                 if !self.isReminderOpen {
                  
@@ -68,7 +68,7 @@ struct SetupPage: View {
                 }
             }
         }
-            .frame(height: self.style.mvVisibleScreenHeight - self.style.mvVisibleScreenOffset)
+            .frame(height: self.sizes.mvVisibleScreenHeight - self.sizes.mvVisibleScreenOffset)
     }
 }
 

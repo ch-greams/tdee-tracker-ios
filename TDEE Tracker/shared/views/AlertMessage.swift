@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct AlertMessageStyle {
+struct AlertMessageSizes {
     
     // MARK: - Sizes
     
@@ -27,7 +27,7 @@ struct AlertMessageStyle {
 
 struct AlertMessage: View {
     
-    private let style: AlertMessageStyle = AlertMessageStyle()
+    private let sizes = AlertMessageSizes()
     
     let text: String
     
@@ -43,15 +43,15 @@ struct AlertMessage: View {
             Text(self.text)
                 .multilineTextAlignment(.center)
                 .foregroundColor(self.textColor)
-                .font(self.style.warningText)
+                .font(self.sizes.warningText)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, self.style.bodyInsideVPadding)
-            .padding(.horizontal, self.style.bodyInsideHPadding)
+            .padding(.vertical, self.sizes.bodyInsideVPadding)
+            .padding(.horizontal, self.sizes.bodyInsideHPadding)
             .background(self.backgroundColor)
             .onTapGesture(perform: self.closeAction)
-            .padding(.vertical, self.style.bodyOutsideVPadding)
-            .padding(.horizontal, self.style.bodyOutsideHPadding)
+            .padding(.vertical, self.sizes.bodyOutsideVPadding)
+            .padding(.horizontal, self.sizes.bodyOutsideHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }

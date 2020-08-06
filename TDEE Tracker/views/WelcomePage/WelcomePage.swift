@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct WelcomePageStyle {
+struct WelcomePageSizes {
     
     // MARK: - Sizes
     
@@ -50,7 +50,7 @@ struct WelcomePageStyle {
 
 struct WelcomePage: View {
     
-    private let style: WelcomePageStyle = WelcomePageStyle(uiSizes: UISizes.current)
+    private let sizes = WelcomePageSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -90,21 +90,21 @@ struct WelcomePage: View {
         VStack(alignment: .center, spacing: 0) {
 
             Text(title)
-                .font(self.style.welcomeTitleFont)
+                .font(self.sizes.welcomeTitleFont)
             
             Text(subtitle)
-                .font(self.style.welcomeSubtitleFont)
-                .padding(.vertical, self.style.subTitleVPadding)
+                .font(self.sizes.welcomeSubtitleFont)
+                .padding(.vertical, self.sizes.subTitleVPadding)
         }
             .foregroundColor(self.appState.uiTheme.mainTextColor)
-            .padding(.bottom, self.style.titleBlockBPadding)
+            .padding(.bottom, self.sizes.titleBlockBPadding)
     }
     
     // MARK: - Step #1
     
     var unitsBlock: some View {
         
-        VStack(alignment: .center, spacing: self.style.inputsVSpacing) {
+        VStack(alignment: .center, spacing: self.sizes.inputsVSpacing) {
             
             InputToggle(
                 title: Label.weight,
@@ -122,10 +122,10 @@ struct WelcomePage: View {
             if !self.isWeightUnitSelected {
                
                 Text(Label.weightUnitHint)
-                    .font(self.style.welcomeHintFont)
+                    .font(self.sizes.welcomeHintFont)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, self.style.weightUnitHintHPadding)
+                    .padding(.horizontal, self.sizes.weightUnitHintHPadding)
                 
             }
             else {
@@ -144,10 +144,10 @@ struct WelcomePage: View {
                 )
 
                 Text(!self.isEnergyUnitSelected ? Label.energyUnitHint : Label.settingsHint)
-                    .font(self.style.welcomeHintFont)
+                    .font(self.sizes.welcomeHintFont)
                     .foregroundColor(self.appState.uiTheme.mainTextColor)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, self.style.energyUnitHintHPadding)
+                    .padding(.horizontal, self.sizes.energyUnitHintHPadding)
             }
         }
     }
@@ -176,7 +176,7 @@ struct WelcomePage: View {
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         textColor: self.appState.uiTheme.secondaryTextColor
                     ))
-                    .padding(.bottom, self.style.confirmButtonBPadding)
+                    .padding(.bottom, self.sizes.confirmButtonBPadding)
             }
         }
     }
@@ -207,10 +207,10 @@ struct WelcomePage: View {
     var currentWeightInputHintBlock: some View {
         
         Text(Label.currentWeightHint)
-            .font(self.style.welcomeHintFont)
+            .font(self.sizes.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
-            .padding(.horizontal, self.style.currentWeightHintHPadding)
+            .padding(.horizontal, self.sizes.currentWeightHintHPadding)
     }
     
     var goalWeightInputBlock: some View {
@@ -236,10 +236,10 @@ struct WelcomePage: View {
     
     var goalWeightInputHintBlock: some View {
         Text(Label.goalWeightHint)
-            .font(self.style.welcomeHintFont)
+            .font(self.sizes.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
-            .padding(.horizontal, self.style.goalWeightHintHPadding)
+            .padding(.horizontal, self.sizes.goalWeightHintHPadding)
     }
     
     var deltaWeightInputBlock: some View {
@@ -266,17 +266,17 @@ struct WelcomePage: View {
     var deltaWeightInputHintBlock: some View {
 
         Text(self.deltaWeightHint)
-            .font(self.style.welcomeHintFont)
+            .font(self.sizes.welcomeHintFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
             .multilineTextAlignment(.center)
-            .padding(.horizontal, self.style.deltaWeightHintHPadding)
+            .padding(.horizontal, self.sizes.deltaWeightHintHPadding)
     }
     
     // MARK: - Step #2 General
     
     var settingsBlock: some View {
 
-        VStack(alignment: .center, spacing: self.style.inputsVSpacing) {
+        VStack(alignment: .center, spacing: self.sizes.inputsVSpacing) {
             
             self.currentWeightInputBlock
 
@@ -302,7 +302,7 @@ struct WelcomePage: View {
                             unit: self.appState.energyUnit.localized,
                             textColor: self.appState.uiTheme.mainTextColor
                         )
-                            .padding(.vertical, self.style.targetDeltaVPadding)
+                            .padding(.vertical, self.sizes.targetDeltaVPadding)
                     }
                     
                     self.deltaWeightInputHintBlock
@@ -330,7 +330,7 @@ struct WelcomePage: View {
                             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                             textColor: self.appState.uiTheme.secondaryTextColor
                         ))
-                        .padding(.bottom, self.style.confirmButtonBPadding)
+                        .padding(.bottom, self.sizes.confirmButtonBPadding)
                 }
             }
         }

@@ -35,7 +35,7 @@ struct InputThemeButtonSizes {
 
 struct InputThemeButton: View {
     
-    private let style = InputThemeButtonSizes(uiSizes: UISizes.current)
+    private let sizes = InputThemeButtonSizes(uiSizes: UISizes.current)
     
     let title: String
     let buttonIcon: String
@@ -60,7 +60,7 @@ struct InputThemeButton: View {
             self.palette.padding(.horizontal)
             
             Text(title.uppercased())
-                .font(self.style.labelFont)
+                .font(self.sizes.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(self.accentColor)
             
@@ -69,7 +69,7 @@ struct InputThemeButton: View {
                     name: self.buttonIcon,
                     colorName: self.isSelected ? self.backgroundColorName : self.accentColorName
                 )
-                    .frame(width: self.style.iconSize, height: self.style.iconSize)
+                    .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
             })
                 .buttonStyle(InputThemeButtonStyle(
                     backgroundColor: self.backgroundColor,
@@ -79,10 +79,10 @@ struct InputThemeButton: View {
                 .padding(.horizontal)
         }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .frame(height: self.style.bodyHeight)
+            .frame(height: self.sizes.bodyHeight)
             .background(self.backgroundColor)
-            .padding(.vertical, self.style.bodyVPadding)
-            .padding(.horizontal, self.style.bodyHPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
+            .padding(.horizontal, self.sizes.bodyHPadding)
             .clipped()
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
     }

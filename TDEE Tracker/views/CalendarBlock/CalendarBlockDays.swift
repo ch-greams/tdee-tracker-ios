@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct CalendarBlockDaysStyle {
+struct CalendarBlockDaysSizes {
     
     // MARK: - Sizes
     
@@ -34,7 +34,7 @@ struct CalendarBlockDays: View {
     
     private let calendar = Calendar.current
     
-    private let style: CalendarBlockDaysStyle = CalendarBlockDaysStyle(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockDaysSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -84,22 +84,22 @@ struct CalendarBlockDays: View {
                 if self.isTrendsPage {
 
                     self.appState.uiTheme.calendarAccentColor
-                        .frame(height: self.style.selectedTrendWeekHighlightHeight)
+                        .frame(height: self.sizes.selectedTrendWeekHighlightHeight)
                 }
                 else {
                     
                     self.appState.uiTheme.calendarWeekHighlight
-                        .frame(height: self.style.selectedEntryWeekHighlightHeight)
+                        .frame(height: self.sizes.selectedEntryWeekHighlightHeight)
                 }
             }
 
-            HStack(alignment: .center, spacing: self.style.calendarDayButtonHSpacing) {
+            HStack(alignment: .center, spacing: self.sizes.calendarDayButtonHSpacing) {
                 ForEach(0 ..< week.count) { iDay in
                     
                     self.getDay(day: week[iDay], isSelectedWeek: isSelectedWeek)
                 }
             }
-                .padding(.vertical, self.style.weekVPadding)
+                .padding(.vertical, self.sizes.weekVPadding)
 
         }
     }

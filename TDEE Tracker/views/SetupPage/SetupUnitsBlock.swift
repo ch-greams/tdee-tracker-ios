@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupUnitsBlockStyle {
+struct SetupUnitsBlockSizes {
     
     // MARK: - Sizes
     
@@ -19,7 +19,7 @@ struct SetupUnitsBlockStyle {
     
 struct SetupUnitsBlock: View {
     
-    private let style: SetupUnitsBlockStyle = SetupUnitsBlockStyle()
+    private let sizes = SetupUnitsBlockSizes()
     
     @EnvironmentObject var appState: AppState
     
@@ -31,7 +31,7 @@ struct SetupUnitsBlock: View {
             SetupBlockTitle(
                 title: Label.units,
                 textColor: self.appState.uiTheme.mainTextColor,
-                paddingTop: self.style.setupBlockTitleTPadding
+                paddingTop: self.sizes.setupBlockTitleTPadding
             )
             
             InputToggle(

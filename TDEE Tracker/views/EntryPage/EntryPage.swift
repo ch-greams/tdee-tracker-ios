@@ -10,7 +10,7 @@ import SwiftUI
 
 
 
-struct EntryPageStyle {
+struct EntryPageSizes {
     
     // MARK: - Sizes
     
@@ -43,7 +43,7 @@ struct EntryPageStyle {
 
 struct EntryPage: View {
     
-    private let style: EntryPageStyle = EntryPageStyle(uiSizes: UISizes.current)
+    private let sizes = EntryPageSizes(uiSizes: UISizes.current)
 
     @EnvironmentObject var appState: AppState
     
@@ -89,8 +89,8 @@ struct EntryPage: View {
                 textColor: self.appState.uiTheme.mainTextColor,
                 isEnoughData: self.appState.isEnoughDataForRecommendation
             )
-                .padding(.top, self.style.entryHintBlockTPadding)
-                .padding(.bottom, self.style.entryHintBlockBPadding)
+                .padding(.top, self.sizes.entryHintBlockTPadding)
+                .padding(.bottom, self.sizes.entryHintBlockBPadding)
             
             ZStack(alignment: .top) {
 
@@ -131,10 +131,10 @@ struct EntryPage: View {
                                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                                 textColor: self.appState.uiTheme.secondaryTextColor
                             ))
-                            .padding(.vertical, self.style.confirmButtonVPadding)
+                            .padding(.vertical, self.sizes.confirmButtonVPadding)
                     }
                 }
-                    .padding(.top, self.style.entryInputsTPadding)
+                    .padding(.top, self.sizes.entryInputsTPadding)
                     .blur(radius: isFutureDate ? 4 : 0)
                     .opacity(isFutureDate ? 0.75 : 1)
                     .animation(.easeOut(duration: 0.16))
@@ -147,11 +147,11 @@ struct EntryPage: View {
                             name: "time-sharp",
                             colorName: self.appState.uiTheme.mainTextColorName
                         )
-                            .frame(width: self.style.lockIconSize, height: self.style.lockIconSize)
-                            .font(self.style.lockIconFont)
+                            .frame(width: self.sizes.lockIconSize, height: self.sizes.lockIconSize)
+                            .font(self.sizes.lockIconFont)
                     }
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                        .padding(.top, self.style.entryBlockerIconTPadding)
+                        .padding(.top, self.sizes.entryBlockerIconTPadding)
                 }
             }
         }

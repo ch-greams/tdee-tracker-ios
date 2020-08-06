@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SetupGoalBlockStyle {
+struct SetupGoalBlockSizes {
     
     // MARK: - Sizes
     
@@ -27,7 +27,7 @@ struct SetupGoalBlockStyle {
 
 struct SetupGoalBlock: View {
     
-    private let style: SetupGoalBlockStyle = SetupGoalBlockStyle(uiSizes: UISizes.current)
+    private let sizes = SetupGoalBlockSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
 
@@ -89,7 +89,7 @@ struct SetupGoalBlock: View {
                 unit: energyUnitLabel,
                 textColor: self.appState.uiTheme.mainTextColor
             )
-                .padding(.vertical, self.style.targetDeltaVPadding)
+                .padding(.vertical, self.sizes.targetDeltaVPadding)
         }
     }
 }

@@ -19,7 +19,7 @@ struct NavbarItem {
     let tag: NavbarTag
 }
 
-struct ContentViewStyle {
+struct ContentViewSizes {
     
     // MARK: - Sizes
     
@@ -54,7 +54,7 @@ struct ContentViewStyle {
 
 struct ContentView: View {
 
-    private let style: ContentViewStyle = ContentViewStyle(uiSizes: UISizes.current)
+    private let sizes = ContentViewSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -73,7 +73,7 @@ struct ContentView: View {
         
         return Button(action: { self.selectedTab = item.tag }) {
 
-            VStack(alignment: .center, spacing: self.style.navbarItemSpacing) {
+            VStack(alignment: .center, spacing: self.sizes.navbarItemSpacing) {
                 
                 CustomImage(
                     name: item.icon,
@@ -83,11 +83,11 @@ struct ContentView: View {
                             : self.appState.uiTheme.navbarAccentColorName
                     )
                 )
-                    .frame(width: self.style.navbarItemIconSize, height: self.style.navbarItemIconSize)
-                    .padding(.top, self.style.navbarItemIconTPadding)
+                    .frame(width: self.sizes.navbarItemIconSize, height: self.sizes.navbarItemIconSize)
+                    .padding(.top, self.sizes.navbarItemIconTPadding)
 
                 Text(item.label)
-                    .font(self.style.navbarItemLabel)
+                    .font(self.sizes.navbarItemLabel)
                     .foregroundColor(
                         isSelected
                             ? self.appState.uiTheme.mainTextColor
@@ -118,18 +118,18 @@ struct ContentView: View {
         VStack(alignment: .center, spacing: 0) {
             
             Rectangle()
-                .frame(height: self.style.navbarViewBorderHeight)
+                .frame(height: self.sizes.navbarViewBorderHeight)
                 .foregroundColor(self.appState.uiTheme.navbarAccentColor)
                 .opacity(0.5)
             
-            HStack(alignment: .center, spacing: self.style.navbarViewSpacing) {
+            HStack(alignment: .center, spacing: self.sizes.navbarViewSpacing) {
                 
                 ForEach(self.navbarItems, id: \.tag) { item in
                     self.navbarItem(item: item)
                 }
             }
                 .frame(maxWidth: .infinity)
-                .frame(height: self.style.navbarViewHeight, alignment: .top)
+                .frame(height: self.sizes.navbarViewHeight, alignment: .top)
                 .background(self.appState.uiTheme.navbarBackgroundColor)
                 
         }
@@ -158,10 +158,10 @@ struct ContentView: View {
             if self.appState.isFirstSetupDone {
 
                 self.mainAppView
-                    .padding(.top, self.style.visibleScreenOffset)
+                    .padding(.top, self.sizes.visibleScreenOffset)
                 
                 self.navbarView
-                    .padding(.top, self.style.visibleScreenHeight)
+                    .padding(.top, self.sizes.visibleScreenHeight)
             }
             else {
 
@@ -207,7 +207,7 @@ struct ContentView: View {
                     closeAction: self.appState.hideMessage
                 )
                     .padding(.top, (
-                        self.appState.isFirstSetupDone ? self.style.visibleScreenOffset : 0
+                        self.appState.isFirstSetupDone ? self.sizes.visibleScreenOffset : 0
                     ))
             }
         }

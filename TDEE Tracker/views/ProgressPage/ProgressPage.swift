@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct ProgressPageStyle {
+struct ProgressPageSizes {
     
     // MARK: - Sizes
     
@@ -32,7 +32,7 @@ struct ProgressPageStyle {
 
 struct ProgressPage: View {
     
-    private let style: ProgressPageStyle = ProgressPageStyle(uiSizes: UISizes.current)
+    private let sizes = ProgressPageSizes(uiSizes: UISizes.current)
     
     @EnvironmentObject var appState: AppState
     
@@ -46,16 +46,16 @@ struct ProgressPage: View {
         return VStack(alignment: .center, spacing: 0) {
             
             Text(title)
-                .font(self.style.pageTitleFont)
+                .font(self.sizes.pageTitleFont)
                 .foregroundColor(self.appState.uiTheme.mainTextColor)
-                .padding(.top, self.style.pageTitleTPadding)
+                .padding(.top, self.sizes.pageTitleTPadding)
             
             DeltaChart(
                 weeklyDeltas: self.appState.weeklyWeightDeltas,
                 weightUnit: self.appState.weightUnit.localized,
                 mainColor: self.appState.uiTheme.mainTextColor
             )
-                .padding(.vertical, self.style.deltaChartVPadding)
+                .padding(.vertical, self.sizes.deltaChartVPadding)
 
             ProgressCircle(
                 currentWeightValue: progressData.progressWeight,
