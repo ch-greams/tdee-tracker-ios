@@ -29,18 +29,11 @@ struct SetupThemeBlock: View {
     
     func getButtonIcon(key: UIThemeType) -> String {
         
-        if self.appState.currentTheme == key {
-            
-            return "checkmark-sharp"
-        }
-        else if self.appState.isPremiumVersion {
-            
-            return "checkmark-sharp"
-        }
-        else {
-            
-            return "lock-closed-sharp"
-        }
+        return (
+            (self.appState.currentTheme == key) || self.appState.isPremiumVersion
+                ? "checkmark-sharp"
+                : "lock-closed-sharp"
+        )
     }
     
     func getButtonAction(key: UIThemeType) -> () -> Void {

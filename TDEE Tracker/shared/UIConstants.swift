@@ -84,7 +84,7 @@ class UIConstants {
         welcomeHintFontSize: 24,
         
         mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 796,
+        mvVisibleScreenHeight: 801,
         
         navbarHeight: 84,
         navbarPadding: 12,
@@ -128,7 +128,7 @@ class UIConstants {
         welcomeHintFontSize: 22,
 
         mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 714,
+        mvVisibleScreenHeight: 717,
         
         navbarHeight: 84,
         navbarPadding: 12,

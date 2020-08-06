@@ -89,11 +89,11 @@ struct Label {
     
     // MARK: - Themes
     
-    public static let themeDefault = "Default".localize
-    public static let themeBlue = "Blue".localize
-    public static let themePurple = "Purple".localize
-    public static let themePink = "Pink".localize
-    public static let themeCyan = "Cyan".localize
+    public static let themeDefault = "Jade".localize
+    public static let themeCyan = "Turqoise".localize
+    public static let themeBlue = "Azure".localize
+    public static let themePurple = "Plum".localize
+    public static let themePink = "Rose".localize
     public static let themeBronze = "Bronze".localize
     
     // MARK: - Notifications
