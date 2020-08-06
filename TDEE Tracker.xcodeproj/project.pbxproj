@@ -38,6 +38,7 @@
 		F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */; };
 		F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F673BFC324D71393002A8F69 /* UIDevice.swift */; };
 		F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */ = {isa = PBXBuildFile; fileRef = F673BFC524D73C8E002A8F69 /* Devices.plist */; };
+		F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68F64D724DC635800969AF3 /* InputThemeButton.swift */; };
 		F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F696B66824B50B8A00663B40 /* InputNumber.swift */; };
 		F697187A24CD887D003B35BD /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187924CD887D003B35BD /* StoreManager.swift */; };
 		F697187F24CDFA8A003B35BD /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187E24CDFA8A003B35BD /* StoreObserver.swift */; };
@@ -104,6 +105,7 @@
 		F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSelectButton.swift; sourceTree = "<group>"; };
 		F673BFC324D71393002A8F69 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F673BFC524D73C8E002A8F69 /* Devices.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Devices.plist; sourceTree = "<group>"; };
+		F68F64D724DC635800969AF3 /* InputThemeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputThemeButton.swift; sourceTree = "<group>"; };
 		F696B66824B50B8A00663B40 /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
 		F697187924CD887D003B35BD /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		F697187E24CDFA8A003B35BD /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */,
 				F66BCC6624B5115500DAFCA7 /* InputToggle.swift */,
 				F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */,
+				F68F64D724DC635800969AF3 /* InputThemeButton.swift */,
 			);
 			path = inputs;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
 				F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */,
+				F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */,
 				F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F669128124ACE67F0069E52E /* UIConstants.swift in Sources */,

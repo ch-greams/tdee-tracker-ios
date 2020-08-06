@@ -27,19 +27,19 @@ struct SetupThemeBlock: View {
     @EnvironmentObject var appState: AppState
     
     
-    func getButtonLabel(key: UIThemeType) -> String {
+    func getButtonIcon(key: UIThemeType) -> String {
         
         if self.appState.currentTheme == key {
             
-            return Label.active
+            return "checkmark-sharp"
         }
         else if self.appState.isPremiumVersion {
             
-            return Label.apply
+            return "checkmark-sharp"
         }
         else {
             
-            return Label.unlock
+            return "lock-closed-sharp"
         }
     }
     
@@ -98,12 +98,14 @@ struct SetupThemeBlock: View {
             
             ForEach(UIThemeManager.ALL_THEMES, id: \.key) { (key, value) in
                 
-                InputSelectButton(
+                InputThemeButton(
                     title: key.localized,
-                    buttonLabel: self.getButtonLabel(key: key),
+                    buttonIcon: self.getButtonIcon(key: key),
                     onClick: self.getButtonAction(key: key),
                     backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                    backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
                     accentColor: self.appState.uiTheme.inputAccentColor,
+                    accentColorName: self.appState.uiTheme.inputAccentColorName,
                     isSelected: ( self.appState.currentTheme == key ),
                     palette: AnyView( self.getPaletteView(theme: value) )
                 )

@@ -172,14 +172,12 @@ struct InputSelectButtonStyleSizes {
     
     // MARK: - Sizes
     
-    public let widthCollapsed: CGFloat = 126
     public let width: CGFloat = 180
     public let height: CGFloat = 44
     
     // MARK: - Fonts
     
     public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-    public let buttonLabelFont: Font = .custom(FontOswald.Bold, size: 24)
 }
 
 
@@ -189,20 +187,41 @@ struct InputSelectButtonStyle: ButtonStyle {
  
     let backgroundColor: Color
     let accentColor: Color
-    
-    let isThemeButton: Bool
-
-    var isSelected: Bool = false
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(
-                width: isThemeButton ? self.sizes.widthCollapsed : self.sizes.width,
-                height: self.sizes.height
-            )
-            .background(isSelected ? self.accentColor : self.backgroundColor)
-            .foregroundColor(!isSelected ? self.accentColor : self.backgroundColor)
-            .font(isThemeButton ? self.sizes.buttonLabelFont : self.sizes.valueFont)
+            .frame(width: self.sizes.width, height: self.sizes.height)
+            .background(self.backgroundColor)
+            .foregroundColor(self.accentColor)
+            .font(self.sizes.valueFont)
             .border(self.accentColor)
     }
 }
+
+struct InputThemeButtonStyleSizes {
+    
+    // MARK: - Sizes
+    
+    public let width: CGFloat = 88
+    public let height: CGFloat = 44
+}
+
+
+struct InputThemeButtonStyle: ButtonStyle {
+    
+    private let sizes = InputThemeButtonStyleSizes()
+ 
+    let backgroundColor: Color
+    let accentColor: Color
+
+    let isSelected: Bool
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: self.sizes.width, height: self.sizes.height)
+            .background(isSelected ? self.accentColor : self.backgroundColor)
+            .foregroundColor(!isSelected ? self.accentColor : self.backgroundColor)
+            .border(self.accentColor)
+    }
+}
+

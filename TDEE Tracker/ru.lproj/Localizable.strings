@@ -28,7 +28,6 @@
 "DONE" = "ГОТОВО";
 "NEXT" = "ДАЛЕЕ";
 "CONFIRM" = "ПОДТВЕРДИТЬ";
-"UNLOCK" = "ОТКРЫТЬ";
 
 // MARK: Target Surplus/Deficit
 
@@ -90,9 +89,6 @@
 "THEME" = "ТЕМА";
 
 // MARK: - Themes
-
-"APPLY" = "ПРИМЕНИТЬ";
-"ACTIVE" = "АКТИВНАЯ";
 
 "Default" = "Стандарт";
 
