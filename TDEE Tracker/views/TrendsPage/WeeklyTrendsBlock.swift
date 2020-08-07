@@ -22,7 +22,7 @@ struct WeeklyTrendsBlockSizes {
     // MARK: - Sizes
     
     public let trendsItemValueMinWidth: CGFloat = 80
-    public let trendsItemUnitWidth: CGFloat = 30
+    public let trendsItemUnitWidth: CGFloat = 34
     
     public let trendsItemChangeIconWidth: CGFloat = 16
     public let trendsItemChangeIconHeight: CGFloat = 22
@@ -31,12 +31,11 @@ struct WeeklyTrendsBlockSizes {
     public let separatorHPadding: CGFloat = 16
     
     public let trendsItemsHPadding: CGFloat = 8
+    public let trendsItemsVPadding: CGFloat = 2
     
     public let trendsItemHPadding: CGFloat = 6
+    
     public let trendsItemVPadding: CGFloat
-    
-    public let trendsItemsVPadding: CGFloat
-    
     
     // MARK: - Fonts
     
@@ -49,7 +48,6 @@ struct WeeklyTrendsBlockSizes {
     init(uiSizes: UISizes) {
         
         self.trendsItemVPadding = uiSizes.trendsElementPadding
-        self.trendsItemsVPadding = uiSizes.trendsElementPadding
         
         self.trendsItemLabelFont = .custom(FontOswald.Light, size: uiSizes.trendsItemLabelFontSize)
         self.trendsItemValueFont = .custom(FontOswald.Bold, size: uiSizes.trendsItemValueFontSize)
@@ -79,7 +77,7 @@ struct WeeklyTrendsBlock: View {
 
     func getLine(data: LineData) -> some View {
         
-        return HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
         
             Text(data.label)
                 .font(self.sizes.trendsItemLabelFont)

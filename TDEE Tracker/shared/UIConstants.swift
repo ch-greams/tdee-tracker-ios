@@ -78,7 +78,7 @@ class UIConstants {
     
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
-        welcomeSubTitleVPadding: 20,
+        welcomeSubTitleVPadding: 40,
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 24,
@@ -98,13 +98,13 @@ class UIConstants {
         calendarDaySpacing: 8,
         
         entryInputBaseSize: 40,
-        entryInputPadding: 34,
-        entryInputPaddingOpenOffset: -2,
+        entryInputPadding: 39,
+        entryInputPaddingOpenOffset: -7,
         entryHintLabelFontSize: 16,
         entryHintBlockPadding: 20,
         entryBlockerIconPadding: 86,
         
-        trendsElementPadding: 12,
+        trendsElementPadding: 17,
         trendsItemLabelFontSize: 20,
         trendsItemValueFontSize: 34,
         trendsItemUnitFontSize: 16,
@@ -148,7 +148,7 @@ class UIConstants {
         entryHintBlockPadding: 16,
         entryBlockerIconPadding: 75,
         
-        trendsElementPadding: 11,
+        trendsElementPadding: 13,
         trendsItemLabelFontSize: 18,
         trendsItemValueFontSize: 32,
         trendsItemUnitFontSize: 14,
