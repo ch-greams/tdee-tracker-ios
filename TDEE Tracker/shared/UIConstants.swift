@@ -44,9 +44,12 @@ struct UISizes {
     let entryInputBaseSize: CGFloat
     let entryInputPadding: CGFloat
     let entryInputPaddingOpenOffset: CGFloat
-    let entryHintLabelFontSize: CGFloat
     let entryHintBlockPadding: CGFloat
     let entryBlockerIconPadding: CGFloat
+    
+    let entryHintFontSize: CGFloat
+    let entryHintLabelFontSize: CGFloat
+    let entryHintHPadding: CGFloat
     
     // MARK: - Trends Page
     
@@ -68,6 +71,7 @@ struct UISizes {
     let setupInputHeight: CGFloat
     let setupInputLabelFontSize: CGFloat
     let setupTargetDeltaPadding: CGFloat
+    let targetDeltaHPadding: CGFloat
 }
 
 
@@ -100,9 +104,12 @@ class UIConstants {
         entryInputBaseSize: 40,
         entryInputPadding: 39,
         entryInputPaddingOpenOffset: -7,
-        entryHintLabelFontSize: 16,
         entryHintBlockPadding: 20,
         entryBlockerIconPadding: 86,
+
+        entryHintFontSize: 16,
+        entryHintLabelFontSize: 18,
+        entryHintHPadding: 34,
         
         trendsElementPadding: 17,
         trendsItemLabelFontSize: 20,
@@ -117,7 +124,8 @@ class UIConstants {
         setupDefaultButtonHeight: 44,
         setupInputHeight: 74,
         setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        targetDeltaHPadding: 40
     )
     
     public static let IPHONE_11_PRO: UISizes = UISizes(
@@ -144,9 +152,12 @@ class UIConstants {
         entryInputBaseSize: 36,
         entryInputPadding: 32,
         entryInputPaddingOpenOffset: -10,
-        entryHintLabelFontSize: 15,
         entryHintBlockPadding: 16,
         entryBlockerIconPadding: 75,
+        
+        entryHintFontSize: 15,
+        entryHintLabelFontSize: 15,
+        entryHintHPadding: 36,
         
         trendsElementPadding: 13,
         trendsItemLabelFontSize: 18,
@@ -161,7 +172,8 @@ class UIConstants {
         setupDefaultButtonHeight: 44,
         setupInputHeight: 74,
         setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        targetDeltaHPadding: 32
     )
     
     public static let IPHONE_8_PLUS: UISizes = UISizes(
@@ -188,9 +200,12 @@ class UIConstants {
         entryInputBaseSize: 36,
         entryInputPadding: 22,
         entryInputPaddingOpenOffset: 4,
-        entryHintLabelFontSize: 16,
         entryHintBlockPadding: 10,
         entryBlockerIconPadding: 52,
+        
+        entryHintFontSize: 16,
+        entryHintLabelFontSize: 17,
+        entryHintHPadding: 40,
         
         trendsElementPadding: 7,
         trendsItemLabelFontSize: 18,
@@ -205,7 +220,8 @@ class UIConstants {
         setupDefaultButtonHeight: 44,
         setupInputHeight: 68,
         setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12
+        setupTargetDeltaPadding: 12,
+        targetDeltaHPadding: 40
     )
 
     public static let IPHONE_8: UISizes = UISizes(
@@ -232,9 +248,12 @@ class UIConstants {
         entryInputBaseSize: 36,
         entryInputPadding: 21,
         entryInputPaddingOpenOffset: -4,
-        entryHintLabelFontSize: 15,
         entryHintBlockPadding: 6,
         entryBlockerIconPadding: 47,
+        
+        entryHintFontSize: 15,
+        entryHintLabelFontSize: 16,
+        entryHintHPadding: 30,
         
         trendsElementPadding: 5,
         trendsItemLabelFontSize: 18,
@@ -249,7 +268,8 @@ class UIConstants {
         setupDefaultButtonHeight: 44,
         setupInputHeight: 58,
         setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 8
+        setupTargetDeltaPadding: 8,
+        targetDeltaHPadding: 28
     )
 
     public static let IPHONE_SE: UISizes = UISizes(
@@ -274,14 +294,17 @@ class UIConstants {
         calendarDaySpacing: 12,
         
         entryInputBaseSize: 30,
-        entryInputPadding: 17,
+        entryInputPadding: 16,
         entryInputPaddingOpenOffset: -11,
-        entryHintLabelFontSize: 12,
         entryHintBlockPadding: 0,
         entryBlockerIconPadding: 47,
         
+        entryHintFontSize: 12,
+        entryHintLabelFontSize: 12,
+        entryHintHPadding: 28,
+        
         trendsElementPadding: 3,
-        trendsItemLabelFontSize: 14,
+        trendsItemLabelFontSize: 12,
         trendsItemValueFontSize: 28,
         trendsItemUnitFontSize: 12,
         
@@ -293,7 +316,8 @@ class UIConstants {
         setupDefaultButtonHeight: 40,
         setupInputHeight: 58,
         setupInputLabelFontSize: 14,
-        setupTargetDeltaPadding: 8
+        setupTargetDeltaPadding: 8,
+        targetDeltaHPadding: 20
     )
 
     

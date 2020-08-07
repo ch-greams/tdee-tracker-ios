@@ -11,6 +11,12 @@ import SwiftUI
 
 struct TargetDeltaSizes {
     
+    // MARK: - Sizes
+    
+    public let valueTPadding: CGFloat = 8
+    
+    public let bodyHPadding: CGFloat
+    
     // MARK: - Fonts
 
     public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
@@ -21,6 +27,8 @@ struct TargetDeltaSizes {
     // MARK: - Init
     
     init(uiSizes: UISizes) {
+        
+        self.bodyHPadding = uiSizes.targetDeltaHPadding
         
         self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
     }
@@ -49,14 +57,14 @@ struct TargetDelta: View {
             Text(String(abs(self.value)))
                 .foregroundColor(textColor)
                 .font(self.sizes.valueFont)
-                .padding(.trailing)
+                .padding(.trailing, self.sizes.valueTPadding)
 
             Text("\(self.unit)/\(Label.day)".uppercased())
                 .foregroundColor(textColor)
                 .font(self.sizes.unitFont)
         }
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal)
+            .padding(.horizontal, self.sizes.bodyHPadding)
     }
 }
 

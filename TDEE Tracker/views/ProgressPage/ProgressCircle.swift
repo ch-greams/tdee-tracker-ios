@@ -18,9 +18,9 @@ struct ProgressCircleSizes {
     
     // MARK: - Fonts
     
-    public let percentFont: Font = .custom(FontOswald.Light, size: 64)
-    public let valuesFont: Font = .custom(FontOswald.Medium, size: 32)
-    public let estimateFont: Font = .custom(FontOswald.Light, size: 28)
+    public let percentFont: Font = .custom(FontOswald.Light, size: 56)
+    public let valuesFont: Font = .custom(FontOswald.Medium, size: 28)
+    public let estimateFont: Font = .custom(FontOswald.Light, size: 24)
     
     // MARK: - Init
     

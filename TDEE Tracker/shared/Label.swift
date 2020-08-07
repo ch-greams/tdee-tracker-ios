@@ -63,9 +63,9 @@ struct Label {
     
     // MARK: - Entry Page
     
-    public static let notEnoughDataHint = "After enough entries were added, recommended daily amount will be displayed here".localize
+    public static let notEnoughDataHint = "After enough entries were added, recommended\ndaily amount will be displayed here".localize
     
-    public static let recommendedAmount = "Recommended daily amount".localize
+    public static let recommendedAmount = "Recommended\ndaily amount".localize
     
     // MARK: - Trends Page
     

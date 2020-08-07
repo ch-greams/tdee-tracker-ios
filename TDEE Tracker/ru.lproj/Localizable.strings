@@ -65,8 +65,8 @@
 
 // MARK: - Entry Page
 
-"After enough entries were added, recommended daily amount will be displayed here" = "После добавления нужной информации вы увидите здесь рекомендованное дневное кол-во";
-"Recommended daily amount" = "Рекоммендованное количество";
+"After enough entries were added, recommended\ndaily amount will be displayed here" = "После добавления нужной информации вы\nувидите здесь рекомендованное дневное кол-во";
+"Recommended\ndaily amount" = "Рекоммендованное\nколичество";
 
 // MARK: - Trends Page
 

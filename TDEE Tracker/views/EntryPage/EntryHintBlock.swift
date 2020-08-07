@@ -15,23 +15,27 @@ struct EntryHintBlockSizes {
     
     public let hintMinHeight: CGFloat = 46
     public let hintMaxHeight: CGFloat = 60
-    public let hintHPadding: CGFloat = 32
     
     public let recommendedAmountValueTPadding: CGFloat = 10
-    public let recommendedAmountHPadding: CGFloat = 32
+    
+    public let recommendedAmountHPadding: CGFloat
     
     // MARK: - Fonts
 
     public let recommendedValue: Font = .custom(FontOswald.Bold, size: 32)
     public let recommendedUnit: Font = .custom(FontOswald.Light, size: 24)
     
-    public let recommendedLabel: Font
+    public let hintLabelFont: Font
+    public let recommendedLabelFont: Font
     
     // MARK: - Init
     
     init(uiSizes: UISizes) {
         
-        self.recommendedLabel = .custom(FontOswald.Light, size: uiSizes.entryHintLabelFontSize)
+        self.recommendedAmountHPadding = uiSizes.entryHintHPadding
+        
+        self.hintLabelFont = .custom(FontOswald.Light, size: uiSizes.entryHintFontSize)
+        self.recommendedLabelFont = .custom(FontOswald.Light, size: uiSizes.entryHintLabelFontSize)
     }
 }
 
@@ -69,11 +73,9 @@ struct EntryHintBlock: View {
                 .multilineTextAlignment(.center)
                 .frame(minHeight: self.sizes.hintMinHeight, maxHeight: self.sizes.hintMaxHeight)
                 .foregroundColor(self.textColor)
-                .font(self.sizes.recommendedLabel)
-
+                .font(self.sizes.hintLabelFont)
         }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal, self.sizes.hintHPadding)
+            .frame(maxWidth: .infinity, alignment: .center)
     }
     
     var defaultBlock: some View {
@@ -83,7 +85,7 @@ struct EntryHintBlock: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(self.textColor)
-                .font(self.sizes.recommendedLabel)
+                .font(self.sizes.recommendedLabelFont)
             
             Text(String(self.value))
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -95,7 +97,7 @@ struct EntryHintBlock: View {
                 .foregroundColor(self.textColor)
                 .font(self.sizes.recommendedUnit)
         }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .frame(minHeight: self.sizes.hintMinHeight, maxHeight: self.sizes.hintMaxHeight)
             .padding(.horizontal, self.sizes.recommendedAmountHPadding)
     }
