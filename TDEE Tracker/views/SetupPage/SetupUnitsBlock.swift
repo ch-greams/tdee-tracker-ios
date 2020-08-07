@@ -13,7 +13,7 @@ struct SetupUnitsBlockSizes {
     
     // MARK: - Sizes
     
-    public let setupBlockTitleTPadding: CGFloat = 6
+    public let setupBlockTitleTPadding: CGFloat = 12
 }
 
     

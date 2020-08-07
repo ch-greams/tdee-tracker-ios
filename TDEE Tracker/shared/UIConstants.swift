@@ -186,13 +186,13 @@ class UIConstants {
         calendarDaySpacing: 8,
         
         entryInputBaseSize: 36,
-        entryInputPadding: 18,
-        entryInputPaddingOpenOffset: 8,
+        entryInputPadding: 22,
+        entryInputPaddingOpenOffset: 4,
         entryHintLabelFontSize: 16,
         entryHintBlockPadding: 10,
         entryBlockerIconPadding: 52,
         
-        trendsElementPadding: 4,
+        trendsElementPadding: 7,
         trendsItemLabelFontSize: 18,
         trendsItemValueFontSize: 32,
         trendsItemUnitFontSize: 14,
