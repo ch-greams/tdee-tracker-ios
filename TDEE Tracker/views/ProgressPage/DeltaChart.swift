@@ -68,6 +68,7 @@ struct DeltaChart: View {
     let MIN_MAX_DELTA_VALUE: Double = 0.2
     
     let weeklyDeltas: [ Double ]
+    let isSurplus: Bool
     
     let weightUnit: String
     
@@ -76,6 +77,15 @@ struct DeltaChart: View {
     @State var visibleMultiplier: CGFloat = 0
     
     // MARK: - Size Calculation
+    
+    func getAbsoluteValue(_ weeklyDelta: Double) -> Double {
+        
+        return (
+            isSurplus
+                ? ( weeklyDelta > 0 ? weeklyDelta : 0 )
+                : ( weeklyDelta < 0 ? abs(weeklyDelta) : 0 )
+        )
+    }
     
     func getStepHeight(stepCount: Int) -> CGFloat {
         
@@ -200,7 +210,7 @@ struct DeltaChart: View {
     
     var body: some View {
         
-        let absWeeklyDeltas = self.weeklyDeltas.map { abs($0) }
+        let absWeeklyDeltas = self.weeklyDeltas.map { self.getAbsoluteValue($0) }
         
         let maxWeeklyDeltaValue = self.getMaxWeeklyDeltaValue(
             weeklyDeltas: absWeeklyDeltas,
@@ -253,17 +263,27 @@ struct DeltaChart: View {
 struct DeltaChart_Previews: PreviewProvider {
     
     static let weeklyDeltas: [ Double ] = [
-        0.085, 1, 0.03, 0.084, 0.6, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966,
-        0.085, 0.878, 0.03, 0.084, 0.524, 0.098, 0.235, 0.778, 0.23, 0.525, 0.24, 0.966
+        0.085, -1, 0.03, 0.084, 0.6, 0.098, 0.235, -0.778, 0.23, 0.525, 0.24, -0.966,
+        0.085, -0.878, 0.03, 0.084, 0.524, 0.098, 0.235, -0.778, 0.23, 0.525, 0.24, -0.966
     ]
     
     static var previews: some View {
         
         VStack {
 
-            // NOTE: With data
+            // NOTE: With surplus data
             DeltaChart(
                 weeklyDeltas: Self.weeklyDeltas,
+                isSurplus: true,
+                weightUnit: WeightUnit.kg.localized,
+                mainColor: UIThemeManager.DEFAULT.mainTextColor
+            )
+                .background(UIThemeManager.DEFAULT.backgroundColor)
+            
+            // NOTE: With deficit data
+            DeltaChart(
+                weeklyDeltas: Self.weeklyDeltas,
+                isSurplus: false,
                 weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
             )
@@ -272,6 +292,7 @@ struct DeltaChart_Previews: PreviewProvider {
             // NOTE: Empty
             DeltaChart(
                 weeklyDeltas: [],
+                isSurplus: true,
                 weightUnit: WeightUnit.kg.localized,
                 mainColor: UIThemeManager.DEFAULT.mainTextColor
             )

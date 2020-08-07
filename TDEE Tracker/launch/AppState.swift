@@ -91,7 +91,12 @@ class AppState: ObservableObject {
     public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
     
 
-    public var progressData: (progressWeight: Double, goalWeight: Double, estimatedTimeLeft: Int) {
+    public var progressData: (
+        progressWeight: Double,
+        goalWeight: Double,
+        isSurplus: Bool,
+        estimatedTimeLeft: Int
+    ) {
         
         let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
         
@@ -128,6 +133,7 @@ class AppState: ObservableObject {
             return (
                 progressWeight: progressWeight,
                 goalWeight: goalWeight,
+                isSurplus: !isThisLoss,
                 estimatedTimeLeft: estimatedTimeLeft
             )
         }
@@ -135,6 +141,7 @@ class AppState: ObservableObject {
             return (
                 progressWeight: progressWeight,
                 goalWeight: goalWeight,
+                isSurplus: !isThisLoss,
                 estimatedTimeLeft: 0
             )
         }

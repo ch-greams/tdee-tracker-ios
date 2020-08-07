@@ -52,6 +52,7 @@ struct ProgressPage: View {
             
             DeltaChart(
                 weeklyDeltas: self.appState.weeklyWeightDeltas,
+                isSurplus: progressData.isSurplus,
                 weightUnit: self.appState.weightUnit.localized,
                 mainColor: self.appState.uiTheme.mainTextColor
             )
