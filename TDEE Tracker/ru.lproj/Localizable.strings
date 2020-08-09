@@ -95,8 +95,8 @@
 // MARK: - Notifications
 
 "Add Entry" = "Добавьте Запись";
-"It's time to add today's weight" = "Время добавить сегодняшний вес";
-"It's time to add today's food" = "Время добавить сегодняшнюю еду";
+"How much do you weight today?" = "Сколько вы весите сегодня?";
+"How much did you eat today?" = "Сколько вы сьели сегодня?";
 
 // MARK: - Premium Purchase
 

@@ -100,9 +100,9 @@ struct Label {
     
     public static let addEntry = "Add Entry".localize
 
-    public static let addWeightNotification = "It's time to add today's weight".localize
-    public static let addFoodNotification = "It's time to add today's food".localize
-    
+    public static let addWeightNotification = "How much do you weight today?".localize
+    public static let addFoodNotification = "How much did you eat today?".localize
+
     // MARK: - Premium Purchase
     
     public static let buyPremiumTitle = "TDEE Tracker Premium".localize
