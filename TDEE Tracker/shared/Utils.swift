@@ -67,7 +67,7 @@ enum WeekSummaryChange {
                 return "chevron-up-sharp"
             case WeekSummaryChange.Down:
                 return "chevron-down-sharp"
-            default:
+            case WeekSummaryChange.None:
                 return "remove-sharp"
         }
     }
@@ -425,5 +425,4 @@ class Utils {
         
         print("[\(source)]: \(message)")
     }
-    
 }

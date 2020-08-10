@@ -1,5 +1,5 @@
 //
-//  UIConstants.swift
+//  UISizes.swift
 //  TDEE Tracker
 //
 //  Created by Andrei Khvalko on 7/1/20.
@@ -8,9 +8,8 @@
 
 import SwiftUI
 
+
 struct UISizes {
-    
-    public static let current: UISizes = UIConstants.getUISizes(device: UIDevice.modelName)
     
     // MARK: - Welcome Page
     
@@ -72,13 +71,11 @@ struct UISizes {
     let setupInputLabelFontSize: CGFloat
     let setupTargetDeltaPadding: CGFloat
     let targetDeltaHPadding: CGFloat
-}
-
-
-
-class UIConstants {
     
-    // MARK: - UISizes
+    
+    public static let current: UISizes = UISizes.getUISizes(device: UIDevice.modelName)
+    
+    // MARK: - Constants
     
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
@@ -320,7 +317,7 @@ class UIConstants {
         targetDeltaHPadding: 20
     )
 
-    
+    // MARK: - Functions
     
     public static func getUISizes(device: UIDeviceModel) -> UISizes {
         

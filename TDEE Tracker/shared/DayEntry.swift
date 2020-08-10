@@ -32,6 +32,4 @@ class DayEntry: NSObject, NSCoding {
         aCoder.encode(weight, forKey: "weight")
         aCoder.encode(food, forKey: "food")
     }
-
 }
-

@@ -29,7 +29,7 @@
 		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
 		F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D0248D65DD00F8407B /* TrendsPage.swift */; };
 		F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */; };
-		F669128124ACE67F0069E52E /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F669128024ACE67F0069E52E /* UIConstants.swift */; };
+		F669128124ACE67F0069E52E /* UISizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F669128024ACE67F0069E52E /* UISizes.swift */; };
 		F66932FF24A0A71B00076C8C /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66932FE24A0A71B00076C8C /* Double.swift */; };
 		F669330224A484CC00076C8C /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F669330124A484CC00076C8C /* WelcomePage.swift */; };
 		F66BCC6524B5108B00DAFCA7 /* InputEntryNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */; };
@@ -96,7 +96,7 @@
 		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		F65F83D0248D65DD00F8407B /* TrendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPage.swift; sourceTree = "<group>"; };
 		F65F83D2248D880F00F8407B /* WeeklyTrendsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTrendsBlock.swift; sourceTree = "<group>"; };
-		F669128024ACE67F0069E52E /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		F669128024ACE67F0069E52E /* UISizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISizes.swift; sourceTree = "<group>"; };
 		F66932FE24A0A71B00076C8C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		F669330124A484CC00076C8C /* WelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
 		F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEntryNumber.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 				F65F83CD248D5DA000F8407B /* DayEntry.swift */,
 				F6F7202F248DD1C6003873A1 /* Utils.swift */,
 				F6E765CC24A77140009A0B90 /* NotificationManager.swift */,
-				F669128024ACE67F0069E52E /* UIConstants.swift */,
+				F669128024ACE67F0069E52E /* UISizes.swift */,
 				F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */,
 				F650089624B1FC25007B7D59 /* Label.swift */,
 			);
@@ -476,7 +476,7 @@
 				F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */,
 				F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
-				F669128124ACE67F0069E52E /* UIConstants.swift in Sources */,
+				F669128124ACE67F0069E52E /* UISizes.swift in Sources */,
 				F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
 				F63D44E924B1BEB8006E8F1C /* UIThemeManager.swift in Sources */,
