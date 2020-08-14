@@ -413,17 +413,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */,
-				F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */,
 				F6F4DE8124871ED200D1FF40 /* Oswald-ExtraLight.ttf in Resources */,
-				F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */,
-				F6F4DE8424871ED200D1FF40 /* Oswald-SemiBold.ttf in Resources */,
-				F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */,
-				F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */,
-				F6F4DE8324871ED200D1FF40 /* Oswald-Medium.ttf in Resources */,
-				F650089224B1F018007B7D59 /* Localizable.strings in Resources */,
-				F6F4DE8224871ED200D1FF40 /* Oswald-Bold.ttf in Resources */,
 				F6F4DE7F24871ED200D1FF40 /* Oswald-Light.ttf in Resources */,
+				F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */,
+				F6F4DE8324871ED200D1FF40 /* Oswald-Medium.ttf in Resources */,
+				F6F4DE8424871ED200D1FF40 /* Oswald-SemiBold.ttf in Resources */,
+				F6F4DE8224871ED200D1FF40 /* Oswald-Bold.ttf in Resources */,
+				F61BCD042485737400A01500 /* LaunchScreen.storyboard in Resources */,
+				F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */,
+				F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */,
+				F650089224B1F018007B7D59 /* Localizable.strings in Resources */,
+				F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
