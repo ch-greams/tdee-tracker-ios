@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Devices.plist
+   TDEE Tracker
+
+   Created by Andrei Khvalko on 8/2/20.
+   Copyright (c) 2020 Greams. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>iPod9,1</key>
+        <string>iPod touch (7th generation)</string>
+
+
+        <key>iPhone8,1</key>
+        <string>iPhone 6s</string>
+
+        <key>iPhone8,2</key>
+        <string>iPhone 6s Plus</string>
+
+        <key>iPhone8,4</key>
+        <string>iPhone SE (1st generation)</string>
+
+        <key>iPhone9,1</key>
+        <string>iPhone 7</string>
+        <key>iPhone9,3</key>
+        <string>iPhone 7</string>
+
+        <key>iPhone9,2</key>
+        <string>iPhone 7 Plus</string>
+        <key>iPhone9,4</key>
+        <string>iPhone 7 Plus</string>
+
+        <key>iPhone10,1</key>
+        <string>iPhone 8</string>
+        <key>iPhone10,4</key>
+        <string>iPhone 8</string>
+
+        <key>iPhone10,2</key>
+        <string>iPhone 8 Plus</string>
+        <key>iPhone10,5</key>
+        <string>iPhone 8 Plus</string>
+
+        <key>iPhone10,3</key>
+        <string>iPhone X</string>
+        <key>iPhone10,6</key>
+        <string>iPhone X</string>
+
+        <key>iPhone11,2</key>
+        <string>iPhone XS</string>
+
+        <key>iPhone11,4</key>
+        <string>iPhone XS Max</string>
+        <key>iPhone11,6</key>
+        <string>iPhone XS Max</string>
+
+        <key>iPhone11,8</key>
+        <string>iPhone XR</string>
+
+        <key>iPhone12,1</key>
+        <string>iPhone 11</string>
+
+        <key>iPhone12,3</key>
+        <string>iPhone 11 Pro</string>
+
+        <key>iPhone12,5</key>
+        <string>iPhone 11 Pro Max</string>
+
+        <key>iPhone12,8</key>
+        <string>iPhone SE (2nd generation)</string>
+
+
+        <key>iPad6,11</key>
+        <string>iPad (5th generation)</string>
+        <key>iPad6,12</key>
+        <string>iPad (5th generation)</string>
+
+        <key>iPad7,5</key>
+        <string>iPad (6th generation)</string>
+        <key>iPad7,6</key>
+        <string>iPad (6th generation)</string>
+
+        <key>iPad7,11</key>
+        <string>iPad (7th generation)</string>
+        <key>iPad7,12</key>
+        <string>iPad (7th generation)</string>
+
+        <key>iPad5,3</key>
+        <string>iPad Air 2</string>
+        <key>iPad5,4</key>
+        <string>iPad Air 2</string>
+
+        <key>iPad11,4</key>
+        <string>iPad Air (3rd generation)</string>
+        <key>iPad11,5</key>
+        <string>iPad Air (3rd generation)</string>
+
+        <key>iPad5,1</key>
+        <string>iPad mini 4</string>
+        <key>iPad5,2</key>
+        <string>iPad mini 4</string>
+
+        <key>iPad11,1</key>
+        <string>iPad mini (5th generation)</string>
+        <key>iPad11,2</key>
+        <string>iPad mini (5th generation)</string>
+
+        <key>iPad6,3</key>
+        <string>iPad Pro (9.7-inch)</string>
+        <key>iPad6,4</key>
+        <string>iPad Pro (9.7-inch)</string>
+
+        <key>iPad7,3</key>
+        <string>iPad Pro (10.5-inch)</string>
+        <key>iPad7,4</key>
+        <string>iPad Pro (10.5-inch)</string>
+
+        <key>iPad8,1</key>
+        <string>iPad Pro (11-inch) (1st generation)</string>
+        <key>iPad8,2</key>
+        <string>iPad Pro (11-inch) (1st generation)</string>
+        <key>iPad8,3</key>
+        <string>iPad Pro (11-inch) (1st generation)</string>
+        <key>iPad8,4</key>
+        <string>iPad Pro (11-inch) (1st generation)</string>
+
+        <key>iPad8,9</key>
+        <string>iPad Pro (11-inch) (2nd generation)</string>
+        <key>iPad8,10</key>
+        <string>iPad Pro (11-inch) (2nd generation)</string>
+
+        <key>iPad6,7</key>
+        <string>iPad Pro (12.9-inch) (1st generation)</string>
+        <key>iPad6,8</key>
+        <string>iPad Pro (12.9-inch) (1st generation)</string>
+
+        <key>iPad7,1</key>
+        <string>iPad Pro (12.9-inch) (2nd generation)</string>
+        <key>iPad7,2</key>
+        <string>iPad Pro (12.9-inch) (2nd generation)</string>
+
+        <key>iPad8,5</key>
+        <string>iPad Pro (12.9-inch) (3rd generation)</string>
+        <key>iPad8,6</key>
+        <string>iPad Pro (12.9-inch) (3rd generation)</string>
+        <key>iPad8,7</key>
+        <string>iPad Pro (12.9-inch) (3rd generation)</string>
+        <key>iPad8,8</key>
+        <string>iPad Pro (12.9-inch) (3rd generation)</string>
+
+        <key>iPad8,11</key>
+        <string>iPad Pro (12.9-inch) (4th generation)</string>
+        <key>iPad8,12</key>
+        <string>iPad Pro (12.9-inch) (4th generation)</string>
+
+        <key>i386</key>
+        <string>Unidentified Simulator</string>
+        <key>x86_64</key>
+        <string>Unidentified Simulator</string>
+    </dict>
+</plist>

@@ -1,0 +1,118 @@
+/* 
+  Localizable.strings
+  TDEE Tracker
+
+  Created by Andrei Khvalko on 7/5/20.
+  Copyright © 2020 Greams. All rights reserved.
+*/
+
+// MARK: - Units
+
+"KG" = "КГ";
+"LB" = "Ф";
+"KCAL" = "ККАЛ";
+"KJ" = "КДЖ";
+
+// MARK: - Inputs
+
+"Weight" = "Вес";
+"Energy" = "Энергия";
+"Today's Weight" = "Вес Сегодня";
+"Goal Weight" = "Идеальный Вес";
+"Weekly Change" = "Еженедельно";
+
+"Value outside of valid range" = "Значение вне допустимого диапозона";
+
+// MARK: - Buttons
+
+"DONE" = "ГОТОВО";
+"NEXT" = "ДАЛЕЕ";
+"CONFIRM" = "ПОДТВЕРДИТЬ";
+
+// MARK: Target Surplus/Deficit
+
+"Target Surplus" = "Целевой Излишек";
+"Target Deficit" = "Целевой Дефицит";
+"day" = "день";
+
+// MARK: - Navbar
+
+"Entry" = "Запись";
+"Trends" = "Тренды";
+"Progress" = "Прогресс";
+"Settings" = "Настройки";
+
+// MARK: - Date/Time Format
+
+"MMMM d" = "d MMMM";
+
+// MARK: - Welcome Page
+
+"Welcome" = "Здравствуйте";
+"Let’s get started" = "Давайте начнем";
+
+"Almost Ready" = "Почти Готово";
+"Define your goals" = "Установите свою цель";
+
+"Please select measurement unit that would be used for bodyweight values" = "Пожалуйста, выберите единицу измерения веса";
+"And this measurement unit will be used for food and energy values" = "Выберите единицу измерения измерения для пищевой и энергетической ценности";
+
+"For the best result always measure it at the same time in the morning" = "Для лучшего результата всегда взвешивайтесь утром в одно и тоже время";
+"Goal weight can be higher or lower than today's weight" = "Идеальный вес может быть больше или меньше чем текущий вес";
+"Based on your current weight weekly change must not be bigger than" = "Исходя из параметров, еженедельное изменение не должно превышать";
+
+"Parameters can be changed at any time in the application settings" = "Вы можете изменить все параметры позже в настройках приложения";
+
+// MARK: - Entry Page
+
+"After enough entries were added, recommended\ndaily amount will be displayed here" = "После добавления нужной информации вы\nувидите здесь рекомендованное дневное кол-во";
+"Recommended\ndaily amount" = "Рекоммендованное\nколичество";
+
+// MARK: - Trends Page
+
+"FOOD" = "ЕДА";
+"TDEE" = "TDEE";
+"WEIGHT CHANGE" = "ИЗМЕНЕНИЕ ВЕСА";
+
+// MARK: - Progress Page
+
+"Starting from" = "Начиная с";
+"week" = "неделя";
+"couple_weeks" = "недели";
+"many_weeks" = "недель";
+
+// MARK: - Settings Page
+
+"UNITS" = "ЕДИНИЦЫ ИЗМЕРЕНИЯ";
+"GOAL" = "ЦЕЛЬ";
+"REMINDERS" = "НАПОМИНАНИЯ";
+"THEME" = "ТЕМА";
+
+// MARK: - Themes
+
+"Default" = "Стандарт";
+
+// MARK: - Notifications
+
+"Add Entry" = "Добавьте Запись";
+"How much do you weight today?" = "Сколько вы весите сегодня?";
+"How much did you eat today?" = "Сколько вы сьели сегодня?";
+
+// MARK: - Premium Purchase
+
+"TDEE Tracker Premium" = "TDEE Tracker Premium";
+"Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free." = "Premium версия TDEE Tracker открывает для использования все существующие темы.\nНо не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
+
+"BUY FOR" = "КУПИТЬ ЗА";
+"BUY" = "КУПИТЬ";
+"CANCEL" = "ОТМЕНА";
+
+"Checking Purchases" = "Проверяем существующие покупки";
+"Connecting to iTunes" = "Подключение к iTunes";
+"Making a Purchase" = "Произведение покупки";
+
+// MARK: - Store Messages
+
+"You are not authorized to make payments.\nIn-App Purchases may be restricted on your device." = "Вы не авторизированы для совершения платежей.\nВозможно встроенные покупки ограничены на вашем устройстве.";
+"iTunes Connection Error" = "Ошибка подключения к iTunes";
+"Error During Purchase of" = "Ошибка во время покупки";
