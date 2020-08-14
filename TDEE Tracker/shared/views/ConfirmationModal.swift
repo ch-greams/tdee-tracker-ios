@@ -34,7 +34,7 @@ struct ConfirmationModalSizes {
     // MARK: - Fonts
 
     public let titleFont: Font = .custom(FontOswald.Medium, size: 24)
-    public let descriptionFont: Font = .custom(FontOswald.Light, size: 18)
+    public let descriptionFont: Font = .custom(FontOswald.Light, size: 16)
     
     public let buttonConfirmFont: Font = .custom(FontOswald.Bold, size: 20)
     public let buttonCancelFont: Font = .custom(FontOswald.Regular, size: 16)
