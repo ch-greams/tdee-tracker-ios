@@ -334,6 +334,12 @@ class AppState: ObservableObject {
                 self.currentTheme = theme
                 self.uiTheme = UIThemeManager.getUITheme(theme: self.currentTheme)
             }
+            
+            #if DEBUG
+            
+            self.loadTestData()
+            
+            #endif
         }
     }
 
@@ -856,6 +862,36 @@ class AppState: ObservableObject {
             self.hideLoader()
         }
     }
+    
+    #if DEBUG
+    
+    private func loadTestEntries() -> [ DayEntry ] {
+        
+        guard let url = Bundle.main.url(forResource: "test-day-entries", withExtension: "json") else { return [] }
+        
+        guard let data = try? Data(contentsOf: url) else { return [] }
+
+        let decoder = JSONDecoder()
+
+        guard let entries = try? decoder.decode([ DayEntry ].self, from: data) else { return [] }
+        
+        return entries
+    }
+    
+    private func loadTestData() {
+        
+        let entries = self.loadTestEntries()
+        
+        for index in 0 ..< entries.endIndex {
+            
+            if let date = self.calendar.date(byAdding: .day, value: ( index * -1 ) - 1, to: Utils.todayDate) {
+             
+                self.changeEntry(date: date, entry: entries[index])
+            }
+        }
+    }
+    
+    #endif
 }
 
 // MARK: - StoreManagerDelegate

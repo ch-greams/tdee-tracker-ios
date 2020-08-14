@@ -13,7 +13,7 @@ enum DayEntryData {
     case Empty, Partial, Full
 }
 
-class DayEntry: NSObject, NSCoding {
+class DayEntry: NSObject, NSCoding, Codable {
 
     var weight: Double?
     var food: Int?
