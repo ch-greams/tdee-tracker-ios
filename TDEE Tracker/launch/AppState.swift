@@ -98,9 +98,7 @@ class AppState: ObservableObject {
         estimatedTimeLeft: Int
     ) {
         
-        let weeks: [ Date: [ DayEntry ] ] = Utils.getWeeks(days: self.entries)
-        
-        let weekWeights: [ Date: Double ] = weeks
+        let weekWeights: [ Date: Double ] = Utils.getWeeks(days: self.entries)
             .compactMapValues { entries in
                 entries.compactMap { entry in entry.weight }.average()
             }
@@ -147,6 +145,20 @@ class AppState: ObservableObject {
         }
     }
     
+    private var isSurplus: Bool {
+        
+        let weekWeights: [ Date: Double ] = Utils.getWeeks(days: self.entries)
+            .compactMapValues { $0.compactMap { entry in entry.weight }.average() }
+            .filter { $0.value > 0 }
+        
+        let sortedWeeks = weekWeights.keys
+            .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
+        
+        let startWeight = sortedWeeks.first.map { weekWeights[$0] ?? 0 } ?? 0
+        
+        return self.goalWeight >= startWeight
+    }
+    
     public var goalTargetFoodDelta: Int {
         
         let weeklyFoodDelta = Utils.getEnergyFromWeight(
@@ -155,7 +167,7 @@ class AppState: ObservableObject {
             weightUnit: self.weightUnit
         )
         
-        return (weeklyFoodDelta / 7)
+        return ( self.isSurplus ? 1 : -1 ) * ( weeklyFoodDelta / 7 )
     }
     
     public var recommendedFoodAmount: Int {
