@@ -104,7 +104,7 @@ struct UISizes {
         entryHintBlockPadding: 20,
         entryBlockerIconPadding: 86,
 
-        entryHintFontSize: 16,
+        entryHintFontSize: 18,
         entryHintLabelFontSize: 18,
         entryHintHPadding: 34,
         
@@ -152,7 +152,7 @@ struct UISizes {
         entryHintBlockPadding: 16,
         entryBlockerIconPadding: 75,
         
-        entryHintFontSize: 15,
+        entryHintFontSize: 17,
         entryHintLabelFontSize: 15,
         entryHintHPadding: 36,
         
@@ -200,7 +200,7 @@ struct UISizes {
         entryHintBlockPadding: 10,
         entryBlockerIconPadding: 52,
         
-        entryHintFontSize: 16,
+        entryHintFontSize: 17,
         entryHintLabelFontSize: 17,
         entryHintHPadding: 40,
         
@@ -248,7 +248,7 @@ struct UISizes {
         entryHintBlockPadding: 6,
         entryBlockerIconPadding: 47,
         
-        entryHintFontSize: 15,
+        entryHintFontSize: 17,
         entryHintLabelFontSize: 16,
         entryHintHPadding: 30,
         
@@ -296,7 +296,7 @@ struct UISizes {
         entryHintBlockPadding: 0,
         entryBlockerIconPadding: 47,
         
-        entryHintFontSize: 12,
+        entryHintFontSize: 14,
         entryHintLabelFontSize: 12,
         entryHintHPadding: 28,
         

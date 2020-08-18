@@ -38,6 +38,7 @@
 		F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */; };
 		F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F673BFC324D71393002A8F69 /* UIDevice.swift */; };
 		F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */ = {isa = PBXBuildFile; fileRef = F673BFC524D73C8E002A8F69 /* Devices.plist */; };
+		F68B64C624EBA5BB00D569B7 /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */; };
 		F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68F64D724DC635800969AF3 /* InputThemeButton.swift */; };
 		F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F696B66824B50B8A00663B40 /* InputNumber.swift */; };
 		F697187A24CD887D003B35BD /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187924CD887D003B35BD /* StoreManager.swift */; };
@@ -105,6 +106,7 @@
 		F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSelectButton.swift; sourceTree = "<group>"; };
 		F673BFC324D71393002A8F69 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F673BFC524D73C8E002A8F69 /* Devices.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Devices.plist; sourceTree = "<group>"; };
+		F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialOverlay.swift; sourceTree = "<group>"; };
 		F68F64D724DC635800969AF3 /* InputThemeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputThemeButton.swift; sourceTree = "<group>"; };
 		F696B66824B50B8A00663B40 /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
 		F697187924CD887D003B35BD /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				F6F077A724D17DD6002882D2 /* AlertMessage.swift */,
 				F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */,
 				F622D8FD24D238AF004656A7 /* ConfirmationModal.swift */,
+				F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -432,7 +435,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		F68F64D924DE07C100969AF3 /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -444,7 +447,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/bash;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -488,6 +491,7 @@
 				F6F72034248EE6AE003873A1 /* Collection.swift in Sources */,
 				F697187F24CDFA8A003B35BD /* StoreObserver.swift in Sources */,
 				F6F72030248DD1C6003873A1 /* Utils.swift in Sources */,
+				F68B64C624EBA5BB00D569B7 /* TutorialOverlay.swift in Sources */,
 				F69BC23D24AC51730064FE1A /* CustomImage.swift in Sources */,
 				F6F4DE392485B9EF00D1FF40 /* Color.swift in Sources */,
 				F669330224A484CC00076C8C /* WelcomePage.swift in Sources */,

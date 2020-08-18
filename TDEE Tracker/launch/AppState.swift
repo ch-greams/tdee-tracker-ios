@@ -20,6 +20,7 @@ enum AppStateKey: String, CaseIterable {
     case IsFirstSetupDone
     case ReminderWeightDate, ReminderFoodDate
     case CurrentTheme
+    case TutorialStep
 
     case IsPremiumVersion
 }
@@ -55,6 +56,7 @@ class AppState: ObservableObject {
     private let store: UserDefaults
     
     @Published public var isFirstSetupDone: Bool = false
+    @Published public var tutorialStep: TutorialStep = TutorialStep.First
     
     @Published public var messageText: String = ""
     
@@ -310,6 +312,13 @@ class AppState: ObservableObject {
         }
         
         if self.isFirstSetupDone {
+            
+            // Load tutorial progress
+            
+            if let num: Int = self.load(key: AppStateKey.TutorialStep), let step = TutorialStep(rawValue: num) {
+                    
+                self.tutorialStep = step
+            }
 
             // Load entries and summary
             
@@ -814,6 +823,11 @@ class AppState: ObservableObject {
         self.loaderText = ""
     }
     
+    public func nextTutorialStep() {
+        
+        self.tutorialStep = self.tutorialStep.next
+        self.save(key: AppStateKey.TutorialStep, value: self.tutorialStep.rawValue)
+    }
     
     public func saveTheme(_ theme: UIThemeType) {
         
