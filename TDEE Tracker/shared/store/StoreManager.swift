@@ -67,16 +67,25 @@ class StoreManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
 
         return self.products[identifier]?.localizedTitle ?? identifier
     }
+    
+    public func getProductButtonLabelById(_ identifier: ProductIdentifier) -> (label: String, enabled: Bool) {
 
-    public func getProductPriceById(_ identifier: ProductIdentifier) -> String? {
-
-        guard let product = self.products[identifier] else { return nil }
-         
+        guard let product = self.products[identifier] else { return (Label.unavailable, false) }
+        
+        guard !product.price.isEqual(0) else { return (Label.getFree, false) }
+        
         let currencyFormatter = NumberFormatter()
         currencyFormatter.locale = product.priceLocale
         currencyFormatter.numberStyle = .currency
 
-        return currencyFormatter.string(from: product.price)
+        if let price = currencyFormatter.string(from: product.price) {
+            
+            return ("\(Label.buyFor) \(price)", true)
+        }
+        else {
+            
+            return (Label.unavailable, false)
+        }
     }
     
     // MARK: - SKProductsRequestDelegate

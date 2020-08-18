@@ -107,7 +107,8 @@
 "Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free." = "Premium версия TDEE Tracker открывает для использования все существующие темы.\nНо не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
 
 "BUY FOR" = "КУПИТЬ ЗА";
-"BUY" = "КУПИТЬ";
+"GET IT FOR FREE" = "ПОЛУЧИТЬ БЕСПЛАТНО";
+"UNAVAILABLE" = "НЕДОСТУПНО";
 "CANCEL" = "ОТМЕНА";
 
 "Checking Purchases" = "Проверяем существующие покупки";

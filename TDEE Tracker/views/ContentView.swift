@@ -138,18 +138,6 @@ struct ContentView: View {
                 
         }
     }
-    
-    var buyButtonLabel: String {
-        
-        if let price = StoreManager.shared.getProductPriceById(StoreManager.shared.PREMIUM_PRODUCT_ID) {
-            
-            return "\(Label.buyFor) \(price)"
-        }
-        else {
-
-            return Label.buy
-        }
-    }
 
     var body: some View {
         
@@ -198,7 +186,9 @@ struct ContentView: View {
                     accentColor: self.appState.uiTheme.secondaryTextColor,
                     textColor: self.appState.uiTheme.calendarTextDefaultColor,
                     separatorColor: self.appState.uiTheme.trendsSeparatorColor,
-                    confirmLabel: self.buyButtonLabel,
+                    confirmLabel: StoreManager.shared.getProductButtonLabelById(
+                        StoreManager.shared.PREMIUM_PRODUCT_ID
+                    ),
                     confirmAction: {
                         self.appState.buyPremiumModal(isOpen: false)
                         self.appState.buyPremium()
