@@ -82,6 +82,7 @@ struct EntryPage: View {
                 isCollapsed: isInputOpen,
                 isTrendsPage: false
             )
+                .blur(radius: self.appState.tutorialStep.isDoneOrEqual() ? 0 : 8)
             
             EntryHintBlock(
                 value: self.appState.recommendedFoodAmount,
@@ -91,6 +92,7 @@ struct EntryPage: View {
             )
                 .padding(.top, self.sizes.entryHintBlockTPadding)
                 .padding(.bottom, self.sizes.entryHintBlockBPadding)
+                .blur(radius: self.appState.tutorialStep.isDoneOrEqual(.Fourth) ? 0 : 8)
             
             ZStack(alignment: .top) {
 
@@ -109,6 +111,7 @@ struct EntryPage: View {
                         accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
                         accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
+                        .blur(radius: self.appState.tutorialStep.isDoneOrEqual(.Second) ? 0 : 8)
 
                     InputEntryNumber(
                         icon: "fast-food-sharp",
@@ -123,6 +126,7 @@ struct EntryPage: View {
                         accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
                         accentAlternativeColorName: self.appState.uiTheme.inputAccentAlternativeColorName
                     )
+                        .blur(radius: self.appState.tutorialStep.isDoneOrEqual(.Third) ? 0 : 8)
 
                     if isInputOpen {
 

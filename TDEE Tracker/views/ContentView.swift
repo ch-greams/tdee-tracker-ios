@@ -34,6 +34,8 @@ struct ContentViewSizes {
     public let visibleScreenOffset: CGFloat
     public let visibleScreenHeight: CGFloat
     
+    public let tutorialNoteTPadding: CGFloat
+    
     // MARK: - Fonts
     
     public let navbarItemLabel: Font = .custom(FontOswald.Light, size: 12)
@@ -48,6 +50,8 @@ struct ContentViewSizes {
         
         self.visibleScreenOffset = uiSizes.mvVisibleScreenOffset
         self.visibleScreenHeight = uiSizes.mvVisibleScreenHeight
+        
+        self.tutorialNoteTPadding = uiSizes.mvVisibleScreenHeight / 4
     }
 }
 
@@ -134,18 +138,6 @@ struct ContentView: View {
                 
         }
     }
-    
-    var buyButtonLabel: String {
-        
-        if let price = StoreManager.shared.getProductPriceById(StoreManager.shared.PREMIUM_PRODUCT_ID) {
-            
-            return "\(Label.buyFor) \(price)"
-        }
-        else {
-
-            return Label.buy
-        }
-    }
 
     var body: some View {
         
@@ -159,9 +151,25 @@ struct ContentView: View {
 
                 self.mainAppView
                     .padding(.top, self.sizes.visibleScreenOffset)
+                    .disabled(!self.appState.tutorialStep.isDoneOrEqual())
                 
                 self.navbarView
                     .padding(.top, self.sizes.visibleScreenHeight)
+                    .blur(radius: self.appState.tutorialStep.isDoneOrEqual() ? 0 : 8)
+                    .disabled(!self.appState.tutorialStep.isDoneOrEqual())
+                
+                // MARK: - Tutorial
+                
+                if self.appState.tutorialStep != TutorialStep.Done {
+                    
+                    TutorialOverlay(
+                        mainColor: self.appState.uiTheme.backgroundColor,
+                        accentColor: self.appState.uiTheme.mainTextColor,
+                        step: self.appState.tutorialStep,
+                        nextStepAction: self.appState.nextTutorialStep
+                    )
+                        .padding(.top, self.sizes.tutorialNoteTPadding)
+                }
             }
             else {
 
@@ -178,7 +186,9 @@ struct ContentView: View {
                     accentColor: self.appState.uiTheme.secondaryTextColor,
                     textColor: self.appState.uiTheme.calendarTextDefaultColor,
                     separatorColor: self.appState.uiTheme.trendsSeparatorColor,
-                    confirmLabel: self.buyButtonLabel,
+                    confirmLabel: StoreManager.shared.getProductButtonLabelById(
+                        StoreManager.shared.PREMIUM_PRODUCT_ID
+                    ),
                     confirmAction: {
                         self.appState.buyPremiumModal(isOpen: false)
                         self.appState.buyPremium()

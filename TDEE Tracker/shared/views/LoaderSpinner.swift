@@ -22,7 +22,7 @@ struct LoaderSpinnerSizes {
     
     // MARK: - Fonts
 
-    public let loaderText: Font = .custom(FontOswald.Regular, size: 22)
+    public let loaderFont: Font = .custom(FontOswald.Regular, size: 22)
 }
 
 
@@ -78,7 +78,7 @@ struct LoaderSpinner: View {
                 
                 Text(self.text.uppercased())
                     .foregroundColor(self.accentColor)
-                    .font(self.sizes.loaderText)
+                    .font(self.sizes.loaderFont)
                     .multilineTextAlignment(.center)
             }
         }

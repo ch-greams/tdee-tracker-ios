@@ -61,10 +61,16 @@ struct Label {
     
     public static let settingsHint = "Parameters can be changed at any time in the application settings".localize
     
+    // MARK: - Tutorial
+    
+    public static let tutorialFirstStep = "Let's review controls!\nPress on the message to continue.".localize
+    public static let tutorialSecondStep = "All you need to do is enter your weight...".localize
+    public static let tutorialThirdStep = "And food consupmtion value, each day.".localize
+    public static let tutorialFourthStep = "After one week, app will provide recommendation on how much food you should eat.".localize
+    
     // MARK: - Entry Page
     
-    public static let notEnoughDataHint = "After enough entries were added, recommended\ndaily amount will be displayed here".localize
-    
+    public static let notEnoughDataHint = "Not enough data to give recommendation".localize
     public static let recommendedAmount = "Recommended\ndaily amount".localize
     
     // MARK: - Trends Page
@@ -109,7 +115,8 @@ struct Label {
     public static let buyPremiumDescription = "Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free.".localize
     
     public static let buyFor = "BUY FOR".localize
-    public static let buy = "BUY".localize
+    public static let getFree = "GET IT FOR FREE".localize
+    public static let unavailable = "UNAVAILABLE".localize
     public static let cancel = "CANCEL".localize
     
     public static let tryRestore = "Checking Purchases".localize
@@ -121,5 +128,4 @@ struct Label {
     public static let notAuthorized = "You are not authorized to make payments.\nIn-App Purchases may be restricted on your device.".localize
     public static let productRequestError = "iTunes Connection Error".localize
     public static let purchaseError = "Error During Purchase of".localize
-    
 }

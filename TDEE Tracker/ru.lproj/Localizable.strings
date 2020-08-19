@@ -65,8 +65,15 @@
 
 // MARK: - Entry Page
 
-"After enough entries were added, recommended\ndaily amount will be displayed here" = "После добавления нужной информации вы\nувидите здесь рекомендованное дневное кол-во";
+"Not enough data to give recommendation" = "Недостаточно данных для рекомендации";
 "Recommended\ndaily amount" = "Рекоммендованное\nколичество";
+
+// MARK: - Tutorial
+
+"Let's review controls!\nPress on the message to continue." = "Давайте рассмотрим интерфейс!\nНажмите на сообщение, чтобы продолжить.";
+"All you need to do is enter your weight..." = "Все, что вам нужно cделать - это вводить ваш вес...";
+"And food consupmtion value, each day." = "И употребленное количество пищи каждый день.";
+"After one week, app will provide recommendation on how much food you should eat." = "После одной недели приложение будет показывать рекомендацию того, сколько вам нужно есть.";
 
 // MARK: - Trends Page
 
@@ -88,10 +95,6 @@
 "REMINDERS" = "НАПОМИНАНИЯ";
 "THEME" = "ТЕМА";
 
-// MARK: - Themes
-
-"Default" = "Стандарт";
-
 // MARK: - Notifications
 
 "Add Entry" = "Добавьте Запись";
@@ -104,7 +107,8 @@
 "Premium version of TDEE Tracker unlocks all existing themes.\nIt does not include any extra features, as everything else is available for free." = "Premium версия TDEE Tracker открывает для использования все существующие темы.\nНо не включает в себя никакие дополнительные функции, так как весь функционал данного приложения доступен бесплатно.";
 
 "BUY FOR" = "КУПИТЬ ЗА";
-"BUY" = "КУПИТЬ";
+"GET IT FOR FREE" = "ПОЛУЧИТЬ БЕСПЛАТНО";
+"UNAVAILABLE" = "НЕДОСТУПНО";
 "CANCEL" = "ОТМЕНА";
 
 "Checking Purchases" = "Проверяем существующие покупки";

@@ -52,7 +52,7 @@ struct ConfirmationModal: View {
     let textColor: Color
     let separatorColor: Color
     
-    let confirmLabel: String
+    let confirmLabel: (label: String, enabled: Bool)
     
     let confirmAction: () -> Void
     let cancelAction: () -> Void
@@ -95,7 +95,7 @@ struct ConfirmationModal: View {
                 
                 self.separator
                 
-                Button(self.confirmLabel, action: self.confirmAction)
+                Button(self.confirmLabel.label, action: self.confirmAction)
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.accentColor,
                         textColor: self.backgroundColor,
@@ -103,6 +103,8 @@ struct ConfirmationModal: View {
                         width: self.sizes.buttonWidth
                     ))
                     .padding(.bottom, self.sizes.buttonConfirmBPadding)
+                    .opacity(self.confirmLabel.enabled ? 1 : 0.5)
+                    .disabled(!self.confirmLabel.enabled)
                 
                 Button(Label.cancel, action: self.cancelAction)
                     .buttonStyle(AppDefaultButtonStyle(
@@ -134,7 +136,7 @@ struct ConfirmationModal_Previews: PreviewProvider {
             accentColor: UIThemeManager.DEFAULT.secondaryTextColor,
             textColor: UIThemeManager.DEFAULT.calendarTextDefaultColor,
             separatorColor: UIThemeManager.DEFAULT.trendsSeparatorColor,
-            confirmLabel: "\(Label.buyFor) $3.49",
+            confirmLabel: (label: "\(Label.buyFor) $3.49", enabled: true),
             confirmAction: { print("\(Label.buyFor) $3.49") },
             cancelAction: { print(Label.cancel) }
         )
