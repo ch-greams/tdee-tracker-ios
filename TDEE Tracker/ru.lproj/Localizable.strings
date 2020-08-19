@@ -72,7 +72,7 @@
 
 "Let's review controls!\nPress on the message to continue." = "Давайте рассмотрим интерфейс!\nНажмите на сообщение, чтобы продолжить.";
 "All you need to do is enter your weight..." = "Все, что вам нужно cделать - это вводить ваш вес...";
-"And food consupmtion value each day." = "И употребленное количество пищи каждый день.";
+"And food consupmtion value, each day." = "И употребленное количество пищи каждый день.";
 "After one week, app will provide recommendation on how much food you should eat." = "После одной недели приложение будет показывать рекомендацию того, сколько вам нужно есть.";
 
 // MARK: - Trends Page

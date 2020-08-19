@@ -65,7 +65,7 @@ struct Label {
     
     public static let tutorialFirstStep = "Let's review controls!\nPress on the message to continue.".localize
     public static let tutorialSecondStep = "All you need to do is enter your weight...".localize
-    public static let tutorialThirdStep = "And food consupmtion value each day.".localize
+    public static let tutorialThirdStep = "And food consupmtion value, each day.".localize
     public static let tutorialFourthStep = "After one week, app will provide recommendation on how much food you should eat.".localize
     
     // MARK: - Entry Page
