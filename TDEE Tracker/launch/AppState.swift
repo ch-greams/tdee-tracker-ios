@@ -69,7 +69,7 @@ class AppState: ObservableObject {
     @Published public var foodInput: String = ""
     
     @Published private var entries: [ Date : DayEntry ] = [:]
-    @Published private var summaries: [ Date: WeekSummary ] = [:]
+    @Published private var summaries: [ Date : WeekSummary ] = [:]
     
     @Published public var weightUnit: WeightUnit = WeightUnit.kg
     @Published public var energyUnit: EnergyUnit = EnergyUnit.kcal
@@ -491,54 +491,55 @@ class AppState: ObservableObject {
 
     public func isDayHasData(date: Date) -> DayEntryData {
 
-        if let dayEntry = self.getEntry(date: date) {
-
-            return (
-                dayEntry.food != nil && dayEntry.weight != nil
-                    ? DayEntryData.Full
-                    : DayEntryData.Partial
-            )
+        guard let dayEntry = self.getEntry(date: date) else { return DayEntryData.Empty }
+        
+        if dayEntry.food != nil && dayEntry.weight != nil {
+            return DayEntryData.Full
         }
-
-        return DayEntryData.Empty
+        else if dayEntry.food != nil || dayEntry.weight != nil {
+            return DayEntryData.Partial
+        }
+        else {
+            return DayEntryData.Empty
+        }
     }
 
     // MARK: - Entry update
 
-    private func updateWeightInEntry() {
+    private func updateWeightInEntry(_ weight: Double? = nil) {
         
         if let entry = self.getEntry(date: self.selectedDay) {
             
             self.changeEntry(
                 date: self.selectedDay,
-                entry: DayEntry(weight: self.weight, food: entry.food)
+                entry: DayEntry(weight: weight, food: entry.food)
             )
         }
         else {
 
             self.changeEntry(
                 date: self.selectedDay,
-                entry: DayEntry(weight: self.weight, food: nil)
+                entry: DayEntry(weight: weight, food: nil)
             )
         }
     
         self.saveEntries()
     }
     
-    private func updateFoodInEntry() {
+    private func updateFoodInEntry(_ food: Int? = nil) {
         
         if let entry = self.getEntry(date: self.selectedDay) {
             
             self.changeEntry(
                 date: self.selectedDay,
-                entry: DayEntry(weight: entry.weight, food: self.food)
+                entry: DayEntry(weight: entry.weight, food: food)
             )
         }
         else {
 
             self.changeEntry(
                 date: self.selectedDay,
-                entry: DayEntry(weight: nil, food: self.food)
+                entry: DayEntry(weight: nil, food: food)
             )
         }
         
@@ -555,7 +556,7 @@ class AppState: ObservableObject {
 
                 self.weight = value
 
-                self.updateWeightInEntry()
+                self.updateWeightInEntry(self.weight)
 
                 self.updateReminders(ReminderType.Weight)
             }
@@ -566,6 +567,14 @@ class AppState: ObservableObject {
                     time: 3
                 )
             }
+        }
+        else {
+            
+            self.weight = 0.0
+            
+            self.updateWeightInEntry()
+            
+            self.updateReminders(ReminderType.Weight)
         }
 
         self.weightInput = self.weight > 0 ? self.weight.toString() : ""
@@ -581,7 +590,7 @@ class AppState: ObservableObject {
 
                 self.food = value
                 
-                self.updateFoodInEntry()
+                self.updateFoodInEntry(self.food)
 
                 self.updateReminders(ReminderType.Food)
             }
@@ -592,6 +601,14 @@ class AppState: ObservableObject {
                     time: 3
                 )
             }
+        }
+        else {
+
+            self.food = 0
+            
+            self.updateFoodInEntry()
+            
+            self.updateReminders(ReminderType.Food)
         }
 
         self.foodInput = self.food > 0 ? String(self.food) : ""
