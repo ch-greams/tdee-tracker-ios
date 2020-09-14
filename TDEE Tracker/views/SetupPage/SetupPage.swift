@@ -57,6 +57,8 @@ struct SetupPage: View {
                         .padding(.horizontal, self.sizes.separatorHPadding)
                         .foregroundColor(self.appState.uiTheme.mainTextColor)
                         .opacity(0.8)
+                    
+                    SetupHealthBlock()
                 }
 
                 SetupRemindersBlock(isOpen: self.$isReminderOpen)

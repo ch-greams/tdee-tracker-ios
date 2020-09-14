@@ -45,7 +45,7 @@ struct CalendarBlockDays: View {
     func getDay(day: Date, isSelectedWeek: Bool) -> some View {
         
         let isToday = calendar
-            .isDate(day, equalTo: Utils.todayDate, toGranularity: .day)
+            .isDate(day, equalTo: Date.today, toGranularity: .day)
         
         let isSelectedDay = calendar
             .isDate(day, equalTo: self.selectedDay, toGranularity: .day)
@@ -116,11 +116,9 @@ struct CalendarBlockDays: View {
         
         for weekIndex in 0 ..< 6 {
             
-            if let dayInTheWeek = calendar.date(byAdding: .day, value: weekIndex * 7, to: firstDay) {
+            if let dayInTheWeek = firstDay.addDays(weekIndex * 7) {
 
-                let days = ( 0 ..< 7 ).compactMap {
-                    calendar.date(byAdding: .day, value: $0, to: dayInTheWeek)
-                }
+                let days = ( 0 ..< 7 ).compactMap { dayInTheWeek.addDays($0) }
                 
                 weeks.append(days)
             }
@@ -151,7 +149,7 @@ struct CalendarBlockDays_EntryPage_Previews: PreviewProvider {
     
     static var previews: some View {
             
-        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: false)
+        CalendarBlockDays(selectedDay: Date.today, isCollapsed: false, isTrendsPage: false)
             .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }
@@ -163,7 +161,7 @@ struct CalendarBlockDays_EntryPage_Collapsed_Previews: PreviewProvider {
     
     static var previews: some View {
             
-        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: true, isTrendsPage: false)
+        CalendarBlockDays(selectedDay: Date.today, isCollapsed: true, isTrendsPage: false)
             .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }
@@ -175,7 +173,7 @@ struct CalendarBlockDays_TrendsPage_Previews: PreviewProvider {
 
     static var previews: some View {
             
-        CalendarBlockDays(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: true)
+        CalendarBlockDays(selectedDay: Date.today, isCollapsed: false, isTrendsPage: true)
             .background(self.appState.uiTheme.inputBackgroundColor)
             .environmentObject(appState)
     }

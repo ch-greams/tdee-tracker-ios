@@ -327,12 +327,6 @@ class Utils {
 
     // MARK: - Date
     
-    public static var todayDate: Date {
-
-        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
-        return Utils.calendar.date(from: dayScope) ?? Date()
-    }
-    
     public static func getDateFromTimeComponents(hour: Int, minute: Int) -> Date? {
         
         let dateComponents = DateComponents(hour: hour, minute: minute)
@@ -421,7 +415,7 @@ class Utils {
     
     // MARK: - General
     
-    public static func log(source: String, message: String = "done") {
+    public static func log(source: String, message: Any = "done") {
         
         print("[\(source)]: \(message)")
     }

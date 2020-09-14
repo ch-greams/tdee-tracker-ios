@@ -24,6 +24,7 @@
 		F650089224B1F018007B7D59 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F650089424B1F018007B7D59 /* Localizable.strings */; };
 		F650089724B1FC25007B7D59 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650089624B1FC25007B7D59 /* Label.swift */; };
 		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
+		F65EFBCF251014C000A886FE /* SetupHealthBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EFBCE251014C000A886FE /* SetupHealthBlock.swift */; };
 		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
 		F65F83CC248B980900F8407B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CB248B980900F8407B /* AppState.swift */; };
 		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
@@ -38,8 +39,9 @@
 		F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */; };
 		F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F673BFC324D71393002A8F69 /* UIDevice.swift */; };
 		F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */ = {isa = PBXBuildFile; fileRef = F673BFC524D73C8E002A8F69 /* Devices.plist */; };
+		F675CFBE250F3F8C0086653C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F675CFC0250F3F8C0086653C /* InfoPlist.strings */; };
 		F68B64C624EBA5BB00D569B7 /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */; };
-		F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68F64D724DC635800969AF3 /* InputThemeButton.swift */; };
+		F68F64D824DC635800969AF3 /* InputCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68F64D724DC635800969AF3 /* InputCheckButton.swift */; };
 		F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F696B66824B50B8A00663B40 /* InputNumber.swift */; };
 		F697187A24CD887D003B35BD /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187924CD887D003B35BD /* StoreManager.swift */; };
 		F697187F24CDFA8A003B35BD /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F697187E24CDFA8A003B35BD /* StoreObserver.swift */; };
@@ -69,6 +71,8 @@
 		F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */; };
 		F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */; };
 		F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */; };
+		F6FA3D1A25044B0C002BBD9D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FA3D1925044B0B002BBD9D /* HealthKit.framework */; };
+		F6FA3D1C2504D721002BBD9D /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FA3D1B2504D721002BBD9D /* HealthStoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +96,7 @@
 		F650089524B1F025007B7D59 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F650089624B1FC25007B7D59 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		F652133624A48C23003C2214 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		F65EFBCE251014C000A886FE /* SetupHealthBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupHealthBlock.swift; sourceTree = "<group>"; };
 		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F65F83CB248B980900F8407B /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
@@ -106,8 +111,10 @@
 		F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSelectButton.swift; sourceTree = "<group>"; };
 		F673BFC324D71393002A8F69 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F673BFC524D73C8E002A8F69 /* Devices.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Devices.plist; sourceTree = "<group>"; };
+		F675CFC1250F3F900086653C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F675CFC2250F3FA10086653C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialOverlay.swift; sourceTree = "<group>"; };
-		F68F64D724DC635800969AF3 /* InputThemeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputThemeButton.swift; sourceTree = "<group>"; };
+		F68F64D724DC635800969AF3 /* InputCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCheckButton.swift; sourceTree = "<group>"; };
 		F696B66824B50B8A00663B40 /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
 		F697187924CD887D003B35BD /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		F697187E24CDFA8A003B35BD /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
@@ -137,6 +144,9 @@
 		F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupGoalBlock.swift; sourceTree = "<group>"; };
 		F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupBlockTitle.swift; sourceTree = "<group>"; };
 		F6F7204024913AA8003873A1 /* SetupRemindersBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRemindersBlock.swift; sourceTree = "<group>"; };
+		F6FA3D1725044B0B002BBD9D /* TDEE Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TDEE Tracker.entitlements"; sourceTree = "<group>"; };
+		F6FA3D1925044B0B002BBD9D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		F6FA3D1B2504D721002BBD9D /* HealthStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6FA3D1A25044B0C002BBD9D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +166,7 @@
 			children = (
 				F61BCCF62485737200A01500 /* TDEE Tracker */,
 				F61BCCF52485737200A01500 /* Products */,
+				F6FA3D1825044B0B002BBD9D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,9 +187,11 @@
 				F6F4DE3B2485BA3200D1FF40 /* extensions */,
 				F6F4DE402486FB4400D1FF40 /* fonts */,
 				F61BCCFD2485737400A01500 /* Assets.xcassets */,
+				F6FA3D1725044B0B002BBD9D /* TDEE Tracker.entitlements */,
 				F650089424B1F018007B7D59 /* Localizable.strings */,
 				F61BCD022485737400A01500 /* LaunchScreen.storyboard */,
 				F61BCD052485737400A01500 /* Info.plist */,
+				F675CFC0250F3F8C0086653C /* InfoPlist.strings */,
 				F673BFC524D73C8E002A8F69 /* Devices.plist */,
 				F61BCCFF2485737400A01500 /* Preview Content */,
 			);
@@ -234,6 +248,7 @@
 				F65F83CD248D5DA000F8407B /* DayEntry.swift */,
 				F6F7202F248DD1C6003873A1 /* Utils.swift */,
 				F6E765CC24A77140009A0B90 /* NotificationManager.swift */,
+				F6FA3D1B2504D721002BBD9D /* HealthStoreManager.swift */,
 				F669128024ACE67F0069E52E /* UISizes.swift */,
 				F63D44E824B1BEB8006E8F1C /* UIThemeManager.swift */,
 				F650089624B1FC25007B7D59 /* Label.swift */,
@@ -265,7 +280,7 @@
 				F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */,
 				F66BCC6624B5115500DAFCA7 /* InputToggle.swift */,
 				F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */,
-				F68F64D724DC635800969AF3 /* InputThemeButton.swift */,
+				F68F64D724DC635800969AF3 /* InputCheckButton.swift */,
 			);
 			path = inputs;
 			sourceTree = "<group>";
@@ -352,8 +367,17 @@
 				F6F7203C249137C0003873A1 /* SetupGoalBlock.swift */,
 				F6F7203E2491387E003873A1 /* SetupBlockTitle.swift */,
 				F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */,
+				F65EFBCE251014C000A886FE /* SetupHealthBlock.swift */,
 			);
 			path = SetupPage;
+			sourceTree = "<group>";
+		};
+		F6FA3D1825044B0B002BBD9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6FA3D1925044B0B002BBD9D /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,6 +441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6F4DE8124871ED200D1FF40 /* Oswald-ExtraLight.ttf in Resources */,
+				F675CFBE250F3F8C0086653C /* InfoPlist.strings in Resources */,
 				F6F4DE7F24871ED200D1FF40 /* Oswald-Light.ttf in Resources */,
 				F6F4DE8024871ED200D1FF40 /* Oswald-Regular.ttf in Resources */,
 				F6F4DE8324871ED200D1FF40 /* Oswald-Medium.ttf in Resources */,
@@ -435,7 +460,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		F68F64D924DE07C100969AF3 /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -447,7 +472,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -463,6 +488,7 @@
 				F63516A024893A6A00A8A7E9 /* CalendarBlockDays.swift in Sources */,
 				F631E9BA249B2C290053B7AC /* DeltaChart.swift in Sources */,
 				F64E659624D1D2AA001E4BDA /* LoaderSpinner.swift in Sources */,
+				F65EFBCF251014C000A886FE /* SetupHealthBlock.swift in Sources */,
 				F6F72036248EE6CA003873A1 /* Sequence.swift in Sources */,
 				F6B30B49249EB3FB008A4500 /* ProgressCircle.swift in Sources */,
 				F6F4DE3D2485D64C00D1FF40 /* CalendarBlock.swift in Sources */,
@@ -476,9 +502,10 @@
 				F63516A22489BB1A00A8A7E9 /* CalendarBlockMonth.swift in Sources */,
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
 				F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */,
-				F68F64D824DC635800969AF3 /* InputThemeButton.swift in Sources */,
+				F68F64D824DC635800969AF3 /* InputCheckButton.swift in Sources */,
 				F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */,
 				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
+				F6FA3D1C2504D721002BBD9D /* HealthStoreManager.swift in Sources */,
 				F669128124ACE67F0069E52E /* UISizes.swift in Sources */,
 				F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */,
 				F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */,
@@ -530,6 +557,15 @@
 				F650089524B1F025007B7D59 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F675CFC0250F3F8C0086653C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F675CFC1250F3F900086653C /* en */,
+				F675CFC2250F3FA10086653C /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -657,6 +693,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TDEE Tracker/TDEE Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TDEE Tracker/Preview Content\"";
@@ -679,6 +716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TDEE Tracker/TDEE Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TDEE Tracker/Preview Content\"";

@@ -198,7 +198,7 @@ struct InputSelectButtonStyle: ButtonStyle {
     }
 }
 
-struct InputThemeButtonStyleSizes {
+struct InputCheckButtonStyleSizes {
     
     // MARK: - Sizes
     
@@ -207,9 +207,9 @@ struct InputThemeButtonStyleSizes {
 }
 
 
-struct InputThemeButtonStyle: ButtonStyle {
+struct InputCheckButtonStyle: ButtonStyle {
     
-    private let sizes = InputThemeButtonStyleSizes()
+    private let sizes = InputCheckButtonStyleSizes()
  
     let backgroundColor: Color
     let accentColor: Color

@@ -91,7 +91,7 @@ struct SetupThemeBlock: View {
             
             ForEach(UIThemeManager.ALL_THEMES, id: \.key) { (key, value) in
                 
-                InputThemeButton(
+                InputCheckButton(
                     title: key.localized,
                     buttonIcon: self.getButtonIcon(key: key),
                     onClick: self.getButtonAction(key: key),
