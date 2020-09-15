@@ -40,8 +40,14 @@ struct SetupThemeBlock: View {
         
         return (
             self.appState.isPremiumVersion
-                ? { self.appState.saveTheme(key) }
-                : { self.appState.unlockTheme() }
+                ? {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.appState.saveTheme(key)
+                }
+                : {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.appState.unlockTheme()
+                }
         )
     }
     

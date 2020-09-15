@@ -67,13 +67,16 @@ struct InputCheckButton: View {
                 .foregroundColor(self.accentColor)
                 .padding(.leading)
             
-            Button(action: self.onClick, label: {
-                CustomImage(
-                    name: self.buttonIcon,
-                    colorName: self.isSelected ? self.backgroundColorName : self.accentColorName
-                )
-                    .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
-            })
+            Button(
+                action: self.onClick,
+                label: {
+                    CustomImage(
+                        name: self.buttonIcon,
+                        colorName: self.isSelected ? self.backgroundColorName : self.accentColorName
+                    )
+                        .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
+                }
+            )
                 .buttonStyle(InputCheckButtonStyle(
                     backgroundColor: self.backgroundColor,
                     accentColor: self.accentColor,

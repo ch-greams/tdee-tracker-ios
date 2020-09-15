@@ -53,6 +53,8 @@ struct EntryPage: View {
     
     
     func onSubmit() {
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
 
         UIApplication.shared.endEditing()
         

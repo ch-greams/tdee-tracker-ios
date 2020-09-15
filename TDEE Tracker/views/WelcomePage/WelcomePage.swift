@@ -60,6 +60,7 @@ struct WelcomePage: View {
     
     @State var isWeightUnitSelected: Bool = false
     @State var isEnergyUnitSelected: Bool = false
+    @State var isHealthSyncEnabled: Bool = false
 
     @State var weightUnit: WeightUnit?
     @State var energyUnit: EnergyUnit?
@@ -143,11 +144,40 @@ struct WelcomePage: View {
                     accentColor: self.appState.uiTheme.inputAccentColor
                 )
 
-                Text(!self.isEnergyUnitSelected ? Label.energyUnitHint : Label.settingsHint)
-                    .font(self.sizes.welcomeHintFont)
-                    .foregroundColor(self.appState.uiTheme.mainTextColor)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                if !self.isEnergyUnitSelected {
+
+                    Text(Label.energyUnitHint)
+                        .font(self.sizes.welcomeHintFont)
+                        .foregroundColor(self.appState.uiTheme.mainTextColor)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                }
+                else {
+                    
+                    InputCheckButton(
+                        title: Label.appleHealth,
+                        buttonIcon: "checkmark-sharp",
+                        onClick: {
+                            if !self.isHealthSyncEnabled {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                
+                                self.isHealthSyncEnabled = true
+                                HealthStoreManager.requestPermissionsAndFetchHealthData()
+                            }
+                        },
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        isSelected: self.isHealthSyncEnabled
+                    )
+                    
+                    Text(Label.settingsHint)
+                        .font(self.sizes.welcomeHintFont)
+                        .foregroundColor(self.appState.uiTheme.mainTextColor)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                }
             }
         }
     }
@@ -171,7 +201,10 @@ struct WelcomePage: View {
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button(Label.next, action: self.completeFirstStep)
+                Button(Label.next, action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.completeFirstStep()
+                })
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         textColor: self.appState.uiTheme.secondaryTextColor
@@ -325,7 +358,10 @@ struct WelcomePage: View {
                 
                 if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
 
-                    Button(Label.done, action: self.appState.completeFirstSetup)
+                    Button(Label.done, action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        self.appState.completeFirstSetup()
+                    })
                         .buttonStyle(AppDefaultButtonStyle(
                             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                             textColor: self.appState.uiTheme.secondaryTextColor

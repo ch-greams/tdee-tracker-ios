@@ -64,6 +64,8 @@ struct SetupHealthBlock: View {
                 buttonIcon: "sync-sharp",
                 onClick: {
                     if !self.isHealthSyncing {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
                         self.isHealthSyncing = true
                         HealthStoreManager.requestPermissionsAndFetchHealthData()
                     }

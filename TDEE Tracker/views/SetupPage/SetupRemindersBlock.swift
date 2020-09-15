@@ -45,6 +45,8 @@ struct SetupRemindersBlock: View {
     var body: some View {
         
         let doneAction = {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            
             self.isOpen = false
             self.appState.updateReminders(self.selectedInput)
         }

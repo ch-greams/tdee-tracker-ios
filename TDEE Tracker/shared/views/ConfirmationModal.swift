@@ -95,7 +95,10 @@ struct ConfirmationModal: View {
                 
                 self.separator
                 
-                Button(self.confirmLabel.label, action: self.confirmAction)
+                Button(self.confirmLabel.label, action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.confirmAction()
+                })
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.accentColor,
                         textColor: self.backgroundColor,
@@ -106,7 +109,10 @@ struct ConfirmationModal: View {
                     .opacity(self.confirmLabel.enabled ? 1 : 0.5)
                     .disabled(!self.confirmLabel.enabled)
                 
-                Button(Label.cancel, action: self.cancelAction)
+                Button(Label.cancel, action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.cancelAction()
+                })
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.backgroundColor,
                         textColor: self.accentColor,

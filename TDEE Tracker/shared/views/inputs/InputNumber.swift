@@ -103,7 +103,10 @@ struct InputNumber: View {
             }
             
             Button(
-                action: self.onCommit,
+                action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.onCommit()
+                },
                 label: {
                     CustomImage(
                         name: "checkmark-sharp",

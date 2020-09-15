@@ -75,30 +75,36 @@ struct ContentView: View {
 
         let isSelected = ( item.tag == self.selectedTab )
         
-        return Button(action: { self.selectedTab = item.tag }) {
+        return Button(
+            action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                self.selectedTab = item.tag
+            },
+            label: {
 
-            VStack(alignment: .center, spacing: self.sizes.navbarItemSpacing) {
-                
-                CustomImage(
-                    name: item.icon,
-                    colorName: (
-                        isSelected
-                            ? self.appState.uiTheme.mainTextColorName
-                            : self.appState.uiTheme.navbarAccentColorName
+                VStack(alignment: .center, spacing: self.sizes.navbarItemSpacing) {
+                    
+                    CustomImage(
+                        name: item.icon,
+                        colorName: (
+                            isSelected
+                                ? self.appState.uiTheme.mainTextColorName
+                                : self.appState.uiTheme.navbarAccentColorName
+                        )
                     )
-                )
-                    .frame(width: self.sizes.navbarItemIconSize, height: self.sizes.navbarItemIconSize)
-                    .padding(.top, self.sizes.navbarItemIconTPadding)
+                        .frame(width: self.sizes.navbarItemIconSize, height: self.sizes.navbarItemIconSize)
+                        .padding(.top, self.sizes.navbarItemIconTPadding)
 
-                Text(item.label)
-                    .font(self.sizes.navbarItemLabel)
-                    .foregroundColor(
-                        isSelected
-                            ? self.appState.uiTheme.mainTextColor
-                            : self.appState.uiTheme.navbarAccentColor
-                )
+                    Text(item.label)
+                        .font(self.sizes.navbarItemLabel)
+                        .foregroundColor(
+                            isSelected
+                                ? self.appState.uiTheme.mainTextColor
+                                : self.appState.uiTheme.navbarAccentColor
+                    )
+                }
             }
-        }
+        )
     }
     
     

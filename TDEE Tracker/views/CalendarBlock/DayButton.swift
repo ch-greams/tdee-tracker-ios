@@ -81,7 +81,10 @@ struct DayButton: View {
                     .foregroundColor(self.accentAlternativeColor)
             }
             
-            Button(self.day.dayString, action: { self.selectDayFunc(self.day) })
+            Button(self.day.dayString, action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                self.selectDayFunc(self.day)
+            })
                 .buttonStyle(CalendarDayButtonStyle(
                     buttonSize: self.sizes.buttonSize,
                     isSelected: ( self.isSelectedDay || self.isToday ),
