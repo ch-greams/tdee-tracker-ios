@@ -225,3 +225,36 @@ struct InputCheckButtonStyle: ButtonStyle {
     }
 }
 
+
+struct KeyboardButtonStyleSizes {
+    
+    // MARK: - Sizes
+    
+    public let width: CGFloat
+    public let height: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.width = uiSizes.keyboardButtonWidth
+        self.height = uiSizes.keyboardButtonHeight
+    }
+}
+
+struct KeyboardButtonStyle: ButtonStyle {
+    
+    private let sizes = KeyboardButtonStyleSizes(uiSizes: UISizes.current)
+ 
+    let backgroundColor: Color
+    let textColor: Color
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: self.sizes.width, height: self.sizes.height, alignment: .center)
+            .background(configuration.isPressed ? self.backgroundColor.opacity(0.5) : self.backgroundColor)
+            .foregroundColor(self.textColor)
+            .animation(.default)
+    }
+}
+

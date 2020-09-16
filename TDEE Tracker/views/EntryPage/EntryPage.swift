@@ -55,8 +55,6 @@ struct EntryPage: View {
     func onSubmit() {
         
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-
-        UIApplication.shared.endEditing()
         
         if self.isWeightInputOpen {
             
@@ -69,6 +67,8 @@ struct EntryPage: View {
             self.appState.updateEnergyFromInput()
             self.isFoodInputOpen = false
         }
+        
+        self.appState.isKeyboardOpen = false
     }
     
     
@@ -104,10 +104,14 @@ struct EntryPage: View {
                         icon: "body-sharp",
                         unit: self.appState.weightUnit.localized,
                         value: self.$appState.weightInput,
-                        onCommit: self.onSubmit,
-                        openInput: { self.isWeightInputOpen = true },
-                        isOpen: isInputOpen,
+                        openInput: {
+                            self.appState.currentInput = InputName.Weight
+                            self.isWeightInputOpen = true
+                        },
+                        isSelected: self.appState.currentInput == InputName.Weight,
+                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
                         accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,
@@ -119,10 +123,14 @@ struct EntryPage: View {
                         icon: "fast-food-sharp",
                         unit: self.appState.energyUnit.localized,
                         value: self.$appState.foodInput,
-                        onCommit: self.onSubmit,
-                        openInput: { self.isFoodInputOpen = true },
-                        isOpen: isInputOpen,
+                        openInput: {
+                            self.appState.currentInput = InputName.Food
+                            self.isFoodInputOpen = true
+                        },
+                        isSelected: self.appState.currentInput == InputName.Food,
+                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,
                         accentColorName: self.appState.uiTheme.inputAccentColorName,
                         accentAlternativeColor: self.appState.uiTheme.inputAccentAlternativeColor,

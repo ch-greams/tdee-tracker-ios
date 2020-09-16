@@ -55,13 +55,18 @@ struct SetupGoalBlock: View {
                 onCommit: {
                     self.appState.saveGoalWeightFromInput()
                     
-                    UIApplication.shared.endEditing()
+                    self.appState.isKeyboardOpen = false
                     self.isGoalWeightOpen = false
                 },
-                openInput: { self.isGoalWeightOpen = true },
+                openInput: {
+                    self.appState.currentInput = InputName.GoalWeight
+                    self.isGoalWeightOpen = true
+                },
                 isOpen: self.isGoalWeightOpen,
+                isSelected: self.appState.currentInput == InputName.GoalWeight,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
             )
@@ -73,13 +78,18 @@ struct SetupGoalBlock: View {
                 onCommit: {
                     self.appState.saveGoalWeeklyDeltaFromInput()
                     
-                    UIApplication.shared.endEditing()
+                    self.appState.isKeyboardOpen = false
                     self.isDeltaWeightOpen = false
                 },
-                openInput: { self.isDeltaWeightOpen = true },
+                openInput: {
+                    self.appState.currentInput = InputName.GoalWeeklyWeightDelta
+                    self.isDeltaWeightOpen = true
+                },
                 isOpen: self.isDeltaWeightOpen,
+                isSelected: self.appState.currentInput == InputName.GoalWeeklyWeightDelta,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                 backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
             )

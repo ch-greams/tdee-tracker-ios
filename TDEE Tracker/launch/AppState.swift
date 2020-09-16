@@ -56,6 +56,21 @@ class AppState: ObservableObject {
 
     private let store: UserDefaults
     
+    @Published public var isKeyboardOpen: Bool = false {
+        didSet {
+            if !self.isKeyboardOpen {
+                self.currentInput = nil
+            }
+        }
+    }
+    @Published public var currentInput: InputName? {
+        didSet {
+            if self.currentInput != nil {
+                self.isKeyboardOpen = true
+            }
+        }
+    }
+    
     @Published public var isFirstSetupDone: Bool = false
     @Published public var tutorialStep: TutorialStep = TutorialStep.First
     

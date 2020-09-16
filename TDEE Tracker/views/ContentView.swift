@@ -27,14 +27,11 @@ struct ContentViewSizes {
     public let navbarItemIconSize: CGFloat = 26
     public let navbarViewBorderHeight: CGFloat = 1
     
+    public let tutorialNoteTPadding: CGFloat = 40
+    
     public let navbarItemIconTPadding: CGFloat
     public let navbarViewSpacing: CGFloat
     public let navbarViewHeight: CGFloat
-    
-    public let visibleScreenOffset: CGFloat
-    public let visibleScreenHeight: CGFloat
-    
-    public let tutorialNoteTPadding: CGFloat
     
     // MARK: - Fonts
     
@@ -47,11 +44,6 @@ struct ContentViewSizes {
         self.navbarItemIconTPadding = uiSizes.navbarPadding
         self.navbarViewSpacing = uiSizes.navbarSpacing
         self.navbarViewHeight = uiSizes.navbarHeight
-        
-        self.visibleScreenOffset = uiSizes.mvVisibleScreenOffset
-        self.visibleScreenHeight = uiSizes.mvVisibleScreenHeight
-        
-        self.tutorialNoteTPadding = uiSizes.mvVisibleScreenHeight / 4
     }
 }
 
@@ -107,7 +99,6 @@ struct ContentView: View {
         )
     }
     
-    
     var mainAppView: some View {
         
         switch self.selectedTab {
@@ -141,28 +132,23 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: self.sizes.navbarViewHeight, alignment: .top)
                 .background(self.appState.uiTheme.navbarBackgroundColor)
-                
         }
     }
-
-    var body: some View {
+    
+    var defaultView: some View {
         
-        ZStack(alignment: .top) {
-            
-            self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
-                
-            // MARK: - Main View
+        ZStack {
             
             if self.appState.isFirstSetupDone {
 
                 self.mainAppView
-                    .padding(.top, self.sizes.visibleScreenOffset)
                     .disabled(!self.appState.tutorialStep.isDoneOrEqual())
+                    .frame(maxHeight: .infinity, alignment: .top)
                 
                 self.navbarView
-                    .padding(.top, self.sizes.visibleScreenHeight)
                     .blur(radius: self.appState.tutorialStep.isDoneOrEqual() ? 0 : 8)
                     .disabled(!self.appState.tutorialStep.isDoneOrEqual())
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                 
                 // MARK: - Tutorial
                 
@@ -174,6 +160,7 @@ struct ContentView: View {
                         step: self.appState.tutorialStep,
                         nextStepAction: self.appState.nextTutorialStep
                     )
+                        .frame(maxHeight: .infinity, alignment: .top)
                         .padding(.top, self.sizes.tutorialNoteTPadding)
                 }
             }
@@ -181,6 +168,34 @@ struct ContentView: View {
 
                 WelcomePage()
             }
+        }
+    }
+
+    var currentInputVariable: Binding<String>? {
+        
+        switch self.appState.currentInput {
+            case Optional(InputName.Weight):
+                return self.$appState.weightInput
+            case Optional(InputName.Food):
+                return self.$appState.foodInput
+            case Optional(InputName.GoalWeight):
+                return self.$appState.goalWeightInput
+            case Optional(InputName.GoalWeeklyWeightDelta):
+                return self.$appState.goalWeeklyWeightDeltaInput
+            default:
+                return nil
+        }
+    }
+    
+    var body: some View {
+        
+        ZStack(alignment: .bottom) {
+            
+            self.appState.uiTheme.backgroundColor.edgesIgnoringSafeArea(.all)
+                
+            // MARK: - Main View
+            
+            self.defaultView
             
             // MARK: - Payment Modal/Loader
             
@@ -222,9 +237,13 @@ struct ContentView: View {
                     backgroundColor: self.appState.uiTheme.warningBackgroundColor,
                     closeAction: self.appState.hideMessage
                 )
-                    .padding(.top, (
-                        self.appState.isFirstSetupDone ? self.sizes.visibleScreenOffset : 0
-                    ))
+                    .frame(maxHeight: .infinity, alignment: .top)
+            }
+            
+            // MARK: - Keyboard
+            
+            if self.appState.isKeyboardOpen, let input = self.currentInputVariable {
+                CustomKeyboard(input: input)
             }
         }
             .edgesIgnoringSafeArea(.bottom)

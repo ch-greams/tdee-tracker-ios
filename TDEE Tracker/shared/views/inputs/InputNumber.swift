@@ -17,6 +17,7 @@ struct InputNumberSizes {
     public let inputHeight: CGFloat = 44
     public let inputTPadding: CGFloat = 8
     public let inputHPadding: CGFloat = 8
+    public let inputFontTPadding: CGFloat = -2
     
     public let unitWidth: CGFloat = 40
     
@@ -56,9 +57,11 @@ struct InputNumber: View {
     let onCommit: () -> Void
     let openInput: () -> Void
     let isOpen: Bool
+    let isSelected: Bool
     
     let backgroundColor: Color
     let backgroundColorName: String
+    let backgroundSelectedColor: Color
     let confirmButtonColor: Color
     let accentColor: Color
     
@@ -80,15 +83,17 @@ struct InputNumber: View {
             Spacer()
 
             HStack(alignment: .center, spacing: 0) {
-                TextField("", text: self.input, onCommit: self.onCommit)
+                Text(self.input.wrappedValue)
                     .font(self.sizes.valueFont)
+                    .padding(.top, self.sizes.inputFontTPadding)
                     .padding(.trailing, self.sizes.inputTPadding)
-                    .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight, alignment: .trailing)
+                    .background(self.isSelected ? self.backgroundSelectedColor : self.backgroundColor)
                     .border(self.accentColor)
                     .foregroundColor(self.accentColor)
                     .padding(.horizontal, self.sizes.inputHPadding)
-                    .multilineTextAlignment(.trailing)
-                    .keyboardType(.decimalPad)
                     .onTapGesture(perform: self.openInput)
                 
                 Text(self.unit)
@@ -154,8 +159,10 @@ struct InputNumber_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: false,
+                    isSelected: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
@@ -167,8 +174,10 @@ struct InputNumber_Previews: PreviewProvider {
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: true,
+                    isSelected: true,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )

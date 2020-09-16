@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F600736F2512243C00ABB9EC /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F600736E2512243C00ABB9EC /* CustomKeyboard.swift */; };
 		F61BCCF82485737200A01500 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61BCCF72485737200A01500 /* AppDelegate.swift */; };
 		F61BCCFA2485737200A01500 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61BCCF92485737200A01500 /* SceneDelegate.swift */; };
 		F61BCCFC2485737200A01500 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61BCCFB2485737200A01500 /* ContentView.swift */; };
@@ -25,7 +26,6 @@
 		F650089724B1FC25007B7D59 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650089624B1FC25007B7D59 /* Label.swift */; };
 		F652133724A48C23003C2214 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F652133624A48C23003C2214 /* ButtonStyle.swift */; };
 		F65EFBCF251014C000A886FE /* SetupHealthBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EFBCE251014C000A886FE /* SetupHealthBlock.swift */; };
-		F65F83CA248A890000F8407B /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83C9248A890000F8407B /* UIApplication.swift */; };
 		F65F83CC248B980900F8407B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CB248B980900F8407B /* AppState.swift */; };
 		F65F83CE248D5DA000F8407B /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83CD248D5DA000F8407B /* DayEntry.swift */; };
 		F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F83D0248D65DD00F8407B /* TrendsPage.swift */; };
@@ -76,6 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F600736E2512243C00ABB9EC /* CustomKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
 		F61BCCF42485737200A01500 /* TDEE Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TDEE Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F61BCCF72485737200A01500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F61BCCF92485737200A01500 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		F650089624B1FC25007B7D59 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		F652133624A48C23003C2214 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		F65EFBCE251014C000A886FE /* SetupHealthBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupHealthBlock.swift; sourceTree = "<group>"; };
-		F65F83C9248A890000F8407B /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F65F83CB248B980900F8407B /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F65F83CD248D5DA000F8407B /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		F65F83D0248D65DD00F8407B /* TrendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPage.swift; sourceTree = "<group>"; };
@@ -299,7 +299,6 @@
 			children = (
 				F6F4DE382485B9EF00D1FF40 /* Color.swift */,
 				F6F4DE652486FDC800D1FF40 /* Font.swift */,
-				F65F83C9248A890000F8407B /* UIApplication.swift */,
 				F6F72035248EE6CA003873A1 /* Sequence.swift */,
 				F6F72031248E7C92003873A1 /* Date.swift */,
 				F6F72033248EE6AE003873A1 /* Collection.swift */,
@@ -354,6 +353,7 @@
 				F64E659524D1D2AA001E4BDA /* LoaderSpinner.swift */,
 				F622D8FD24D238AF004656A7 /* ConfirmationModal.swift */,
 				F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */,
+				F600736E2512243C00ABB9EC /* CustomKeyboard.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Greams;
 				TargetAttributes = {
 					F61BCCF32485737200A01500 = {
@@ -460,7 +460,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		F68F64D924DE07C100969AF3 /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -472,7 +472,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/bash;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -504,7 +504,6 @@
 				F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */,
 				F68F64D824DC635800969AF3 /* InputCheckButton.swift in Sources */,
 				F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */,
-				F65F83CA248A890000F8407B /* UIApplication.swift in Sources */,
 				F6FA3D1C2504D721002BBD9D /* HealthStoreManager.swift in Sources */,
 				F669128124ACE67F0069E52E /* UISizes.swift in Sources */,
 				F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */,
@@ -528,6 +527,7 @@
 				F6F4DE3F2486E4BC00D1FF40 /* DayButton.swift in Sources */,
 				F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
+				F600736F2512243C00ABB9EC /* CustomKeyboard.swift in Sources */,
 				F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */,
 				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
 				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,
@@ -598,6 +598,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -660,6 +661,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
