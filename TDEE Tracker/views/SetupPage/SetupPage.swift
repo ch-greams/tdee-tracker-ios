@@ -16,8 +16,6 @@ struct SetupPageSizes {
     public let separatorHeight: CGFloat = 1
     public let separatorHPadding: CGFloat = 32
     
-    public let reminderOpenTPadding: CGFloat = 60
-    
     public let mvVisibleScreenHeight: CGFloat
     public let mvVisibleScreenOffset: CGFloat
     
@@ -45,29 +43,22 @@ struct SetupPage: View {
         ScrollView(.vertical, showsIndicators: false) {
             
             VStack(alignment: .center, spacing: 0) {
-
-                if !self.isReminderOpen {
                     
-                    SetupUnitsBlock()
+                SetupUnitsBlock()
 
-                    SetupGoalBlock()
+                SetupGoalBlock()
 
-                    Rectangle()
-                        .frame(height: self.sizes.separatorHeight)
-                        .padding(.horizontal, self.sizes.separatorHPadding)
-                        .foregroundColor(self.appState.uiTheme.mainTextColor)
-                        .opacity(0.8)
-                    
-                    SetupHealthBlock()
-                }
-
-                SetupRemindersBlock(isOpen: self.$isReminderOpen)
-                    .padding(.top, self.isReminderOpen ? self.sizes.reminderOpenTPadding : 0)
+                Rectangle()
+                    .frame(height: self.sizes.separatorHeight)
+                    .padding(.horizontal, self.sizes.separatorHPadding)
+                    .foregroundColor(self.appState.uiTheme.mainTextColor)
+                    .opacity(0.8)
                 
-                if !self.isReminderOpen {
-                 
-                    SetupThemeBlock()
-                }
+                SetupHealthBlock()
+
+                SetupRemindersBlock()
+                
+                SetupThemeBlock()
             }
         }
             .frame(height: self.sizes.mvVisibleScreenHeight - self.sizes.mvVisibleScreenOffset)

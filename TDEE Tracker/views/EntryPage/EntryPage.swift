@@ -68,7 +68,7 @@ struct EntryPage: View {
             self.isFoodInputOpen = false
         }
         
-        self.appState.isKeyboardOpen = false
+        self.appState.currentInput = nil
     }
     
     

@@ -55,7 +55,7 @@ struct SetupGoalBlock: View {
                 onCommit: {
                     self.appState.saveGoalWeightFromInput()
                     
-                    self.appState.isKeyboardOpen = false
+                    self.appState.currentInput = nil
                     self.isGoalWeightOpen = false
                 },
                 openInput: {
@@ -78,7 +78,7 @@ struct SetupGoalBlock: View {
                 onCommit: {
                     self.appState.saveGoalWeeklyDeltaFromInput()
                     
-                    self.appState.isKeyboardOpen = false
+                    self.appState.currentInput = nil
                     self.isDeltaWeightOpen = false
                 },
                 openInput: {

@@ -182,6 +182,10 @@ struct ContentView: View {
                 return self.$appState.goalWeightInput
             case Optional(InputName.GoalWeeklyWeightDelta):
                 return self.$appState.goalWeeklyWeightDeltaInput
+            case Optional(InputName.ReminderWeightDate):
+                return self.$appState.reminderWeightDateInput
+            case Optional(InputName.ReminderFoodDate):
+                return self.$appState.reminderFoodDateInput
             default:
                 return nil
         }
@@ -242,8 +246,9 @@ struct ContentView: View {
             
             // MARK: - Keyboard
             
-            if self.appState.isKeyboardOpen, let input = self.currentInputVariable {
-                CustomKeyboard(input: input)
+            if let inputVariable = self.currentInputVariable,
+               let keyboardType = self.appState.currentInput?.keyboardType {
+                CustomKeyboard(type: keyboardType, input: inputVariable)
             }
         }
             .edgesIgnoringSafeArea(.bottom)

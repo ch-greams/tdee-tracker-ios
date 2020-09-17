@@ -168,36 +168,6 @@ struct InputToggleButtonStyle: ButtonStyle {
 }
 
 
-struct InputSelectButtonStyleSizes {
-    
-    // MARK: - Sizes
-    
-    public let width: CGFloat = 180
-    public let height: CGFloat = 44
-    
-    // MARK: - Fonts
-    
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-}
-
-
-struct InputSelectButtonStyle: ButtonStyle {
-    
-    private let sizes = InputSelectButtonStyleSizes()
- 
-    let backgroundColor: Color
-    let accentColor: Color
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: self.sizes.width, height: self.sizes.height)
-            .background(self.backgroundColor)
-            .foregroundColor(self.accentColor)
-            .font(self.sizes.valueFont)
-            .border(self.accentColor)
-    }
-}
-
 struct InputCheckButtonStyleSizes {
     
     // MARK: - Sizes

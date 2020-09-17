@@ -49,4 +49,9 @@ extension Date {
     }
     
     public static var today: Date { Date().withoutTime }
+    
+    public static func from(_ str: String, format: String) -> Date? {
+        Self.formatter.dateFormat = format
+        return Self.formatter.date(from: str)
+    }
 }

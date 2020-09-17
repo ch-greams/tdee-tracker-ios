@@ -8,16 +8,25 @@
 
 import Foundation
 
+
+extension Collection {
+
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    public func get(_ index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
 extension Collection where Element: BinaryInteger {
 
     /// Returns the average of all elements in the array
-    func average() -> Element { isEmpty ? .zero : sum() / Element(count) }
+    public func average() -> Element { isEmpty ? .zero : sum() / Element(count) }
 
     /// Returns the average of all elements in the array as Floating Point type
-    func average<T: FloatingPoint>() -> T { isEmpty ? .zero : T(sum()) / T(count) }
+    public func average<T: FloatingPoint>() -> T { isEmpty ? .zero : T(sum()) / T(count) }
 }
 
 extension Collection where Element: BinaryFloatingPoint {
     /// Returns the average of all elements in the array
-    func average() -> Element { isEmpty ? .zero : Element(sum()) / Element(count) }
+    public func average() -> Element { isEmpty ? .zero : Element(sum()) / Element(count) }
 }

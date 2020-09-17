@@ -333,6 +333,18 @@ class Utils {
         return calendar.date(from: dateComponents)
     }
 
+    public static func getTimeElementsFromString(_ str: String) -> (hours: String, minutes: String, meridiem: String) {
+        
+        let timeElements = str.components(separatedBy: " ")
+        let hoursAndMinutes = (timeElements.get(0) ?? "00:00").components(separatedBy: ":")
+        
+        return (
+            hours: hoursAndMinutes.get(0) ?? "00",
+            minutes: hoursAndMinutes.get(1) ?? "00",
+            meridiem: timeElements.get(1) ?? ""
+        )
+    }
+    
     // MARK: - Conversions
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {

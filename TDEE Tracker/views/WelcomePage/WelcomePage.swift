@@ -225,7 +225,7 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.updateWeightFromInput()
                 
-                self.appState.isKeyboardOpen = false
+                self.appState.currentInput = nil
                 self.isCurrentWeightOpen = false
             },
             openInput: {
@@ -260,7 +260,7 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.saveGoalWeightFromInput()
                 
-                self.appState.isKeyboardOpen = false
+                self.appState.currentInput = nil
                 self.isGoalWeightOpen = false
             },
             openInput: {
@@ -294,7 +294,7 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.saveGoalWeeklyDeltaFromInput()
                 
-                self.appState.isKeyboardOpen = false
+                self.appState.currentInput = nil
                 self.isDeltaWeightOpen = false
             },
             openInput: {

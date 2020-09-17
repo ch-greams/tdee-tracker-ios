@@ -36,10 +36,10 @@
 		F66BCC6524B5108B00DAFCA7 /* InputEntryNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */; };
 		F66BCC6724B5115500DAFCA7 /* InputToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6624B5115500DAFCA7 /* InputToggle.swift */; };
 		F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */; };
-		F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */; };
 		F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F673BFC324D71393002A8F69 /* UIDevice.swift */; };
 		F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */ = {isa = PBXBuildFile; fileRef = F673BFC524D73C8E002A8F69 /* Devices.plist */; };
 		F675CFBE250F3F8C0086653C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F675CFC0250F3F8C0086653C /* InfoPlist.strings */; };
+		F679328025138EBF00D3CECF /* InputTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F679327F25138EBF00D3CECF /* InputTime.swift */; };
 		F68B64C624EBA5BB00D569B7 /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */; };
 		F68F64D824DC635800969AF3 /* InputCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68F64D724DC635800969AF3 /* InputCheckButton.swift */; };
 		F696B66924B50B8A00663B40 /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F696B66824B50B8A00663B40 /* InputNumber.swift */; };
@@ -108,11 +108,11 @@
 		F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEntryNumber.swift; sourceTree = "<group>"; };
 		F66BCC6624B5115500DAFCA7 /* InputToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputToggle.swift; sourceTree = "<group>"; };
 		F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupThemeBlock.swift; sourceTree = "<group>"; };
-		F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSelectButton.swift; sourceTree = "<group>"; };
 		F673BFC324D71393002A8F69 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F673BFC524D73C8E002A8F69 /* Devices.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Devices.plist; sourceTree = "<group>"; };
 		F675CFC1250F3F900086653C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F675CFC2250F3FA10086653C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F679327F25138EBF00D3CECF /* InputTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTime.swift; sourceTree = "<group>"; };
 		F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialOverlay.swift; sourceTree = "<group>"; };
 		F68F64D724DC635800969AF3 /* InputCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCheckButton.swift; sourceTree = "<group>"; };
 		F696B66824B50B8A00663B40 /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
@@ -279,8 +279,8 @@
 				F696B66824B50B8A00663B40 /* InputNumber.swift */,
 				F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */,
 				F66BCC6624B5115500DAFCA7 /* InputToggle.swift */,
-				F66BCC6C24B5B8E200DAFCA7 /* InputSelectButton.swift */,
 				F68F64D724DC635800969AF3 /* InputCheckButton.swift */,
+				F679327F25138EBF00D3CECF /* InputTime.swift */,
 			);
 			path = inputs;
 			sourceTree = "<group>";
@@ -503,7 +503,6 @@
 				F65F83D1248D65DD00F8407B /* TrendsPage.swift in Sources */,
 				F6F7203B24913322003873A1 /* TargetDelta.swift in Sources */,
 				F68F64D824DC635800969AF3 /* InputCheckButton.swift in Sources */,
-				F66BCC6D24B5B8E200DAFCA7 /* InputSelectButton.swift in Sources */,
 				F6FA3D1C2504D721002BBD9D /* HealthStoreManager.swift in Sources */,
 				F669128124ACE67F0069E52E /* UISizes.swift in Sources */,
 				F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */,
@@ -534,6 +533,7 @@
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
 				F6F7203D249137C0003873A1 /* SetupGoalBlock.swift in Sources */,
 				F622D8FE24D238AF004656A7 /* ConfirmationModal.swift in Sources */,
+				F679328025138EBF00D3CECF /* InputTime.swift in Sources */,
 				F6E765CD24A77140009A0B90 /* NotificationManager.swift in Sources */,
 				F6F7203F2491387E003873A1 /* SetupBlockTitle.swift in Sources */,
 			);

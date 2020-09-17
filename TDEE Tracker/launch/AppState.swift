@@ -56,20 +56,7 @@ class AppState: ObservableObject {
 
     private let store: UserDefaults
     
-    @Published public var isKeyboardOpen: Bool = false {
-        didSet {
-            if !self.isKeyboardOpen {
-                self.currentInput = nil
-            }
-        }
-    }
-    @Published public var currentInput: InputName? {
-        didSet {
-            if self.currentInput != nil {
-                self.isKeyboardOpen = true
-            }
-        }
-    }
+    @Published public var currentInput: InputName?
     
     @Published public var isFirstSetupDone: Bool = false
     @Published public var tutorialStep: TutorialStep = TutorialStep.First
@@ -97,8 +84,18 @@ class AppState: ObservableObject {
     @Published public var goalWeightInput: String = ""
     @Published public var goalWeeklyWeightDeltaInput: String = ""
 
-    @Published public var reminderWeightDate: Date
-    @Published public var reminderFoodDate: Date
+    @Published public var reminderWeightDate: Date {
+        didSet {
+            self.reminderWeightDateInput = self.reminderWeightDate.timeString
+        }
+    }
+    @Published public var reminderFoodDate: Date {
+        didSet {
+            self.reminderFoodDateInput = self.reminderFoodDate.timeString
+        }
+    }
+    @Published public var reminderWeightDateInput: String = ""
+    @Published public var reminderFoodDateInput: String = ""
     
     @Published public var showLoader: Bool = false
     @Published public var loaderText: String = ""
@@ -802,6 +799,34 @@ class AppState: ObservableObject {
 
     // MARK: - Reminders
     
+    public func saveWeightReminderDateFromInput() {
+        
+        if let format = DateFormatter.dateFormat(fromTemplate: "jm", options: 0, locale: Locale.current),
+           let date = Date.from(self.reminderWeightDateInput, format: format) {
+            
+            self.reminderWeightDate = date
+            
+            self.saveWeightReminder()
+        }
+        else {
+            self.reminderWeightDateInput = self.reminderWeightDate.timeString
+        }
+    }
+    
+    public func saveFoodReminderDateFromInput() {
+        
+        if let format = DateFormatter.dateFormat(fromTemplate: "jm", options: 0, locale: Locale.current),
+           let date = Date.from(self.reminderFoodDateInput, format: format) {
+            
+            self.reminderFoodDate = date
+            
+            self.saveFoodReminder()
+        }
+        else {
+            self.reminderFoodDateInput = self.reminderFoodDate.timeString
+        }
+    }
+    
     private func getNextDateTimeComponents(hasEntry: Bool, time: Date) -> DateComponents {
     
         let nextNotificationDay = (
@@ -820,10 +845,10 @@ class AppState: ObservableObject {
         )
     }
     
-    private func saveWeightReminder(weight: Double?) {
+    private func saveWeightReminder() {
         
         let nextDateTimeComponents = self.getNextDateTimeComponents(
-            hasEntry: (weight != nil),
+            hasEntry: self.todayEntry.weight != nil,
             time: self.reminderWeightDate
         )
         
@@ -839,10 +864,10 @@ class AppState: ObservableObject {
         )
     }
     
-    private func saveFoodReminder(food: Int?) {
+    private func saveFoodReminder() {
 
         let nextDateTimeComponents = self.getNextDateTimeComponents(
-            hasEntry: (food != nil),
+            hasEntry: self.todayEntry.food != nil,
             time: self.reminderFoodDate
         )
         
@@ -866,12 +891,12 @@ class AppState: ObservableObject {
             
             switch reminderToUpdate {
                 case Optional(ReminderType.Weight):
-                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                    self.saveWeightReminder()
                 case Optional(ReminderType.Food):
-                    self.saveFoodReminder(food: self.todayEntry.food)
+                    self.saveFoodReminder()
                 default:
-                    self.saveWeightReminder(weight: self.todayEntry.weight)
-                    self.saveFoodReminder(food: self.todayEntry.food)
+                    self.saveWeightReminder()
+                    self.saveFoodReminder()
             }
         }
     }
