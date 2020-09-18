@@ -16,15 +16,13 @@ struct SetupPageSizes {
     public let separatorHeight: CGFloat = 1
     public let separatorHPadding: CGFloat = 32
     
-    public let mvVisibleScreenHeight: CGFloat
-    public let mvVisibleScreenOffset: CGFloat
+    public let navbarViewHeight: CGFloat
     
     // MARK: - Init
     
     init(uiSizes: UISizes) {
         
-        self.mvVisibleScreenHeight = uiSizes.mvVisibleScreenHeight
-        self.mvVisibleScreenOffset = uiSizes.mvVisibleScreenOffset
+        self.navbarViewHeight = uiSizes.navbarHeight
     }
 }
 
@@ -60,8 +58,8 @@ struct SetupPage: View {
                 
                 SetupThemeBlock()
             }
+                .padding(.bottom, self.sizes.navbarViewHeight)
         }
-            .frame(height: self.sizes.mvVisibleScreenHeight - self.sizes.mvVisibleScreenOffset)
     }
 }
 

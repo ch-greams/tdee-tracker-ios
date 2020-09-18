@@ -18,11 +18,6 @@ struct UISizes {
     let welcomeConfirmButtonPadding: CGFloat
     let welcomeHintFontSize: CGFloat
     
-    // MARK: - Main View
-    
-    let mvVisibleScreenOffset: CGFloat
-    let mvVisibleScreenHeight: CGFloat
-    
     // MARK: - Navbar
     
     let navbarHeight: CGFloat
@@ -89,9 +84,6 @@ struct UISizes {
         welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 24,
         
-        mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 801,
-        
         navbarHeight: 84,
         navbarPadding: 12,
         navbarSpacing: 62,
@@ -140,9 +132,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 717,
         
         navbarHeight: 84,
         navbarPadding: 12,
@@ -192,9 +181,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 655,
         
         navbarHeight: 60,
         navbarPadding: 8,
@@ -244,9 +230,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 586,
         
         navbarHeight: 60,
         navbarPadding: 8,
@@ -296,9 +279,6 @@ struct UISizes {
         welcomeInputsVSpacing: 4,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 18,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 491,
         
         navbarHeight: 56,
         navbarPadding: 6,

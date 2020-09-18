@@ -86,13 +86,13 @@ class Utils {
     private static let KG_TO_LB_MULTIPLIER: Double = 2.20462
 
     
-    private static let MAX_WEIGHT_ENTRY_KG: Double = 450.0
+    private static let MAX_WEIGHT_ENTRY_KG: Double = 362.87
     
     private static let MIN_WEIGHT_ENTRY_KG: Double = 30.0
     
-    private static let MAX_FOOD_ENTRY_KCAL: Int = 9999
+    private static let MAX_FOOD_ENTRY_KCAL: Int = 6000
     
-    private static let MIN_FOOD_ENTRY_KCAL: Int = 1000
+    private static let MIN_FOOD_ENTRY_KCAL: Int = 1
     
     private static let MAX_WEEKLY_WEIGHT_DELTA_KG: Double = 4.5
     
