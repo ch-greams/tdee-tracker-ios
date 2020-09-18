@@ -40,8 +40,14 @@ struct SetupThemeBlock: View {
         
         return (
             self.appState.isPremiumVersion
-                ? { self.appState.saveTheme(key) }
-                : { self.appState.unlockTheme() }
+                ? {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.appState.saveTheme(key)
+                }
+                : {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.appState.unlockTheme()
+                }
         )
     }
     
@@ -91,7 +97,7 @@ struct SetupThemeBlock: View {
             
             ForEach(UIThemeManager.ALL_THEMES, id: \.key) { (key, value) in
                 
-                InputThemeButton(
+                InputCheckButton(
                     title: key.localized,
                     buttonIcon: self.getButtonIcon(key: key),
                     onClick: self.getButtonAction(key: key),

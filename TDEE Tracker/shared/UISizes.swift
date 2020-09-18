@@ -18,11 +18,6 @@ struct UISizes {
     let welcomeConfirmButtonPadding: CGFloat
     let welcomeHintFontSize: CGFloat
     
-    // MARK: - Main View
-    
-    let mvVisibleScreenOffset: CGFloat
-    let mvVisibleScreenHeight: CGFloat
-    
     // MARK: - Navbar
     
     let navbarHeight: CGFloat
@@ -72,6 +67,11 @@ struct UISizes {
     let setupTargetDeltaPadding: CGFloat
     let targetDeltaHPadding: CGFloat
     
+    // MARK: - Shared
+    
+    let keyboardButtonWidth: CGFloat
+    let keyboardButtonHeight: CGFloat
+    let keyboardBottomPadding: CGFloat
     
     public static let current: UISizes = UISizes.getUISizes(device: UIDevice.modelName)
     
@@ -83,9 +83,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 24,
-        
-        mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 801,
         
         navbarHeight: 84,
         navbarPadding: 12,
@@ -100,7 +97,7 @@ struct UISizes {
         
         entryInputBaseSize: 40,
         entryInputPadding: 39,
-        entryInputPaddingOpenOffset: -7,
+        entryInputPaddingOpenOffset: 0,
         entryHintBlockPadding: 20,
         entryBlockerIconPadding: 86,
 
@@ -122,7 +119,11 @@ struct UISizes {
         setupInputHeight: 74,
         setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 40
+        targetDeltaHPadding: 40,
+        
+        keyboardButtonWidth: 132,
+        keyboardButtonHeight: 50,
+        keyboardBottomPadding: 40
     )
     
     public static let IPHONE_11_PRO: UISizes = UISizes(
@@ -131,9 +132,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 36,
-        mvVisibleScreenHeight: 717,
         
         navbarHeight: 84,
         navbarPadding: 12,
@@ -148,7 +146,7 @@ struct UISizes {
         
         entryInputBaseSize: 36,
         entryInputPadding: 32,
-        entryInputPaddingOpenOffset: -10,
+        entryInputPaddingOpenOffset: -1,
         entryHintBlockPadding: 16,
         entryBlockerIconPadding: 75,
         
@@ -170,7 +168,11 @@ struct UISizes {
         setupInputHeight: 74,
         setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 32
+        targetDeltaHPadding: 32,
+        
+        keyboardButtonWidth: 120,
+        keyboardButtonHeight: 50,
+        keyboardBottomPadding: 40
     )
     
     public static let IPHONE_8_PLUS: UISizes = UISizes(
@@ -179,9 +181,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 655,
         
         navbarHeight: 60,
         navbarPadding: 8,
@@ -218,7 +217,11 @@ struct UISizes {
         setupInputHeight: 68,
         setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 40
+        targetDeltaHPadding: 40,
+        
+        keyboardButtonWidth: 132,
+        keyboardButtonHeight: 44,
+        keyboardBottomPadding: 8
     )
 
     public static let IPHONE_8: UISizes = UISizes(
@@ -227,9 +230,6 @@ struct UISizes {
         welcomeInputsVSpacing: 16,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 586,
         
         navbarHeight: 60,
         navbarPadding: 8,
@@ -266,7 +266,11 @@ struct UISizes {
         setupInputHeight: 58,
         setupInputLabelFontSize: 18,
         setupTargetDeltaPadding: 8,
-        targetDeltaHPadding: 28
+        targetDeltaHPadding: 28,
+        
+        keyboardButtonWidth: 120,
+        keyboardButtonHeight: 50,
+        keyboardBottomPadding: 6
     )
 
     public static let IPHONE_SE: UISizes = UISizes(
@@ -275,9 +279,6 @@ struct UISizes {
         welcomeInputsVSpacing: 4,
         welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 18,
-
-        mvVisibleScreenOffset: 0,
-        mvVisibleScreenHeight: 491,
         
         navbarHeight: 56,
         navbarPadding: 6,
@@ -292,7 +293,7 @@ struct UISizes {
         
         entryInputBaseSize: 30,
         entryInputPadding: 16,
-        entryInputPaddingOpenOffset: -11,
+        entryInputPaddingOpenOffset: -2,
         entryHintBlockPadding: 0,
         entryBlockerIconPadding: 47,
         
@@ -314,7 +315,11 @@ struct UISizes {
         setupInputHeight: 58,
         setupInputLabelFontSize: 14,
         setupTargetDeltaPadding: 8,
-        targetDeltaHPadding: 20
+        targetDeltaHPadding: 20,
+        
+        keyboardButtonWidth: 102,
+        keyboardButtonHeight: 40,
+        keyboardBottomPadding: 6
     )
 
     // MARK: - Functions

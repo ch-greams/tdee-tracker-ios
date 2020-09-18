@@ -115,6 +115,12 @@
 "Connecting to iTunes" = "Подключение к iTunes";
 "Making a Purchase" = "Произведение покупки";
 
+// MARK: - Apple Health
+
+"INTEGRATIONS" = "ИНТЕГРАЦИИ";
+"Apple Health" = "Apple Здоровье";
+"Apple Health integration requires permissions to be granted in Settings > Privacy > Health > TDEE Tracker" = "Интеграция Apple Здоровье требует открытых прав доступа в Настройки > Конфиденциальность > Здоровье > TDEE Tracker";
+
 // MARK: - Store Messages
 
 "You are not authorized to make payments.\nIn-App Purchases may be restricted on your device." = "Вы не авторизированы для совершения платежей.\nВозможно встроенные покупки ограничены на вашем устройстве.";

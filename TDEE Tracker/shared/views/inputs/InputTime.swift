@@ -1,25 +1,28 @@
 //
-//  InputNumber.swift
+//  InputTime.swift
 //  TDEE Tracker
 //
-//  Created by Andrei Khvalko on 7/7/20.
+//  Created by Andrei Khvalko on 9/17/20.
 //  Copyright © 2020 Greams. All rights reserved.
 //
 
 import SwiftUI
 
 
-struct InputNumberSizes {
+struct InputTimeSizes {
     
     // MARK: - Sizes
     
-    public let inputWidth: CGFloat = 124
+    public let inputWidth: CGFloat = 116
     public let inputHeight: CGFloat = 44
-    public let inputTPadding: CGFloat = 8
-    public let inputHPadding: CGFloat = 8
-    public let inputFontTPadding: CGFloat = -2
     
-    public let unitWidth: CGFloat = 40
+    public let inputHPadding: CGFloat = 16
+    
+    public let inputFontOffsetTPadding: CGFloat = -2
+    public let inputFontOffsetLPadding: CGFloat = 4
+    
+    public let timeHSpacing: CGFloat = 2
+    public let meridiemWidth: CGFloat = 48
     
     public let iconCheckmarkSize: CGFloat = 40
     public let buttonCheckmarkWidth: CGFloat = 120
@@ -31,8 +34,8 @@ struct InputNumberSizes {
     
     // MARK: - Fonts
 
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-    public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+    public let timeFont: Font = .custom(FontOswald.Bold, size: 32)
+    public let meridiemFont: Font = .custom(FontOswald.Bold, size: 18)
     
     public let labelFont: Font
 
@@ -47,13 +50,12 @@ struct InputNumberSizes {
 }
     
     
-struct InputNumber: View {
+struct InputTime: View {
     
-    private let sizes = InputNumberSizes(uiSizes: UISizes.current)
+    private let sizes = InputTimeSizes(uiSizes: UISizes.current)
     
     let title: String
-    let unit: String
-    let input: Binding<String>
+    let inputValue: String
     let onCommit: () -> Void
     let openInput: () -> Void
     let isOpen: Bool
@@ -68,38 +70,62 @@ struct InputNumber: View {
     
     
     var body: some View {
-
-        HStack(alignment: .center, spacing: 0) {
+        
+        let value = Utils.getTimeElementsFromString(self.inputValue)
+        
+        let inputWidth = (
+            value.meridiem.isEmpty
+                ? self.sizes.inputWidth + self.sizes.timeHSpacing + self.sizes.meridiemWidth
+                : self.sizes.inputWidth
+        )
+        
+        return HStack(alignment: .center, spacing: 0) {
 
             if !self.isOpen {
                 Text(self.title.uppercased())
                     .font(self.sizes.labelFont)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(self.accentColor)
-                    .padding(.leading)
+                    .padding(.leading, self.sizes.inputHPadding)
             }
             
             Spacer()
 
-            HStack(alignment: .center, spacing: 0) {
-                Text(self.input.wrappedValue)
-                    .font(self.sizes.valueFont)
-                    .padding(.top, self.sizes.inputFontTPadding)
-                    .padding(.trailing, self.sizes.inputTPadding)
+            HStack(alignment: .center, spacing: self.sizes.timeHSpacing) {
+
+                Text("\(value.hours):\(value.minutes)")
+                    .font(self.sizes.timeFont)
+                    .padding(.top, self.sizes.inputFontOffsetTPadding)
+                    .padding(.leading, self.sizes.inputFontOffsetLPadding)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                    .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight, alignment: .trailing)
+                    .frame(
+                        width: inputWidth,
+                        height: self.sizes.inputHeight,
+                        alignment: .center
+                    )
                     .background(self.isSelected ? self.backgroundSelectedColor : self.backgroundColor)
                     .border(self.accentColor)
                     .foregroundColor(self.accentColor)
-                    .padding(.horizontal, self.sizes.inputHPadding)
-                    .onTapGesture(perform: self.openInput)
                 
-                Text(self.unit)
-                    .font(self.sizes.unitFont)
-                    .frame(width: self.sizes.unitWidth, alignment: .leading)
-                    .foregroundColor(self.accentColor)
+                if !value.meridiem.isEmpty {
+                    
+                    Text(value.meridiem.uppercased())
+                        .font(self.sizes.meridiemFont)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(
+                            width: self.sizes.meridiemWidth,
+                            height: self.sizes.inputHeight,
+                            alignment: .center
+                        )
+                        .foregroundColor(self.accentColor)
+                        .background(self.isSelected ? self.backgroundSelectedColor : self.backgroundColor)
+                        .border(self.accentColor)
+                }
             }
+                .padding(.trailing, self.isOpen ? 0 : self.sizes.inputHPadding)
+                .onTapGesture(perform: self.openInput)
             
             if self.isOpen {
                 
@@ -145,7 +171,7 @@ struct InputNumber: View {
 
 
 
-struct InputNumber_Previews: PreviewProvider {
+struct InputTime_Previews: PreviewProvider {
     static var previews: some View {
         
         ZStack {
@@ -154,10 +180,9 @@ struct InputNumber_Previews: PreviewProvider {
             
             VStack(alignment: .center, spacing: 8) {
                 
-                InputNumber(
-                    title: Label.todaysWeight,
-                    unit: WeightUnit.kg.localized,
-                    input: .constant("17.4"),
+                InputTime(
+                    title: Label.weight,
+                    inputValue: Date().timeString,
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: false,
@@ -168,10 +193,9 @@ struct InputNumber_Previews: PreviewProvider {
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
                 )
                 
-                InputNumber(
-                    title: "Title",
-                    unit: WeightUnit.kg.localized,
-                    input: .constant("17.4"),
+                InputTime(
+                    title: Label.food,
+                    inputValue: Date().timeString,
                     onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
                     isOpen: true,

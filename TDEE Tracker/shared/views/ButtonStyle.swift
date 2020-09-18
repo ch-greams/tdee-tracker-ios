@@ -168,37 +168,7 @@ struct InputToggleButtonStyle: ButtonStyle {
 }
 
 
-struct InputSelectButtonStyleSizes {
-    
-    // MARK: - Sizes
-    
-    public let width: CGFloat = 180
-    public let height: CGFloat = 44
-    
-    // MARK: - Fonts
-    
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-}
-
-
-struct InputSelectButtonStyle: ButtonStyle {
-    
-    private let sizes = InputSelectButtonStyleSizes()
- 
-    let backgroundColor: Color
-    let accentColor: Color
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: self.sizes.width, height: self.sizes.height)
-            .background(self.backgroundColor)
-            .foregroundColor(self.accentColor)
-            .font(self.sizes.valueFont)
-            .border(self.accentColor)
-    }
-}
-
-struct InputThemeButtonStyleSizes {
+struct InputCheckButtonStyleSizes {
     
     // MARK: - Sizes
     
@@ -207,9 +177,9 @@ struct InputThemeButtonStyleSizes {
 }
 
 
-struct InputThemeButtonStyle: ButtonStyle {
+struct InputCheckButtonStyle: ButtonStyle {
     
-    private let sizes = InputThemeButtonStyleSizes()
+    private let sizes = InputCheckButtonStyleSizes()
  
     let backgroundColor: Color
     let accentColor: Color
@@ -222,6 +192,39 @@ struct InputThemeButtonStyle: ButtonStyle {
             .background(isSelected ? self.accentColor : self.backgroundColor)
             .foregroundColor(!isSelected ? self.accentColor : self.backgroundColor)
             .border(self.accentColor)
+    }
+}
+
+
+struct KeyboardButtonStyleSizes {
+    
+    // MARK: - Sizes
+    
+    public let width: CGFloat
+    public let height: CGFloat
+    
+    // MARK: - Init
+    
+    init(uiSizes: UISizes) {
+        
+        self.width = uiSizes.keyboardButtonWidth
+        self.height = uiSizes.keyboardButtonHeight
+    }
+}
+
+struct KeyboardButtonStyle: ButtonStyle {
+    
+    private let sizes = KeyboardButtonStyleSizes(uiSizes: UISizes.current)
+ 
+    let backgroundColor: Color
+    let textColor: Color
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: self.sizes.width, height: self.sizes.height, alignment: .center)
+            .background(configuration.isPressed ? self.backgroundColor.opacity(0.5) : self.backgroundColor)
+            .foregroundColor(self.textColor)
+            .animation(.default)
     }
 }
 

@@ -17,9 +17,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>203</string>
+	<string>317</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>TDEE Tracker uses Apple Health to read existing health data, so it can simplify in-app entry creation</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>TDEE Tracker uses Apple Health to save health data, that was created during use of the application</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Oswald-Bold.ttf</string>

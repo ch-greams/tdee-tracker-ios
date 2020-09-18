@@ -62,14 +62,19 @@ struct CalendarBlockMonth: View {
     
     func getMonthChangeButton(icon: String, delta: Int) -> some View {
 
-        Button(action: { self.changeMonth(delta: delta) }) {
-
-            CustomImage(name: icon, colorName: self.appState.uiTheme.calendarAccentColorName)
-                .frame(
-                    width: self.sizes.monthChangeButtonIconWidth,
-                    height: self.sizes.monthChangeButtonIconHeight
-                )
-        }
+        Button(
+            action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                self.changeMonth(delta: delta)
+            },
+            label: {
+                CustomImage(name: icon, colorName: self.appState.uiTheme.calendarAccentColorName)
+                    .frame(
+                        width: self.sizes.monthChangeButtonIconWidth,
+                        height: self.sizes.monthChangeButtonIconHeight
+                    )
+            }
+        )
             .buttonStyle(CalendarChangeMonthButtonStyle(
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor
             ))

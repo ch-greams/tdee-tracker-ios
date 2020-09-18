@@ -15,6 +15,7 @@ struct InputEntryNumberSizes {
     
     public let inputTPadding: CGFloat = 8
     public let inputWidth: CGFloat = 140
+    public let inputFontTPadding: CGFloat = -2
     
     public let unitWidth: CGFloat = 65
     
@@ -54,11 +55,13 @@ struct InputEntryNumber: View {
     let icon: String
     let unit: String
     let value: Binding<String>
-    let onCommit: () -> Void
     let openInput: () -> Void
-    let isOpen: Bool
+    let isSelected: Bool
+    let isCompact: Bool
     
     let backgroundColor: Color
+    let backgroundSelectedColor: Color
+    
     let accentColor: Color
     let accentColorName: String
     let accentAlternativeColor: Color
@@ -67,36 +70,37 @@ struct InputEntryNumber: View {
     var body: some View {
         
         let bodyVPadding = (
-            self.isOpen
+            self.isCompact
                 ? self.sizes.bodyVPadding + self.sizes.bodyVPaddingOpenOffset
                 : self.sizes.bodyVPadding
         )
 
-        let isEmptyInput = NumberFormatter().number(from: value.wrappedValue) == nil
-        let baseColor = ( isEmptyInput ? accentAlternativeColor : accentColor )
+        let isEmptyInput = NumberFormatter().number(from: self.value.wrappedValue) == nil
+        let baseColor = ( isEmptyInput ? self.accentAlternativeColor : self.accentColor )
         
         
         return HStack(alignment: .center, spacing: 0) {
 
             CustomImage(
                 name: icon,
-                colorName: isEmptyInput ? accentAlternativeColorName : accentColorName
+                colorName: isEmptyInput ? self.accentAlternativeColorName : self.accentColorName
             )
                 .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
                 .frame(maxWidth: .infinity, alignment: .trailing)
 
-            TextField("", text: value, onCommit: onCommit)
+            Text(self.value.wrappedValue)
                 .font(self.sizes.valueFont)
+                .padding(.top, self.sizes.inputFontTPadding)
                 .padding(.trailing, self.sizes.inputTPadding)
-                .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight)
-                .multilineTextAlignment(.trailing)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .frame(width: self.sizes.inputWidth, height: self.sizes.inputHeight, alignment: .trailing)
+                .background(self.isSelected ? self.backgroundSelectedColor : self.backgroundColor)
                 .border(baseColor)
                 .foregroundColor(baseColor)
                 .padding(.horizontal)
-                .keyboardType(.decimalPad)
-                .onTapGesture(perform: openInput)
             
-            Text(unit)
+            Text(self.unit)
                 .font(self.sizes.unitFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(baseColor)
@@ -106,6 +110,7 @@ struct InputEntryNumber: View {
             .background(self.backgroundColor)
             .padding(self.sizes.bodyPadding)
             .clipped()
+            .onTapGesture(perform: self.openInput)
             .shadow(color: .SHADOW_COLOR, radius: 1, x: 1, y: 1)
             .padding(.horizontal, self.sizes.bodyHPadding)
     }
@@ -126,10 +131,11 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     icon: "body-sharp",
                     unit: WeightUnit.kg.localized,
                     value: .constant("71.5"),
-                    onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: false,
+                    isSelected: false,
+                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
                     accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,
@@ -140,10 +146,11 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     icon: "body-sharp",
                     unit: WeightUnit.kg.localized,
                     value: .constant(""),
-                    onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: false,
+                    isSelected: false,
+                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
                     accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,
@@ -154,10 +161,11 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     icon: "fast-food-sharp",
                     unit: EnergyUnit.kcal.localized,
                     value: .constant("2934"),
-                    onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: false,
+                    isSelected: false,
+                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
                     accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,
@@ -168,10 +176,11 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     icon: "fast-food-sharp",
                     unit: EnergyUnit.kcal.localized,
                     value: .constant(""),
-                    onCommit: { print("onCommit") },
                     openInput: { print("openInput") },
-                    isOpen: false,
+                    isSelected: false,
+                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
                     accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
                     accentAlternativeColor: UIThemeManager.DEFAULT.inputAccentAlternativeColor,

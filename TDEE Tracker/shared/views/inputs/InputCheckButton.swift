@@ -1,5 +1,5 @@
 //
-//  InputThemeButton.swift
+//  InputCheckButton.swift
 //  TDEE Tracker
 //
 //  Created by Andrei Khvalko on 8/6/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct InputThemeButtonSizes {
+struct InputCheckButtonSizes {
     
     // MARK: - Sizes
     
@@ -33,9 +33,9 @@ struct InputThemeButtonSizes {
 }
 
 
-struct InputThemeButton: View {
+struct InputCheckButton: View {
     
-    private let sizes = InputThemeButtonSizes(uiSizes: UISizes.current)
+    private let sizes = InputCheckButtonSizes(uiSizes: UISizes.current)
     
     let title: String
     let buttonIcon: String
@@ -49,7 +49,7 @@ struct InputThemeButton: View {
     
     let isSelected: Bool
     
-    let palette: AnyView
+    var palette: AnyView?
     
     
 
@@ -57,21 +57,27 @@ struct InputThemeButton: View {
         
         HStack(alignment: .center, spacing: 0) {
 
-            self.palette.padding(.horizontal)
+            if self.palette != nil {
+                self.palette.padding(.leading)
+            }
             
             Text(title.uppercased())
                 .font(self.sizes.labelFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(self.accentColor)
+                .padding(.leading)
             
-            Button(action: self.onClick, label: {
-                CustomImage(
-                    name: self.buttonIcon,
-                    colorName: self.isSelected ? self.backgroundColorName : self.accentColorName
-                )
-                    .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
-            })
-                .buttonStyle(InputThemeButtonStyle(
+            Button(
+                action: self.onClick,
+                label: {
+                    CustomImage(
+                        name: self.buttonIcon,
+                        colorName: self.isSelected ? self.backgroundColorName : self.accentColorName
+                    )
+                        .frame(width: self.sizes.iconSize, height: self.sizes.iconSize)
+                }
+            )
+                .buttonStyle(InputCheckButtonStyle(
                     backgroundColor: self.backgroundColor,
                     accentColor: self.accentColor,
                     isSelected: self.isSelected
@@ -90,7 +96,7 @@ struct InputThemeButton: View {
 
 
 
-struct InputThemeButton_Previews: PreviewProvider {
+struct InputCheckButton_Previews: PreviewProvider {
 
     static var colors: some View {
         
@@ -122,7 +128,7 @@ struct InputThemeButton_Previews: PreviewProvider {
             
             VStack(alignment: .center, spacing: 8) {
 
-                InputThemeButton(
+                InputCheckButton(
                     title: Label.theme,
                     buttonIcon: "lock-closed-sharp",
                     onClick: { print("onClick") },
@@ -134,7 +140,7 @@ struct InputThemeButton_Previews: PreviewProvider {
                     palette: AnyView( Self.colors )
                 )
                 
-                InputThemeButton(
+                InputCheckButton(
                     title: Label.theme,
                     buttonIcon: "checkmark-sharp",
                     onClick: { print("onClick") },
@@ -146,7 +152,7 @@ struct InputThemeButton_Previews: PreviewProvider {
                     palette: AnyView( Self.colors )
                 )
                 
-                InputThemeButton(
+                InputCheckButton(
                     title: Label.theme,
                     buttonIcon: "checkmark-sharp",
                     onClick: { print("onClick") },
@@ -156,6 +162,17 @@ struct InputThemeButton_Previews: PreviewProvider {
                     accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
                     isSelected: true,
                     palette: AnyView( Self.colors )
+                )
+                
+                InputCheckButton(
+                    title: Label.appleHealth,
+                    buttonIcon: "checkmark-sharp",
+                    onClick: { print("onClick") },
+                    backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
+                    backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
+                    accentColor: UIThemeManager.DEFAULT.inputAccentColor,
+                    accentColorName: UIThemeManager.DEFAULT.inputAccentColorName,
+                    isSelected: true
                 )
             }
         }

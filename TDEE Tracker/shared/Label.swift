@@ -123,6 +123,12 @@ struct Label {
     public static let fetchProducts = "Connecting to iTunes".localize
     public static let tryPurchase = "Making a Purchase".localize
     
+    // MARK: - Apple Health
+    
+    public static let integrations = "INTEGRATIONS".localize
+    public static let appleHealth = "Apple Health".localize
+    public static let appleHealthHint = "Apple Health integration requires permissions to be granted in Settings > Privacy > Health > TDEE Tracker".localize
+    
     // MARK: - Store Messages
     
     public static let notAuthorized = "You are not authorized to make payments.\nIn-App Purchases may be restricted on your device.".localize

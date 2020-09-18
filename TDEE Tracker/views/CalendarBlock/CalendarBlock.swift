@@ -102,7 +102,7 @@ struct CalendarBlock_EntryPage_Previews: PreviewProvider {
 
     static var previews: some View {
         
-        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: false)
+        CalendarBlock(selectedDay: Date.today, isCollapsed: false, isTrendsPage: false)
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
@@ -115,7 +115,7 @@ struct CalendarBlock_EntryPage_Collapsed_Previews: PreviewProvider {
 
     static var previews: some View {
         
-        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: true, isTrendsPage: false)
+        CalendarBlock(selectedDay: Date.today, isCollapsed: true, isTrendsPage: false)
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)
@@ -129,7 +129,7 @@ struct CalendarBlock_TrendsPage_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        CalendarBlock(selectedDay: Utils.todayDate, isCollapsed: false, isTrendsPage: true)
+        CalendarBlock(selectedDay: Date.today, isCollapsed: false, isTrendsPage: true)
             .padding(.vertical, 8)
             .background(Self.appState.uiTheme.backgroundColor)
             .environmentObject(appState)

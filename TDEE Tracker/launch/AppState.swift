@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import StoreKit
+import HealthKit
 
 
 
@@ -55,6 +56,8 @@ class AppState: ObservableObject {
 
     private let store: UserDefaults
     
+    @Published public var currentInput: InputName?
+    
     @Published public var isFirstSetupDone: Bool = false
     @Published public var tutorialStep: TutorialStep = TutorialStep.First
     
@@ -68,8 +71,10 @@ class AppState: ObservableObject {
     @Published public var weightInput: String = ""
     @Published public var foodInput: String = ""
     
-    @Published private var entries: [ Date : DayEntry ] = [:]
-    @Published private var summaries: [ Date: WeekSummary ] = [:]
+    @Published private var entries: [ Date : DayEntry ] = [:] {
+        didSet { self.refreshSummary() }
+    }
+    @Published private var summaries: [ Date : WeekSummary ] = [:]
     
     @Published public var weightUnit: WeightUnit = WeightUnit.kg
     @Published public var energyUnit: EnergyUnit = EnergyUnit.kcal
@@ -79,8 +84,18 @@ class AppState: ObservableObject {
     @Published public var goalWeightInput: String = ""
     @Published public var goalWeeklyWeightDeltaInput: String = ""
 
-    @Published public var reminderWeightDate: Date
-    @Published public var reminderFoodDate: Date
+    @Published public var reminderWeightDate: Date {
+        didSet {
+            self.reminderWeightDateInput = self.reminderWeightDate.timeString
+        }
+    }
+    @Published public var reminderFoodDate: Date {
+        didSet {
+            self.reminderFoodDateInput = self.reminderFoodDate.timeString
+        }
+    }
+    @Published public var reminderWeightDateInput: String = ""
+    @Published public var reminderFoodDateInput: String = ""
     
     @Published public var showLoader: Bool = false
     @Published public var loaderText: String = ""
@@ -93,6 +108,67 @@ class AppState: ObservableObject {
     public var uiTheme: UITheme = UIThemeManager.getUITheme(theme: UIThemeType.Default)
     
 
+    public var areWeightEntriesLoaded: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                
+                if self.areWeightEntriesLoaded {
+                    
+                    for (date, weight) in HealthStoreManager.weightEntries {
+                        
+                        if let entry = self.entries[date.withoutTime] {
+                            
+                            if entry.weight == nil {
+                                
+                                self.entries[date.withoutTime] = DayEntry(weight: weight, food: entry.food)
+                            }
+                        }
+                        else {
+                            self.entries[date.withoutTime] = DayEntry(weight: weight, food: nil)
+                        }
+                    }
+                    
+                    self.saveEntries()
+                    self.loadSelectedDayData(for: self.selectedDay)
+                }
+                else {
+                    HealthStoreManager.fetchWeightData()
+                }
+            }
+            
+        }
+    }
+    public var areEnergyEntriesLoaded: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                
+                if self.areEnergyEntriesLoaded {
+                    
+                    for (date, food) in HealthStoreManager.energyEntries {
+                        
+                        if let entry = self.entries[date.withoutTime] {
+                            
+                            if entry.food == nil {
+                                
+                                self.entries[date.withoutTime] = DayEntry(weight: entry.weight, food: food)
+                            }
+                        }
+                        else {
+                            self.entries[date.withoutTime] = DayEntry(weight: nil, food: food)
+                        }
+                    }
+                    
+                    self.saveEntries()
+                    self.loadSelectedDayData(for: self.selectedDay)
+                }
+                else {
+                    HealthStoreManager.fetchEnergyData()
+                }
+            }
+        }
+    }
+
+    
     public var progressData: (
         progressWeight: Double,
         goalWeight: Double,
@@ -149,7 +225,7 @@ class AppState: ObservableObject {
     
     private var isSurplus: Bool {
         
-        let weekWeights: [ Date: Double ] = Utils.getWeeks(days: self.entries)
+        let weekWeights: [ Date : Double ] = Utils.getWeeks(days: self.entries)
             .compactMapValues { $0.compactMap { entry in entry.weight }.average() }
             .filter { $0.value > 0 }
         
@@ -178,7 +254,7 @@ class AppState: ObservableObject {
     
     public var isFutureDate: Bool {
         
-        let result = self.calendar.compare(self.selectedDay, to: Utils.todayDate, toGranularity: .day)
+        let result = self.calendar.compare(self.selectedDay, to: Date.today, toGranularity: .day)
         
         return result == ComparisonResult.orderedDescending
     }
@@ -274,7 +350,7 @@ class AppState: ObservableObject {
 
     public var todayEntry: DayEntry {
         
-        return self.entries[Utils.todayDate] ?? DayEntry(weight: nil, food: nil)
+        return self.entries[Date.today] ?? DayEntry(weight: nil, food: nil)
     }
     
 
@@ -287,7 +363,7 @@ class AppState: ObservableObject {
         
         self.store = store
 
-        self.selectedDay = Utils.todayDate
+        self.selectedDay = Date.today
         
         // MARK: - Reminders
         
@@ -295,6 +371,8 @@ class AppState: ObservableObject {
         self.reminderFoodDate = Utils.getDateFromTimeComponents(hour: 21, minute: 0) ?? Date()
         
         // MARK: - Other setup
+        
+        HealthStoreManager.appState = self
         
         StoreManager.shared.delegate = self
         StoreObserver.shared.delegate = self
@@ -325,8 +403,6 @@ class AppState: ObservableObject {
             self.loadEntries()
             
             self.loadSelectedDayData(for: self.selectedDay)
-            
-            self.refreshSummary()
             
             // Load configuration
             
@@ -470,18 +546,6 @@ class AppState: ObservableObject {
     
     // MARK: - API
 
-    private func changeEntry(date: Date, entry: DayEntry) {
-        
-        self.entries[date] = entry
-        
-        self.refreshSummary()
-    }
-    
-    private func getEntry(date: Date) -> DayEntry? {
-        
-        return self.entries[date]
-    }
-    
     public func changeDay(to date: Date) {
         
         self.selectedDay = date
@@ -491,56 +555,37 @@ class AppState: ObservableObject {
 
     public func isDayHasData(date: Date) -> DayEntryData {
 
-        if let dayEntry = self.getEntry(date: date) {
-
-            return (
-                dayEntry.food != nil && dayEntry.weight != nil
-                    ? DayEntryData.Full
-                    : DayEntryData.Partial
-            )
+        guard let dayEntry = self.entries[date] else { return DayEntryData.Empty }
+        
+        if dayEntry.food != nil && dayEntry.weight != nil {
+            return DayEntryData.Full
         }
-
-        return DayEntryData.Empty
+        else if dayEntry.food != nil || dayEntry.weight != nil {
+            return DayEntryData.Partial
+        }
+        else {
+            return DayEntryData.Empty
+        }
     }
 
     // MARK: - Entry update
 
-    private func updateWeightInEntry() {
+    private func updateWeightInEntry(_ weight: Double? = nil) {
         
-        if let entry = self.getEntry(date: self.selectedDay) {
-            
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: self.weight, food: entry.food)
-            )
-        }
-        else {
-
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: self.weight, food: nil)
-            )
-        }
+        self.entries[self.selectedDay] = DayEntry(
+            weight: weight,
+            food: self.entries[self.selectedDay]?.food
+        )
     
         self.saveEntries()
     }
     
-    private func updateFoodInEntry() {
+    private func updateFoodInEntry(_ food: Int? = nil) {
         
-        if let entry = self.getEntry(date: self.selectedDay) {
-            
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: entry.weight, food: self.food)
-            )
-        }
-        else {
-
-            self.changeEntry(
-                date: self.selectedDay,
-                entry: DayEntry(weight: nil, food: self.food)
-            )
-        }
+        self.entries[self.selectedDay] = DayEntry(
+            weight: self.entries[self.selectedDay]?.weight,
+            food: food
+        )
         
         self.saveEntries()
     }
@@ -555,7 +600,7 @@ class AppState: ObservableObject {
 
                 self.weight = value
 
-                self.updateWeightInEntry()
+                self.updateWeightInEntry(self.weight)
 
                 self.updateReminders(ReminderType.Weight)
             }
@@ -566,6 +611,24 @@ class AppState: ObservableObject {
                     time: 3
                 )
             }
+        }
+        else {
+            
+            self.weight = 0.0
+            
+            self.updateWeightInEntry()
+            
+            self.updateReminders(ReminderType.Weight)
+        }
+        
+        HealthStoreManager.addEntry(
+            type: HealthStoreManager.WEIGHT_ID,
+            date: self.selectedDay,
+            value: self.weight > 0 ? self.weight : nil
+        )
+        
+        if self.weight == 0.0 {
+            self.areWeightEntriesLoaded = false
         }
 
         self.weightInput = self.weight > 0 ? self.weight.toString() : ""
@@ -581,7 +644,7 @@ class AppState: ObservableObject {
 
                 self.food = value
                 
-                self.updateFoodInEntry()
+                self.updateFoodInEntry(self.food)
 
                 self.updateReminders(ReminderType.Food)
             }
@@ -592,6 +655,24 @@ class AppState: ObservableObject {
                     time: 3
                 )
             }
+        }
+        else {
+
+            self.food = 0
+            
+            self.updateFoodInEntry()
+            
+            self.updateReminders(ReminderType.Food)
+        }
+        
+        HealthStoreManager.addEntry(
+            type: HealthStoreManager.ENERGY_ID,
+            date: self.selectedDay,
+            value: self.food > 0 ? Double(self.food) : nil
+        )
+        
+        if self.food == 0 {
+            self.areEnergyEntriesLoaded = false
         }
 
         self.foodInput = self.food > 0 ? String(self.food) : ""
@@ -718,10 +799,38 @@ class AppState: ObservableObject {
 
     // MARK: - Reminders
     
+    public func saveWeightReminderDateFromInput() {
+        
+        if let format = DateFormatter.dateFormat(fromTemplate: "jm", options: 0, locale: Locale.current),
+           let date = Date.from(self.reminderWeightDateInput, format: format) {
+            
+            self.reminderWeightDate = date
+            
+            self.saveWeightReminder()
+        }
+        else {
+            self.reminderWeightDateInput = self.reminderWeightDate.timeString
+        }
+    }
+    
+    public func saveFoodReminderDateFromInput() {
+        
+        if let format = DateFormatter.dateFormat(fromTemplate: "jm", options: 0, locale: Locale.current),
+           let date = Date.from(self.reminderFoodDateInput, format: format) {
+            
+            self.reminderFoodDate = date
+            
+            self.saveFoodReminder()
+        }
+        else {
+            self.reminderFoodDateInput = self.reminderFoodDate.timeString
+        }
+    }
+    
     private func getNextDateTimeComponents(hasEntry: Bool, time: Date) -> DateComponents {
     
         let nextNotificationDay = (
-            hasEntry ? calendar.date(byAdding: .day, value: 1, to: Utils.todayDate) ?? Date() : Date()
+            hasEntry ? calendar.date(byAdding: .day, value: 1, to: Date.today) ?? Date() : Date()
         )
     
         let nextDateComponents = self.calendar.dateComponents([ .year, .month, .day ], from: nextNotificationDay)
@@ -736,10 +845,10 @@ class AppState: ObservableObject {
         )
     }
     
-    private func saveWeightReminder(weight: Double?) {
+    private func saveWeightReminder() {
         
         let nextDateTimeComponents = self.getNextDateTimeComponents(
-            hasEntry: (weight != nil),
+            hasEntry: self.todayEntry.weight != nil,
             time: self.reminderWeightDate
         )
         
@@ -755,10 +864,10 @@ class AppState: ObservableObject {
         )
     }
     
-    private func saveFoodReminder(food: Int?) {
+    private func saveFoodReminder() {
 
         let nextDateTimeComponents = self.getNextDateTimeComponents(
-            hasEntry: (food != nil),
+            hasEntry: self.todayEntry.food != nil,
             time: self.reminderFoodDate
         )
         
@@ -782,12 +891,12 @@ class AppState: ObservableObject {
             
             switch reminderToUpdate {
                 case Optional(ReminderType.Weight):
-                    self.saveWeightReminder(weight: self.todayEntry.weight)
+                    self.saveWeightReminder()
                 case Optional(ReminderType.Food):
-                    self.saveFoodReminder(food: self.todayEntry.food)
+                    self.saveFoodReminder()
                 default:
-                    self.saveWeightReminder(weight: self.todayEntry.weight)
-                    self.saveFoodReminder(food: self.todayEntry.food)
+                    self.saveWeightReminder()
+                    self.saveFoodReminder()
             }
         }
     }

@@ -86,13 +86,13 @@ class Utils {
     private static let KG_TO_LB_MULTIPLIER: Double = 2.20462
 
     
-    private static let MAX_WEIGHT_ENTRY_KG: Double = 450.0
+    private static let MAX_WEIGHT_ENTRY_KG: Double = 362.87
     
     private static let MIN_WEIGHT_ENTRY_KG: Double = 30.0
     
-    private static let MAX_FOOD_ENTRY_KCAL: Int = 9999
+    private static let MAX_FOOD_ENTRY_KCAL: Int = 6000
     
-    private static let MIN_FOOD_ENTRY_KCAL: Int = 1000
+    private static let MIN_FOOD_ENTRY_KCAL: Int = 1
     
     private static let MAX_WEEKLY_WEIGHT_DELTA_KG: Double = 4.5
     
@@ -327,18 +327,24 @@ class Utils {
 
     // MARK: - Date
     
-    public static var todayDate: Date {
-
-        let dayScope = Utils.calendar.dateComponents([.year, .month, .day], from: Date())
-        return Utils.calendar.date(from: dayScope) ?? Date()
-    }
-    
     public static func getDateFromTimeComponents(hour: Int, minute: Int) -> Date? {
         
         let dateComponents = DateComponents(hour: hour, minute: minute)
         return calendar.date(from: dateComponents)
     }
 
+    public static func getTimeElementsFromString(_ str: String) -> (hours: String, minutes: String, meridiem: String) {
+        
+        let timeElements = str.components(separatedBy: " ")
+        let hoursAndMinutes = (timeElements.get(0) ?? "00:00").components(separatedBy: ":")
+        
+        return (
+            hours: hoursAndMinutes.get(0) ?? "00",
+            minutes: hoursAndMinutes.get(1) ?? "00",
+            meridiem: timeElements.get(1) ?? ""
+        )
+    }
+    
     // MARK: - Conversions
     
     public static func getEnergyFromWeight(weight: Double, energyUnit: EnergyUnit, weightUnit: WeightUnit) -> Int {
@@ -421,7 +427,7 @@ class Utils {
     
     // MARK: - General
     
-    public static func log(source: String, message: String = "done") {
+    public static func log(source: String, message: Any = "done") {
         
         print("[\(source)]: \(message)")
     }

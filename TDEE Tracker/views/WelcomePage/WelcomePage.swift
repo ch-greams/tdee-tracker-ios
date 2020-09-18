@@ -60,6 +60,7 @@ struct WelcomePage: View {
     
     @State var isWeightUnitSelected: Bool = false
     @State var isEnergyUnitSelected: Bool = false
+    @State var isHealthSyncEnabled: Bool = false
 
     @State var weightUnit: WeightUnit?
     @State var energyUnit: EnergyUnit?
@@ -143,11 +144,40 @@ struct WelcomePage: View {
                     accentColor: self.appState.uiTheme.inputAccentColor
                 )
 
-                Text(!self.isEnergyUnitSelected ? Label.energyUnitHint : Label.settingsHint)
-                    .font(self.sizes.welcomeHintFont)
-                    .foregroundColor(self.appState.uiTheme.mainTextColor)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                if !self.isEnergyUnitSelected {
+
+                    Text(Label.energyUnitHint)
+                        .font(self.sizes.welcomeHintFont)
+                        .foregroundColor(self.appState.uiTheme.mainTextColor)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                }
+                else {
+                    
+                    InputCheckButton(
+                        title: Label.appleHealth,
+                        buttonIcon: "checkmark-sharp",
+                        onClick: {
+                            if !self.isHealthSyncEnabled {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                
+                                self.isHealthSyncEnabled = true
+                                HealthStoreManager.requestPermissionsAndFetchHealthData()
+                            }
+                        },
+                        backgroundColor: self.appState.uiTheme.inputBackgroundColor,
+                        backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+                        accentColor: self.appState.uiTheme.inputAccentColor,
+                        accentColorName: self.appState.uiTheme.inputAccentColorName,
+                        isSelected: self.isHealthSyncEnabled
+                    )
+                    
+                    Text(Label.settingsHint)
+                        .font(self.sizes.welcomeHintFont)
+                        .foregroundColor(self.appState.uiTheme.mainTextColor)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, self.sizes.energyUnitHintHPadding)
+                }
             }
         }
     }
@@ -171,7 +201,10 @@ struct WelcomePage: View {
             
             if self.isWeightUnitSelected && self.isEnergyUnitSelected {
                 
-                Button(Label.next, action: self.completeFirstStep)
+                Button(Label.next, action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    self.completeFirstStep()
+                })
                     .buttonStyle(AppDefaultButtonStyle(
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         textColor: self.appState.uiTheme.secondaryTextColor
@@ -192,13 +225,17 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.updateWeightFromInput()
                 
-                UIApplication.shared.endEditing()
+                self.appState.currentInput = nil
                 self.isCurrentWeightOpen = false
             },
-            openInput: { self.isCurrentWeightOpen = true },
+            openInput: {
+                self.appState.currentInput = InputName.Weight
+                self.isCurrentWeightOpen = true
+            },
             isOpen: self.isCurrentWeightOpen,
+            isSelected: self.appState.currentInput == InputName.Weight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
@@ -222,13 +259,17 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.saveGoalWeightFromInput()
                 
-                UIApplication.shared.endEditing()
+                self.appState.currentInput = nil
                 self.isGoalWeightOpen = false
             },
-            openInput: { self.isGoalWeightOpen = true },
+            openInput: {
+                self.appState.currentInput = InputName.GoalWeight
+                self.isGoalWeightOpen = true
+            },
             isOpen: self.isGoalWeightOpen,
+            isSelected: self.appState.currentInput == InputName.GoalWeight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
@@ -251,13 +292,17 @@ struct WelcomePage: View {
             onCommit: {
                 self.appState.saveGoalWeeklyDeltaFromInput()
                 
-                UIApplication.shared.endEditing()
+                self.appState.currentInput = nil
                 self.isDeltaWeightOpen = false
             },
-            openInput: { self.isDeltaWeightOpen = true },
+            openInput: {
+                self.appState.currentInput = InputName.GoalWeeklyWeightDelta
+                self.isDeltaWeightOpen = true
+            },
             isOpen: self.isDeltaWeightOpen,
+            isSelected: self.appState.currentInput == InputName.GoalWeeklyWeightDelta,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
+            backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
         )
@@ -325,7 +370,10 @@ struct WelcomePage: View {
                 
                 if self.isCurrentWeightEntered && self.isGoalWeightEntered && self.isDeltaWeightEntered {
 
-                    Button(Label.done, action: self.appState.completeFirstSetup)
+                    Button(Label.done, action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        self.appState.completeFirstSetup()
+                    })
                         .buttonStyle(AppDefaultButtonStyle(
                             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                             textColor: self.appState.uiTheme.secondaryTextColor

@@ -1,0 +1,14 @@
+/* 
+  InfoPlist.strings
+  TDEE Tracker
+
+  Created by Andrei Khvalko on 9/14/20.
+  Copyright © 2020 Greams. All rights reserved.
+*/
+
+
+// MARK: - Health Kit
+
+NSHealthShareUsageDescription = "TDEE Tracker использует Apple 'Здоровье' для чтения существующих данных о состоянии здоровья, что, в свою очередь, будет упрощать создание записей в приложении";
+NSHealthUpdateUsageDescription = "TDEE Tracker использует Apple 'Здоровье' для сохранения данных о состоянии здоровья, которые были созданы во время использования приложения";
+

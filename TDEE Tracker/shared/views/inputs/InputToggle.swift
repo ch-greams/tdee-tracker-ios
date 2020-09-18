@@ -53,7 +53,10 @@ struct InputToggle<T>: View where T:Equatable, T:Localizable {
 
         let firstButton = Button(
             first.localized,
-            action: { self.setValue(self.first) }
+            action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                self.setValue(self.first)
+            }
         )
             .buttonStyle(InputToggleButtonStyle(
                 isSelected: selected == first,
@@ -63,7 +66,10 @@ struct InputToggle<T>: View where T:Equatable, T:Localizable {
         
         let secondButton = Button(
             second.localized,
-            action: { self.setValue(self.second) }
+            action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                self.setValue(self.second)
+            }
         )
             .buttonStyle(InputToggleButtonStyle(
                 isSelected: selected == second,
