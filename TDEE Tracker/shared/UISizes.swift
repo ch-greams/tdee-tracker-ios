@@ -347,7 +347,9 @@ struct UISizes {
                  UIDeviceModel.iPhone7Plus,
                  UIDeviceModel.iPhone8Plus:
                 
-                return Self.IPHONE_8_PLUS
+                let isZoomed = UIScreen.main.nativeScale > 3
+                
+                return isZoomed ? Self.IPHONE_8 : Self.IPHONE_8_PLUS
 
             case UIDeviceModel.iPhone6s,
                  UIDeviceModel.iPhone7,
