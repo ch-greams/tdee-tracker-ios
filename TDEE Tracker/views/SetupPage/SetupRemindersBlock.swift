@@ -43,7 +43,6 @@ struct SetupRemindersBlock: View {
                 isOpen: self.isWeightOpen,
                 isSelected: self.appState.currentInput == InputName.ReminderWeightDate,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
                 backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
                 accentColor: self.appState.uiTheme.inputAccentColor
@@ -65,7 +64,6 @@ struct SetupRemindersBlock: View {
                 isOpen: self.isFoodOpen,
                 isSelected: self.appState.currentInput == InputName.ReminderFoodDate,
                 backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-                backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
                 backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                 confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
                 accentColor: self.appState.uiTheme.inputAccentColor

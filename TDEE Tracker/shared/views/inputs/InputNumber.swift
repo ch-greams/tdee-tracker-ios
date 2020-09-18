@@ -60,7 +60,6 @@ struct InputNumber: View {
     let isSelected: Bool
     
     let backgroundColor: Color
-    let backgroundColorName: String
     let backgroundSelectedColor: Color
     let confirmButtonColor: Color
     let accentColor: Color
@@ -113,15 +112,18 @@ struct InputNumber: View {
                     self.onCommit()
                 },
                 label: {
-                    CustomImage(
-                        name: "checkmark-sharp",
-                        colorName: self.backgroundColorName
-                    )
-                        .frame(minWidth: 0, maxWidth: self.sizes.iconCheckmarkSize)
-                        .frame(minHeight: 0, maxHeight: self.sizes.iconCheckmarkSize)
+                    Image("checkmark-sharp")
+                        .resizable()
+                        .frame(
+                            width: self.isOpen ? self.sizes.iconCheckmarkSize : 0,
+                            height: self.sizes.iconCheckmarkSize
+                        )
+                        .foregroundColor(self.backgroundColor)
                         .clipped()
-                        .frame(maxHeight: .infinity)
-                        .frame(maxWidth: self.isOpen ? self.sizes.buttonCheckmarkWidth : 0)
+                        .frame(
+                            maxWidth: self.isOpen ? self.sizes.buttonCheckmarkWidth : 0,
+                            maxHeight: .infinity
+                        )
                         .background(self.confirmButtonColor)
                 }
             )
@@ -161,7 +163,6 @@ struct InputNumber_Previews: PreviewProvider {
                     isOpen: false,
                     isSelected: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor
@@ -176,7 +177,6 @@ struct InputNumber_Previews: PreviewProvider {
                     isOpen: true,
                     isSelected: true,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
-                    backgroundColorName: UIThemeManager.DEFAULT.inputBackgroundColorName,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     confirmButtonColor: UIThemeManager.DEFAULT.inputConfirmButtonColor,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor

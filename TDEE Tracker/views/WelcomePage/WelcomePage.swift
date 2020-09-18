@@ -235,7 +235,6 @@ struct WelcomePage: View {
             isOpen: self.isCurrentWeightOpen,
             isSelected: self.appState.currentInput == InputName.Weight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
             backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
@@ -270,7 +269,6 @@ struct WelcomePage: View {
             isOpen: self.isGoalWeightOpen,
             isSelected: self.appState.currentInput == InputName.GoalWeight,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
             backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
@@ -304,7 +302,6 @@ struct WelcomePage: View {
             isOpen: self.isDeltaWeightOpen,
             isSelected: self.appState.currentInput == InputName.GoalWeeklyWeightDelta,
             backgroundColor: self.appState.uiTheme.inputBackgroundColor,
-            backgroundColorName: self.appState.uiTheme.inputBackgroundColorName,
             backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
             confirmButtonColor: self.appState.uiTheme.inputConfirmButtonColor,
             accentColor: self.appState.uiTheme.inputAccentColor
