@@ -326,7 +326,7 @@ struct UISizes {
     
     public static func getUISizes(device: UIDeviceModel) -> UISizes {
         
-        print(device.rawValue)
+        Utils.log(source: "UISizes.getUISizes", message: device.rawValue)
         
         switch device {
             
@@ -370,7 +370,9 @@ struct UISizes {
                  UIDeviceModel.iPadPro12i_3rdGen,
                  UIDeviceModel.iPadPro12i_4thGen:
                 
-                return Self.IPHONE_8
+                let isZoomed = UIScreen.main.nativeScale > 2
+                
+                return isZoomed ? Self.IPHONE_SE : Self.IPHONE_8
             
             case UIDeviceModel.iPodTouch_7thGen,
                  UIDeviceModel.iPhoneSE_1stGen:
