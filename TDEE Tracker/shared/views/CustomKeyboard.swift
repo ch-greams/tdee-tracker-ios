@@ -267,8 +267,12 @@ struct CustomKeyboard: View {
             .frame(maxWidth: .infinity)
             .padding(.bottom, self.sizes.backgroundBPadding)
             .background(self.appState.uiTheme.backgroundColor)
-            .transition(.move(edge: .bottom))
-            .animation(.easeOut(duration: 0.16))
+            .transition(
+                AnyTransition.opacity
+                    .animation(
+                        .easeInOut(duration: 0.4)
+                    )
+            )
     }
 }
 
