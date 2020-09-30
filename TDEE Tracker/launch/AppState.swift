@@ -624,7 +624,11 @@ class AppState: ObservableObject {
         HealthStoreManager.addEntry(
             type: HealthStoreManager.WEIGHT_ID,
             date: self.selectedDay,
-            value: self.weight > 0 ? self.weight : nil
+            value: (
+                self.weight > 0
+                    ? Utils.convertWeight(value: self.weight, from: self.weightUnit, to: WeightUnit.kg)
+                    : nil
+            )
         )
         
         if self.weight == 0.0 {
@@ -668,7 +672,11 @@ class AppState: ObservableObject {
         HealthStoreManager.addEntry(
             type: HealthStoreManager.ENERGY_ID,
             date: self.selectedDay,
-            value: self.food > 0 ? Double(self.food) : nil
+            value: (
+                self.food > 0
+                    ? Double(Utils.convertEnergy(value: self.food, from: self.energyUnit, to: EnergyUnit.kcal))
+                    : nil
+            )
         )
         
         if self.food == 0 {
