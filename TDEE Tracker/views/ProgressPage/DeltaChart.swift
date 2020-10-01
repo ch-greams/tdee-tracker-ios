@@ -186,7 +186,7 @@ struct DeltaChart: View {
                             self.sizes.totalStepsHeight - weeklyDeltaHeights[iWeek] * self.visibleMultiplier
                         )
                         .frame(width: self.sizes.weekColumnWidth, height: self.sizes.totalStepsHeight)
-                        .padding(.top, self.sizes.weekColumnTPadding)
+                        .padding(.top, self.sizes.weekColumnTPadding - self.sizes.markLineWidth)
                         .padding(.horizontal, self.sizes.weekColumnHPadding)
                         .foregroundColor(self.mainColor)
                         .opacity(0.85)
@@ -254,7 +254,6 @@ struct DeltaChart: View {
                     .padding(.leading, self.sizes.maskLPadding)
             }
                 .frame(maxHeight: totalChartHeight)
-                
         }
             .padding(.vertical, self.sizes.bodyVPadding)
     }

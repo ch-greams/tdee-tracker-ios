@@ -154,7 +154,7 @@ struct UISizes {
         entryHintLabelFontSize: 15,
         entryHintHPadding: 36,
         
-        trendsElementPadding: 13,
+        trendsElementPadding: 16,
         trendsItemLabelFontSize: 18,
         trendsItemValueFontSize: 32,
         trendsItemUnitFontSize: 14,
