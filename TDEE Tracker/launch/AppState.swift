@@ -634,10 +634,6 @@ class AppState: ObservableObject {
                     : nil
             )
         )
-        
-        if self.weight == 0.0 {
-            self.areWeightEntriesLoaded = false
-        }
 
         self.weightInput = self.weight > 0 ? self.weight.toString() : ""
     }
@@ -682,10 +678,6 @@ class AppState: ObservableObject {
                     : nil
             )
         )
-        
-        if self.food == 0 {
-            self.areEnergyEntriesLoaded = false
-        }
 
         self.foodInput = self.food > 0 ? String(self.food) : ""
     }

@@ -198,6 +198,11 @@ class HealthStoreManager {
                     source: "HealthStoreManager.callbackWithInsertRequest",
                     message: String(error?.localizedDescription ?? "undefined")
                 )
+                
+                if let appState = HealthStoreManager.appState {
+                    appState.areWeightEntriesLoaded = false
+                    appState.areEnergyEntriesLoaded = false
+                }
             }
             else if let quantity = quantity {
                 
