@@ -114,7 +114,9 @@ class AppState: ObservableObject {
                 
                 if self.areWeightEntriesLoaded {
                     
-                    for (date, weight) in HealthStoreManager.weightEntries {
+                    for (date, weightInKG) in HealthStoreManager.weightEntries {
+                        
+                        let weight = Utils.convertWeight(value: weightInKG, from: WeightUnit.kg, to: self.weightUnit)
                         
                         if let entry = self.entries[date.withoutTime] {
                             
@@ -144,7 +146,9 @@ class AppState: ObservableObject {
                 
                 if self.areEnergyEntriesLoaded {
                     
-                    for (date, food) in HealthStoreManager.energyEntries {
+                    for (date, foodInKCAL) in HealthStoreManager.energyEntries {
+                        
+                        let food = Utils.convertEnergy(value: foodInKCAL, from: EnergyUnit.kcal, to: self.energyUnit)
                         
                         if let entry = self.entries[date.withoutTime] {
                             
