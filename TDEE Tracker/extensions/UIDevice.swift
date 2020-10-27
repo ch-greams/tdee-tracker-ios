@@ -27,6 +27,10 @@ public enum UIDeviceModel: String {
     case iPhone11Pro = "iPhone 11 Pro"
     case iPhone11ProMax = "iPhone 11 Pro Max"
     case iPhoneSE_2ndGen = "iPhone SE (2nd generation)"
+    case iPhone12Mini = "iPhone 12 mini"
+    case iPhone12 = "iPhone 12"
+    case iPhone12Pro = "iPhone 12 Pro"
+    case iPhone12ProMax = "iPhone 12 Pro Max"
 
     case iPad5thGen = "iPad (5th generation)"
     case iPad6thGen = "iPad (6th generation)"
