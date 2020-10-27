@@ -77,6 +77,56 @@ struct UISizes {
     
     // MARK: - Constants
     
+    
+    public static let IPHONE_12_PRO_MAX: UISizes = UISizes(
+        
+        welcomeSubTitleVPadding: 40,
+        welcomeInputsVSpacing: 16,
+        welcomeConfirmButtonPadding: 30,
+        welcomeHintFontSize: 24,
+        
+        navbarHeight: 84,
+        navbarPadding: 12,
+        navbarSpacing: 62,
+
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
+        calendarDayFontSize: 24,
+        calendarDaySelectedFontSize: 24,
+        calendarDayButton: 48,
+        calendarDaySpacing: 8,
+        
+        entryInputBaseSize: 40,
+        entryInputPadding: 39,
+        entryInputPaddingOpenOffset: 0,
+        entryHintBlockPadding: 20,
+        entryBlockerIconPadding: 86,
+
+        entryHintFontSize: 18,
+        entryHintLabelFontSize: 18,
+        entryHintHPadding: 34,
+        
+        trendsElementPadding: 17,
+        trendsItemLabelFontSize: 20,
+        trendsItemValueFontSize: 34,
+        trendsItemUnitFontSize: 16,
+        
+        progressPageSpacing: 38,
+        progressChartHeight: 210,
+        progressCircleDiameter: 380,
+        progressCircleWidth: 56,
+        
+        setupDefaultButtonHeight: 44,
+        setupInputHeight: 74,
+        setupInputLabelFontSize: 18,
+        setupTargetDeltaPadding: 12,
+        targetDeltaHPadding: 40,
+        
+        keyboardButtonWidth: 132,
+        keyboardButtonHeight: 50,
+        keyboardBottomPadding: 40
+    )
+    
     public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
         
         welcomeSubTitleVPadding: 40,
@@ -122,6 +172,55 @@ struct UISizes {
         targetDeltaHPadding: 40,
         
         keyboardButtonWidth: 132,
+        keyboardButtonHeight: 50,
+        keyboardBottomPadding: 40
+    )
+    
+    public static let IPHONE_12_PRO: UISizes = UISizes(
+        
+        welcomeSubTitleVPadding: 20,
+        welcomeInputsVSpacing: 16,
+        welcomeConfirmButtonPadding: 30,
+        welcomeHintFontSize: 22,
+        
+        navbarHeight: 84,
+        navbarPadding: 12,
+        navbarSpacing: 54,
+        
+        calendarMonthFontSize: 24,
+        calendarMonthButtonHeight: 44,
+        calendarDayFontSize: 22,
+        calendarDaySelectedFontSize: 22,
+        calendarDayButton: 42,
+        calendarDaySpacing: 8,
+        
+        entryInputBaseSize: 36,
+        entryInputPadding: 32,
+        entryInputPaddingOpenOffset: -1,
+        entryHintBlockPadding: 16,
+        entryBlockerIconPadding: 75,
+        
+        entryHintFontSize: 17,
+        entryHintLabelFontSize: 15,
+        entryHintHPadding: 36,
+        
+        trendsElementPadding: 16,
+        trendsItemLabelFontSize: 18,
+        trendsItemValueFontSize: 32,
+        trendsItemUnitFontSize: 14,
+        
+        progressPageSpacing: 36,
+        progressChartHeight: 180,
+        progressCircleDiameter: 340,
+        progressCircleWidth: 40,
+        
+        setupDefaultButtonHeight: 44,
+        setupInputHeight: 74,
+        setupInputLabelFontSize: 18,
+        setupTargetDeltaPadding: 12,
+        targetDeltaHPadding: 32,
+        
+        keyboardButtonWidth: 120,
         keyboardButtonHeight: 50,
         keyboardBottomPadding: 40
     )
@@ -330,6 +429,10 @@ struct UISizes {
         
         switch device {
             
+            case UIDeviceModel.iPhone12ProMax:
+                
+                return Self.IPHONE_12_PRO_MAX
+            
             case UIDeviceModel.iPhoneXR,
                  UIDeviceModel.iPhoneXSMax,
                  UIDeviceModel.iPhone11,
@@ -337,9 +440,15 @@ struct UISizes {
                 
                 return Self.IPHONE_11_PRO_MAX
             
+            case UIDeviceModel.iPhone12,
+                 UIDeviceModel.iPhone12Pro:
+                
+                return Self.IPHONE_12_PRO
+                
             case UIDeviceModel.iPhoneX,
                  UIDeviceModel.iPhoneXS,
-                 UIDeviceModel.iPhone11Pro:
+                 UIDeviceModel.iPhone11Pro,
+                 UIDeviceModel.iPhone12Mini:
                 
                 return Self.IPHONE_11_PRO
 
