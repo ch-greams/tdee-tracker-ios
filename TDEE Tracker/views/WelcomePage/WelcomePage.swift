@@ -21,10 +21,11 @@ struct WelcomePageSizes {
     public let goalWeightHintHPadding: CGFloat = 28
     public let deltaWeightHintHPadding: CGFloat = 24
     
+    public let confirmButtonBPadding: CGFloat = 24
+    
     public let subTitleVPadding: CGFloat
     public let inputsVSpacing: CGFloat
-    
-    public let confirmButtonBPadding: CGFloat
+
     public let targetDeltaVPadding: CGFloat
     
     // MARK: - Fonts
@@ -41,7 +42,6 @@ struct WelcomePageSizes {
         self.subTitleVPadding = uiSizes.welcomeSubTitleVPadding
         self.inputsVSpacing = uiSizes.welcomeInputsVSpacing
         
-        self.confirmButtonBPadding = uiSizes.welcomeConfirmButtonPadding
         self.targetDeltaVPadding = uiSizes.setupTargetDeltaPadding
         
         self.welcomeHintFont = .custom(FontOswald.Light, size: uiSizes.welcomeHintFontSize)

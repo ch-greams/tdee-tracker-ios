@@ -15,7 +15,6 @@ struct UISizes {
     
     let welcomeSubTitleVPadding: CGFloat
     let welcomeInputsVSpacing: CGFloat
-    let welcomeConfirmButtonPadding: CGFloat
     let welcomeHintFontSize: CGFloat
     
     // MARK: - Navbar
@@ -82,7 +81,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 40,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 24,
         
         navbarHeight: 84,
@@ -131,7 +129,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 40,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 24,
         
         navbarHeight: 84,
@@ -180,7 +177,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 20,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 22,
         
         navbarHeight: 84,
@@ -229,7 +225,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 20,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 30,
         welcomeHintFontSize: 22,
         
         navbarHeight: 84,
@@ -278,7 +273,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 20,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
         
         navbarHeight: 60,
@@ -327,7 +321,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 20,
         welcomeInputsVSpacing: 16,
-        welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 22,
         
         navbarHeight: 60,
@@ -376,7 +369,6 @@ struct UISizes {
         
         welcomeSubTitleVPadding: 4,
         welcomeInputsVSpacing: 4,
-        welcomeConfirmButtonPadding: 24,
         welcomeHintFontSize: 18,
         
         navbarHeight: 56,
