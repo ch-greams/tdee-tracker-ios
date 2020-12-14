@@ -307,7 +307,7 @@ struct UISizes {
         targetDeltaHPadding: 40,
         
         keyboardButtonWidth: 132,
-        keyboardButtonHeight: 44,
+        keyboardButtonHeight: 50,
         keyboardBottomPadding: 8
     )
 
