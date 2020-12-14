@@ -201,7 +201,7 @@ struct UISizes {
         trendsItemValueFontSize: 32,
         trendsItemUnitFontSize: 14,
         
-        progressPageSpacing: 36,
+        progressPageSpacing: 34,
         progressChartHeight: 180,
         progressCircleDiameter: 340,
         progressCircleWidth: 40,
