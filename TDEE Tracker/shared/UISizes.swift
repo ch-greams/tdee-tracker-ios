@@ -28,7 +28,6 @@ struct UISizes {
     let calendarMonthFontSize: CGFloat
     let calendarMonthButtonHeight: CGFloat
     let calendarDayFontSize: CGFloat
-    let calendarDaySelectedFontSize: CGFloat
     let calendarDayButton: CGFloat
     let calendarDaySpacing: CGFloat
     
@@ -90,7 +89,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 24,
-        calendarDaySelectedFontSize: 24,
         calendarDayButton: 48,
         calendarDaySpacing: 8,
         
@@ -138,7 +136,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 24,
-        calendarDaySelectedFontSize: 24,
         calendarDayButton: 46,
         calendarDaySpacing: 8,
         
@@ -186,7 +183,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 22,
-        calendarDaySelectedFontSize: 22,
         calendarDayButton: 42,
         calendarDaySpacing: 8,
         
@@ -234,7 +230,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 22,
-        calendarDaySelectedFontSize: 22,
         calendarDayButton: 40,
         calendarDaySpacing: 8,
         
@@ -282,7 +277,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 24,
-        calendarDaySelectedFontSize: 24,
         calendarDayButton: 44,
         calendarDaySpacing: 8,
         
@@ -330,7 +324,6 @@ struct UISizes {
         calendarMonthFontSize: 24,
         calendarMonthButtonHeight: 44,
         calendarDayFontSize: 18,
-        calendarDaySelectedFontSize: 18,
         calendarDayButton: 36,
         calendarDaySpacing: 12,
         
@@ -378,7 +371,6 @@ struct UISizes {
         calendarMonthFontSize: 16,
         calendarMonthButtonHeight: 36,
         calendarDayFontSize: 18,
-        calendarDaySelectedFontSize: 18,
         calendarDayButton: 30,
         calendarDaySpacing: 12,
         

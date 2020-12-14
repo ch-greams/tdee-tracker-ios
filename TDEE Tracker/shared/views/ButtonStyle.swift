@@ -72,7 +72,7 @@ struct CalendarDayButtonStyleSizes {
     init(uiSizes: UISizes) {
         
         self.defaultFont = .custom(FontOswald.ExtraLight, size: uiSizes.calendarDayFontSize)
-        self.selectedFont = .custom(FontOswald.Medium, size: uiSizes.calendarDaySelectedFontSize)
+        self.selectedFont = .custom(FontOswald.Medium, size: uiSizes.calendarDayFontSize)
     }
 }
 
