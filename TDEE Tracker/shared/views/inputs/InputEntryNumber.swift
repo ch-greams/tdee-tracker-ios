@@ -26,7 +26,6 @@ struct InputEntryNumberSizes {
     public let iconSize: CGFloat
     
     public let bodyVPadding: CGFloat
-    public let bodyVPaddingOpenOffset: CGFloat
     
     // MARK: - Fonts
 
@@ -38,7 +37,6 @@ struct InputEntryNumberSizes {
     init(uiSizes: UISizes) {
         
         self.bodyVPadding = uiSizes.entryInputPadding
-        self.bodyVPaddingOpenOffset = uiSizes.entryInputPaddingOpenOffset
         
         self.inputHeight = uiSizes.entryInputBaseSize + 8
         self.iconSize = uiSizes.entryInputBaseSize - 4
@@ -57,7 +55,6 @@ struct InputEntryNumber: View {
     let value: Binding<String>
     let openInput: () -> Void
     let isSelected: Bool
-    let isCompact: Bool
     
     let backgroundColor: Color
     let backgroundSelectedColor: Color
@@ -68,12 +65,6 @@ struct InputEntryNumber: View {
     let accentAlternativeColorName: String
     
     var body: some View {
-        
-        let bodyVPadding = (
-            self.isCompact
-                ? self.sizes.bodyVPadding + self.sizes.bodyVPaddingOpenOffset
-                : self.sizes.bodyVPadding
-        )
 
         let isEmptyInput = NumberFormatter().number(from: self.value.wrappedValue) == nil
         let baseColor = ( isEmptyInput ? self.accentAlternativeColor : self.accentColor )
@@ -106,7 +97,7 @@ struct InputEntryNumber: View {
                 .foregroundColor(baseColor)
         }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, bodyVPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
             .background(self.backgroundColor)
             .padding(self.sizes.bodyPadding)
             .clipped()
@@ -133,7 +124,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant("71.5"),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -148,7 +138,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant(""),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -163,7 +152,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant("2934"),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -178,7 +166,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant(""),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,

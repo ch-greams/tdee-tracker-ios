@@ -29,13 +29,11 @@ struct UISizes {
     let calendarMonthButtonHeight: CGFloat
     let calendarDayFontSize: CGFloat
     let calendarDayButton: CGFloat
-    let calendarDaySpacing: CGFloat
     
     // MARK: - Entry Page
     
     let entryInputBaseSize: CGFloat
     let entryInputPadding: CGFloat
-    let entryInputPaddingOpenOffset: CGFloat
     let entryHintBlockPadding: CGFloat
     let entryBlockerIconPadding: CGFloat
     
@@ -71,413 +69,117 @@ struct UISizes {
     let keyboardButtonHeight: CGFloat
     let keyboardBottomPadding: CGFloat
     
-    public static let current: UISizes = UISizes.getUISizes(device: UIDevice.modelName)
+    public static let current: UISizes = UISizes(
+        
+        welcomeSubTitleVPadding: getSizeByHeight(xxl: 40, xl: 40, l: 20, m: 20, s: 20, xs: 20, xxs: 4),
+        welcomeInputsVSpacing: getSizeByHeight(xxl: 16, xl: 16, l: 16, m: 16, s: 16, xs: 16, xxs: 4),
+        welcomeHintFontSize: getSizeByHeight(xxl: 24, xl: 24, l: 22, m: 22, s: 22, xs: 22, xxs: 18),
+        
+        navbarHeight: getSizeByHeight(xxl: 84, xl: 84, l: 84, m: 84, s: 60, xs: 60, xxs: 56),
+        navbarPadding: getSizeByHeight(xxl: 12, xl: 12, l: 12, m: 12, s: 8, xs: 8, xxs: 6),
+        navbarSpacing: getSizeByWidth(xl: 62, l: 62, m: 54, s: 54, xs: 42),
+
+        calendarMonthFontSize: getSizeByWidth( xl: 24, l: 24, m: 24, s: 24, xs: 16),
+        calendarMonthButtonHeight: getSizeByHeight(xxl: 44, xl: 44, l: 44, m: 44, s: 44, xs: 44, xxs: 36),
+        calendarDayFontSize: getSizeByHeight(xxl: 24, xl: 24, l: 24, m: 24, s: 24, xs: 19, xxs: 18),
+        calendarDayButton: getSizeByHeight(xxl: 48, xl: 46, l: 44, m: 44, s: 44, xs: 39, xxs: 31),
+        
+        entryInputBaseSize: getSizeByHeight(xxl: 40, xl: 40, l: 36, m: 36, s: 36, xs: 36, xxs: 30),
+        entryInputPadding: getSizeByHeight(xxl: 39, xl: 39, l: 32, m: 25, s: 22, xs: 16, xxs: 14),
+        entryHintBlockPadding: getSizeByHeight(xxl: 20, xl: 20, l: 16, m: 16, s: 10, xs: 6, xxs: 0),
+        entryBlockerIconPadding: getSizeByHeight(xxl: 86, xl: 86, l: 75, m: 75, s: 52, xs: 47, xxs: 47),
+        
+        entryHintFontSize: getSizeByWidth(xl: 18, l: 17, m: 17, s: 17, xs: 14),
+        entryHintLabelFontSize: getSizeByWidth(xl: 18, l: 17, m: 15, s: 15, xs: 12),
+        entryHintHPadding: getSizeByWidth(xl: 34, l: 34, m: 34, s: 30, xs: 28),
+        
+        trendsElementPadding: getSizeByHeight(xxl: 17, xl: 17, l: 14, m: 10, s: 7, xs: 3, xxs: 2),
+        trendsItemLabelFontSize: getSizeByHeight(xxl: 20, xl: 20, l: 18, m: 18, s: 18, xs: 18, xxs: 12),
+        trendsItemValueFontSize: getSizeByHeight(xxl: 34, xl: 34, l: 32, m: 32, s: 32, xs: 32, xxs: 28),
+        trendsItemUnitFontSize: getSizeByHeight(xxl: 16, xl: 16, l: 14, m: 14, s: 14, xs: 14, xxs: 12),
+        
+        progressPageSpacing: getSizeByHeight(xxl: 38, xl: 34, l: 34, m: 32, s: 16, xs: 8, xxs: 2),
+        progressChartHeight: getSizeByHeight(xxl: 210, xl: 210, l: 180, m: 180, s: 180, xs: 160, xxs: 120),
+        progressCircleDiameter: getSizeByHeight(xxl: 380, xl: 380, l: 340, m: 340, s: 340, xs: 310, xxs: 272),
+        progressCircleWidth: getSizeByHeight(xxl: 56, xl: 56, l: 40, m: 40, s: 40, xs: 40, xxs: 30),
+        
+        setupDefaultButtonHeight: getSizeByHeight(xxl: 44, xl: 44, l: 44, m: 44, s: 44, xs: 44, xxs: 40),
+        setupInputHeight: getSizeByHeight(xxl: 74, xl: 74, l: 74, m: 74, s: 68, xs: 58, xxs: 58),
+        setupInputLabelFontSize: getSizeByHeight(xxl: 18, xl: 18, l: 18, m: 18, s: 18, xs: 18, xxs: 14),
+        setupTargetDeltaPadding: getSizeByHeight(xxl: 12, xl: 12, l: 12, m: 12, s: 12, xs: 8, xxs: 8),
+        targetDeltaHPadding: getSizeByWidth(xl: 40, l: 40, m: 32, s: 28, xs: 20),
+        
+        keyboardButtonWidth: getSizeByWidth(xl: 132, l: 132, m: 120, s: 120, xs: 102),
+        keyboardButtonHeight: getSizeByHeight(xxl: 50, xl: 50, l: 50, m: 50, s: 50, xs: 50, xxs: 40),
+        keyboardBottomPadding: getSizeByHeight(xxl: 40, xl: 40, l: 40, m: 40, s: 8, xs: 6, xxs: 6)
+    )
     
     // MARK: - Constants
     
+    private static let SCREEN_HEIGHT_CURRENT: CGFloat = UIScreen.main.bounds.height
+    private static let SCREEN_WIDTH_CURRENT: CGFloat = UIScreen.main.bounds.width
     
-    public static let IPHONE_12_PRO_MAX: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 40,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 24,
-        
-        navbarHeight: 84,
-        navbarPadding: 12,
-        navbarSpacing: 62,
+    private static let SCREEN_HEIGHT_XXL: CGFloat = 926
+    private static let SCREEN_HEIGHT_XL: CGFloat = 896
+    private static let SCREEN_HEIGHT_L: CGFloat = 844
+    private static let SCREEN_HEIGHT_M: CGFloat = 812
+    private static let SCREEN_HEIGHT_S: CGFloat = 736
+    private static let SCREEN_HEIGHT_XS: CGFloat = 667
+    private static let SCREEN_HEIGHT_XXS: CGFloat = 568
 
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 24,
-        calendarDayButton: 48,
-        calendarDaySpacing: 8,
-        
-        entryInputBaseSize: 40,
-        entryInputPadding: 39,
-        entryInputPaddingOpenOffset: 0,
-        entryHintBlockPadding: 20,
-        entryBlockerIconPadding: 86,
-
-        entryHintFontSize: 18,
-        entryHintLabelFontSize: 18,
-        entryHintHPadding: 34,
-        
-        trendsElementPadding: 17,
-        trendsItemLabelFontSize: 20,
-        trendsItemValueFontSize: 34,
-        trendsItemUnitFontSize: 16,
-        
-        progressPageSpacing: 38,
-        progressChartHeight: 210,
-        progressCircleDiameter: 380,
-        progressCircleWidth: 56,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 74,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 40,
-        
-        keyboardButtonWidth: 132,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 40
-    )
-    
-    public static let IPHONE_11_PRO_MAX: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 40,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 24,
-        
-        navbarHeight: 84,
-        navbarPadding: 12,
-        navbarSpacing: 62,
-
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 24,
-        calendarDayButton: 46,
-        calendarDaySpacing: 8,
-        
-        entryInputBaseSize: 40,
-        entryInputPadding: 39,
-        entryInputPaddingOpenOffset: 0,
-        entryHintBlockPadding: 20,
-        entryBlockerIconPadding: 86,
-
-        entryHintFontSize: 18,
-        entryHintLabelFontSize: 18,
-        entryHintHPadding: 34,
-        
-        trendsElementPadding: 17,
-        trendsItemLabelFontSize: 20,
-        trendsItemValueFontSize: 34,
-        trendsItemUnitFontSize: 16,
-        
-        progressPageSpacing: 34,
-        progressChartHeight: 210,
-        progressCircleDiameter: 380,
-        progressCircleWidth: 56,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 74,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 40,
-        
-        keyboardButtonWidth: 132,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 40
-    )
-    
-    public static let IPHONE_12_PRO: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 20,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 22,
-        
-        navbarHeight: 84,
-        navbarPadding: 12,
-        navbarSpacing: 54,
-        
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 22,
-        calendarDayButton: 42,
-        calendarDaySpacing: 8,
-        
-        entryInputBaseSize: 36,
-        entryInputPadding: 32,
-        entryInputPaddingOpenOffset: -1,
-        entryHintBlockPadding: 16,
-        entryBlockerIconPadding: 75,
-        
-        entryHintFontSize: 17,
-        entryHintLabelFontSize: 15,
-        entryHintHPadding: 36,
-        
-        trendsElementPadding: 16,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
-        
-        progressPageSpacing: 34,
-        progressChartHeight: 180,
-        progressCircleDiameter: 340,
-        progressCircleWidth: 40,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 74,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 32,
-        
-        keyboardButtonWidth: 120,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 40
-    )
-    
-    public static let IPHONE_11_PRO: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 20,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 22,
-        
-        navbarHeight: 84,
-        navbarPadding: 12,
-        navbarSpacing: 54,
-        
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 22,
-        calendarDayButton: 40,
-        calendarDaySpacing: 8,
-        
-        entryInputBaseSize: 36,
-        entryInputPadding: 32,
-        entryInputPaddingOpenOffset: -1,
-        entryHintBlockPadding: 16,
-        entryBlockerIconPadding: 75,
-        
-        entryHintFontSize: 17,
-        entryHintLabelFontSize: 15,
-        entryHintHPadding: 36,
-        
-        trendsElementPadding: 16,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
-        
-        progressPageSpacing: 32,
-        progressChartHeight: 180,
-        progressCircleDiameter: 340,
-        progressCircleWidth: 40,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 74,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 32,
-        
-        keyboardButtonWidth: 120,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 40
-    )
-    
-    public static let IPHONE_8_PLUS: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 20,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 22,
-        
-        navbarHeight: 60,
-        navbarPadding: 8,
-        navbarSpacing: 62,
-
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 24,
-        calendarDayButton: 44,
-        calendarDaySpacing: 8,
-        
-        entryInputBaseSize: 36,
-        entryInputPadding: 22,
-        entryInputPaddingOpenOffset: 4,
-        entryHintBlockPadding: 10,
-        entryBlockerIconPadding: 52,
-        
-        entryHintFontSize: 17,
-        entryHintLabelFontSize: 17,
-        entryHintHPadding: 40,
-        
-        trendsElementPadding: 7,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
-        
-        progressPageSpacing: 16,
-        progressChartHeight: 180,
-        progressCircleDiameter: 340,
-        progressCircleWidth: 40,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 68,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 12,
-        targetDeltaHPadding: 40,
-        
-        keyboardButtonWidth: 132,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 8
-    )
-
-    public static let IPHONE_8: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 20,
-        welcomeInputsVSpacing: 16,
-        welcomeHintFontSize: 22,
-        
-        navbarHeight: 60,
-        navbarPadding: 8,
-        navbarSpacing: 54,
-
-        calendarMonthFontSize: 24,
-        calendarMonthButtonHeight: 44,
-        calendarDayFontSize: 18,
-        calendarDayButton: 36,
-        calendarDaySpacing: 12,
-        
-        entryInputBaseSize: 36,
-        entryInputPadding: 21,
-        entryInputPaddingOpenOffset: -4,
-        entryHintBlockPadding: 6,
-        entryBlockerIconPadding: 47,
-        
-        entryHintFontSize: 17,
-        entryHintLabelFontSize: 16,
-        entryHintHPadding: 30,
-        
-        trendsElementPadding: 5,
-        trendsItemLabelFontSize: 18,
-        trendsItemValueFontSize: 32,
-        trendsItemUnitFontSize: 14,
-        
-        progressPageSpacing: 8,
-        progressChartHeight: 160,
-        progressCircleDiameter: 310,
-        progressCircleWidth: 40,
-        
-        setupDefaultButtonHeight: 44,
-        setupInputHeight: 58,
-        setupInputLabelFontSize: 18,
-        setupTargetDeltaPadding: 8,
-        targetDeltaHPadding: 28,
-        
-        keyboardButtonWidth: 120,
-        keyboardButtonHeight: 50,
-        keyboardBottomPadding: 6
-    )
-
-    public static let IPHONE_SE: UISizes = UISizes(
-        
-        welcomeSubTitleVPadding: 4,
-        welcomeInputsVSpacing: 4,
-        welcomeHintFontSize: 18,
-        
-        navbarHeight: 56,
-        navbarPadding: 6,
-        navbarSpacing: 42,
-
-        calendarMonthFontSize: 16,
-        calendarMonthButtonHeight: 36,
-        calendarDayFontSize: 18,
-        calendarDayButton: 30,
-        calendarDaySpacing: 12,
-        
-        entryInputBaseSize: 30,
-        entryInputPadding: 16,
-        entryInputPaddingOpenOffset: -2,
-        entryHintBlockPadding: 0,
-        entryBlockerIconPadding: 47,
-        
-        entryHintFontSize: 14,
-        entryHintLabelFontSize: 12,
-        entryHintHPadding: 28,
-        
-        trendsElementPadding: 3,
-        trendsItemLabelFontSize: 12,
-        trendsItemValueFontSize: 28,
-        trendsItemUnitFontSize: 12,
-        
-        progressPageSpacing: 2,
-        progressChartHeight: 120,
-        progressCircleDiameter: 272,
-        progressCircleWidth: 30,
-        
-        setupDefaultButtonHeight: 40,
-        setupInputHeight: 58,
-        setupInputLabelFontSize: 14,
-        setupTargetDeltaPadding: 8,
-        targetDeltaHPadding: 20,
-        
-        keyboardButtonWidth: 102,
-        keyboardButtonHeight: 40,
-        keyboardBottomPadding: 6
-    )
+    private static let SCREEN_WIDTH_XL: CGFloat = 428
+    private static let SCREEN_WIDTH_L: CGFloat = 414
+    private static let SCREEN_WIDTH_M: CGFloat = 390
+    private static let SCREEN_WIDTH_S: CGFloat = 375
+    private static let SCREEN_WIDTH_XS: CGFloat = 320
 
     // MARK: - Functions
     
-    public static func getUISizes(device: UIDeviceModel) -> UISizes {
+    private static func getSizeByHeight(
+        xxl: CGFloat, xl: CGFloat, l: CGFloat, m: CGFloat, s: CGFloat, xs: CGFloat, xxs: CGFloat
+    ) -> CGFloat {
         
-        Utils.log(source: "UISizes.getUISizes", message: device.rawValue)
+        if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_XXL {
+            return xxl
+        }
+        else if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_XL {
+            return xl
+        }
+        else if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_L {
+            return l
+        }
+        else if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_M {
+            return m
+        }
+        else if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_S {
+            return s
+        }
+        else if SCREEN_HEIGHT_CURRENT >= SCREEN_HEIGHT_XS {
+            return xs
+        }
+        else {
+            return xxs
+        }
+    }
+    
+    private static func getSizeByWidth(
+        xl: CGFloat, l: CGFloat, m: CGFloat, s: CGFloat, xs: CGFloat
+    ) -> CGFloat {
         
-        switch device {
-            
-            case UIDeviceModel.iPhone12ProMax:
-                
-                return Self.IPHONE_12_PRO_MAX
-            
-            case UIDeviceModel.iPhoneXR,
-                 UIDeviceModel.iPhoneXSMax,
-                 UIDeviceModel.iPhone11,
-                 UIDeviceModel.iPhone11ProMax:
-                
-                return Self.IPHONE_11_PRO_MAX
-            
-            case UIDeviceModel.iPhone12,
-                 UIDeviceModel.iPhone12Pro:
-                
-                return Self.IPHONE_12_PRO
-                
-            case UIDeviceModel.iPhoneX,
-                 UIDeviceModel.iPhoneXS,
-                 UIDeviceModel.iPhone11Pro,
-                 UIDeviceModel.iPhone12Mini:
-                
-                return Self.IPHONE_11_PRO
-
-            case UIDeviceModel.iPhone6sPlus,
-                 UIDeviceModel.iPhone7Plus,
-                 UIDeviceModel.iPhone8Plus:
-                
-                let isZoomed = UIScreen.main.nativeScale > 3
-                
-                return isZoomed ? Self.IPHONE_8 : Self.IPHONE_8_PLUS
-
-            case UIDeviceModel.iPhone6s,
-                 UIDeviceModel.iPhone7,
-                 UIDeviceModel.iPhone8,
-                 UIDeviceModel.iPhoneSE_2ndGen,
-                 
-                 UIDeviceModel.iPad5thGen,
-                 UIDeviceModel.iPad6thGen,
-                 UIDeviceModel.iPad7thGen,
-                 UIDeviceModel.iPadAir2,
-                 UIDeviceModel.iPadAir_3rdGen,
-                 UIDeviceModel.iPadMini4,
-                 UIDeviceModel.iPadMini_5thGen,
-                 UIDeviceModel.iPadPro9i,
-                 UIDeviceModel.iPadPro10i,
-                 UIDeviceModel.iPadPro11i_1stGen,
-                 UIDeviceModel.iPadPro11i_2ndGen,
-                 UIDeviceModel.iPadPro12i_1stGen,
-                 UIDeviceModel.iPadPro12i_2ndGen,
-                 UIDeviceModel.iPadPro12i_3rdGen,
-                 UIDeviceModel.iPadPro12i_4thGen:
-                
-                let isZoomed = UIScreen.main.nativeScale > 2
-                
-                return isZoomed ? Self.IPHONE_SE : Self.IPHONE_8
-            
-            case UIDeviceModel.iPodTouch_7thGen,
-                 UIDeviceModel.iPhoneSE_1stGen:
-            
-                return Self.IPHONE_SE
-            
-            case UIDeviceModel.UnidentifiedSimulator,
-                 UIDeviceModel.Undefined:
-                
-                return Self.IPHONE_8
+        if SCREEN_WIDTH_CURRENT >= SCREEN_WIDTH_XL {
+            return xl
+        }
+        else if SCREEN_WIDTH_CURRENT >= SCREEN_WIDTH_L {
+            return l
+        }
+        else if SCREEN_WIDTH_CURRENT >= SCREEN_WIDTH_M {
+            return m
+        }
+        else if SCREEN_WIDTH_CURRENT >= SCREEN_WIDTH_S {
+            return s
+        }
+        else {
+            return xs
         }
     }
 }

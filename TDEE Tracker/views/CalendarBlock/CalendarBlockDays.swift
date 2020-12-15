@@ -18,14 +18,7 @@ struct CalendarBlockDaysSizes {
     
     public let weekVPadding: CGFloat = 1
     
-    public let calendarDayButtonHSpacing: CGFloat
-    
-    // MARK: - Init
-    
-    init(uiSizes: UISizes) {
-        
-        self.calendarDayButtonHSpacing = uiSizes.calendarDaySpacing
-    }
+    public let calendarDayButtonHSpacing: CGFloat = 6
 }
 
 
@@ -34,7 +27,7 @@ struct CalendarBlockDays: View {
     
     private let calendar = Calendar.current
     
-    private let sizes = CalendarBlockDaysSizes(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockDaysSizes()
     
     @EnvironmentObject var appState: AppState
     

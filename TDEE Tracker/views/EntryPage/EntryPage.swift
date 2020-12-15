@@ -109,7 +109,6 @@ struct EntryPage: View {
                             self.isWeightInputOpen = true
                         },
                         isSelected: self.appState.currentInput == InputName.Weight,
-                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,
@@ -128,7 +127,6 @@ struct EntryPage: View {
                             self.isFoodInputOpen = true
                         },
                         isSelected: self.appState.currentInput == InputName.Food,
-                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,
