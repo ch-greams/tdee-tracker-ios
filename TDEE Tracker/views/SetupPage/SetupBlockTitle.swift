@@ -13,19 +13,30 @@ struct SetupBlockTitleSizes {
     
     // MARK: - Sizes
     
-    public let labelHeight: CGFloat = 20
-    public let labelTPadding: CGFloat = 22
-    public let labelBPadding: CGFloat = 24
+    public let labelHeight: CGFloat
+    public let labelTPadding: CGFloat
+    public let labelBPadding: CGFloat
     
     // MARK: - Fonts
     
-    public let labelFont: Font = .custom(FontOswald.Medium, size: 24)
+    public let labelFont: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.labelHeight = scale * 20
+        self.labelTPadding = scale * 22
+        self.labelBPadding = scale * 24
+        
+        self.labelFont = .custom(FontOswald.Medium, size: scale * 24)
+    }
 }
 
 
 struct SetupBlockTitle: View {
     
-    private let sizes = SetupBlockTitleSizes()
+    private let sizes = SetupBlockTitleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
 
     let title: String
     let textColor: Color

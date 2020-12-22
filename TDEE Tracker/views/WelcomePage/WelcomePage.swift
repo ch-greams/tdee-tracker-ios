@@ -12,16 +12,16 @@ struct WelcomePageSizes {
     
     // MARK: - Sizes
     
-    public let titleBlockBPadding: CGFloat = 16
+    public let titleBlockBPadding: CGFloat
     
-    public let weightUnitHintHPadding: CGFloat = 28
-    public let energyUnitHintHPadding: CGFloat = 24
+    public let weightUnitHintHPadding: CGFloat
+    public let energyUnitHintHPadding: CGFloat
     
-    public let currentWeightHintHPadding: CGFloat = 24
-    public let goalWeightHintHPadding: CGFloat = 28
-    public let deltaWeightHintHPadding: CGFloat = 24
+    public let currentWeightHintHPadding: CGFloat
+    public let goalWeightHintHPadding: CGFloat
+    public let deltaWeightHintHPadding: CGFloat
     
-    public let confirmButtonBPadding: CGFloat = 24
+    public let confirmButtonBPadding: CGFloat
     
     public let subTitleVPadding: CGFloat
     public let inputsVSpacing: CGFloat
@@ -30,27 +30,53 @@ struct WelcomePageSizes {
     
     // MARK: - Fonts
     
-    public let welcomeTitleFont: Font = .custom(FontOswald.Medium, size: 48)
-    public let welcomeSubtitleFont: Font = .custom(FontOswald.Light, size: 28)
+    public let welcomeTitleFont: Font
+    public let welcomeSubtitleFont: Font
     
     public let welcomeHintFont: Font
 
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.titleBlockBPadding = scale * 16
     
-        self.subTitleVPadding = uiSizes.welcomeSubTitleVPadding
-        self.inputsVSpacing = uiSizes.welcomeInputsVSpacing
-        
-        self.targetDeltaVPadding = uiSizes.setupTargetDeltaPadding
-        
-        self.welcomeHintFont = .custom(FontOswald.Light, size: uiSizes.welcomeHintFontSize)
+        self.weightUnitHintHPadding = scale * 28
+        self.energyUnitHintHPadding = scale * 24
+    
+        self.currentWeightHintHPadding = scale * 24
+        self.goalWeightHintHPadding = scale * 28
+        self.deltaWeightHintHPadding = scale * 24
+    
+        self.confirmButtonBPadding = scale * 24
+
+        self.welcomeTitleFont = .custom(FontOswald.Medium, size: scale * 48)
+        self.welcomeSubtitleFont = .custom(FontOswald.Light, size: scale * 28)
+
+        if hasNotch {
+
+            self.subTitleVPadding = scale * 20
+            self.inputsVSpacing = scale * 16
+            
+            self.targetDeltaVPadding = scale * 12
+            
+            self.welcomeHintFont = .custom(FontOswald.Light, size: scale * 22)
+        }
+        else {
+
+            self.subTitleVPadding = scale * 4
+            self.inputsVSpacing = scale * 4
+            
+            self.targetDeltaVPadding = scale * 8
+            
+            self.welcomeHintFont = .custom(FontOswald.Light, size: scale * 18)
+        }
     }
 }
 
 struct WelcomePage: View {
     
-    private let sizes = WelcomePageSizes(uiSizes: UISizes.current)
+    private let sizes = WelcomePageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

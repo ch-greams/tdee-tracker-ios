@@ -13,46 +13,71 @@ struct InputTimeSizes {
     
     // MARK: - Sizes
     
-    public let inputWidth: CGFloat = 116
-    public let inputHeight: CGFloat = 44
+    public let inputWidth: CGFloat
+    public let inputHeight: CGFloat
     
-    public let inputHPadding: CGFloat = 16
+    public let inputHPadding: CGFloat
     
-    public let inputFontOffsetTPadding: CGFloat = -2
-    public let inputFontOffsetLPadding: CGFloat = 4
+    public let inputFontOffsetTPadding: CGFloat
+    public let inputFontOffsetLPadding: CGFloat
     
-    public let timeHSpacing: CGFloat = 2
-    public let meridiemWidth: CGFloat = 48
+    public let timeHSpacing: CGFloat
+    public let meridiemWidth: CGFloat
     
-    public let iconCheckmarkSize: CGFloat = 40
-    public let buttonCheckmarkWidth: CGFloat = 120
+    public let iconCheckmarkSize: CGFloat
+    public let buttonCheckmarkWidth: CGFloat
     
-    public let bodyVPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 8
+    public let bodyVPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
     public let bodyHeight: CGFloat
     
     // MARK: - Fonts
 
-    public let timeFont: Font = .custom(FontOswald.Bold, size: 32)
-    public let meridiemFont: Font = .custom(FontOswald.Bold, size: 18)
+    public let timeFont: Font
+    public let meridiemFont: Font
     
     public let labelFont: Font
 
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyHeight = uiSizes.setupInputHeight
-        
-        self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
+        self.inputWidth = scale * 116
+        self.inputHeight = scale * 44
+    
+        self.inputHPadding = scale * 16
+    
+        self.inputFontOffsetTPadding = scale * -2
+        self.inputFontOffsetLPadding = scale * 4
+    
+        self.timeHSpacing = scale * 2
+        self.meridiemWidth = scale * 48
+    
+        self.iconCheckmarkSize = scale * 40
+        self.buttonCheckmarkWidth = scale * 120
+    
+        self.bodyVPadding = scale * 1
+        self.bodyHPadding = 8
+
+        self.timeFont = .custom(FontOswald.Bold, size: scale * 32)
+        self.meridiemFont = .custom(FontOswald.Bold, size: scale * 18)
+
+        if hasNotch {
+            self.bodyHeight = scale * 74
+            self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+        }
+        else {
+            self.bodyHeight = scale * 58
+            self.labelFont = .custom(FontOswald.Light, size: scale * 14)
+        }
     }
 }
     
     
 struct InputTime: View {
     
-    private let sizes = InputTimeSizes(uiSizes: UISizes.current)
+    private let sizes = InputTimeSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let title: String
     let inputValue: String

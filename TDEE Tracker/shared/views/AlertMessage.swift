@@ -13,21 +13,34 @@ struct AlertMessageSizes {
     
     // MARK: - Sizes
     
-    public let bodyInsideVPadding: CGFloat = 16
-    public let bodyInsideHPadding: CGFloat = 32
+    public let bodyInsideVPadding: CGFloat
+    public let bodyInsideHPadding: CGFloat
     
-    public let bodyOutsideVPadding: CGFloat = 1
-    public let bodyOutsideHPadding: CGFloat = 8
+    public let bodyOutsideVPadding: CGFloat
+    public let bodyOutsideHPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let warningText: Font = .custom(FontOswald.Medium, size: 16)
+    public let warningText: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.bodyInsideVPadding = scale * 16
+        self.bodyInsideHPadding = scale * 32
+    
+        self.bodyOutsideVPadding = scale * 1
+        self.bodyOutsideHPadding = scale * 8
+
+        self.warningText = .custom(FontOswald.Medium, size: scale * 16)
+    }
 }
 
 
 struct AlertMessage: View {
     
-    private let sizes = AlertMessageSizes()
+    private let sizes = AlertMessageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let text: String
     

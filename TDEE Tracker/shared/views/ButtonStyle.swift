@@ -15,24 +15,33 @@ struct AppDefaultButtonStyleSizes {
     
     // MARK: - Sizes
     
-    public let width: CGFloat = 176
+    public let width: CGFloat
     public let height: CGFloat
     
     // MARK: - Fonts
 
-    public let font: Font = .custom(FontOswald.Medium, size: 18)
+    public let font: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.height = uiSizes.setupDefaultButtonHeight
+        self.width = scale * 176
+
+        self.font = .custom(FontOswald.Medium, size: scale * 18)
+
+        if hasNotch {
+            self.height = scale * 44
+        }
+        else {
+            self.height = scale * 40
+        }
     }
 }
 
 struct AppDefaultButtonStyle: ButtonStyle {
     
-    private let sizes = AppDefaultButtonStyleSizes(uiSizes: UISizes.current)
+    private let sizes = AppDefaultButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
  
     let backgroundColor: Color
     let textColor: Color
@@ -69,17 +78,23 @@ struct CalendarDayButtonStyleSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.defaultFont = .custom(FontOswald.ExtraLight, size: uiSizes.calendarDayFontSize)
-        self.selectedFont = .custom(FontOswald.Medium, size: uiSizes.calendarDayFontSize)
+        if hasNotch {
+            self.defaultFont = .custom(FontOswald.ExtraLight, size: scale * 24)
+            self.selectedFont = .custom(FontOswald.Medium, size: scale * 24)
+        }
+        else {
+            self.defaultFont = .custom(FontOswald.ExtraLight, size: scale * 18)
+            self.selectedFont = .custom(FontOswald.Medium, size: scale * 18)
+        }
     }
 }
 
 
 struct CalendarDayButtonStyle: ButtonStyle {
     
-    private let sizes = CalendarDayButtonStyleSizes(uiSizes: UISizes.current)
+    private let sizes = CalendarDayButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let buttonSize: CGFloat
     let isSelected: Bool
@@ -103,24 +118,31 @@ struct CalendarChangeMonthButtonStyleSizes {
     
     // MARK: - Sizes
     
-    public let width: CGFloat = 80
-    
-    public let hPadding: CGFloat = 8
+    public let width: CGFloat
+    public let hPadding: CGFloat
     
     public let height: CGFloat
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.height = uiSizes.calendarMonthButtonHeight
+        self.width = scale * 80
+        self.hPadding = 8
+
+        if hasNotch {
+            self.height = scale * 44
+        }
+        else {
+            self.height = scale * 36
+        }
     }
 }
 
 
 struct CalendarChangeMonthButtonStyle: ButtonStyle {
     
-    private let sizes = CalendarChangeMonthButtonStyleSizes(uiSizes: UISizes.current)
+    private let sizes = CalendarChangeMonthButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let backgroundColor: Color
  
@@ -141,18 +163,28 @@ struct InputToggleButtonStyleSizes {
     
     // MARK: - Sizes
     
-    public let width: CGFloat = 90
-    public let height: CGFloat = 40
+    public let width: CGFloat
+    public let height: CGFloat
     
     // MARK: - Fonts
 
-    public let font: Font = .custom(FontOswald.Bold, size: 18)
+    public let font: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+        
+        self.width = scale * 90
+        self.height = scale * 40
+
+        self.font = .custom(FontOswald.Bold, size: scale * 18)
+    }
 }
 
 
 struct InputToggleButtonStyle: ButtonStyle {
     
-    private let sizes = InputToggleButtonStyleSizes()
+    private let sizes = InputToggleButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let isSelected: Bool
     let backgroundColor: Color
@@ -172,14 +204,22 @@ struct InputCheckButtonStyleSizes {
     
     // MARK: - Sizes
     
-    public let width: CGFloat = 88
-    public let height: CGFloat = 44
+    public let width: CGFloat
+    public let height: CGFloat
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.width = scale * 88
+        self.height = scale * 44
+    }
 }
 
 
 struct InputCheckButtonStyle: ButtonStyle {
     
-    private let sizes = InputCheckButtonStyleSizes()
+    private let sizes = InputCheckButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
  
     let backgroundColor: Color
     let accentColor: Color
@@ -205,16 +245,22 @@ struct KeyboardButtonStyleSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
-        
-        self.width = uiSizes.keyboardButtonWidth
-        self.height = uiSizes.keyboardButtonHeight
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        if hasNotch {
+            self.width = scale * 120
+            self.height = scale * 50
+        }
+        else {
+            self.width = scale * 102
+            self.height = scale * 40
+        }
     }
 }
 
 struct KeyboardButtonStyle: ButtonStyle {
     
-    private let sizes = KeyboardButtonStyleSizes(uiSizes: UISizes.current)
+    private let sizes = KeyboardButtonStyleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
  
     let backgroundColor: Color
     let textColor: Color

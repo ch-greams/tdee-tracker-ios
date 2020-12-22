@@ -23,11 +23,11 @@ struct ContentViewSizes {
     
     // MARK: - Sizes
     
-    public let navbarItemSpacing: CGFloat = 2
-    public let navbarItemIconSize: CGFloat = 26
-    public let navbarViewBorderHeight: CGFloat = 1
+    public let navbarItemSpacing: CGFloat
+    public let navbarItemIconSize: CGFloat
+    public let navbarViewBorderHeight: CGFloat
     
-    public let tutorialNoteTPadding: CGFloat = 40
+    public let tutorialNoteTPadding: CGFloat
     
     public let navbarItemIconTPadding: CGFloat
     public let navbarViewSpacing: CGFloat
@@ -35,22 +35,37 @@ struct ContentViewSizes {
     
     // MARK: - Fonts
     
-    public let navbarItemLabel: Font = .custom(FontOswald.Light, size: 12)
+    public let navbarItemLabel: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.navbarItemIconTPadding = uiSizes.navbarPadding
-        self.navbarViewSpacing = uiSizes.navbarSpacing
-        self.navbarViewHeight = uiSizes.navbarHeight
+        self.navbarItemSpacing = scale * 2
+        self.navbarItemIconSize = scale * 22
+        self.navbarViewBorderHeight = scale * 1
+        
+        self.tutorialNoteTPadding = scale * 40
+
+        self.navbarItemLabel = .custom(FontOswald.Light, size: scale * 12)
+        
+        if hasNotch {
+            self.navbarItemIconTPadding = scale * 12
+            self.navbarViewSpacing = scale * 54
+            self.navbarViewHeight = scale * 84
+        }
+        else {
+            self.navbarItemIconTPadding = scale * 6
+            self.navbarViewSpacing = scale * 38
+            self.navbarViewHeight = scale * 56
+        }
     }
 }
 
 
 struct ContentView: View {
 
-    private let sizes = ContentViewSizes(uiSizes: UISizes.current)
+    private let sizes = ContentViewSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

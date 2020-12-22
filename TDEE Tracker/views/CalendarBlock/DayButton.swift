@@ -13,22 +13,29 @@ struct DayButtonSizes {
     
     // MARK: - Sizes
     
-    public let markDotSize: CGFloat = 4
+    public let markDotSize: CGFloat
 
     public let buttonSize: CGFloat
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.buttonSize = uiSizes.calendarDayButton
+        self.markDotSize = scale * 4
+
+        if hasNotch {
+            self.buttonSize = scale * 44
+        }
+        else {
+            self.buttonSize = scale * 31
+        }
     }
 }
 
 
 struct DayButton: View {
     
-    private let sizes = DayButtonSizes(uiSizes: UISizes.current)
+    private let sizes = DayButtonSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let day: Date
     

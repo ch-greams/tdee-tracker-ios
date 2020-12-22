@@ -13,29 +13,41 @@ struct InputCheckButtonSizes {
     
     // MARK: - Sizes
     
-    public let bodyVPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 8
+    public let bodyVPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
-    public let iconSize: CGFloat = 28
+    public let iconSize: CGFloat
     
     public let bodyHeight: CGFloat
 
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+    public let labelFont: Font
 
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyHeight = uiSizes.setupInputHeight
+        self.bodyVPadding = scale * 1
+        self.bodyHPadding = 8
+        
+        self.iconSize = scale * 28
+
+        self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+
+        if hasNotch {
+            self.bodyHeight = scale * 74
+        }
+        else {
+            self.bodyHeight = scale * 58
+        }
     }
 }
 
 
 struct InputCheckButton: View {
     
-    private let sizes = InputCheckButtonSizes(uiSizes: UISizes.current)
+    private let sizes = InputCheckButtonSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let title: String
     let buttonIcon: String

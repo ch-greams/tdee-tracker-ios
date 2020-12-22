@@ -13,36 +13,52 @@ struct EntryHintBlockSizes {
     
     // MARK: - Sizes
     
-    public let hintMinHeight: CGFloat = 46
-    public let hintMaxHeight: CGFloat = 60
+    public let hintMinHeight: CGFloat
+    public let hintMaxHeight: CGFloat
     
-    public let recommendedAmountValueTPadding: CGFloat = 10
+    public let recommendedAmountValueTPadding: CGFloat
     
     public let recommendedAmountHPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let recommendedValue: Font = .custom(FontOswald.Bold, size: 32)
-    public let recommendedUnit: Font = .custom(FontOswald.Light, size: 24)
+    public let recommendedValue: Font
+    public let recommendedUnit: Font
     
     public let hintLabelFont: Font
     public let recommendedLabelFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.recommendedAmountHPadding = uiSizes.entryHintHPadding
-        
-        self.hintLabelFont = .custom(FontOswald.Light, size: uiSizes.entryHintFontSize)
-        self.recommendedLabelFont = .custom(FontOswald.Light, size: uiSizes.entryHintLabelFontSize)
+        self.hintMinHeight = scale * 46
+        self.hintMaxHeight = scale * 60
+    
+        self.recommendedAmountValueTPadding = scale * 10
+
+        self.recommendedValue = .custom(FontOswald.Bold, size: scale * 32)
+        self.recommendedUnit = .custom(FontOswald.Light, size: scale * 24)
+
+        if hasNotch {
+            self.recommendedAmountHPadding = scale * 30
+            
+            self.hintLabelFont = .custom(FontOswald.Light, size: scale * 17)
+            self.recommendedLabelFont = .custom(FontOswald.Light, size: scale * 15)
+        }
+        else {
+            self.recommendedAmountHPadding = scale * 28
+            
+            self.hintLabelFont = .custom(FontOswald.Light, size: scale * 14)
+            self.recommendedLabelFont = .custom(FontOswald.Light, size: scale * 12)
+        }
     }
 }
 
 
 struct EntryHintBlock: View {
     
-    private let sizes = EntryHintBlockSizes(uiSizes: UISizes.current)
+    private let sizes = EntryHintBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let isEnoughData: Bool
 

@@ -13,12 +13,24 @@ struct CalendarBlockDaysSizes {
     
     // MARK: - Sizes
     
-    public let selectedEntryWeekHighlightHeight: CGFloat = 30
-    public let selectedTrendWeekHighlightHeight: CGFloat = 10
+    public let selectedEntryWeekHighlightHeight: CGFloat
+    public let selectedTrendWeekHighlightHeight: CGFloat
     
-    public let weekVPadding: CGFloat = 1
+    public let weekVPadding: CGFloat
     
-    public let calendarDayButtonHSpacing: CGFloat = 6
+    public let calendarDayButtonHSpacing: CGFloat
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+        
+        self.selectedEntryWeekHighlightHeight = scale * 30
+        self.selectedTrendWeekHighlightHeight = scale * 10
+    
+        self.weekVPadding = scale * 1
+    
+        self.calendarDayButtonHSpacing = scale * 10
+    }
 }
 
 
@@ -26,9 +38,9 @@ struct CalendarBlockDaysSizes {
 struct CalendarBlockDays: View {
     
     private let calendar = Calendar.current
-    
-    private let sizes = CalendarBlockDaysSizes()
-    
+
+    private let sizes = CalendarBlockDaysSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
+
     @EnvironmentObject var appState: AppState
     
     let selectedDay: Date

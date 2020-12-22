@@ -13,30 +13,43 @@ struct InputToggleSizes {
     
     // MARK: - Sizes
     
-    public let buttonsHSpacing: CGFloat = 1
-    public let buttonsPadding: CGFloat = 1
+    public let buttonsHSpacing: CGFloat
+    public let buttonsPadding: CGFloat
     
-    public let bodyVPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 8
+    public let bodyVPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
     public let bodyHeight: CGFloat
     
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 18)
+    public let labelFont: Font
 
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyHeight = uiSizes.setupInputHeight
+        self.buttonsHSpacing = scale * 1
+        self.buttonsPadding = scale * 1
+    
+        self.bodyVPadding = scale * 1
+        self.bodyHPadding = 8
+
+        self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+
+        if hasNotch {
+            self.bodyHeight = scale * 74
+        }
+        else {
+            self.bodyHeight = scale * 58
+        }
     }
 }
 
 
 struct InputToggle<T>: View where T:Equatable, T:Localizable {
     
-    private let sizes = InputToggleSizes(uiSizes: UISizes.current)
+    private let sizes = InputToggleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let title: String
     let setValue: (T) -> Void

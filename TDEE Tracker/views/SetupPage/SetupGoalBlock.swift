@@ -17,9 +17,14 @@ struct SetupGoalBlockSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.targetDeltaVPadding = uiSizes.setupTargetDeltaPadding
+        if hasNotch {
+            self.targetDeltaVPadding = scale * 12
+        }
+        else {
+            self.targetDeltaVPadding = scale * 8
+        }
     }
 }
 
@@ -27,7 +32,7 @@ struct SetupGoalBlockSizes {
 
 struct SetupGoalBlock: View {
     
-    private let sizes = SetupGoalBlockSizes(uiSizes: UISizes.current)
+    private let sizes = SetupGoalBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
 

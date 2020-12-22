@@ -29,38 +29,59 @@ struct DeltaChartSizes {
     
     // MARK: - Sizes
     
-    public let markLabelWidth: CGFloat = 40
-    public let markLabelLPadding: CGFloat = 8
-    public let markLineWidth: CGFloat = 1
+    public let markLabelWidth: CGFloat
+    public let markLabelLPadding: CGFloat
+    public let markLineWidth: CGFloat
     
-    public let weekColumnWidth: CGFloat = 28
-    public let weekColumnTPadding: CGFloat = 15
-    public let weekColumnHPadding: CGFloat = 1
+    public let weekColumnWidth: CGFloat
+    public let weekColumnTPadding: CGFloat
+    public let weekColumnHPadding: CGFloat
     
-    public let weekLabelTPadding: CGFloat = 1
+    public let weekLabelTPadding: CGFloat
     
-    public let maskLPadding: CGFloat = 60
+    public let maskLPadding: CGFloat
     
-    public let bodyVPadding: CGFloat = 10
+    public let bodyVPadding: CGFloat
     
     public let totalStepsHeight: CGFloat
     
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 10)
+    public let labelFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
-        
-        self.totalStepsHeight = uiSizes.progressChartHeight
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.markLabelWidth = scale * 40
+        self.markLabelLPadding = scale * 8
+        self.markLineWidth = scale * 1
+    
+        self.weekColumnWidth = scale * 28
+        self.weekColumnTPadding = scale * 15
+        self.weekColumnHPadding = scale * 1
+    
+        self.weekLabelTPadding = scale * 1
+    
+        self.maskLPadding = scale * 60
+    
+        self.bodyVPadding = scale * 10
+
+        self.labelFont = .custom(FontOswald.Light, size: scale * 10)
+
+        if hasNotch {
+            self.totalStepsHeight = scale * 180
+        }
+        else {
+            self.totalStepsHeight = scale * 120
+        }
     }
 }
 
 
 struct DeltaChart: View {
     
-    private let sizes = DeltaChartSizes(uiSizes: UISizes.current)
+    private let sizes = DeltaChartSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let STEP_LINE_DASH: [ CGFloat ] = [ 4 ]
     let STEP_ZERO_HEIGHT: CGFloat = 20

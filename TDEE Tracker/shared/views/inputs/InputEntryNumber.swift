@@ -13,14 +13,14 @@ struct InputEntryNumberSizes {
     
     // MARK: - Sizes
     
-    public let inputTPadding: CGFloat = 8
-    public let inputWidth: CGFloat = 140
-    public let inputFontTPadding: CGFloat = -2
+    public let inputTPadding: CGFloat
+    public let inputWidth: CGFloat
+    public let inputFontTPadding: CGFloat
     
-    public let unitWidth: CGFloat = 65
+    public let unitWidth: CGFloat
     
-    public let bodyPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 7
+    public let bodyPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
     public let inputHeight: CGFloat
     public let iconSize: CGFloat
@@ -34,21 +34,40 @@ struct InputEntryNumberSizes {
 
     // MARK: - Init
 
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyVPadding = uiSizes.entryInputPadding
-        
-        self.inputHeight = uiSizes.entryInputBaseSize + 8
-        self.iconSize = uiSizes.entryInputBaseSize - 4
-        self.valueFont = .custom(FontOswald.Bold, size: uiSizes.entryInputBaseSize)
-        self.unitFont = .custom(FontOswald.Light, size: uiSizes.entryInputBaseSize - 12)
+        self.inputTPadding = scale * 8
+        self.inputWidth = scale * 140
+        self.inputFontTPadding = scale * -2
+    
+        self.unitWidth = scale * 65
+    
+        self.bodyPadding = scale * 1
+        self.bodyHPadding = 7
+
+        if hasNotch {
+            self.bodyVPadding = scale * 27
+            
+            self.inputHeight = scale * 36 + 8
+            self.iconSize = scale * 36 - 4
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 36)
+            self.unitFont = .custom(FontOswald.Light, size: scale * 36 - 12)
+        }
+        else {
+            self.bodyVPadding = scale * 14
+            
+            self.inputHeight = scale * 30 + 8
+            self.iconSize = scale * 30 - 4
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 30)
+            self.unitFont = .custom(FontOswald.Light, size: scale * 30 - 12)
+        }
     }
 }
 
 
 struct InputEntryNumber: View {
     
-    private let sizes = InputEntryNumberSizes(uiSizes: UISizes.current)
+    private let sizes = InputEntryNumberSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let icon: String
     let unit: String
