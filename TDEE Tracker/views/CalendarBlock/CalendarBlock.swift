@@ -36,15 +36,16 @@ struct CalendarBlockSizes {
         self.calendarBlockDaysVPaddingCollapsed = scale * 6
         self.calendarBlockDaysVPadding = scale * 8
         self.calendarBlockDaysHPadding = 8
-        self.calendarWeekdayHSpacing = scale * 10
 
         self.calendarWeekdayTitleFont = .custom(FontOswald.ExtraLight, size: scale * 14)
 
         if hasNotch {
             self.calendarDayButtonSize = scale * 44
+            self.calendarWeekdayHSpacing = scale * 6
         }
         else {
             self.calendarDayButtonSize = scale * 31
+            self.calendarWeekdayHSpacing = scale * 10
         }
     }
 }

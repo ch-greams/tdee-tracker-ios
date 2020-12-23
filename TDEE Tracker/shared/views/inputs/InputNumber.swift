@@ -40,21 +40,21 @@ struct InputNumberSizes {
 
     init(hasNotch: Bool, scale: CGFloat) {
 
-        self.inputWidth = scale * 124
-        self.inputHeight = scale * 44
+        self.inputWidth = scale * 116
+        self.inputHeight = scale * 40
         self.inputTPadding = scale * 8
         self.inputHPadding = scale * 8
         self.inputFontTPadding = scale * -2
     
         self.unitWidth = scale * 40
     
-        self.iconCheckmarkSize = scale * 40
-        self.buttonCheckmarkWidth = scale * 120
+        self.iconCheckmarkSize = scale * 36
+        self.buttonCheckmarkWidth = scale * 100
     
         self.bodyVPadding = scale * 1
         self.bodyHPadding = 8
 
-        self.valueFont = .custom(FontOswald.Bold, size: scale * 32)
+        self.valueFont = .custom(FontOswald.Bold, size: scale * 28)
         self.unitFont = .custom(FontOswald.Light, size: scale * 18)
 
         if hasNotch {

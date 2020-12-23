@@ -174,10 +174,10 @@ struct InputToggleButtonStyleSizes {
     
     init(hasNotch: Bool, scale: CGFloat) {
         
-        self.width = scale * 90
-        self.height = scale * 40
+        self.width = scale * 80
+        self.height = scale * 36
 
-        self.font = .custom(FontOswald.Bold, size: scale * 18)
+        self.font = .custom(FontOswald.Bold, size: scale * 16)
     }
 }
 

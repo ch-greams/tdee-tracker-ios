@@ -43,8 +43,8 @@ struct InputTimeSizes {
     
     init(hasNotch: Bool, scale: CGFloat) {
         
-        self.inputWidth = scale * 116
-        self.inputHeight = scale * 44
+        self.inputWidth = scale * 108
+        self.inputHeight = scale * 40
     
         self.inputHPadding = scale * 16
     
@@ -54,13 +54,13 @@ struct InputTimeSizes {
         self.timeHSpacing = scale * 2
         self.meridiemWidth = scale * 48
     
-        self.iconCheckmarkSize = scale * 40
-        self.buttonCheckmarkWidth = scale * 120
+        self.iconCheckmarkSize = scale * 36
+        self.buttonCheckmarkWidth = scale * 100
     
         self.bodyVPadding = scale * 1
         self.bodyHPadding = 8
 
-        self.timeFont = .custom(FontOswald.Bold, size: scale * 32)
+        self.timeFont = .custom(FontOswald.Bold, size: scale * 28)
         self.meridiemFont = .custom(FontOswald.Bold, size: scale * 18)
 
         if hasNotch {

@@ -29,7 +29,12 @@ struct CalendarBlockDaysSizes {
     
         self.weekVPadding = scale * 1
     
-        self.calendarDayButtonHSpacing = scale * 10
+        if hasNotch {
+            self.calendarDayButtonHSpacing = scale * 6
+        }
+        else {
+            self.calendarDayButtonHSpacing = scale * 10
+        }
     }
 }
 

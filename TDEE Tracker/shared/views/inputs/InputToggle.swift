@@ -35,7 +35,7 @@ struct InputToggleSizes {
         self.bodyVPadding = scale * 1
         self.bodyHPadding = 8
 
-        self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+        self.labelFont = .custom(FontOswald.Light, size: scale * 16)
 
         if hasNotch {
             self.bodyHeight = scale * 74
