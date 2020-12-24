@@ -29,7 +29,12 @@ struct SetupBlockTitleSizes {
         self.labelTPadding = scale * 22
         self.labelBPadding = scale * 24
         
-        self.labelFont = .custom(FontOswald.Medium, size: scale * 24)
+        if hasNotch {
+            self.labelFont = .custom(FontOswald.Medium, size: scale * 24)
+        }
+        else {
+            self.labelFont = .custom(FontOswald.Medium, size: scale * 22)
+        }
     }
 }
 

@@ -71,13 +71,13 @@ struct CustomKeyboardSizes {
     
         self.textOffsetTPadding = scale * -2
 
-        self.buttonText = .custom(FontOswald.Regular, size: scale * 24)
-
         if hasNotch {
             self.backgroundBPadding = scale * 40
+            self.buttonText = .custom(FontOswald.Regular, size: scale * 24)
         }
         else {
             self.backgroundBPadding = scale * 6
+            self.buttonText = .custom(FontOswald.Regular, size: scale * 20)
         }
     }
 }

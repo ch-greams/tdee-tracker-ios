@@ -44,7 +44,6 @@ struct InputTimeSizes {
     init(hasNotch: Bool, scale: CGFloat) {
         
         self.inputWidth = scale * 108
-        self.inputHeight = scale * 40
     
         self.inputHPadding = scale * 16
     
@@ -66,10 +65,12 @@ struct InputTimeSizes {
         if hasNotch {
             self.bodyHeight = scale * 74
             self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+            self.inputHeight = scale * 40
         }
         else {
             self.bodyHeight = scale * 58
             self.labelFont = .custom(FontOswald.Light, size: scale * 14)
+            self.inputHeight = scale * 34
         }
     }
 }

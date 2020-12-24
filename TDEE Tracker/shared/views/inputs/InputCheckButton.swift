@@ -30,16 +30,18 @@ struct InputCheckButtonSizes {
         
         self.bodyVPadding = scale * 1
         self.bodyHPadding = 8
-        
-        self.iconSize = scale * 28
-
-        self.labelFont = .custom(FontOswald.Light, size: scale * 18)
 
         if hasNotch {
             self.bodyHeight = scale * 74
+            self.iconSize = scale * 24
+
+            self.labelFont = .custom(FontOswald.Light, size: scale * 16)
         }
         else {
             self.bodyHeight = scale * 58
+            self.iconSize = scale * 20
+
+            self.labelFont = .custom(FontOswald.Light, size: scale * 14)
         }
     }
 }

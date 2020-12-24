@@ -37,7 +37,6 @@ struct InputEntryNumberSizes {
     init(hasNotch: Bool, scale: CGFloat) {
         
         self.inputTPadding = scale * 8
-        self.inputWidth = scale * 140
         self.inputFontTPadding = scale * -2
     
         self.unitWidth = scale * 65
@@ -48,6 +47,7 @@ struct InputEntryNumberSizes {
         if hasNotch {
             self.bodyVPadding = scale * 27
             
+            self.inputWidth = scale * 140
             self.inputHeight = scale * 36 + 8
             self.iconSize = scale * 36 - 4
             self.valueFont = .custom(FontOswald.Bold, size: scale * 36)
@@ -56,6 +56,7 @@ struct InputEntryNumberSizes {
         else {
             self.bodyVPadding = scale * 14
             
+            self.inputWidth = scale * 120
             self.inputHeight = scale * 30 + 8
             self.iconSize = scale * 30 - 4
             self.valueFont = .custom(FontOswald.Bold, size: scale * 30)

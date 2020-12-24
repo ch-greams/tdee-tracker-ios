@@ -44,7 +44,7 @@ struct EntryPageSizes {
             self.lockIconFont = .system(size: self.lockIconSize)
         }
         else {
-            self.entryHintBlockTPadding = scale * 1
+            self.entryHintBlockTPadding = scale * 4
             self.entryHintBlockBPadding = scale * 1 - 10
             
             self.entryBlockerIconTPadding = scale * 47

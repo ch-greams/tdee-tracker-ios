@@ -64,7 +64,7 @@ struct WeeklyTrendsBlockSizes {
         if hasNotch {
             self.trendsItemVPadding = scale * 10
             
-            self.trendsItemLabelFont = .custom(FontOswald.Light, size: scale * 18)
+            self.trendsItemLabelFont = .custom(FontOswald.Light, size: scale * 17)
             self.trendsItemValueFont = .custom(FontOswald.Bold, size: scale * 32)
             self.trendsItemUnitFont = .custom(FontOswald.Light, size: scale * 14)
         }
