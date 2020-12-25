@@ -33,7 +33,12 @@ struct AlertMessageSizes {
         self.bodyOutsideVPadding = scale * 1
         self.bodyOutsideHPadding = scale * 8
 
-        self.warningText = .custom(FontOswald.Medium, size: scale * 16)
+        if hasNotch {
+            self.warningText = .custom(FontOswald.Medium, size: scale * 16)
+        }
+        else {
+            self.warningText = .custom(FontOswald.Medium, size: scale * 14)
+        }
     }
 }
 
