@@ -50,7 +50,7 @@ struct CalendarBlockMonth: View {
     
     var monthTitle: Text {
 
-        Text(selectedDay.toString("LLLL YYYY").uppercased())
+        Text(selectedDay.toString("LLLL yyyy").uppercased())
             .font(self.sizes.monthLabelFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
     }
