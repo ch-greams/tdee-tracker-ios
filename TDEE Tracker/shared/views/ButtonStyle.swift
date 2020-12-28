@@ -148,6 +148,7 @@ struct CalendarChangeMonthButtonStyle: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .contentShape(Rectangle())
             .frame(width: self.sizes.width, height: self.sizes.height)
             .background(backgroundColor)
             .padding(.horizontal, self.sizes.hPadding)
