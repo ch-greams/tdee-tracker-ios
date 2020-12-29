@@ -13,23 +13,31 @@ struct SetupPageSizes {
     
     // MARK: - Sizes
     
-    public let separatorHeight: CGFloat = 1
-    public let separatorHPadding: CGFloat = 32
+    public let separatorHeight: CGFloat
+    public let separatorHPadding: CGFloat
     
     public let navbarViewHeight: CGFloat
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.navbarViewHeight = uiSizes.navbarHeight
+        self.separatorHeight = 1
+        self.separatorHPadding = 32
+
+        if hasNotch {
+            self.navbarViewHeight = scale * 84
+        }
+        else {
+            self.navbarViewHeight = scale * 56
+        }
     }
 }
 
 
 struct SetupPage: View {
     
-    private let sizes = SetupPageSizes(uiSizes: UISizes.current)
+    private let sizes = SetupPageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
 
     @EnvironmentObject var appState: AppState
 

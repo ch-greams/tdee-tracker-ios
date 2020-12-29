@@ -13,13 +13,20 @@ struct SetupUnitsBlockSizes {
     
     // MARK: - Sizes
     
-    public let setupBlockTitleTPadding: CGFloat = 12
+    public let setupBlockTitleTPadding: CGFloat
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.setupBlockTitleTPadding = scale * 12
+    }
 }
 
     
 struct SetupUnitsBlock: View {
     
-    private let sizes = SetupUnitsBlockSizes()
+    private let sizes = SetupUnitsBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

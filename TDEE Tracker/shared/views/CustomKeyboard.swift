@@ -43,33 +43,49 @@ struct CustomKeyboardSizes {
     
     // MARK: - Sizes
     
-    public let buttonSpacing: CGFloat = 2
+    public let buttonSpacing: CGFloat
     
-    public let topBorderHeight: CGFloat = 1
-    public let topBorderBPadding: CGFloat = 4
+    public let topBorderHeight: CGFloat
+    public let topBorderBPadding: CGFloat
     
-    public let backspaceIconSize: CGFloat = 24
+    public let backspaceIconSize: CGFloat
     
-    public let textOffsetTPadding: CGFloat = -2
+    public let textOffsetTPadding: CGFloat
     
     public let backgroundBPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let buttonText: Font = .custom(FontOswald.Regular, size: 24)
+    public let buttonText: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.backgroundBPadding = uiSizes.keyboardBottomPadding
+        self.buttonSpacing = scale * 2
+    
+        self.topBorderHeight = scale * 1
+        self.topBorderBPadding = scale * 4
+    
+        self.backspaceIconSize = scale * 24
+    
+        self.textOffsetTPadding = scale * -2
+
+        if hasNotch {
+            self.backgroundBPadding = scale * 40
+            self.buttonText = .custom(FontOswald.Regular, size: scale * 24)
+        }
+        else {
+            self.backgroundBPadding = scale * 6
+            self.buttonText = .custom(FontOswald.Regular, size: scale * 20)
+        }
     }
 }
 
 
 struct CustomKeyboard: View {
     
-    private let sizes = CustomKeyboardSizes(uiSizes: UISizes.current)
+    private let sizes = CustomKeyboardSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

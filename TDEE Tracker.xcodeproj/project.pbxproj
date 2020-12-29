@@ -36,8 +36,6 @@
 		F66BCC6524B5108B00DAFCA7 /* InputEntryNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */; };
 		F66BCC6724B5115500DAFCA7 /* InputToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6624B5115500DAFCA7 /* InputToggle.swift */; };
 		F66BCC6924B51A6E00DAFCA7 /* SetupThemeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */; };
-		F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F673BFC324D71393002A8F69 /* UIDevice.swift */; };
-		F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */ = {isa = PBXBuildFile; fileRef = F673BFC524D73C8E002A8F69 /* Devices.plist */; };
 		F675CFBE250F3F8C0086653C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F675CFC0250F3F8C0086653C /* InfoPlist.strings */; };
 		F679328025138EBF00D3CECF /* InputTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F679327F25138EBF00D3CECF /* InputTime.swift */; };
 		F68B64C624EBA5BB00D569B7 /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68B64C524EBA5BB00D569B7 /* TutorialOverlay.swift */; };
@@ -108,8 +106,6 @@
 		F66BCC6424B5108B00DAFCA7 /* InputEntryNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputEntryNumber.swift; sourceTree = "<group>"; };
 		F66BCC6624B5115500DAFCA7 /* InputToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputToggle.swift; sourceTree = "<group>"; };
 		F66BCC6824B51A6E00DAFCA7 /* SetupThemeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupThemeBlock.swift; sourceTree = "<group>"; };
-		F673BFC324D71393002A8F69 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
-		F673BFC524D73C8E002A8F69 /* Devices.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Devices.plist; sourceTree = "<group>"; };
 		F675CFC1250F3F900086653C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F675CFC2250F3FA10086653C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F679327F25138EBF00D3CECF /* InputTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTime.swift; sourceTree = "<group>"; };
@@ -192,7 +188,6 @@
 				F61BCD022485737400A01500 /* LaunchScreen.storyboard */,
 				F61BCD052485737400A01500 /* Info.plist */,
 				F675CFC0250F3F8C0086653C /* InfoPlist.strings */,
-				F673BFC524D73C8E002A8F69 /* Devices.plist */,
 				F61BCCFF2485737400A01500 /* Preview Content */,
 			);
 			path = "TDEE Tracker";
@@ -304,7 +299,6 @@
 				F6F72033248EE6AE003873A1 /* Collection.swift */,
 				F66932FE24A0A71B00076C8C /* Double.swift */,
 				F6EED3E224B2636A003E85EE /* String.swift */,
-				F673BFC324D71393002A8F69 /* UIDevice.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -451,7 +445,6 @@
 				F61BCD012485737400A01500 /* Preview Assets.xcassets in Resources */,
 				F61BCCFE2485737400A01500 /* Assets.xcassets in Resources */,
 				F650089224B1F018007B7D59 /* Localizable.strings in Resources */,
-				F673BFC624D73C8E002A8F69 /* Devices.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,7 +520,6 @@
 				F6F4DE69248710B200D1FF40 /* EntryHintBlock.swift in Sources */,
 				F6F72032248E7C92003873A1 /* Date.swift in Sources */,
 				F600736F2512243C00ABB9EC /* CustomKeyboard.swift in Sources */,
-				F673BFC424D71393002A8F69 /* UIDevice.swift in Sources */,
 				F6F7204124913AA8003873A1 /* SetupRemindersBlock.swift in Sources */,
 				F631E9B8249B2B350053B7AC /* ProgressPage.swift in Sources */,
 				F65F83D3248D880F00F8407B /* WeeklyTrendsBlock.swift in Sources */,
@@ -706,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.greams.tdee-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -729,7 +721,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.greams.tdee-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

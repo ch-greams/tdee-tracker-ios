@@ -13,43 +13,68 @@ struct InputNumberSizes {
     
     // MARK: - Sizes
     
-    public let inputWidth: CGFloat = 124
-    public let inputHeight: CGFloat = 44
-    public let inputTPadding: CGFloat = 8
-    public let inputHPadding: CGFloat = 8
-    public let inputFontTPadding: CGFloat = -2
+    public let inputWidth: CGFloat
+    public let inputHeight: CGFloat
+    public let inputTPadding: CGFloat
+    public let inputHPadding: CGFloat
+    public let inputFontTPadding: CGFloat
     
-    public let unitWidth: CGFloat = 40
+    public let unitWidth: CGFloat
     
-    public let iconCheckmarkSize: CGFloat = 40
-    public let buttonCheckmarkWidth: CGFloat = 120
+    public let iconCheckmarkSize: CGFloat
+    public let buttonCheckmarkWidth: CGFloat
     
-    public let bodyVPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 8
+    public let bodyVPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
     public let bodyHeight: CGFloat
     
     // MARK: - Fonts
 
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-    public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+    public let valueFont: Font
+    public let unitFont: Font
     
     public let labelFont: Font
 
     // MARK: - Init
+
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.inputWidth = scale * 116
+        self.inputTPadding = scale * 8
+        self.inputHPadding = scale * 8
+        self.inputFontTPadding = scale * -2
     
-    init(uiSizes: UISizes) {
-        
-        self.bodyHeight = uiSizes.setupInputHeight
-        
-        self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
+        self.unitWidth = scale * 40
+    
+        self.iconCheckmarkSize = scale * 36
+        self.buttonCheckmarkWidth = scale * 100
+    
+        self.bodyVPadding = scale * 1
+        self.bodyHPadding = 8
+
+
+        self.unitFont = .custom(FontOswald.Light, size: scale * 18)
+
+        if hasNotch {
+            self.bodyHeight = scale * 74
+            self.labelFont = .custom(FontOswald.Light, size: scale * 16)
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 28)
+            self.inputHeight = scale * 40
+        }
+        else {
+            self.bodyHeight = scale * 58
+            self.labelFont = .custom(FontOswald.Light, size: scale * 14)
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 24)
+            self.inputHeight = scale * 34
+        }
     }
 }
     
     
 struct InputNumber: View {
     
-    private let sizes = InputNumberSizes(uiSizes: UISizes.current)
+    private let sizes = InputNumberSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let title: String
     let unit: String

@@ -11,14 +11,21 @@ import SwiftUI
 
 struct TrendsPageSizes {
     
-    public let calendarBlockBPadding: CGFloat = 8
+    public let calendarBlockBPadding: CGFloat
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.calendarBlockBPadding = scale * 8
+    }
 }
 
 
 
 struct TrendsPage: View {
     
-    private let sizes = TrendsPageSizes()
+    private let sizes = TrendsPageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
 
     @EnvironmentObject var appState: AppState
 

@@ -13,26 +13,38 @@ struct ProgressPageSizes {
     
     // MARK: - Sizes
     
-    public let pageTitleTPadding: CGFloat = 4
+    public let pageTitleTPadding: CGFloat
     
-    public let deltaChartVPadding: CGFloat
+    public let deltaChartTPadding: CGFloat
+    public let deltaChartBPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let pageTitleFont: Font = .custom(FontOswald.Medium, size: 24)
+    public let pageTitleFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.deltaChartVPadding = uiSizes.progressPageSpacing
+        self.pageTitleTPadding = scale * 4
+
+        self.pageTitleFont = .custom(FontOswald.Medium, size: scale * 24)
+
+        if hasNotch {
+            self.deltaChartTPadding = scale * 32
+            self.deltaChartBPadding = scale * 32
+        }
+        else {
+            self.deltaChartTPadding = scale * 4
+            self.deltaChartBPadding = scale * 8
+        }
     }
 }
 
 
 struct ProgressPage: View {
     
-    private let sizes = ProgressPageSizes(uiSizes: UISizes.current)
+    private let sizes = ProgressPageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     
@@ -56,7 +68,8 @@ struct ProgressPage: View {
                 weightUnit: self.appState.weightUnit.localized,
                 mainColor: self.appState.uiTheme.mainTextColor
             )
-                .padding(.vertical, self.sizes.deltaChartVPadding)
+                .padding(.top, self.sizes.deltaChartTPadding)
+                .padding(.bottom, self.sizes.deltaChartBPadding)
 
             ProgressCircle(
                 currentWeightValue: progressData.progressWeight,

@@ -13,8 +13,8 @@ struct CalendarBlockMonthSizes {
     
     // MARK: - Sizes
     
-    public let monthChangeButtonIconWidth: CGFloat = 44
-    public let monthChangeButtonIconHeight: CGFloat = 28
+    public let monthChangeButtonIconWidth: CGFloat
+    public let monthChangeButtonIconHeight: CGFloat
     
     // MARK: - Fonts
 
@@ -22,16 +22,24 @@ struct CalendarBlockMonthSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
-        
-        self.monthLabelFont = .custom(FontOswald.Medium, size: uiSizes.calendarMonthFontSize)
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.monthChangeButtonIconWidth = scale * 44
+        self.monthChangeButtonIconHeight = scale * 28
+            
+        if hasNotch {
+            self.monthLabelFont = .custom(FontOswald.Medium, size: scale * 20)
+        }
+        else {
+            self.monthLabelFont = .custom(FontOswald.Medium, size: scale * 16)
+        }
     }
 }
 
 
 struct CalendarBlockMonth: View {
     
-    private let sizes = CalendarBlockMonthSizes(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockMonthSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     
@@ -42,7 +50,7 @@ struct CalendarBlockMonth: View {
     
     var monthTitle: Text {
 
-        Text(selectedDay.toString("LLLL YYYY").uppercased())
+        Text(selectedDay.toString("LLLL yyyy").uppercased())
             .font(self.sizes.monthLabelFont)
             .foregroundColor(self.appState.uiTheme.mainTextColor)
     }

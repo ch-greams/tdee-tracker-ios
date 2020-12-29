@@ -52,21 +52,34 @@ struct TutorialOverlaySizes {
 
     // MARK: - Sizes
     
-    public let messageLineSpacing: CGFloat = 6
+    public let messageLineSpacing: CGFloat
     
-    public let messageMinHeight: CGFloat = 58
-    public let messagePadding: CGFloat = 16
-    public let messageHPadding: CGFloat = 8
+    public let messageMinHeight: CGFloat
+    public let messagePadding: CGFloat
+    public let messageHPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let labelFont: Font = .custom(FontOswald.Light, size: 17)
+    public let labelFont: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.messageLineSpacing = scale * 6
+    
+        self.messageMinHeight = scale * 58
+        self.messagePadding = scale * 16
+        self.messageHPadding = scale * 8
+    
+        self.labelFont = .custom(FontOswald.Light, size: scale * 17)
+    }
 }
 
 
 struct TutorialOverlay: View {
     
-    private let sizes = TutorialOverlaySizes()
+    private let sizes = TutorialOverlaySizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let mainColor: Color
     let accentColor: Color

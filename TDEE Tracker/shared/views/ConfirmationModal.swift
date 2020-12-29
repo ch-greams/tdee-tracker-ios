@@ -13,37 +13,66 @@ struct ConfirmationModalSizes {
     
     // MARK: - Sizes
 
-    public let separatorHeight: CGFloat = 1
-    public let separatorHPadding: CGFloat = 16
-    public let separatorBPadding: CGFloat = 16
+    public let separatorHeight: CGFloat
+    public let separatorHPadding: CGFloat
+    public let separatorBPadding: CGFloat
 
-    public let titleVPadding: CGFloat = 16
+    public let titleVPadding: CGFloat
     
-    public let descriptionLineSpacing: CGFloat = 6
-    public let descriptionBPadding: CGFloat = 16
-    public let descriptionHPadding: CGFloat = 24
+    public let descriptionLineSpacing: CGFloat
+    public let descriptionBPadding: CGFloat
+    public let descriptionHPadding: CGFloat
     
-    public let buttonWidth: CGFloat = 216
-    public let buttonConfirmBPadding: CGFloat = 4
-    public let buttonCancelHeight: CGFloat = 36
-    public let buttonCancelBPadding: CGFloat = 16
+    public let buttonWidth: CGFloat
+    public let buttonConfirmBPadding: CGFloat
+    public let buttonCancelHeight: CGFloat
+    public let buttonCancelBPadding: CGFloat
     
-    public let modalHPadding: CGFloat = 32
-    public let modalTPadding: CGFloat = -24
+    public let modalHPadding: CGFloat
+    public let modalTPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let titleFont: Font = .custom(FontOswald.Medium, size: 24)
-    public let descriptionFont: Font = .custom(FontOswald.Light, size: 16)
+    public let titleFont: Font
+    public let descriptionFont: Font
     
-    public let buttonConfirmFont: Font = .custom(FontOswald.Bold, size: 20)
-    public let buttonCancelFont: Font = .custom(FontOswald.Regular, size: 16)
+    public let buttonConfirmFont: Font
+    public let buttonCancelFont: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.separatorHeight = scale * 1
+        self.separatorHPadding = scale * 16
+        self.separatorBPadding = scale * 16
+
+        self.titleVPadding = scale * 16
+        
+        self.descriptionLineSpacing = scale * 6
+        self.descriptionBPadding = scale * 16
+        self.descriptionHPadding = scale * 24
+        
+        self.buttonWidth = scale * 216
+        self.buttonConfirmBPadding = scale * 4
+        self.buttonCancelHeight = scale * 36
+        self.buttonCancelBPadding = scale * 16
+        
+        self.modalHPadding = scale * 32
+        self.modalTPadding = scale * -24
+
+        self.titleFont = .custom(FontOswald.Medium, size: scale * 24)
+        self.descriptionFont = .custom(FontOswald.Light, size: scale * 16)
+        
+        self.buttonConfirmFont = .custom(FontOswald.Bold, size: scale * 20)
+        self.buttonCancelFont = .custom(FontOswald.Regular, size: scale * 16)
+    }
 }
 
 
 struct ConfirmationModal: View {
     
-    private let sizes = ConfirmationModalSizes()
+    private let sizes = ConfirmationModalSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let fadeColor: Color
     

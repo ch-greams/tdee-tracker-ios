@@ -13,22 +13,36 @@ struct LoaderSpinnerSizes {
     
     // MARK: - Sizes
     
-    public let circleSize: CGFloat = 50
+    public let circleSize: CGFloat
     
-    public let circleBackLineWidth: CGFloat = 10
-    public let circleFrontLineWidth: CGFloat = 8
+    public let circleBackLineWidth: CGFloat
+    public let circleFrontLineWidth: CGFloat
     
-    public let spinnerBPadding: CGFloat = 24
+    public let spinnerBPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let loaderFont: Font = .custom(FontOswald.Regular, size: 22)
+    public let loaderFont: Font
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.circleSize = scale * 50
+        
+        self.circleBackLineWidth = scale * 10
+        self.circleFrontLineWidth = scale * 8
+        
+        self.spinnerBPadding = scale * 24
+
+        self.loaderFont = .custom(FontOswald.Regular, size: scale * 22)
+    }
 }
 
 
 struct LoaderSpinner: View {
     
-    private let sizes = LoaderSpinnerSizes()
+    private let sizes = LoaderSpinnerSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let mainColor: Color
     let accentColor: Color

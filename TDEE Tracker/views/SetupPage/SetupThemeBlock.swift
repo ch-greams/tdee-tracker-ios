@@ -13,16 +13,26 @@ struct SetupThemeBlockSizes {
     
     // MARK: - Sizes
     
-    public let paletteColorWidth: CGFloat = 10
-    public let paletteColorHeight: CGFloat = 40
+    public let paletteColorWidth: CGFloat
+    public let paletteColorHeight: CGFloat
     
-    public let bodyBPadding: CGFloat = 24
+    public let bodyBPadding: CGFloat
+
+    // MARK: - Init
+    
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.paletteColorWidth = scale * 10
+        self.paletteColorHeight = scale * 40
+    
+        self.bodyBPadding = scale * 24
+    }
 }
 
 
 struct SetupThemeBlock: View {
     
-    private let sizes = SetupThemeBlockSizes()
+    private let sizes = SetupThemeBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

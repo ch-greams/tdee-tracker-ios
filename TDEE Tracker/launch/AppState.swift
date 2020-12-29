@@ -341,7 +341,9 @@ class AppState: ObservableObject {
     
     public var firstEntryDate: Date {
         
-        let sortedEntries = self.entries.keys
+        let sortedEntries = self.entries
+            .filter { $0.value.weight != nil }
+            .keys
             .sorted(by: { $0.timeIntervalSince1970 < $1.timeIntervalSince1970 })
         
         return sortedEntries.first ?? Date()

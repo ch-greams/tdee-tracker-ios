@@ -14,9 +14,9 @@ struct EntryPageSizes {
     
     // MARK: - Sizes
     
-    public let confirmButtonVPadding: CGFloat = 10
-    public let entryInputsTPadding: CGFloat = 10
-    public let lockIconSize: CGFloat = 80
+    public let confirmButtonVPadding: CGFloat
+    public let entryInputsTPadding: CGFloat
+    public let lockIconSize: CGFloat
 
     public let entryHintBlockTPadding: CGFloat
     public let entryHintBlockBPadding: CGFloat
@@ -29,21 +29,35 @@ struct EntryPageSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.confirmButtonVPadding = scale * 10
+        self.entryInputsTPadding = scale * 10
+        self.lockIconSize = scale * 80
         
-        self.entryHintBlockTPadding = uiSizes.entryHintBlockPadding
-        self.entryHintBlockBPadding = uiSizes.entryHintBlockPadding - 10
-        
-        self.entryBlockerIconTPadding = uiSizes.entryBlockerIconPadding
-        
-        self.lockIconFont = .system(size: self.lockIconSize)
+        if hasNotch {
+            self.entryHintBlockTPadding = scale * 16
+            self.entryHintBlockBPadding = scale * 16 - 10
+            
+            self.entryBlockerIconTPadding = scale * 75
+            
+            self.lockIconFont = .system(size: self.lockIconSize)
+        }
+        else {
+            self.entryHintBlockTPadding = scale * 4
+            self.entryHintBlockBPadding = scale * 1 - 10
+            
+            self.entryBlockerIconTPadding = scale * 47
+            
+            self.lockIconFont = .system(size: self.lockIconSize)
+        }
     }
 }
 
 
 struct EntryPage: View {
     
-    private let sizes = EntryPageSizes(uiSizes: UISizes.current)
+    private let sizes = EntryPageSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
 
     @EnvironmentObject var appState: AppState
     
@@ -109,7 +123,6 @@ struct EntryPage: View {
                             self.isWeightInputOpen = true
                         },
                         isSelected: self.appState.currentInput == InputName.Weight,
-                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,
@@ -128,7 +141,6 @@ struct EntryPage: View {
                             self.isFoodInputOpen = true
                         },
                         isSelected: self.appState.currentInput == InputName.Food,
-                        isCompact: isInputOpen,
                         backgroundColor: self.appState.uiTheme.inputBackgroundColor,
                         backgroundSelectedColor: self.appState.uiTheme.calendarWeekHighlight,
                         accentColor: self.appState.uiTheme.inputAccentColor,

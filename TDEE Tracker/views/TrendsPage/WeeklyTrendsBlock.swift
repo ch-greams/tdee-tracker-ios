@@ -21,19 +21,19 @@ struct WeeklyTrendsBlockSizes {
     
     // MARK: - Sizes
     
-    public let trendsItemValueMinWidth: CGFloat = 80
-    public let trendsItemUnitWidth: CGFloat = 34
+    public let trendsItemValueMinWidth: CGFloat
+    public let trendsItemUnitWidth: CGFloat
     
-    public let trendsItemChangeIconWidth: CGFloat = 16
-    public let trendsItemChangeIconHeight: CGFloat = 22
+    public let trendsItemChangeIconWidth: CGFloat
+    public let trendsItemChangeIconHeight: CGFloat
     
-    public let separatorHeight: CGFloat = 1
-    public let separatorHPadding: CGFloat = 16
+    public let separatorHeight: CGFloat
+    public let separatorHPadding: CGFloat
     
-    public let trendsItemsHPadding: CGFloat = 8
-    public let trendsItemsVPadding: CGFloat = 2
+    public let trendsItemsHPadding: CGFloat
+    public let trendsItemsVPadding: CGFloat
     
-    public let trendsItemHPadding: CGFloat = 6
+    public let trendsItemHPadding: CGFloat
     
     public let trendsItemVPadding: CGFloat
     
@@ -45,20 +45,43 @@ struct WeeklyTrendsBlockSizes {
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
-        
-        self.trendsItemVPadding = uiSizes.trendsElementPadding
-        
-        self.trendsItemLabelFont = .custom(FontOswald.Light, size: uiSizes.trendsItemLabelFontSize)
-        self.trendsItemValueFont = .custom(FontOswald.Bold, size: uiSizes.trendsItemValueFontSize)
-        self.trendsItemUnitFont = .custom(FontOswald.Light, size: uiSizes.trendsItemUnitFontSize)
+    init(hasNotch: Bool, scale: CGFloat) {
+
+        self.trendsItemValueMinWidth = scale * 80
+        self.trendsItemUnitWidth = scale * 34
+    
+        self.trendsItemChangeIconWidth = scale * 16
+        self.trendsItemChangeIconHeight = scale * 22
+    
+        self.separatorHeight = scale * 1
+        self.separatorHPadding = scale * 16
+    
+        self.trendsItemsHPadding = scale * 8
+        self.trendsItemsVPadding = scale * 2
+    
+        self.trendsItemHPadding = scale * 6
+
+        if hasNotch {
+            self.trendsItemVPadding = scale * 10
+            
+            self.trendsItemLabelFont = .custom(FontOswald.Light, size: scale * 17)
+            self.trendsItemValueFont = .custom(FontOswald.Bold, size: scale * 32)
+            self.trendsItemUnitFont = .custom(FontOswald.Light, size: scale * 14)
+        }
+        else {
+            self.trendsItemVPadding = scale * 2
+            
+            self.trendsItemLabelFont = .custom(FontOswald.Light, size: scale * 12)
+            self.trendsItemValueFont = .custom(FontOswald.Bold, size: scale * 28)
+            self.trendsItemUnitFont = .custom(FontOswald.Light, size: scale * 12)
+        }
     }
 }
 
 
 struct WeeklyTrendsBlock: View {
     
-    private let sizes = WeeklyTrendsBlockSizes(uiSizes: UISizes.current)
+    private let sizes = WeeklyTrendsBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let weightUnitLabel: String
     let energyUnitLabel: String

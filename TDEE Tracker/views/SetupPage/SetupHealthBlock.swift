@@ -11,11 +11,10 @@ import SwiftUI
 
 struct SetupHealthBlockSizes {
     
-    
     // MARK: - Sizes
     
-    public let hintHPadding: CGFloat = 18
-    public let hintTPadding: CGFloat = 6
+    public let hintHPadding: CGFloat
+    public let hintTPadding: CGFloat
     
     // MARK: - Fonts
     
@@ -23,9 +22,12 @@ struct SetupHealthBlockSizes {
 
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
 
-        self.welcomeHintFont = .custom(FontOswald.Light, size: 14)
+        self.hintHPadding = scale * 18
+        self.hintTPadding = scale * 6
+
+        self.welcomeHintFont = .custom(FontOswald.Light, size: scale * 14)
     }
 }
     
@@ -33,7 +35,7 @@ struct SetupHealthBlockSizes {
 
 struct SetupHealthBlock: View {
     
-    private let sizes = SetupHealthBlockSizes(uiSizes: UISizes.current)
+    private let sizes = SetupHealthBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

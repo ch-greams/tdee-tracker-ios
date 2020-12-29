@@ -13,31 +13,41 @@ struct TargetDeltaSizes {
     
     // MARK: - Sizes
     
-    public let valueTPadding: CGFloat = 8
+    public let valueTPadding: CGFloat
     
     public let bodyHPadding: CGFloat
     
     // MARK: - Fonts
 
-    public let valueFont: Font = .custom(FontOswald.Bold, size: 32)
-    public let unitFont: Font = .custom(FontOswald.Light, size: 18)
+    public let valueFont: Font
+    public let unitFont: Font
     
     public let labelFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyHPadding = uiSizes.targetDeltaHPadding
-        
-        self.labelFont = .custom(FontOswald.Light, size: uiSizes.setupInputLabelFontSize)
+        self.valueTPadding = scale * 8
+
+        self.valueFont = .custom(FontOswald.Bold, size: scale * 32)
+        self.unitFont = .custom(FontOswald.Light, size: scale * 18)
+    
+        if hasNotch {
+            self.bodyHPadding = scale * 28
+            self.labelFont = .custom(FontOswald.Light, size: scale * 18)
+        }
+        else {
+            self.bodyHPadding = scale * 20
+            self.labelFont = .custom(FontOswald.Light, size: scale * 14)
+        }
     }
 }
 
 
 struct TargetDelta: View {
     
-    private let sizes = TargetDeltaSizes(uiSizes: UISizes.current)
+    private let sizes = TargetDeltaSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let value: Int
     let unit: String

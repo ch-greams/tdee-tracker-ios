@@ -14,32 +14,46 @@ struct CalendarBlockSizes {
     
     // MARK: - Sizes
     
-    public let calendarBlockMonthBPadding: CGFloat = 5
+    public let calendarBlockMonthBPadding: CGFloat
     
-    public let calendarBlockDaysVPaddingCollapsed: CGFloat = 6
-    public let calendarBlockDaysVPadding: CGFloat = 8
-    public let calendarBlockDaysHPadding: CGFloat = 8
-    
+    public let calendarBlockDaysVPaddingCollapsed: CGFloat
+    public let calendarBlockDaysVPadding: CGFloat
+    public let calendarBlockDaysHPadding: CGFloat
     public let calendarWeekdayHSpacing: CGFloat
+
     public let calendarDayButtonSize: CGFloat
     
     // MARK: - Fonts
 
-    public let calendarWeekdayTitleFont: Font = .custom(FontOswald.ExtraLight, size: 14)
+    public let calendarWeekdayTitleFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.calendarWeekdayHSpacing = uiSizes.calendarDaySpacing
-        self.calendarDayButtonSize = uiSizes.calendarDayButton
+        self.calendarBlockMonthBPadding = scale * 5
+    
+        self.calendarBlockDaysVPaddingCollapsed = scale * 6
+        self.calendarBlockDaysVPadding = scale * 8
+        self.calendarBlockDaysHPadding = 8
+
+        self.calendarWeekdayTitleFont = .custom(FontOswald.ExtraLight, size: scale * 14)
+
+        if hasNotch {
+            self.calendarDayButtonSize = scale * 44
+            self.calendarWeekdayHSpacing = scale * 6
+        }
+        else {
+            self.calendarDayButtonSize = scale * 31
+            self.calendarWeekdayHSpacing = scale * 10
+        }
     }
 }
 
 
 struct CalendarBlock: View {
     
-    private let sizes = CalendarBlockSizes(uiSizes: UISizes.current)
+    private let sizes = CalendarBlockSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     @EnvironmentObject var appState: AppState
     

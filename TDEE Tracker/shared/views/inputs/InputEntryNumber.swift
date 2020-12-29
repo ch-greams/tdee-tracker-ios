@@ -13,20 +13,19 @@ struct InputEntryNumberSizes {
     
     // MARK: - Sizes
     
-    public let inputTPadding: CGFloat = 8
-    public let inputWidth: CGFloat = 140
-    public let inputFontTPadding: CGFloat = -2
+    public let inputTPadding: CGFloat
+    public let inputWidth: CGFloat
+    public let inputFontTPadding: CGFloat
     
-    public let unitWidth: CGFloat = 65
+    public let unitWidth: CGFloat
     
-    public let bodyPadding: CGFloat = 1
-    public let bodyHPadding: CGFloat = 7
+    public let bodyPadding: CGFloat
+    public let bodyHPadding: CGFloat
     
     public let inputHeight: CGFloat
     public let iconSize: CGFloat
     
     public let bodyVPadding: CGFloat
-    public let bodyVPaddingOpenOffset: CGFloat
     
     // MARK: - Fonts
 
@@ -35,29 +34,47 @@ struct InputEntryNumberSizes {
 
     // MARK: - Init
 
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.bodyVPadding = uiSizes.entryInputPadding
-        self.bodyVPaddingOpenOffset = uiSizes.entryInputPaddingOpenOffset
-        
-        self.inputHeight = uiSizes.entryInputBaseSize + 8
-        self.iconSize = uiSizes.entryInputBaseSize - 4
-        self.valueFont = .custom(FontOswald.Bold, size: uiSizes.entryInputBaseSize)
-        self.unitFont = .custom(FontOswald.Light, size: uiSizes.entryInputBaseSize - 12)
+        self.inputTPadding = scale * 8
+        self.inputFontTPadding = scale * -2
+    
+        self.unitWidth = scale * 65
+    
+        self.bodyPadding = scale * 1
+        self.bodyHPadding = 7
+
+        if hasNotch {
+            self.bodyVPadding = scale * 27
+            
+            self.inputWidth = scale * 140
+            self.inputHeight = scale * 36 + 8
+            self.iconSize = scale * 36 - 4
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 36)
+            self.unitFont = .custom(FontOswald.Light, size: scale * 36 - 12)
+        }
+        else {
+            self.bodyVPadding = scale * 14
+            
+            self.inputWidth = scale * 120
+            self.inputHeight = scale * 30 + 8
+            self.iconSize = scale * 30 - 4
+            self.valueFont = .custom(FontOswald.Bold, size: scale * 30)
+            self.unitFont = .custom(FontOswald.Light, size: scale * 30 - 12)
+        }
     }
 }
 
 
 struct InputEntryNumber: View {
     
-    private let sizes = InputEntryNumberSizes(uiSizes: UISizes.current)
+    private let sizes = InputEntryNumberSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let icon: String
     let unit: String
     let value: Binding<String>
     let openInput: () -> Void
     let isSelected: Bool
-    let isCompact: Bool
     
     let backgroundColor: Color
     let backgroundSelectedColor: Color
@@ -68,12 +85,6 @@ struct InputEntryNumber: View {
     let accentAlternativeColorName: String
     
     var body: some View {
-        
-        let bodyVPadding = (
-            self.isCompact
-                ? self.sizes.bodyVPadding + self.sizes.bodyVPaddingOpenOffset
-                : self.sizes.bodyVPadding
-        )
 
         let isEmptyInput = NumberFormatter().number(from: self.value.wrappedValue) == nil
         let baseColor = ( isEmptyInput ? self.accentAlternativeColor : self.accentColor )
@@ -106,7 +117,7 @@ struct InputEntryNumber: View {
                 .foregroundColor(baseColor)
         }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, bodyVPadding)
+            .padding(.vertical, self.sizes.bodyVPadding)
             .background(self.backgroundColor)
             .padding(self.sizes.bodyPadding)
             .clipped()
@@ -133,7 +144,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant("71.5"),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -148,7 +158,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant(""),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -163,7 +172,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant("2934"),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,
@@ -178,7 +186,6 @@ struct InputEntryNumber_Previews: PreviewProvider {
                     value: .constant(""),
                     openInput: { print("openInput") },
                     isSelected: false,
-                    isCompact: false,
                     backgroundColor: UIThemeManager.DEFAULT.inputBackgroundColor,
                     backgroundSelectedColor: UIThemeManager.DEFAULT.calendarWeekHighlight,
                     accentColor: UIThemeManager.DEFAULT.inputAccentColor,

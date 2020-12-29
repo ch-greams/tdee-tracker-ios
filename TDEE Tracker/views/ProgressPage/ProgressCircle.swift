@@ -18,16 +18,26 @@ struct ProgressCircleSizes {
     
     // MARK: - Fonts
     
-    public let percentFont: Font = .custom(FontOswald.Light, size: 56)
-    public let valuesFont: Font = .custom(FontOswald.Medium, size: 28)
-    public let estimateFont: Font = .custom(FontOswald.Light, size: 24)
+    public let percentFont: Font
+    public let valuesFont: Font
+    public let estimateFont: Font
     
     // MARK: - Init
     
-    init(uiSizes: UISizes) {
+    init(hasNotch: Bool, scale: CGFloat) {
         
-        self.circleDiameter = uiSizes.progressCircleDiameter
-        self.circleWidth = uiSizes.progressCircleWidth
+        self.percentFont = .custom(FontOswald.Light, size: scale * 56)
+        self.valuesFont = .custom(FontOswald.Medium, size: scale * 28)
+        self.estimateFont = .custom(FontOswald.Light, size: scale * 24)
+
+        if hasNotch {
+            self.circleDiameter = scale * 340
+            self.circleWidth = scale * 40
+        }
+        else {
+            self.circleDiameter = scale * 272
+            self.circleWidth = scale * 30
+        }
     }
 }
 
@@ -35,7 +45,7 @@ struct ProgressCircleSizes {
     
 struct ProgressCircle: View {
     
-    private let sizes = ProgressCircleSizes(uiSizes: UISizes.current)
+    private let sizes = ProgressCircleSizes(hasNotch: UISizes.hasNotch, scale: UISizes.scale)
     
     let currentWeightValue: Double
     let goalWeightValue: Double
