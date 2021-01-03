@@ -397,6 +397,10 @@ class AppState: ObservableObject {
         
         if self.isFirstSetupDone {
             
+            // Load configuration
+            
+            self.loadConfiguration()
+            
             // Load tutorial progress
             
             if let num: Int = self.load(key: AppStateKey.TutorialStep), let step = TutorialStep(rawValue: num) {
@@ -409,10 +413,6 @@ class AppState: ObservableObject {
             self.loadEntries()
             
             self.loadSelectedDayData(for: self.selectedDay)
-            
-            // Load configuration
-            
-            self.loadConfiguration()
             
             // Load reminders
             
